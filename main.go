@@ -30,6 +30,7 @@ import (
 	"github.com/pace-noge/distributed-load-tester/internal/infrastructure/worker_repo"
 	masterGRPC "github.com/pace-noge/distributed-load-tester/internal/master/delivery/grpc"
 	masterHTTP "github.com/pace-noge/distributed-load-tester/internal/master/delivery/http"
+	masterWebSocket "github.com/pace-noge/distributed-load-tester/internal/master/delivery/websocket"
 	masterUsecase "github.com/pace-noge/distributed-load-tester/internal/master/usecase" // Renamed to avoid conflict with `usecase` directory
 	workerGRPC "github.com/pace-noge/distributed-load-tester/internal/worker/delivery/grpc"
 	workerUsecase "github.com/pace-noge/distributed-load-tester/internal/worker/usecase" // Renamed to avoid conflict with `usecase` directory
@@ -136,8 +137,17 @@ func main() {
 					go masterUC.StartAggregationBackgroundJob(bgCtx, 2*time.Minute) // Check every 2 minutes
 					log.Println("Started aggregation background job")
 
+					// Initialize WebSocket handler
+					wsHandler := masterWebSocket.NewWebSocketHandler(masterUC, jwtSecretKey)
+					go wsHandler.StartHub(bgCtx)
+					log.Println("Started WebSocket hub")
+
 					// Start HTTP Server for UI and API
 					httpHandler := masterHTTP.NewHTTPHandler(masterUC, jwtSecretKey)
+
+					// Register WebSocket endpoint before static file handler
+					httpHandler.RegisterWebSocketHandler(wsHandler.HandleWebSocket)
+
 					httpServer := &http.Server{
 						Addr:    fmt.Sprintf(":%d", httpPort),
 						Handler: httpHandler.Router,

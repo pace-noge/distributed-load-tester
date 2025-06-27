@@ -194,26 +194,115 @@ const DashboardPage = () => {
     const [dashboardData, setDashboardData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
+    const [connectionStatus, setConnectionStatus] = useState('connecting');
+    const [usingWebSocket, setUsingWebSocket] = useState(true);
+    const { getToken } = React.useContext(AuthContext);
 
+    // Fallback HTTP polling function
     const fetchDashboardData = useCallback(async () => {
         try {
-            setLoading(true);
+            console.log('Fetching dashboard data via HTTP...');
             const data = await authenticatedFetch(`${API_BASE_URL}/dashboard`);
             setDashboardData(data);
             setError('');
+            setLoading(false);
         } catch (err) {
             console.error("Failed to fetch dashboard data:", err);
             setError(`Failed to load dashboard: ${err.message}`);
-        } finally {
-            setLoading(false);
         }
     }, []);
 
     useEffect(() => {
-        fetchDashboardData();
-        const interval = setInterval(fetchDashboardData, 5000); // Poll every 5 seconds
-        return () => clearInterval(interval);
-    }, [fetchDashboardData]);
+        const token = getToken();
+        if (!token) {
+            setError('Authentication required');
+            setLoading(false);
+            return;
+        }
+
+        console.log('Starting WebSocket connection...');
+        
+        // Create WebSocket connection
+        const wsUrl = `ws://localhost:8080/ws?token=${encodeURIComponent(token)}`;
+        console.log('WebSocket URL:', wsUrl);
+        
+        const ws = new WebSocket(wsUrl);
+        let wsConnected = false;
+
+        // Fallback timer - if WebSocket doesn't connect in 5 seconds, use HTTP polling
+        const fallbackTimer = setTimeout(() => {
+            if (!wsConnected) {
+                console.log('WebSocket connection timeout, falling back to HTTP polling');
+                setUsingWebSocket(false);
+                setConnectionStatus('http_polling');
+                fetchDashboardData();
+                
+                // Start HTTP polling
+                const interval = setInterval(fetchDashboardData, 5000);
+                return () => clearInterval(interval);
+            }
+        }, 5000);
+
+        ws.onopen = () => {
+            console.log('WebSocket connected successfully');
+            wsConnected = true;
+            clearTimeout(fallbackTimer);
+            setConnectionStatus('connected');
+            setUsingWebSocket(true);
+            setError('');
+        };
+
+        ws.onmessage = (event) => {
+            console.log('WebSocket message received:', event.data);
+            try {
+                const message = JSON.parse(event.data);
+                console.log('Parsed message:', message);
+                if (message.type === 'dashboard_update') {
+                    console.log('Setting dashboard data:', message.data);
+                    setDashboardData(message.data);
+                    setLoading(false);
+                    setError('');
+                }
+            } catch (err) {
+                console.error('Error parsing WebSocket message:', err);
+                setError('Error parsing server message');
+            }
+        };
+
+        ws.onclose = (event) => {
+            console.log('WebSocket closed:', event.code, event.reason);
+            setConnectionStatus('disconnected');
+            if (event.code !== 1000) { // Not a normal closure
+                setError(`Connection lost (code: ${event.code}). Falling back to HTTP polling...`);
+                setUsingWebSocket(false);
+                // Start HTTP polling as fallback
+                fetchDashboardData();
+                const interval = setInterval(fetchDashboardData, 5000);
+                setTimeout(() => clearInterval(interval), 60000); // Clear after 1 minute
+            }
+        };
+
+        ws.onerror = (error) => {
+            console.error('WebSocket error:', error);
+            setConnectionStatus('error');
+            setError('WebSocket connection failed. Falling back to HTTP polling...');
+            setUsingWebSocket(false);
+            clearTimeout(fallbackTimer);
+            // Fallback to HTTP polling
+            fetchDashboardData();
+            const interval = setInterval(fetchDashboardData, 5000);
+            setTimeout(() => clearInterval(interval), 60000); // Clear after 1 minute
+        };
+
+        // Cleanup on unmount
+        return () => {
+            console.log('Cleaning up WebSocket connection...');
+            clearTimeout(fallbackTimer);
+            if (ws.readyState === WebSocket.OPEN) {
+                ws.close(1000, 'Component unmounting');
+            }
+        };
+    }, [getToken, fetchDashboardData]);
 
     if (loading && !dashboardData) {
         return (
@@ -230,6 +319,9 @@ const DashboardPage = () => {
                 <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
                     <p className="font-bold">Error!</p>
                     <p>{error}</p>
+                    {connectionStatus === 'disconnected' && (
+                        <p className="text-sm mt-2">Status: Disconnected</p>
+                    )}
                 </div>
             </div>
         );
@@ -241,7 +333,23 @@ const DashboardPage = () => {
 
     return (
         <div className="container mx-auto p-4 py-8">
-            <h1 className="text-3xl font-bold text-gray-800 mb-8">Dashboard</h1>
+            <div className="flex justify-between items-center mb-8">
+                <h1 className="text-3xl font-bold text-gray-800">Dashboard</h1>
+                <div className="flex items-center">
+                    <div className={`w-3 h-3 rounded-full mr-2 ${
+                        connectionStatus === 'connected' ? 'bg-green-500' : 
+                        connectionStatus === 'connecting' ? 'bg-yellow-500' : 
+                        connectionStatus === 'http_polling' ? 'bg-blue-500' : 'bg-red-500'
+                    }`}></div>
+                    <span className="text-sm text-gray-600">
+                        {connectionStatus === 'connected' && usingWebSocket && 'WebSocket Connected'}
+                        {connectionStatus === 'connecting' && 'Connecting...'}
+                        {connectionStatus === 'http_polling' && 'HTTP Polling'}
+                        {connectionStatus === 'disconnected' && 'Disconnected'}
+                        {connectionStatus === 'error' && 'Connection Error'}
+                    </span>
+                </div>
+            </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                 <div className="bg-white p-6 rounded-lg shadow-md border-b-4 border-blue-500">

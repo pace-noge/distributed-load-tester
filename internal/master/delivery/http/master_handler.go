@@ -48,12 +48,18 @@ func NewHTTPHandler(uc *masterUsecase.MasterUsecase, jwtSecret string) *HTTPHand
 	// Authentication route (public)
 	r.HandleFunc("/auth/login", h.login).Methods("POST")
 
-	// Serve static files for the Vue.js frontend
-	// This assumes the Vue.js build output is in a 'dist' directory relative to where the master binary runs.
-	r.PathPrefix("/").Handler(http.FileServer(http.Dir("./frontend/dist")))
-
 	h.Router = r
 	return h
+}
+
+// RegisterWebSocketHandler registers the WebSocket handler before the static file handler
+func (h *HTTPHandler) RegisterWebSocketHandler(wsHandler func(http.ResponseWriter, *http.Request)) {
+	// Register WebSocket route before adding static file handler
+	h.Router.HandleFunc("/ws", wsHandler).Methods("GET")
+
+	// Now add the static file handler as the catch-all
+	// This must be done after all specific routes are registered
+	h.Router.PathPrefix("/").Handler(http.FileServer(http.Dir("./frontend/dist")))
 }
 
 // corsMiddleware handles CORS headers.
