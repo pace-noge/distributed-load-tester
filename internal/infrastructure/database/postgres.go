@@ -63,6 +63,7 @@ func (p *PostgresDB) InitSchema(ctx context.Context) error {
             rate_per_second BIGINT NOT NULL,
             targets_base64 TEXT NOT NULL,
             requester_id VARCHAR(255) NOT NULL,
+            worker_count INTEGER NOT NULL DEFAULT 1,
             created_at TIMESTAMP WITH TIME ZONE NOT NULL,
             status VARCHAR(50) NOT NULL,
             assigned_workers_ids TEXT[],
@@ -97,6 +98,8 @@ func (p *PostgresDB) InitSchema(ctx context.Context) error {
             completed_at TIMESTAMP WITH TIME ZONE NOT NULL,
             FOREIGN KEY (test_id) REFERENCES test_requests(id) ON DELETE CASCADE
         );`,
+		// Add worker_count column to existing test_requests table if it doesn't exist
+		`ALTER TABLE test_requests ADD COLUMN IF NOT EXISTS worker_count INTEGER NOT NULL DEFAULT 1;`,
 	}
 
 	for _, q := range queries {
@@ -228,10 +231,10 @@ func (p *PostgresDB) SaveTestRequest(ctx context.Context, test *domain.TestReque
 		test.Status = "PENDING"
 	}
 
-	query := `INSERT INTO test_requests (id, name, vegeta_payload_json, duration_seconds, rate_per_second, targets_base64, requester_id, created_at, status, assigned_workers_ids, completed_workers, failed_workers)
-              VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12);`
+	query := `INSERT INTO test_requests (id, name, vegeta_payload_json, duration_seconds, rate_per_second, targets_base64, requester_id, worker_count, created_at, status, assigned_workers_ids, completed_workers, failed_workers)
+              VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13);`
 	_, err := p.db.ExecContext(ctx, query, test.ID, test.Name, test.VegetaPayloadJSON, test.DurationSeconds,
-		test.RatePerSecond, test.TargetsBase64, test.RequesterID, test.CreatedAt, test.Status,
+		test.RatePerSecond, test.TargetsBase64, test.RequesterID, test.WorkerCount, test.CreatedAt, test.Status,
 		pq.Array(test.AssignedWorkersIDs), pq.Array(test.CompletedWorkers), pq.Array(test.FailedWorkers))
 	if err != nil {
 		return fmt.Errorf("failed to save test request: %w", err)
@@ -252,10 +255,10 @@ func (p *PostgresDB) UpdateTestStatus(ctx context.Context, testID string, status
 // GetTestRequestByID retrieves a test request by its ID.
 func (p *PostgresDB) GetTestRequestByID(ctx context.Context, testID string) (*domain.TestRequest, error) {
 	test := &domain.TestRequest{}
-	query := `SELECT id, name, vegeta_payload_json, duration_seconds, rate_per_second, targets_base64, requester_id, created_at, status, assigned_workers_ids, completed_workers, failed_workers FROM test_requests WHERE id = $1;`
+	query := `SELECT id, name, vegeta_payload_json, duration_seconds, rate_per_second, targets_base64, requester_id, worker_count, created_at, status, assigned_workers_ids, completed_workers, failed_workers FROM test_requests WHERE id = $1;`
 	err := p.db.QueryRowContext(ctx, query, testID).Scan(
 		&test.ID, &test.Name, &test.VegetaPayloadJSON, &test.DurationSeconds, &test.RatePerSecond, &test.TargetsBase64,
-		&test.RequesterID, &test.CreatedAt, &test.Status, pq.Array(&test.AssignedWorkersIDs), pq.Array(&test.CompletedWorkers), pq.Array(&test.FailedWorkers),
+		&test.RequesterID, &test.WorkerCount, &test.CreatedAt, &test.Status, pq.Array(&test.AssignedWorkersIDs), pq.Array(&test.CompletedWorkers), pq.Array(&test.FailedWorkers),
 	)
 	if err == sql.ErrNoRows {
 		return nil, fmt.Errorf("test request not found: %s", testID)
@@ -268,7 +271,7 @@ func (p *PostgresDB) GetTestRequestByID(ctx context.Context, testID string) (*do
 
 // GetAllTestRequests retrieves all test requests.
 func (p *PostgresDB) GetAllTestRequests(ctx context.Context) ([]*domain.TestRequest, error) {
-	query := `SELECT id, name, vegeta_payload_json, duration_seconds, rate_per_second, targets_base64, requester_id, created_at, status, assigned_workers_ids, completed_workers, failed_workers FROM test_requests ORDER BY created_at DESC;`
+	query := `SELECT id, name, vegeta_payload_json, duration_seconds, rate_per_second, targets_base64, requester_id, worker_count, created_at, status, assigned_workers_ids, completed_workers, failed_workers FROM test_requests ORDER BY created_at DESC;`
 	rows, err := p.db.QueryContext(ctx, query)
 	if err != nil {
 		return nil, fmt.Errorf("failed to get all test requests: %w", err)
@@ -280,7 +283,7 @@ func (p *PostgresDB) GetAllTestRequests(ctx context.Context) ([]*domain.TestRequ
 		test := &domain.TestRequest{}
 		err := rows.Scan(
 			&test.ID, &test.Name, &test.VegetaPayloadJSON, &test.DurationSeconds, &test.RatePerSecond, &test.TargetsBase64,
-			&test.RequesterID, &test.CreatedAt, &test.Status, pq.Array(&test.AssignedWorkersIDs), pq.Array(&test.CompletedWorkers), pq.Array(&test.FailedWorkers),
+			&test.RequesterID, &test.WorkerCount, &test.CreatedAt, &test.Status, pq.Array(&test.AssignedWorkersIDs), pq.Array(&test.CompletedWorkers), pq.Array(&test.FailedWorkers),
 		)
 		if err != nil {
 			return nil, fmt.Errorf("failed to scan test request row: %w", err)

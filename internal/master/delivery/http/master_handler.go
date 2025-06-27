@@ -157,6 +157,7 @@ func (h *HTTPHandler) submitTest(w http.ResponseWriter, r *http.Request) {
 		RatePerSecond:     req.RatePerSecond,
 		TargetsBase64:     req.TargetsBase64,
 		RequesterID:       req.RequesterId,
+		WorkerCount:       req.WorkerCount,
 	})
 	if err != nil {
 		http.Error(w, fmt.Sprintf("Failed to submit test: %v", err), http.StatusInternalServerError)

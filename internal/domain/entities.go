@@ -13,6 +13,7 @@ type TestRequest struct {
 	RatePerSecond      uint64    `json:"ratePerSecond"`     // e.g., 50 for 50 req/s
 	TargetsBase64      string    `json:"targetsBase64"`     // Base64 encoded targets content
 	RequesterID        string    `json:"requesterId"`
+	WorkerCount        uint32    `json:"workerCount"` // Number of workers to use for this test
 	CreatedAt          time.Time `json:"createdAt"`
 	Status             string    `json:"status"` // e.g., "PENDING", "RUNNING", "COMPLETED", "FAILED"
 	AssignedWorkersIDs []string  `json:"assignedWorkersIds"`

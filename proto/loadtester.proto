@@ -81,6 +81,7 @@ message TestRequest {
   uint64 rate_per_second = 4;
   string targets_base64 = 5; // Base64 encoded Vegeta targets content
   string requester_id = 6; // For authentication/tracking
+  uint32 worker_count = 7; // Number of workers to use for this test (default: 1)
 }
 
 // Test Submission Response

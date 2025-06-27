@@ -127,6 +127,11 @@ func (uc *MasterUsecase) SubmitTest(ctx context.Context, testReq *domain.TestReq
 	testReq.CompletedWorkers = []string{}
 	testReq.FailedWorkers = []string{}
 
+	// Set default worker count if not specified
+	if testReq.WorkerCount == 0 {
+		testReq.WorkerCount = 1
+	}
+
 	err := uc.testRepo.SaveTestRequest(ctx, testReq)
 	if err != nil {
 		return "", fmt.Errorf("failed to save test request: %w", err)
@@ -135,7 +140,7 @@ func (uc *MasterUsecase) SubmitTest(ctx context.Context, testReq *domain.TestReq
 	// Put test into queue for assignment
 	select {
 	case uc.testQueue <- testReq:
-		log.Printf("Test %s submitted and added to assignment queue.", testReq.ID)
+		log.Printf("Test %s submitted and added to assignment queue (requires %d workers).", testReq.ID, testReq.WorkerCount)
 		return testReq.ID, nil
 	case <-ctx.Done():
 		return "", ctx.Err()
@@ -150,13 +155,45 @@ func (uc *MasterUsecase) startTestDistributionRoutine() {
 	for {
 		select {
 		case testReq := <-uc.testQueue:
-			log.Printf("Picked up test %s from queue. Looking for available workers...", testReq.ID)
-			// For simplicity, assign to the first available worker.
-			// A more sophisticated approach would consider worker load, geographical location, etc.
-			workerID := <-uc.workerAvailability // This blocks until a worker is available
-			log.Printf("Worker %s is available for test %s. Assigning...", workerID, testReq.ID)
+			log.Printf("Picked up test %s from queue. Looking for %d available workers...", testReq.ID, testReq.WorkerCount)
 
-			uc.assignTestToWorker(context.Background(), testReq, workerID) // Use background context for async assignment
+			// Collect the required number of workers
+			var assignedWorkers []string
+			timeout := time.After(30 * time.Second) // Wait up to 30 seconds to gather workers
+
+			for uint32(len(assignedWorkers)) < testReq.WorkerCount {
+				select {
+				case workerID := <-uc.workerAvailability:
+					assignedWorkers = append(assignedWorkers, workerID)
+					log.Printf("Worker %s assigned to test %s (%d/%d workers collected)",
+						workerID, testReq.ID, len(assignedWorkers), testReq.WorkerCount)
+				case <-timeout:
+					log.Printf("Timeout waiting for workers for test %s. Only %d/%d workers available",
+						testReq.ID, len(assignedWorkers), testReq.WorkerCount)
+
+					// If we have at least one worker, proceed with partial assignment
+					if len(assignedWorkers) > 0 {
+						log.Printf("Proceeding with partial assignment for test %s using %d workers",
+							testReq.ID, len(assignedWorkers))
+						break
+					} else {
+						// No workers available, re-queue the test
+						log.Printf("No workers available for test %s, re-queueing", testReq.ID)
+						select {
+						case uc.testQueue <- testReq:
+						default:
+							log.Printf("Failed to re-queue test %s, marking as failed", testReq.ID)
+							uc.testRepo.UpdateTestStatus(context.Background(), testReq.ID, "FAILED",
+								testReq.CompletedWorkers, append(testReq.FailedWorkers, "NoWorkersAvailable"))
+						}
+						continue
+					}
+				}
+			}
+
+			// Assign test to all collected workers concurrently
+			uc.assignTestToMultipleWorkers(context.Background(), testReq, assignedWorkers)
+
 		case <-time.After(10 * time.Second):
 			// Periodically check for workers that might have gone offline without notifying
 			// and re-queue tests if assigned to offline workers.
@@ -590,4 +627,110 @@ func (uc *MasterUsecase) findCompletedTestsWithoutAggregation(ctx context.Contex
 	}
 
 	return orphanedTests, nil
+}
+
+// assignTestToMultipleWorkers distributes a test across multiple workers concurrently
+func (uc *MasterUsecase) assignTestToMultipleWorkers(ctx context.Context, testReq *domain.TestRequest, workerIDs []string) {
+	log.Printf("Assigning test %s to %d workers: %v", testReq.ID, len(workerIDs), workerIDs)
+
+	// Calculate how to distribute the load across workers
+	// We'll divide the rate per second evenly across all workers
+	baseRate := testReq.RatePerSecond / uint64(len(workerIDs))
+	remainder := testReq.RatePerSecond % uint64(len(workerIDs))
+
+	// Update test status to RUNNING and assign all workers
+	testReq.AssignedWorkersIDs = workerIDs
+	uc.testRepo.UpdateTestStatus(ctx, testReq.ID, "RUNNING", nil, nil)
+
+	// Initialize assignment tracking
+	uc.mu.Lock()
+	workersMap := make(map[string]bool)
+	for _, workerID := range workerIDs {
+		workersMap[workerID] = true
+	}
+	uc.activeTestAssignments.Store(testReq.ID, workersMap)
+	uc.mu.Unlock()
+
+	// Assign to each worker concurrently
+	var wg sync.WaitGroup
+	successfulAssignments := 0
+	var assignmentMutex sync.Mutex
+
+	for i, workerID := range workerIDs {
+		wg.Add(1)
+		go func(workerID string, workerIndex int) {
+			defer wg.Done()
+
+			// Calculate this worker's rate (distribute remainder among first workers)
+			workerRate := baseRate
+			if workerIndex < int(remainder) {
+				workerRate++
+			}
+
+			// Create a modified test request for this worker with its specific rate
+			workerTestReq := *testReq
+			workerTestReq.RatePerSecond = workerRate
+
+			log.Printf("Assigning test %s to worker %s with rate %d req/s", testReq.ID, workerID, workerRate)
+
+			connVal, ok := uc.activeWorkerClients.Load(workerID)
+			if !ok {
+				log.Printf("Worker %s connection not found during multi-worker assignment for test %s", workerID, testReq.ID)
+				uc.MarkWorkerOffline(ctx, workerID)
+				uc.testRepo.AddFailedWorkerToTest(ctx, testReq.ID, workerID)
+				return
+			}
+
+			conn := connVal.(*grpc.ClientConn)
+			client := pb.NewWorkerServiceClient(conn)
+
+			// Mark worker as busy
+			uc.workerRepo.UpdateWorkerStatus(ctx, workerID, "BUSY", testReq.ID,
+				fmt.Sprintf("Running test (rate: %d req/s)", workerRate), 0, 0)
+
+			assignment := &pb.TestAssignment{
+				TestId:            testReq.ID,
+				VegetaPayloadJson: workerTestReq.VegetaPayloadJSON,
+				DurationSeconds:   workerTestReq.DurationSeconds,
+				RatePerSecond:     workerRate, // Use the distributed rate
+				TargetsBase64:     workerTestReq.TargetsBase64,
+			}
+
+			assignmentCtx, cancel := context.WithTimeout(ctx, 15*time.Second)
+			defer cancel()
+
+			resp, err := client.AssignTest(assignmentCtx, assignment)
+			if err != nil {
+				log.Printf("Failed to assign test %s to worker %s: %v", testReq.ID, workerID, err)
+				uc.MarkWorkerOffline(ctx, workerID)
+				uc.testRepo.AddFailedWorkerToTest(ctx, testReq.ID, workerID)
+				return
+			}
+
+			if !resp.Accepted {
+				log.Printf("Worker %s rejected test %s assignment: %s", workerID, testReq.ID, resp.Message)
+				uc.testRepo.AddFailedWorkerToTest(ctx, testReq.ID, workerID)
+				return
+			}
+
+			log.Printf("Test %s assigned successfully to worker %s (rate: %d req/s)", testReq.ID, workerID, workerRate)
+
+			assignmentMutex.Lock()
+			successfulAssignments++
+			assignmentMutex.Unlock()
+		}(workerID, i)
+	}
+
+	// Wait for all assignments to complete
+	wg.Wait()
+
+	log.Printf("Multi-worker assignment completed for test %s: %d/%d workers assigned successfully",
+		testReq.ID, successfulAssignments, len(workerIDs))
+
+	// If no workers accepted the assignment, mark test as failed
+	if successfulAssignments == 0 {
+		log.Printf("No workers accepted test %s assignment, marking as failed", testReq.ID)
+		uc.testRepo.UpdateTestStatus(ctx, testReq.ID, "FAILED",
+			testReq.CompletedWorkers, append(testReq.FailedWorkers, "AllWorkersRejected"))
+	}
 }

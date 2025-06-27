@@ -444,6 +444,7 @@ const TestSubmissionPage = () => {
     const [testName, setTestName] = useState('');
     const [duration, setDuration] = useState('30s');
     const [rate, setRate] = useState(10);
+    const [workerCount, setWorkerCount] = useState(1);
     const [targets, setTargets] = useState(''); // Raw targets data
     const [vegetaPayload, setVegetaPayload] = useState('{}'); // JSON string
     const [message, setMessage] = useState('');
@@ -464,6 +465,7 @@ const TestSubmissionPage = () => {
                 name: testName,
                 duration_seconds: duration,
                 rate_per_second: parseInt(rate),
+                worker_count: parseInt(workerCount),  // This will be mapped to workerCount in JSON
                 targets_base64: encodedTargets,
                 vegeta_payload_json: vegetaPayload,
             };
@@ -478,6 +480,7 @@ const TestSubmissionPage = () => {
             setTestName('');
             setDuration('30s');
             setRate(10);
+            setWorkerCount(1);
             setTargets('');
             setVegetaPayload('{}');
         } catch (err) {
@@ -509,7 +512,7 @@ const TestSubmissionPage = () => {
                         disabled={loading}
                     />
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="duration">Duration (e.g., 10s, 1m)</label>
                         <input
@@ -534,6 +537,21 @@ const TestSubmissionPage = () => {
                             min="1"
                             disabled={loading}
                         />
+                    </div>
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="workerCount">Number of Workers</label>
+                        <input
+                            type="number"
+                            id="workerCount"
+                            value={workerCount}
+                            onChange={(e) => setWorkerCount(e.target.value)}
+                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                            required
+                            min="1"
+                            max="10"
+                            disabled={loading}
+                        />
+                        <p className="text-xs text-gray-500 mt-1">Load will be distributed across all workers</p>
                     </div>
                 </div>
                 <div>
