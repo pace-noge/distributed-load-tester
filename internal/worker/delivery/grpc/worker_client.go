@@ -3,7 +3,6 @@ package grpc
 
 import (
 	"context"
-	"fmt"
 	"log"
 
 	"google.golang.org/grpc/codes"
@@ -40,11 +39,13 @@ func (s *GRPCServer) AssignTest(ctx context.Context, req *pb.TestAssignment) (*p
 		TargetsBase64:     req.TargetsBase64,
 	}
 
-	err := s.usecase.ExecuteTest(ctx, testAssignment)
-	if err != nil {
-		log.Printf("Worker failed to execute test %s: %v", req.TestId, err)
-		return &pb.AssignmentResponse{Accepted: false, Message: fmt.Sprintf("Failed to execute test: %v", err)}, status.Errorf(codes.Internal, "test execution failed: %v", err)
-	}
+	// Execute test asynchronously to avoid blocking the assignment RPC
+	go func() {
+		err := s.usecase.ExecuteTest(context.Background(), testAssignment)
+		if err != nil {
+			log.Printf("Worker failed to execute test %s: %v", req.TestId, err)
+		}
+	}()
 
 	return &pb.AssignmentResponse{Accepted: true, Message: "Test assignment accepted and execution started."}, nil
 }

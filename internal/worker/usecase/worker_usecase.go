@@ -293,7 +293,7 @@ func (uc *WorkerUsecase) ExecuteTest(ctx context.Context, assignment *domain.Tes
 	} else {
 		produceCtx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 		defer cancel()
-		err = uc.kafkaProducer.Produce(produceCtx, "test_results", assignment.TestID, resultBytes)
+		err = uc.kafkaProducer.Produce(produceCtx, assignment.TestID, resultBytes)
 		if err != nil {
 			log.Printf("Failed to produce test result to Kafka for test %s: %v", assignment.TestID, err)
 			// Decide if this should lead to a test failure or just a warning

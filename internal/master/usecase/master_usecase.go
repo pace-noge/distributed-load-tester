@@ -2,7 +2,6 @@ package usecase
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"log"
 	"sort" // Required for sorting p95Latencies
@@ -298,6 +297,11 @@ func (uc *MasterUsecase) HandleWorkerTestCompletion(ctx context.Context, testID,
 	}
 }
 
+// TriggerAggregation manually triggers aggregation for a specific test.
+func (uc *MasterUsecase) TriggerAggregation(ctx context.Context, testID string) {
+	uc.aggregateTestResults(ctx, testID)
+}
+
 // aggregateTestResults fetches all raw results for a test and performs aggregation.
 func (uc *MasterUsecase) aggregateTestResults(ctx context.Context, testID string) {
 	log.Printf("Starting aggregation for test: %s", testID)
@@ -328,12 +332,9 @@ func (uc *MasterUsecase) aggregateTestResults(ctx context.Context, testID string
 		p95Latencies = append(p95Latencies, res.P95LatencyMs)
 
 		// Parse status codes
-		var sc map[string]uint64
-		if err := json.Unmarshal([]byte(res.StatusCodes), &sc); err == nil {
-			for code, count := range sc {
-				if code[0] != '2' { // Assuming 2xx are successful
-					errorRates[code] += int(count)
-				}
+		for code, count := range res.StatusCodes {
+			if code[0] != '2' { // Assuming 2xx are successful
+				errorRates[code] += count
 			}
 		}
 	}
@@ -355,7 +356,7 @@ func (uc *MasterUsecase) aggregateTestResults(ctx context.Context, testID string
 		overallStatus = "COMPLETED_WITH_ERRORS"
 	}
 
-	errorRatesJSON, _ := json.Marshal(errorRates)
+	// errorRatesJSON, _ := json.Marshal(errorRates)
 
 	aggregatedResult := &domain.TestResultAggregated{
 		TestID:             testID,
@@ -364,7 +365,7 @@ func (uc *MasterUsecase) aggregateTestResults(ctx context.Context, testID string
 		FailedRequests:     failedRequests,
 		AvgLatencyMs:       avgLatencyMs,
 		P95LatencyMs:       p95LatencyMs,
-		ErrorRates:         string(errorRatesJSON),
+		ErrorRates:         errorRates,
 		DurationMs:         totalDuration / int64(len(results)), // Average duration across workers
 		OverallStatus:      overallStatus,
 		CompletedAt:        time.Now(),
@@ -518,4 +519,75 @@ func (uc *MasterUsecase) cleanupStaleWorkers(ctx context.Context) {
 			}
 		}
 	}
+}
+
+// StartAggregationBackgroundJob starts a background job that periodically checks for
+// completed tests without aggregated results and processes them.
+func (uc *MasterUsecase) StartAggregationBackgroundJob(ctx context.Context, interval time.Duration) {
+	ticker := time.NewTicker(interval)
+	defer ticker.Stop()
+
+	log.Printf("Starting aggregation background job with interval: %v", interval)
+
+	for {
+		select {
+		case <-ctx.Done():
+			log.Println("Aggregation background job stopped due to context cancellation")
+			return
+		case <-ticker.C:
+			uc.processOrphanedTests(ctx)
+		}
+	}
+}
+
+// processOrphanedTests finds completed tests without aggregated results and processes them.
+func (uc *MasterUsecase) processOrphanedTests(ctx context.Context) {
+	log.Println("Checking for completed tests without aggregated results...")
+
+	// Query for completed tests that don't have aggregated results
+	orphanedTests, err := uc.findCompletedTestsWithoutAggregation(ctx)
+	if err != nil {
+		log.Printf("Error finding orphaned tests: %v", err)
+		return
+	}
+
+	if len(orphanedTests) == 0 {
+		log.Println("No orphaned tests found")
+		return
+	}
+
+	log.Printf("Found %d completed tests without aggregated results", len(orphanedTests))
+
+	// Process each orphaned test
+	for _, testID := range orphanedTests {
+		log.Printf("Processing orphaned test: %s", testID)
+		go uc.aggregateTestResults(ctx, testID)
+	}
+}
+
+// findCompletedTestsWithoutAggregation queries the database to find completed tests
+// that don't have corresponding aggregated results.
+func (uc *MasterUsecase) findCompletedTestsWithoutAggregation(ctx context.Context) ([]string, error) {
+	// Get all test requests to check their status
+	allTests, err := uc.testRepo.GetAllTestRequests(ctx)
+	if err != nil {
+		return nil, fmt.Errorf("failed to get all test requests: %w", err)
+	}
+
+	var orphanedTests []string
+	for _, test := range allTests {
+		// Only check completed tests
+		if test.Status == "COMPLETED" || test.Status == "PARTIALLY_FAILED" || test.Status == "COMPLETED_WITH_ERRORS" {
+			// Check if aggregated result exists
+			_, err := uc.aggregatedResultRepo.GetAggregatedResultByTestID(ctx, test.ID)
+			if err != nil {
+				// If error contains "not found" or similar, this test needs aggregation
+				// We'll assume any error means it doesn't exist for simplicity
+				log.Printf("Aggregated result not found for completed test %s, adding to processing queue", test.ID)
+				orphanedTests = append(orphanedTests, test.ID)
+			}
+		}
+	}
+
+	return orphanedTests, nil
 }

@@ -130,6 +130,12 @@ func main() {
 
 					masterUC := masterUsecase.NewMasterUsecase(workerRepo, testRepo, testResultRepo, aggregatedResultRepo, kafkaProducer)
 
+					// Start aggregation background job
+					bgCtx, bgCancel := context.WithCancel(context.Background())
+					defer bgCancel()
+					go masterUC.StartAggregationBackgroundJob(bgCtx, 2*time.Minute) // Check every 2 minutes
+					log.Println("Started aggregation background job")
+
 					// Start HTTP Server for UI and API
 					httpHandler := masterHTTP.NewHTTPHandler(masterUC, jwtSecretKey)
 					httpServer := &http.Server{

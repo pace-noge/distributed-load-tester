@@ -7,7 +7,6 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
-	"io"
 	"log"
 	"net/http"
 	"time"
@@ -26,11 +25,15 @@ func NewVegetaAdapter() *VegetaAdapter {
 
 // Attack executes a Vegeta load test based on the provided configuration.
 func (va *VegetaAdapter) Attack(ctx context.Context, vegetaPayloadJSON, durationStr string, rate uint64, targetsBase64 string) (*domain.TestResult, error) {
+	log.Printf("Starting Vegeta attack with duration=%s, rate=%d, targetsBase64 length=%d", durationStr, rate, len(targetsBase64))
+
 	// 1. Parse targets
 	decodedTargets, err := base64.StdEncoding.DecodeString(targetsBase64)
 	if err != nil {
 		return nil, fmt.Errorf("failed to decode targets from base64: %w", err)
 	}
+
+	log.Printf("Decoded targets: %s", string(decodedTargets))
 
 	targetsReader := bytes.NewReader(decodedTargets)
 	var targets []lib.Target // Use lib.Target
@@ -40,24 +43,32 @@ func (va *VegetaAdapter) Attack(ctx context.Context, vegetaPayloadJSON, duration
 		// Fallback to simple plain text targets if JSON parsing fails
 		log.Printf("Warning: Failed to decode targets as JSON: %v. Attempting to parse as plain text.", err)
 		targetsReader = bytes.NewReader(decodedTargets) // Reset reader
-		targeter := lib.NewStaticTargeter(targets...)   // Corrected: use lib.NewStaticTargeter
-		for {
-			var target lib.Target
-			if err := targeter(&target); err != nil {
-				if err == io.EOF {
-					break
-				}
-				return nil, fmt.Errorf("failed to parse targets as plain text: %w", err)
+
+		// Parse as plain text - each line should be a URL
+		lines := bytes.Split(decodedTargets, []byte("\n"))
+		for _, line := range lines {
+			lineStr := string(bytes.TrimSpace(line))
+			if lineStr == "" {
+				continue // Skip empty lines
+			}
+			// Create a basic GET target for each URL
+			target := lib.Target{
+				Method: "GET",
+				URL:    lineStr,
+				Header: make(http.Header),
 			}
 			targets = append(targets, target)
 		}
-		if err != nil {
-			return nil, fmt.Errorf("failed to parse targets as plain text or JSON: %w", err)
-		}
 	}
 
+	// Ensure we have at least one target
 	if len(targets) == 0 {
 		return nil, fmt.Errorf("no targets found in the provided targets data")
+	}
+
+	log.Printf("Parsed %d targets successfully", len(targets))
+	for i, target := range targets {
+		log.Printf("Target %d: %s %s", i, target.Method, target.URL)
 	}
 
 	// 2. Parse duration
@@ -105,12 +116,14 @@ func (va *VegetaAdapter) Attack(ctx context.Context, vegetaPayloadJSON, duration
 	}
 
 	// 5. Start the attack
+	log.Printf("Starting Vegeta attack: rate=%v, duration=%v, targets=%d", attackRate, duration, len(targets))
 	var m lib.Metrics // Use lib.Metrics directly
 	results := attacker.Attack(lib.NewStaticTargeter(targets...), attackRate, duration, "Load Test")
 	for res := range results {
 		m.Add(res)
 	}
 	m.Close() // Important: Close the metrics collector to finalize calculations
+	log.Printf("Vegeta attack completed")
 
 	// 6. Convert Vegeta metrics to domain.TestResult
 	testResult := &domain.TestResult{
@@ -128,27 +141,8 @@ func (va *VegetaAdapter) Attack(ctx context.Context, vegetaPayloadJSON, duration
 		SuccessRate:       m.Success,
 		AverageLatencyMs:  float64(m.Latencies.Mean.Milliseconds()),
 		P95LatencyMs:      float64(m.Latencies.P95.Milliseconds()),
-		StatusCodes:       mapToString(convertStatusCodes(m.StatusCodes)),
+		StatusCodes:       m.StatusCodes,
 	}
 
 	return testResult, nil
-}
-
-// mapToString converts a map[string]uint64 to a JSON string.
-func mapToString(m map[string]uint64) string {
-	b, err := json.Marshal(m)
-	if err != nil {
-		log.Printf("Error marshaling map to JSON: %v", err)
-		return "{}"
-	}
-	return string(b)
-}
-
-// convertStatusCodes converts a map[string]int to a map[string]uint64.
-func convertStatusCodes(statusCodes map[string]int) map[string]uint64 {
-	converted := make(map[string]uint64)
-	for key, value := range statusCodes {
-		converted[key] = uint64(value)
-	}
-	return converted
 }

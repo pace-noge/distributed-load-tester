@@ -41,7 +41,7 @@ type AggregatedResultRepository interface {
 
 // KafkaProducer defines operations for producing messages to Kafka.
 type KafkaProducer interface {
-	Produce(ctx context.Context, topic string, key string, value []byte) error
+	Produce(ctx context.Context, key string, value []byte) error
 	Close() error
 }
 

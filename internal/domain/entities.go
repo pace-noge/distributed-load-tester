@@ -22,18 +22,18 @@ type TestRequest struct {
 
 // TestResult represents the aggregated result of a single worker's test run.
 type TestResult struct {
-	ID                string    `json:"id"`
-	TestID            string    `json:"testId"`
-	WorkerID          string    `json:"workerId"`
-	Metric            []byte    `json:"metric"` // Raw Vegeta Metric JSON or protobuf bytes
-	Timestamp         time.Time `json:"timestamp"`
-	TotalRequests     int64     `json:"totalRequests"`
-	CompletedRequests int64     `json:"completedRequests"`
-	DurationMs        int64     `json:"durationMs"`
-	SuccessRate       float64   `json:"successRate"`
-	AverageLatencyMs  float64   `json:"averageLatencyMs"`
-	P95LatencyMs      float64   `json:"p95LatencyMs"`
-	StatusCodes       string    `json:"statusCodes"` // JSON string of status code counts
+	ID                string         `json:"id"`
+	TestID            string         `json:"testId"`
+	WorkerID          string         `json:"workerId"`
+	Metric            []byte         `json:"metric"` // Raw Vegeta Metric JSON or protobuf bytes
+	Timestamp         time.Time      `json:"timestamp"`
+	TotalRequests     int64          `json:"totalRequests"`
+	CompletedRequests int64          `json:"completedRequests"`
+	DurationMs        int64          `json:"durationMs"`
+	SuccessRate       float64        `json:"successRate"`
+	AverageLatencyMs  float64        `json:"averageLatencyMs"`
+	P95LatencyMs      float64        `json:"p95LatencyMs"`
+	StatusCodes       map[string]int `json:"statusCodes"` // Map of status code counts
 }
 
 // Worker represents a registered load testing worker.
@@ -50,49 +50,49 @@ type Worker struct {
 
 // DashboardStatus provides a summary for the UI dashboard.
 type DashboardStatus struct {
-	TotalWorkers     uint32
-	AvailableWorkers uint32
-	BusyWorkers      uint32
-	ActiveTests      []ActiveTestSummary
-	WorkerSummaries  []WorkerSummary
+	TotalWorkers     uint32              `json:"total_workers"`
+	AvailableWorkers uint32              `json:"available_workers"`
+	BusyWorkers      uint32              `json:"busy_workers"`
+	ActiveTests      []ActiveTestSummary `json:"active_tests"`
+	WorkerSummaries  []WorkerSummary     `json:"worker_summaries"`
 }
 
 // ActiveTestSummary provides a summary of an ongoing or recently completed test.
 type ActiveTestSummary struct {
-	TestID                 string
-	TestName               string
-	AssignedWorkers        uint32
-	CompletedWorkers       uint32
-	FailedWorkers          uint32
-	Status                 string
-	TotalRequestsSent      int64
-	TotalRequestsCompleted int64
-	TotalDurationMs        int64
-	Progress               float64 // 0.0 - 1.0
+	TestID                 string  `json:"test_id"`
+	TestName               string  `json:"test_name"`
+	AssignedWorkers        uint32  `json:"assigned_workers"`
+	CompletedWorkers       uint32  `json:"completed_workers"`
+	FailedWorkers          uint32  `json:"failed_workers"`
+	Status                 string  `json:"status"`
+	TotalRequestsSent      int64   `json:"total_requests_sent"`
+	TotalRequestsCompleted int64   `json:"total_requests_completed"`
+	TotalDurationMs        int64   `json:"total_duration_ms"`
+	Progress               float64 `json:"progress"` // 0.0 - 1.0
 }
 
 // WorkerSummary provides a concise status of a worker for the dashboard.
 type WorkerSummary struct {
-	WorkerID          string
-	StatusMessage     string
-	StatusType        string // From proto enum, e.g., "READY", "BUSY"
-	CurrentTestID     string
-	CompletedRequests int64
-	TotalRequests     int64
+	WorkerID          string `json:"worker_id"`
+	StatusMessage     string `json:"status_message"`
+	StatusType        string `json:"status_type"` // From proto enum, e.g., "READY", "BUSY"
+	CurrentTestID     string `json:"current_test_id"`
+	CompletedRequests int64  `json:"completed_requests"`
+	TotalRequests     int64  `json:"total_requests"`
 }
 
 // TestResultAggregated represents a high-level aggregated view of a test result, for dashboard/reports
 type TestResultAggregated struct {
-	TestID             string    `json:"testId"`
-	TotalRequests      int64     `json:"totalRequests"`
-	SuccessfulRequests int64     `json:"successfulRequests"`
-	FailedRequests     int64     `json:"failedRequests"`
-	AvgLatencyMs       float64   `json:"avgLatencyMs"`
-	P95LatencyMs       float64   `json:"p95LatencyMs"`
-	ErrorRates         string    `json:"errorRates"` // JSON string of error types and counts
-	DurationMs         int64     `json:"durationMs"`
-	OverallStatus      string    `json:"overallStatus"` // "Success", "Partial Failure", "Failure"
-	CompletedAt        time.Time `json:"completedAt"`
+	TestID             string         `json:"test_id"`
+	TotalRequests      int64          `json:"total_requests"`
+	SuccessfulRequests int64          `json:"successful_requests"`
+	FailedRequests     int64          `json:"failed_requests"`
+	AvgLatencyMs       float64        `json:"avg_latency_ms"`
+	P95LatencyMs       float64        `json:"p95_latency_ms"`
+	ErrorRates         map[string]int `json:"error_rates"` // Map of error types and counts
+	DurationMs         int64          `json:"duration_ms"`
+	OverallStatus      string         `json:"overall_status"` // "Success", "Partial Failure", "Failure"
+	CompletedAt        time.Time      `json:"completed_at"`
 }
 
 type TestAssignment struct {

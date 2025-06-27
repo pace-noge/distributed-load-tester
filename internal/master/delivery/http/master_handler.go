@@ -43,6 +43,7 @@ func NewHTTPHandler(uc *masterUsecase.MasterUsecase, jwtSecret string) *HTTPHand
 	api.HandleFunc("/tests", h.getTests).Methods("GET")
 	api.HandleFunc("/tests/{testId}/results", h.getTestResults).Methods("GET")
 	api.HandleFunc("/tests/{testId}/aggregated-result", h.getAggregatedTestResult).Methods("GET")
+	api.HandleFunc("/tests/{testId}/aggregate", h.triggerAggregation).Methods("POST")
 
 	// Authentication route (public)
 	r.HandleFunc("/auth/login", h.login).Methods("POST")
@@ -207,8 +208,30 @@ func (h *HTTPHandler) getAggregatedTestResult(w http.ResponseWriter, r *http.Req
 
 	aggregatedResult, err := h.usecase.GetAggregatedTestResult(r.Context(), testID)
 	if err != nil {
+		if strings.Contains(err.Error(), "not found") {
+			http.Error(w, fmt.Sprintf("Aggregated result not found for test %s. Results may still be processing.", testID), http.StatusNotFound)
+			return
+		}
 		http.Error(w, fmt.Sprintf("Failed to get aggregated test result: %v", err), http.StatusInternalServerError)
 		return
 	}
 	json.NewEncoder(w).Encode(aggregatedResult)
+}
+
+// triggerAggregation manually triggers aggregation for a specific test.
+func (h *HTTPHandler) triggerAggregation(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	testID := vars["testId"]
+	if testID == "" {
+		http.Error(w, "Test ID is required", http.StatusBadRequest)
+		return
+	}
+
+	// Trigger aggregation in a goroutine
+	go h.usecase.TriggerAggregation(context.Background(), testID)
+
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(map[string]string{
+		"message": fmt.Sprintf("Aggregation triggered for test %s", testID),
+	})
 }

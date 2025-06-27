@@ -28,10 +28,9 @@ func NewKafkaProducer(brokerAddress, topic string) (*KafkaProducer, error) {
 	return &KafkaProducer{writer: writer}, nil
 }
 
-// Produce sends a message to Kafka.
-func (kp *KafkaProducer) Produce(ctx context.Context, topic string, key string, value []byte) error {
+// Produce sends a message to Kafka using the pre-configured topic.
+func (kp *KafkaProducer) Produce(ctx context.Context, key string, value []byte) error {
 	msg := kafka.Message{
-		Topic: topic,
 		Key:   []byte(key),
 		Value: value,
 	}
@@ -39,7 +38,7 @@ func (kp *KafkaProducer) Produce(ctx context.Context, topic string, key string, 
 	if err != nil {
 		return fmt.Errorf("failed to write kafka message: %w", err)
 	}
-	log.Printf("Produced message to topic '%s' with key '%s'", topic, key)
+	log.Printf("Produced message with key '%s'", key)
 	return nil
 }
 

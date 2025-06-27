@@ -11,7 +11,7 @@ import (
 	"github.com/pace-noge/distributed-load-tester/internal/domain"
 
 	"github.com/google/uuid"
-	_ "github.com/lib/pq" // PostgreSQL driver
+	"github.com/lib/pq"
 )
 
 // PostgresDB implements TestRepository, TestResultRepository, AggregatedResultRepository and WorkerRepository.
@@ -232,7 +232,7 @@ func (p *PostgresDB) SaveTestRequest(ctx context.Context, test *domain.TestReque
               VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12);`
 	_, err := p.db.ExecContext(ctx, query, test.ID, test.Name, test.VegetaPayloadJSON, test.DurationSeconds,
 		test.RatePerSecond, test.TargetsBase64, test.RequesterID, test.CreatedAt, test.Status,
-		pqStringArray(test.AssignedWorkersIDs), pqStringArray(test.CompletedWorkers), pqStringArray(test.FailedWorkers))
+		pq.Array(test.AssignedWorkersIDs), pq.Array(test.CompletedWorkers), pq.Array(test.FailedWorkers))
 	if err != nil {
 		return fmt.Errorf("failed to save test request: %w", err)
 	}
@@ -242,7 +242,7 @@ func (p *PostgresDB) SaveTestRequest(ctx context.Context, test *domain.TestReque
 // UpdateTestStatus updates the status of a test request.
 func (p *PostgresDB) UpdateTestStatus(ctx context.Context, testID string, status string, completedWorkers, failedWorkers []string) error {
 	query := `UPDATE test_requests SET status = $1, completed_workers = $2, failed_workers = $3 WHERE id = $4;`
-	_, err := p.db.ExecContext(ctx, query, status, pqStringArray(completedWorkers), pqStringArray(failedWorkers), testID)
+	_, err := p.db.ExecContext(ctx, query, status, pq.Array(completedWorkers), pq.Array(failedWorkers), testID)
 	if err != nil {
 		return fmt.Errorf("failed to update test status: %w", err)
 	}
@@ -252,11 +252,10 @@ func (p *PostgresDB) UpdateTestStatus(ctx context.Context, testID string, status
 // GetTestRequestByID retrieves a test request by its ID.
 func (p *PostgresDB) GetTestRequestByID(ctx context.Context, testID string) (*domain.TestRequest, error) {
 	test := &domain.TestRequest{}
-	var assignedWorkersIDs, completedWorkers, failedWorkers []string
 	query := `SELECT id, name, vegeta_payload_json, duration_seconds, rate_per_second, targets_base64, requester_id, created_at, status, assigned_workers_ids, completed_workers, failed_workers FROM test_requests WHERE id = $1;`
 	err := p.db.QueryRowContext(ctx, query, testID).Scan(
 		&test.ID, &test.Name, &test.VegetaPayloadJSON, &test.DurationSeconds, &test.RatePerSecond, &test.TargetsBase64,
-		&test.RequesterID, &test.CreatedAt, &test.Status, &assignedWorkersIDs, &completedWorkers, &failedWorkers,
+		&test.RequesterID, &test.CreatedAt, &test.Status, pq.Array(&test.AssignedWorkersIDs), pq.Array(&test.CompletedWorkers), pq.Array(&test.FailedWorkers),
 	)
 	if err == sql.ErrNoRows {
 		return nil, fmt.Errorf("test request not found: %s", testID)
@@ -264,9 +263,6 @@ func (p *PostgresDB) GetTestRequestByID(ctx context.Context, testID string) (*do
 	if err != nil {
 		return nil, fmt.Errorf("failed to get test request by ID: %w", err)
 	}
-	test.AssignedWorkersIDs = assignedWorkersIDs
-	test.CompletedWorkers = completedWorkers
-	test.FailedWorkers = failedWorkers
 	return test, nil
 }
 
@@ -282,17 +278,13 @@ func (p *PostgresDB) GetAllTestRequests(ctx context.Context) ([]*domain.TestRequ
 	var tests []*domain.TestRequest
 	for rows.Next() {
 		test := &domain.TestRequest{}
-		var assignedWorkersIDs, completedWorkers, failedWorkers []string
 		err := rows.Scan(
 			&test.ID, &test.Name, &test.VegetaPayloadJSON, &test.DurationSeconds, &test.RatePerSecond, &test.TargetsBase64,
-			&test.RequesterID, &test.CreatedAt, &test.Status, &assignedWorkersIDs, &completedWorkers, &failedWorkers,
+			&test.RequesterID, &test.CreatedAt, &test.Status, pq.Array(&test.AssignedWorkersIDs), pq.Array(&test.CompletedWorkers), pq.Array(&test.FailedWorkers),
 		)
 		if err != nil {
 			return nil, fmt.Errorf("failed to scan test request row: %w", err)
 		}
-		test.AssignedWorkersIDs = assignedWorkersIDs
-		test.CompletedWorkers = completedWorkers
-		test.FailedWorkers = failedWorkers
 		tests = append(tests, test)
 	}
 	return tests, nil
@@ -377,7 +369,12 @@ func (p *PostgresDB) GetResultsByTestID(ctx context.Context, testID string) ([]*
 			return nil, fmt.Errorf("failed to scan test result row: %w", err)
 		}
 		result.Metric = metricJSON
-		result.StatusCodes = string(statusCodeJSON) // Store as JSON string for now
+
+		err = json.Unmarshal(statusCodeJSON, &result.StatusCodes)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal status codes: %w", err)
+		}
+
 		results = append(results, result)
 	}
 	return results, nil
@@ -429,6 +426,10 @@ func (p *PostgresDB) SaveAggregatedResult(ctx context.Context, result *domain.Te
 
 // GetAggregatedResultByTestID retrieves an aggregated test result by its ID.
 func (p *PostgresDB) GetAggregatedResultByTestID(ctx context.Context, testID string) (*domain.TestResultAggregated, error) {
+	if testID == "" {
+		return nil, fmt.Errorf("test ID cannot be empty")
+	}
+
 	result := &domain.TestResultAggregated{}
 	var errorRatesJSON []byte
 	query := `SELECT test_id, total_requests, successful_requests, failed_requests, avg_latency_ms, p95_latency_ms, error_rates, duration_ms, overall_status, completed_at FROM aggregated_test_results WHERE test_id = $1;`
@@ -443,7 +444,12 @@ func (p *PostgresDB) GetAggregatedResultByTestID(ctx context.Context, testID str
 	if err != nil {
 		return nil, fmt.Errorf("failed to get aggregated test result by ID: %w", err)
 	}
-	result.ErrorRates = string(errorRatesJSON)
+
+	err = json.Unmarshal(errorRatesJSON, &result.ErrorRates)
+	if err != nil {
+		return nil, fmt.Errorf("failed to unmarshal error rates: %w", err)
+	}
+
 	return result, nil
 }
 
@@ -468,32 +474,13 @@ func (p *PostgresDB) GetAllAggregatedResults(ctx context.Context) ([]*domain.Tes
 		if err != nil {
 			return nil, fmt.Errorf("failed to scan aggregated test result row: %w", err)
 		}
-		result.ErrorRates = string(errorRatesJSON)
+
+		err = json.Unmarshal(errorRatesJSON, &result.ErrorRates)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal error rates: %w", err)
+		}
+
 		results = append(results, result)
 	}
 	return results, nil
-}
-
-// pqStringArray converts a Go string slice to a PostgreSQL compatible string array.
-func pqStringArray(s []string) interface{} {
-	if s == nil {
-		return "{}" // Return empty array string for nil slice
-	}
-	return fmt.Sprintf("{%s}", arrayToString(s))
-}
-
-// arrayToString converts a Go string slice to a comma-separated string for PostgreSQL array literal.
-func arrayToString(a []string) string {
-	if len(a) == 0 {
-		return ""
-	}
-	b := make([]byte, 0, len(a[0])*len(a))
-	b = append(b, '"')
-	b = append(b, a[0]...)
-	for _, s := range a[1:] {
-		b = append(b, ',', '"')
-		b = append(b, s...)
-	}
-	b = append(b, '"')
-	return string(b)
 }
