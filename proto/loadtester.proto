@@ -1,0 +1,124 @@
+// proto/loadtester.proto
+
+syntax = "proto3";
+
+package loadtester;
+
+option go_package = "./proto";
+
+// Service for Master-Worker communication
+service WorkerService {
+  rpc RegisterWorker(WorkerInfo) returns (RegisterResponse);
+  // Changed to a bidirectional streaming RPC for continuous worker status updates.
+  // Worker sends WorkerStatus, Master can respond with WorkerStatusAck.
+  rpc StreamWorkerStatus(stream WorkerStatus) returns (stream WorkerStatusAck);
+  rpc AssignTest(TestAssignment) returns (AssignmentResponse);
+}
+
+// Service for external API (e.g., UI, cURL)
+service MasterService {
+  rpc SubmitTest(TestRequest) returns (TestSubmissionResponse);
+  rpc GetDashboardStatus(DashboardRequest) returns (DashboardStatus);
+}
+
+// Worker Information
+message WorkerInfo {
+  string id = 1;
+  string address = 2; // gRPC address of the worker
+}
+
+// Worker Registration Response
+message RegisterResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+// Worker Status Update (sent from Worker to Master)
+message WorkerStatus {
+  string worker_id = 1;
+  StatusType status = 2;
+  string message = 3;
+  // Progress specific fields
+  int64 total_requests = 4;
+  int64 completed_requests = 5;
+  int64 duration_ms = 6;
+  string test_id = 7; // ID of the test being run, if any
+}
+
+// Acknowledgment/Response from Master to Worker for status updates
+message WorkerStatusAck {
+  bool accepted = 1;
+  string message = 2;
+}
+
+enum StatusType {
+  READY = 0;
+  BUSY = 1;
+  FINISHING = 2;
+  ERROR = 3;
+}
+
+// Test Assignment from Master to Worker
+message TestAssignment {
+  string test_id = 1;
+  string vegeta_payload_json = 2; // JSON representation of Vegeta attack options
+  string duration_seconds = 3; // Vegeta duration (e.g., "10s")
+  uint64 rate_per_second = 4; // Vegeta rate (e.g., 50 for 50 req/s)
+  string targets_base64 = 5; // Base64 encoded Vegeta targets content
+}
+
+// Test Assignment Response from Worker to Master
+message AssignmentResponse {
+  bool accepted = 1;
+  string message = 2;
+}
+
+// Test Submission Request from external API/UI to Master
+message TestRequest {
+  string name = 1;
+  string vegeta_payload_json = 2; // Vegeta attack options
+  string duration_seconds = 3;
+  uint64 rate_per_second = 4;
+  string targets_base64 = 5; // Base64 encoded Vegeta targets content
+  string requester_id = 6; // For authentication/tracking
+}
+
+// Test Submission Response
+message TestSubmissionResponse {
+  string test_id = 1;
+  bool success = 2;
+  string message = 3;
+}
+
+// Dashboard Request (empty for now)
+message DashboardRequest {}
+
+// Dashboard Status for UI
+message DashboardStatus {
+  uint32 total_workers = 1;
+  uint32 available_workers = 2;
+  uint32 busy_workers = 3;
+  repeated ActiveTest active_tests = 4;
+  repeated WorkerSummary worker_summaries = 5;
+}
+
+message ActiveTest {
+  string test_id = 1;
+  string test_name = 2;
+  uint32 assigned_workers = 3;
+  uint32 completed_workers = 4;
+  uint32 failed_workers = 5;
+  string status = 6; // e.g., "Running", "Completed", "Partially Failed"
+  int64 total_requests_sent = 7;
+  int64 total_requests_completed = 8;
+  int64 total_duration_ms = 9;
+}
+
+message WorkerSummary {
+  string worker_id = 1;
+  string status_message = 2;
+  StatusType status_type = 3;
+  string current_test_id = 4;
+  int64 completed_requests = 5;
+  int64 total_requests = 6;
+}
