@@ -1,0 +1,41 @@
+2025/06/29 21:02:25 Successfully connected to PostgreSQL!
+2025/06/29 21:02:25 PostgreSQL schema initialized successfully.
+2025/06/29 21:02:25 Worker worker-2 starting lifecycle...
+2025/06/29 21:02:25 Worker gRPC server starting on port 50002...
+2025/06/29 21:02:25 Attempting to register worker worker-2 with master at 192.168.1.6:50002
+2025/06/29 21:02:25 Worker worker-2 registered successfully with master.
+2025/06/29 21:02:25 Worker worker-2 established bidirectional status stream to master.
+2025/06/29 21:02:25 Worker worker-2 sent status: READY (Test: )
+2025/06/29 21:02:25 Received ACK from Master for worker worker-2: Success=true, Message=Status received
+2025/06/29 21:02:30 Worker worker-2 sent status: READY (Test: )
+2025/06/29 21:02:30 Received ACK from Master for worker worker-2: Success=true, Message=Status received
+2025/06/29 21:02:35 Worker worker-2 sent status: READY (Test: )
+2025/06/29 21:02:35 Received ACK from Master for worker worker-2: Success=true, Message=Status received
+2025/06/29 21:02:40 Worker worker-2 sent status: READY (Test: )
+2025/06/29 21:02:40 Received ACK from Master for worker worker-2: Success=true, Message=Status received
+2025/06/29 21:02:45 Worker worker-2 sent status: READY (Test: )
+2025/06/29 21:02:45 Received ACK from Master for worker worker-2: Success=true, Message=Status received
+2025/06/29 21:02:50 Worker worker-2 sent status: READY (Test: )
+2025/06/29 21:02:50 Received ACK from Master for worker worker-2: Success=true, Message=Status received
+2025/06/29 21:02:55 Worker worker-2 sent status: READY (Test: )
+2025/06/29 21:02:55 Received ACK from Master for worker worker-2: Success=true, Message=Status received
+2025/06/29 21:03:00 Worker worker-2 sent status: READY (Test: )
+2025/06/29 21:03:00 Received ACK from Master for worker worker-2: Success=true, Message=Status received
+2025/06/29 21:03:05 Worker worker-2 sent status: READY (Test: )
+2025/06/29 21:03:05 Received ACK from Master for worker worker-2: Success=true, Message=Status received
+2025/06/29 21:03:10 Worker worker-2 sent status: READY (Test: )
+2025/06/29 21:03:10 Received ACK from Master for worker worker-2: Success=true, Message=Status received
+2025/06/29 21:03:15 Worker worker-2 sent status: READY (Test: )
+2025/06/29 21:03:15 Received ACK from Master for worker worker-2: Success=true, Message=Status received
+2025/06/29 21:03:20 Worker worker-2 sent status: READY (Test: )
+2025/06/29 21:03:20 Received ACK from Master for worker worker-2: Success=true, Message=Status received
+2025/06/29 21:03:25 Worker worker-2 sent status: READY (Test: )
+2025/06/29 21:03:25 Received ACK from Master for worker worker-2: Success=true, Message=Status received
+2025/06/29 21:03:30 Worker worker-2 sent status: READY (Test: )
+2025/06/29 21:03:30 Received ACK from Master for worker worker-2: Success=true, Message=Status received
+2025/06/29 21:03:35 Worker worker-2 sent status: READY (Test: )
+2025/06/29 21:03:35 Received ACK from Master for worker worker-2: Success=true, Message=Status received
+2025/06/29 21:03:40 Worker worker-2 sent status: READY (Test: )
+2025/06/29 21:03:40 Received ACK from Master for worker worker-2: Success=true, Message=Status received
+2025/06/29 21:03:45 Worker worker-2 sent status: READY (Test: )
+2025/06/29 21:03:45 Received ACK from Master for worker worker-2: Success=true, Message=Status received

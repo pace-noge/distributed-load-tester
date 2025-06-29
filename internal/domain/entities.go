@@ -98,8 +98,16 @@ type TestResultAggregated struct {
 	P95LatencyMs       float64        `json:"p95_latency_ms"`
 	ErrorRates         map[string]int `json:"error_rates"` // Map of error types and counts
 	DurationMs         int64          `json:"duration_ms"`
-	OverallStatus      string         `json:"overall_status"` // "Success", "Partial Failure", "Failure"
+	OverallStatus      string         `json:"overall_status"`
 	CompletedAt        time.Time      `json:"completed_at"`
+	CreatedAt          time.Time      `json:"created_at"`
+}
+
+// TestDetail represents detailed information about a test including results and aggregation
+type TestDetail struct {
+	Test             *TestRequest          `json:"test"`
+	Results          []*TestResult         `json:"results"`
+	AggregatedResult *TestResultAggregated `json:"aggregated_result,omitempty"`
 }
 
 type TestAssignment struct {

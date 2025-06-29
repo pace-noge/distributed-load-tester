@@ -1,0 +1,240 @@
+2025/06/29 21:02:21 WARNING: JWT_SECRET_KEY is not set or using default. Please set a strong, unique key in production.
+2025/06/29 21:02:21 Successfully connected to PostgreSQL!
+2025/06/29 21:02:21 PostgreSQL schema initialized successfully.
+2025/06/29 21:02:21 Started aggregation background job
+2025/06/29 21:02:21 Starting test distribution routine...
+2025/06/29 21:02:21 Starting aggregation background job with interval: 2m0s
+2025/06/29 21:02:21 Master gRPC server starting on port 50051...
+2025/06/29 21:02:21 Master HTTP server starting on port 8080...
+2025/06/29 21:02:23 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
+2025/06/29 21:02:24 Worker worker-1 attempting to register from 192.168.1.6:50001
+2025/06/29 21:02:24 Worker worker-1 registered/updated in-memory.
+2025/06/29 21:02:24 Worker worker-1 added to availability queue.
+2025/06/29 21:02:24 Worker worker-1 registered successfully.
+2025/06/29 21:02:24 First status received from worker: worker-1. Starting status stream handling.
+2025/06/29 21:02:24 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:02:24 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:02:24 Worker worker-1 became READY, added to availability queue.
+2025/06/29 21:02:25 Worker worker-2 attempting to register from 192.168.1.6:50002
+2025/06/29 21:02:25 Worker worker-2 registered/updated in-memory.
+2025/06/29 21:02:25 Worker worker-2 added to availability queue.
+2025/06/29 21:02:25 Worker worker-2 registered successfully.
+2025/06/29 21:02:25 First status received from worker: worker-2. Starting status stream handling.
+2025/06/29 21:02:25 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:02:25 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:02:25 Worker worker-2 became READY, added to availability queue.
+2025/06/29 21:02:25 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
+2025/06/29 21:02:26 Worker worker-3 attempting to register from 192.168.1.6:50003
+2025/06/29 21:02:26 Worker worker-3 registered/updated in-memory.
+2025/06/29 21:02:26 Worker worker-3 added to availability queue.
+2025/06/29 21:02:26 Worker worker-3 registered successfully.
+2025/06/29 21:02:26 First status received from worker: worker-3. Starting status stream handling.
+2025/06/29 21:02:26 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:02:26 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:02:26 Worker worker-3 became READY, added to availability queue.
+2025/06/29 21:02:27 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
+2025/06/29 21:02:29 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:02:29 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:02:29 Worker worker-1 became READY, added to availability queue.
+2025/06/29 21:02:29 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
+2025/06/29 21:02:30 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:02:30 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:02:30 Worker worker-2 became READY, added to availability queue.
+2025/06/29 21:02:31 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:02:31 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:02:31 Worker worker-3 became READY, added to availability queue.
+2025/06/29 21:02:31 Running stale worker cleanup...
+2025/06/29 21:02:31 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
+2025/06/29 21:02:33 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
+2025/06/29 21:02:34 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:02:34 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:02:34 Worker worker-1 became READY, added to availability queue.
+2025/06/29 21:02:35 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:02:35 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:02:35 Worker worker-2 became READY, added to availability queue.
+2025/06/29 21:02:35 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
+2025/06/29 21:02:36 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:02:36 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:02:36 Worker worker-3 became READY, added to availability queue.
+2025/06/29 21:02:37 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
+2025/06/29 21:02:39 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:02:39 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:02:39 Worker worker-1 became READY, added to availability queue.
+2025/06/29 21:02:39 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
+2025/06/29 21:02:40 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:02:40 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:02:40 Worker worker-2 became READY, added to availability queue.
+2025/06/29 21:02:41 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:02:41 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:02:41 Worker worker-3 became READY, added to availability queue.
+2025/06/29 21:02:41 Running stale worker cleanup...
+2025/06/29 21:02:41 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
+2025/06/29 21:02:43 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
+2025/06/29 21:02:44 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:02:44 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:02:44 Worker worker-1 became READY, added to availability queue.
+2025/06/29 21:02:45 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:02:45 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:02:45 Worker worker-2 became READY, added to availability queue.
+2025/06/29 21:02:45 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
+2025/06/29 21:02:46 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:02:46 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:02:46 Worker worker-3 became READY, added to availability queue.
+2025/06/29 21:02:48 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
+2025/06/29 21:02:48 WebSocket client registered. Total clients: 1
+2025/06/29 21:02:48 Error fetching dashboard data for new client: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
+2025/06/29 21:02:49 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:02:49 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:02:49 Worker worker-1 became READY, added to availability queue.
+2025/06/29 21:02:49 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
+2025/06/29 21:02:50 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:02:50 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:02:50 Worker worker-2 became READY, added to availability queue.
+2025/06/29 21:02:51 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:02:51 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:02:51 Worker worker-3 became READY, added to availability queue.
+2025/06/29 21:02:51 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
+2025/06/29 21:02:51 Running stale worker cleanup...
+2025/06/29 21:02:53 WebSocket client unregistered. Total clients: 0
+2025/06/29 21:02:53 WebSocket client registered. Total clients: 1
+2025/06/29 21:02:53 Error fetching dashboard data for new client: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
+2025/06/29 21:02:53 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
+2025/06/29 21:02:54 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:02:54 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:02:54 Worker worker-1 became READY, added to availability queue.
+2025/06/29 21:02:55 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:02:55 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:02:55 Worker worker-2 became READY, added to availability queue.
+2025/06/29 21:02:55 WebSocket error: websocket: close 1005 (no status)
+2025/06/29 21:02:55 WebSocket client unregistered. Total clients: 0
+2025/06/29 21:02:55 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
+2025/06/29 21:02:56 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:02:56 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:02:56 Worker worker-3 became READY, added to availability queue.
+2025/06/29 21:02:57 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
+2025/06/29 21:02:59 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:02:59 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:02:59 Worker worker-1 became READY, added to availability queue.
+2025/06/29 21:02:59 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
+2025/06/29 21:03:00 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:03:00 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:03:00 Worker worker-2 became READY, added to availability queue.
+2025/06/29 21:03:01 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:03:01 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:03:01 Worker worker-3 became READY, added to availability queue.
+2025/06/29 21:03:01 Running stale worker cleanup...
+2025/06/29 21:03:01 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
+2025/06/29 21:03:03 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
+2025/06/29 21:03:04 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:03:04 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:03:04 Worker worker-1 became READY, added to availability queue.
+2025/06/29 21:03:05 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:03:05 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:03:05 Worker worker-2 became READY, added to availability queue.
+2025/06/29 21:03:05 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
+2025/06/29 21:03:06 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:03:06 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:03:06 Worker worker-3 became READY, added to availability queue.
+2025/06/29 21:03:07 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
+2025/06/29 21:03:09 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:03:09 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:03:09 Worker worker-1 became READY, added to availability queue.
+2025/06/29 21:03:09 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
+2025/06/29 21:03:10 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:03:10 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:03:10 Worker worker-2 became READY, added to availability queue.
+2025/06/29 21:03:11 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:03:11 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:03:11 Worker worker-3 became READY, added to availability queue.
+2025/06/29 21:03:11 Running stale worker cleanup...
+2025/06/29 21:03:11 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
+2025/06/29 21:03:13 WebSocket client registered. Total clients: 1
+2025/06/29 21:03:13 Error fetching dashboard data for new client: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
+2025/06/29 21:03:13 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
+2025/06/29 21:03:14 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:03:14 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:03:14 Worker worker-1 became READY, added to availability queue.
+2025/06/29 21:03:15 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:03:15 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:03:15 Worker worker-2 became READY, added to availability queue.
+2025/06/29 21:03:15 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
+2025/06/29 21:03:16 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:03:16 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:03:16 Worker worker-3 became READY, added to availability queue.
+2025/06/29 21:03:17 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
+2025/06/29 21:03:19 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:03:19 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:03:19 Worker worker-1 became READY, added to availability queue.
+2025/06/29 21:03:19 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
+2025/06/29 21:03:20 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:03:20 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:03:20 Worker worker-2 became READY, added to availability queue.
+2025/06/29 21:03:21 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:03:21 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:03:21 Worker worker-3 became READY, added to availability queue.
+2025/06/29 21:03:21 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
+2025/06/29 21:03:21 Running stale worker cleanup...
+2025/06/29 21:03:23 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
+2025/06/29 21:03:24 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:03:24 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:03:24 Worker worker-1 became READY, added to availability queue.
+2025/06/29 21:03:25 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:03:25 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:03:25 Worker worker-2 became READY, added to availability queue.
+2025/06/29 21:03:25 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
+2025/06/29 21:03:26 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:03:26 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:03:26 Worker worker-3 became READY, added to availability queue.
+2025/06/29 21:03:27 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
+2025/06/29 21:03:29 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:03:29 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:03:29 Worker worker-1 became READY, added to availability queue.
+2025/06/29 21:03:29 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
+2025/06/29 21:03:30 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:03:30 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:03:30 Worker worker-2 became READY, added to availability queue.
+2025/06/29 21:03:31 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:03:31 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:03:31 Worker worker-3 became READY, added to availability queue.
+2025/06/29 21:03:31 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
+2025/06/29 21:03:31 Running stale worker cleanup...
+2025/06/29 21:03:33 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
+2025/06/29 21:03:34 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:03:34 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:03:34 Worker worker-1 became READY, added to availability queue.
+2025/06/29 21:03:35 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:03:35 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:03:35 Worker worker-2 became READY, added to availability queue.
+2025/06/29 21:03:35 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
+2025/06/29 21:03:36 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:03:36 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:03:36 Worker worker-3 became READY, added to availability queue.
+2025/06/29 21:03:37 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
+2025/06/29 21:03:39 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:03:39 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:03:39 Worker worker-1 became READY, added to availability queue.
+2025/06/29 21:03:39 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
+2025/06/29 21:03:40 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:03:40 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:03:40 Worker worker-2 became READY, added to availability queue.
+2025/06/29 21:03:41 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:03:41 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:03:41 Worker worker-3 became READY, added to availability queue.
+2025/06/29 21:03:41 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
+2025/06/29 21:03:41 Running stale worker cleanup...
+2025/06/29 21:03:43 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
+2025/06/29 21:03:44 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:03:44 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:03:44 Worker worker-1 became READY, added to availability queue.
+2025/06/29 21:03:45 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:03:45 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:03:45 Worker worker-2 became READY, added to availability queue.
+2025/06/29 21:03:45 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
+2025/06/29 21:03:46 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:03:46 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:03:46 Worker worker-3 became READY, added to availability queue.
+2025/06/29 21:03:47 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
+2025/06/29 21:03:49 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:03:49 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:03:49 Worker worker-1 became READY, added to availability queue.
+2025/06/29 21:03:49 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
