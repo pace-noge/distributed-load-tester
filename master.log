@@ -1,240 +1,1331 @@
-2025/06/29 21:02:21 WARNING: JWT_SECRET_KEY is not set or using default. Please set a strong, unique key in production.
-2025/06/29 21:02:21 Successfully connected to PostgreSQL!
-2025/06/29 21:02:21 PostgreSQL schema initialized successfully.
-2025/06/29 21:02:21 Started aggregation background job
-2025/06/29 21:02:21 Starting test distribution routine...
-2025/06/29 21:02:21 Starting aggregation background job with interval: 2m0s
-2025/06/29 21:02:21 Master gRPC server starting on port 50051...
-2025/06/29 21:02:21 Master HTTP server starting on port 8080...
-2025/06/29 21:02:23 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
-2025/06/29 21:02:24 Worker worker-1 attempting to register from 192.168.1.6:50001
-2025/06/29 21:02:24 Worker worker-1 registered/updated in-memory.
-2025/06/29 21:02:24 Worker worker-1 added to availability queue.
-2025/06/29 21:02:24 Worker worker-1 registered successfully.
-2025/06/29 21:02:24 First status received from worker: worker-1. Starting status stream handling.
-2025/06/29 21:02:24 Received status from worker worker-1: READY, test: , progress: 0/0
-2025/06/29 21:02:24 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
-2025/06/29 21:02:24 Worker worker-1 became READY, added to availability queue.
-2025/06/29 21:02:25 Worker worker-2 attempting to register from 192.168.1.6:50002
-2025/06/29 21:02:25 Worker worker-2 registered/updated in-memory.
-2025/06/29 21:02:25 Worker worker-2 added to availability queue.
-2025/06/29 21:02:25 Worker worker-2 registered successfully.
-2025/06/29 21:02:25 First status received from worker: worker-2. Starting status stream handling.
-2025/06/29 21:02:25 Received status from worker worker-2: READY, test: , progress: 0/0
-2025/06/29 21:02:25 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
-2025/06/29 21:02:25 Worker worker-2 became READY, added to availability queue.
-2025/06/29 21:02:25 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
-2025/06/29 21:02:26 Worker worker-3 attempting to register from 192.168.1.6:50003
-2025/06/29 21:02:26 Worker worker-3 registered/updated in-memory.
-2025/06/29 21:02:26 Worker worker-3 added to availability queue.
-2025/06/29 21:02:26 Worker worker-3 registered successfully.
-2025/06/29 21:02:26 First status received from worker: worker-3. Starting status stream handling.
-2025/06/29 21:02:26 Received status from worker worker-3: READY, test: , progress: 0/0
-2025/06/29 21:02:26 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
-2025/06/29 21:02:26 Worker worker-3 became READY, added to availability queue.
-2025/06/29 21:02:27 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
-2025/06/29 21:02:29 Received status from worker worker-1: READY, test: , progress: 0/0
-2025/06/29 21:02:29 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
-2025/06/29 21:02:29 Worker worker-1 became READY, added to availability queue.
-2025/06/29 21:02:29 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
-2025/06/29 21:02:30 Received status from worker worker-2: READY, test: , progress: 0/0
-2025/06/29 21:02:30 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
-2025/06/29 21:02:30 Worker worker-2 became READY, added to availability queue.
-2025/06/29 21:02:31 Received status from worker worker-3: READY, test: , progress: 0/0
-2025/06/29 21:02:31 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
-2025/06/29 21:02:31 Worker worker-3 became READY, added to availability queue.
-2025/06/29 21:02:31 Running stale worker cleanup...
-2025/06/29 21:02:31 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
-2025/06/29 21:02:33 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
-2025/06/29 21:02:34 Received status from worker worker-1: READY, test: , progress: 0/0
-2025/06/29 21:02:34 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
-2025/06/29 21:02:34 Worker worker-1 became READY, added to availability queue.
-2025/06/29 21:02:35 Received status from worker worker-2: READY, test: , progress: 0/0
-2025/06/29 21:02:35 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
-2025/06/29 21:02:35 Worker worker-2 became READY, added to availability queue.
-2025/06/29 21:02:35 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
-2025/06/29 21:02:36 Received status from worker worker-3: READY, test: , progress: 0/0
-2025/06/29 21:02:36 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
-2025/06/29 21:02:36 Worker worker-3 became READY, added to availability queue.
-2025/06/29 21:02:37 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
-2025/06/29 21:02:39 Received status from worker worker-1: READY, test: , progress: 0/0
-2025/06/29 21:02:39 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
-2025/06/29 21:02:39 Worker worker-1 became READY, added to availability queue.
-2025/06/29 21:02:39 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
-2025/06/29 21:02:40 Received status from worker worker-2: READY, test: , progress: 0/0
-2025/06/29 21:02:40 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
-2025/06/29 21:02:40 Worker worker-2 became READY, added to availability queue.
-2025/06/29 21:02:41 Received status from worker worker-3: READY, test: , progress: 0/0
-2025/06/29 21:02:41 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
-2025/06/29 21:02:41 Worker worker-3 became READY, added to availability queue.
-2025/06/29 21:02:41 Running stale worker cleanup...
-2025/06/29 21:02:41 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
-2025/06/29 21:02:43 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
-2025/06/29 21:02:44 Received status from worker worker-1: READY, test: , progress: 0/0
-2025/06/29 21:02:44 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
-2025/06/29 21:02:44 Worker worker-1 became READY, added to availability queue.
-2025/06/29 21:02:45 Received status from worker worker-2: READY, test: , progress: 0/0
-2025/06/29 21:02:45 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
-2025/06/29 21:02:45 Worker worker-2 became READY, added to availability queue.
-2025/06/29 21:02:45 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
-2025/06/29 21:02:46 Received status from worker worker-3: READY, test: , progress: 0/0
-2025/06/29 21:02:46 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
-2025/06/29 21:02:46 Worker worker-3 became READY, added to availability queue.
-2025/06/29 21:02:48 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
-2025/06/29 21:02:48 WebSocket client registered. Total clients: 1
-2025/06/29 21:02:48 Error fetching dashboard data for new client: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
-2025/06/29 21:02:49 Received status from worker worker-1: READY, test: , progress: 0/0
-2025/06/29 21:02:49 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
-2025/06/29 21:02:49 Worker worker-1 became READY, added to availability queue.
-2025/06/29 21:02:49 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
-2025/06/29 21:02:50 Received status from worker worker-2: READY, test: , progress: 0/0
-2025/06/29 21:02:50 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
-2025/06/29 21:02:50 Worker worker-2 became READY, added to availability queue.
-2025/06/29 21:02:51 Received status from worker worker-3: READY, test: , progress: 0/0
-2025/06/29 21:02:51 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
-2025/06/29 21:02:51 Worker worker-3 became READY, added to availability queue.
-2025/06/29 21:02:51 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
-2025/06/29 21:02:51 Running stale worker cleanup...
-2025/06/29 21:02:53 WebSocket client unregistered. Total clients: 0
-2025/06/29 21:02:53 WebSocket client registered. Total clients: 1
-2025/06/29 21:02:53 Error fetching dashboard data for new client: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
-2025/06/29 21:02:53 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
-2025/06/29 21:02:54 Received status from worker worker-1: READY, test: , progress: 0/0
-2025/06/29 21:02:54 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
-2025/06/29 21:02:54 Worker worker-1 became READY, added to availability queue.
-2025/06/29 21:02:55 Received status from worker worker-2: READY, test: , progress: 0/0
-2025/06/29 21:02:55 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
-2025/06/29 21:02:55 Worker worker-2 became READY, added to availability queue.
-2025/06/29 21:02:55 WebSocket error: websocket: close 1005 (no status)
-2025/06/29 21:02:55 WebSocket client unregistered. Total clients: 0
-2025/06/29 21:02:55 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
-2025/06/29 21:02:56 Received status from worker worker-3: READY, test: , progress: 0/0
-2025/06/29 21:02:56 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
-2025/06/29 21:02:56 Worker worker-3 became READY, added to availability queue.
-2025/06/29 21:02:57 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
-2025/06/29 21:02:59 Received status from worker worker-1: READY, test: , progress: 0/0
-2025/06/29 21:02:59 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
-2025/06/29 21:02:59 Worker worker-1 became READY, added to availability queue.
-2025/06/29 21:02:59 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
-2025/06/29 21:03:00 Received status from worker worker-2: READY, test: , progress: 0/0
-2025/06/29 21:03:00 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
-2025/06/29 21:03:00 Worker worker-2 became READY, added to availability queue.
-2025/06/29 21:03:01 Received status from worker worker-3: READY, test: , progress: 0/0
-2025/06/29 21:03:01 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
-2025/06/29 21:03:01 Worker worker-3 became READY, added to availability queue.
-2025/06/29 21:03:01 Running stale worker cleanup...
-2025/06/29 21:03:01 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
-2025/06/29 21:03:03 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
-2025/06/29 21:03:04 Received status from worker worker-1: READY, test: , progress: 0/0
-2025/06/29 21:03:04 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
-2025/06/29 21:03:04 Worker worker-1 became READY, added to availability queue.
-2025/06/29 21:03:05 Received status from worker worker-2: READY, test: , progress: 0/0
-2025/06/29 21:03:05 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
-2025/06/29 21:03:05 Worker worker-2 became READY, added to availability queue.
-2025/06/29 21:03:05 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
-2025/06/29 21:03:06 Received status from worker worker-3: READY, test: , progress: 0/0
-2025/06/29 21:03:06 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
-2025/06/29 21:03:06 Worker worker-3 became READY, added to availability queue.
-2025/06/29 21:03:07 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
-2025/06/29 21:03:09 Received status from worker worker-1: READY, test: , progress: 0/0
-2025/06/29 21:03:09 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
-2025/06/29 21:03:09 Worker worker-1 became READY, added to availability queue.
-2025/06/29 21:03:09 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
-2025/06/29 21:03:10 Received status from worker worker-2: READY, test: , progress: 0/0
-2025/06/29 21:03:10 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
-2025/06/29 21:03:10 Worker worker-2 became READY, added to availability queue.
-2025/06/29 21:03:11 Received status from worker worker-3: READY, test: , progress: 0/0
-2025/06/29 21:03:11 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
-2025/06/29 21:03:11 Worker worker-3 became READY, added to availability queue.
-2025/06/29 21:03:11 Running stale worker cleanup...
-2025/06/29 21:03:11 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
-2025/06/29 21:03:13 WebSocket client registered. Total clients: 1
-2025/06/29 21:03:13 Error fetching dashboard data for new client: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
-2025/06/29 21:03:13 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
-2025/06/29 21:03:14 Received status from worker worker-1: READY, test: , progress: 0/0
-2025/06/29 21:03:14 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
-2025/06/29 21:03:14 Worker worker-1 became READY, added to availability queue.
-2025/06/29 21:03:15 Received status from worker worker-2: READY, test: , progress: 0/0
-2025/06/29 21:03:15 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
-2025/06/29 21:03:15 Worker worker-2 became READY, added to availability queue.
-2025/06/29 21:03:15 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
-2025/06/29 21:03:16 Received status from worker worker-3: READY, test: , progress: 0/0
-2025/06/29 21:03:16 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
-2025/06/29 21:03:16 Worker worker-3 became READY, added to availability queue.
-2025/06/29 21:03:17 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
-2025/06/29 21:03:19 Received status from worker worker-1: READY, test: , progress: 0/0
-2025/06/29 21:03:19 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
-2025/06/29 21:03:19 Worker worker-1 became READY, added to availability queue.
-2025/06/29 21:03:19 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
-2025/06/29 21:03:20 Received status from worker worker-2: READY, test: , progress: 0/0
-2025/06/29 21:03:20 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
-2025/06/29 21:03:20 Worker worker-2 became READY, added to availability queue.
-2025/06/29 21:03:21 Received status from worker worker-3: READY, test: , progress: 0/0
-2025/06/29 21:03:21 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
-2025/06/29 21:03:21 Worker worker-3 became READY, added to availability queue.
-2025/06/29 21:03:21 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
-2025/06/29 21:03:21 Running stale worker cleanup...
-2025/06/29 21:03:23 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
-2025/06/29 21:03:24 Received status from worker worker-1: READY, test: , progress: 0/0
-2025/06/29 21:03:24 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
-2025/06/29 21:03:24 Worker worker-1 became READY, added to availability queue.
-2025/06/29 21:03:25 Received status from worker worker-2: READY, test: , progress: 0/0
-2025/06/29 21:03:25 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
-2025/06/29 21:03:25 Worker worker-2 became READY, added to availability queue.
-2025/06/29 21:03:25 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
-2025/06/29 21:03:26 Received status from worker worker-3: READY, test: , progress: 0/0
-2025/06/29 21:03:26 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
-2025/06/29 21:03:26 Worker worker-3 became READY, added to availability queue.
-2025/06/29 21:03:27 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
-2025/06/29 21:03:29 Received status from worker worker-1: READY, test: , progress: 0/0
-2025/06/29 21:03:29 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
-2025/06/29 21:03:29 Worker worker-1 became READY, added to availability queue.
-2025/06/29 21:03:29 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
-2025/06/29 21:03:30 Received status from worker worker-2: READY, test: , progress: 0/0
-2025/06/29 21:03:30 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
-2025/06/29 21:03:30 Worker worker-2 became READY, added to availability queue.
-2025/06/29 21:03:31 Received status from worker worker-3: READY, test: , progress: 0/0
-2025/06/29 21:03:31 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
-2025/06/29 21:03:31 Worker worker-3 became READY, added to availability queue.
-2025/06/29 21:03:31 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
-2025/06/29 21:03:31 Running stale worker cleanup...
-2025/06/29 21:03:33 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
-2025/06/29 21:03:34 Received status from worker worker-1: READY, test: , progress: 0/0
-2025/06/29 21:03:34 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
-2025/06/29 21:03:34 Worker worker-1 became READY, added to availability queue.
-2025/06/29 21:03:35 Received status from worker worker-2: READY, test: , progress: 0/0
-2025/06/29 21:03:35 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
-2025/06/29 21:03:35 Worker worker-2 became READY, added to availability queue.
-2025/06/29 21:03:35 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
-2025/06/29 21:03:36 Received status from worker worker-3: READY, test: , progress: 0/0
-2025/06/29 21:03:36 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
-2025/06/29 21:03:36 Worker worker-3 became READY, added to availability queue.
-2025/06/29 21:03:37 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
-2025/06/29 21:03:39 Received status from worker worker-1: READY, test: , progress: 0/0
-2025/06/29 21:03:39 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
-2025/06/29 21:03:39 Worker worker-1 became READY, added to availability queue.
-2025/06/29 21:03:39 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
-2025/06/29 21:03:40 Received status from worker worker-2: READY, test: , progress: 0/0
-2025/06/29 21:03:40 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
-2025/06/29 21:03:40 Worker worker-2 became READY, added to availability queue.
-2025/06/29 21:03:41 Received status from worker worker-3: READY, test: , progress: 0/0
-2025/06/29 21:03:41 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
-2025/06/29 21:03:41 Worker worker-3 became READY, added to availability queue.
-2025/06/29 21:03:41 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
-2025/06/29 21:03:41 Running stale worker cleanup...
-2025/06/29 21:03:43 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
-2025/06/29 21:03:44 Received status from worker worker-1: READY, test: , progress: 0/0
-2025/06/29 21:03:44 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
-2025/06/29 21:03:44 Worker worker-1 became READY, added to availability queue.
-2025/06/29 21:03:45 Received status from worker worker-2: READY, test: , progress: 0/0
-2025/06/29 21:03:45 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
-2025/06/29 21:03:45 Worker worker-2 became READY, added to availability queue.
-2025/06/29 21:03:45 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
-2025/06/29 21:03:46 Received status from worker worker-3: READY, test: , progress: 0/0
-2025/06/29 21:03:46 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
-2025/06/29 21:03:46 Worker worker-3 became READY, added to availability queue.
-2025/06/29 21:03:47 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
-2025/06/29 21:03:49 Received status from worker worker-1: READY, test: , progress: 0/0
-2025/06/29 21:03:49 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
-2025/06/29 21:03:49 Worker worker-1 became READY, added to availability queue.
-2025/06/29 21:03:49 Error fetching dashboard data for broadcast: failed to get all tests for dashboard: failed to scan test request row: sql: Scan error on column index 10, name "ramp_duration": converting NULL to string is unsupported
+2025/06/29 21:21:36 WARNING: JWT_SECRET_KEY is not set or using default. Please set a strong, unique key in production.
+2025/06/29 21:21:36 Successfully connected to PostgreSQL!
+2025/06/29 21:21:36 PostgreSQL schema initialized successfully.
+2025/06/29 21:21:36 Started aggregation background job
+2025/06/29 21:21:36 Starting test distribution routine...
+2025/06/29 21:21:36 Starting aggregation background job with interval: 2m0s
+2025/06/29 21:21:36 Master gRPC server starting on port 50051...
+2025/06/29 21:21:36 Master HTTP server starting on port 8080...
+2025/06/29 21:21:39 Worker worker-1 attempting to register from 192.168.1.6:50001
+2025/06/29 21:21:39 Worker worker-1 registered/updated in-memory.
+2025/06/29 21:21:39 Worker worker-1 added to availability queue.
+2025/06/29 21:21:39 Worker worker-1 registered successfully.
+2025/06/29 21:21:39 First status received from worker: worker-1. Starting status stream handling.
+2025/06/29 21:21:39 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:21:39 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:21:39 Worker worker-1 became READY, added to availability queue.
+2025/06/29 21:21:40 Worker worker-2 attempting to register from 192.168.1.6:50002
+2025/06/29 21:21:40 Worker worker-2 registered/updated in-memory.
+2025/06/29 21:21:40 Worker worker-2 added to availability queue.
+2025/06/29 21:21:40 Worker worker-2 registered successfully.
+2025/06/29 21:21:40 First status received from worker: worker-2. Starting status stream handling.
+2025/06/29 21:21:40 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:21:40 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:21:40 Worker worker-2 became READY, added to availability queue.
+2025/06/29 21:21:41 Worker worker-3 attempting to register from 192.168.1.6:50003
+2025/06/29 21:21:41 Worker worker-3 registered/updated in-memory.
+2025/06/29 21:21:41 Worker worker-3 added to availability queue.
+2025/06/29 21:21:41 Worker worker-3 registered successfully.
+2025/06/29 21:21:41 First status received from worker: worker-3. Starting status stream handling.
+2025/06/29 21:21:41 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:21:41 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:21:41 Worker worker-3 became READY, added to availability queue.
+2025/06/29 21:21:44 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:21:44 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:21:44 Worker worker-1 became READY, added to availability queue.
+2025/06/29 21:21:45 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:21:45 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:21:45 Worker worker-2 became READY, added to availability queue.
+2025/06/29 21:21:46 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:21:46 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:21:46 Worker worker-3 became READY, added to availability queue.
+2025/06/29 21:21:46 Running stale worker cleanup...
+2025/06/29 21:21:49 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:21:49 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:21:49 Worker worker-1 became READY, added to availability queue.
+2025/06/29 21:21:50 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:21:50 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:21:50 Worker worker-2 became READY, added to availability queue.
+2025/06/29 21:21:51 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:21:51 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:21:51 Worker worker-3 became READY, added to availability queue.
+2025/06/29 21:21:54 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:21:54 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:21:54 Worker worker-1 became READY, added to availability queue.
+2025/06/29 21:21:55 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:21:55 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:21:55 Worker worker-2 became READY, added to availability queue.
+2025/06/29 21:21:55 WebSocket client registered. Total clients: 1
+2025/06/29 21:21:56 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:21:56 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:21:56 Worker worker-3 became READY, added to availability queue.
+2025/06/29 21:21:56 Running stale worker cleanup...
+2025/06/29 21:21:59 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:21:59 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:21:59 Worker worker-1 became READY, added to availability queue.
+2025/06/29 21:22:00 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:22:00 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:22:00 Worker worker-2 became READY, added to availability queue.
+2025/06/29 21:22:01 WebSocket error: websocket: close 1005 (no status)
+2025/06/29 21:22:01 WebSocket client unregistered. Total clients: 0
+2025/06/29 21:22:01 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:22:01 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:22:01 Worker worker-3 became READY, added to availability queue.
+2025/06/29 21:22:04 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:22:04 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:22:04 Worker worker-1 became READY, added to availability queue.
+2025/06/29 21:22:05 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:22:05 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:22:05 Worker worker-2 became READY, added to availability queue.
+2025/06/29 21:22:06 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:22:06 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:22:06 Worker worker-3 became READY, added to availability queue.
+2025/06/29 21:22:06 Running stale worker cleanup...
+2025/06/29 21:22:09 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:22:09 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:22:09 Worker worker-1 became READY, added to availability queue.
+2025/06/29 21:22:10 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:22:10 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:22:10 Worker worker-2 became READY, added to availability queue.
+2025/06/29 21:22:11 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:22:11 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:22:11 Worker worker-3 became READY, added to availability queue.
+2025/06/29 21:22:14 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:22:14 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:22:14 Worker worker-1 became READY, added to availability queue.
+2025/06/29 21:22:15 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:22:15 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:22:15 Worker worker-2 became READY, added to availability queue.
+2025/06/29 21:22:16 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:22:16 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:22:16 Worker worker-3 became READY, added to availability queue.
+2025/06/29 21:22:16 Running stale worker cleanup...
+2025/06/29 21:22:19 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:22:19 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:22:19 Worker worker-1 became READY, added to availability queue.
+2025/06/29 21:22:20 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:22:20 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:22:20 Worker worker-2 became READY, added to availability queue.
+2025/06/29 21:22:21 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:22:21 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:22:21 Worker worker-3 became READY, added to availability queue.
+2025/06/29 21:22:24 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:22:24 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:22:24 Worker worker-1 became READY, added to availability queue.
+2025/06/29 21:22:25 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:22:25 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:22:25 Worker worker-2 became READY, added to availability queue.
+2025/06/29 21:22:26 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:22:26 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:22:26 Worker worker-3 became READY, added to availability queue.
+2025/06/29 21:22:26 Running stale worker cleanup...
+2025/06/29 21:22:29 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:22:29 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:22:29 Worker worker-1 became READY, added to availability queue.
+2025/06/29 21:22:30 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:22:30 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:22:30 Worker worker-2 became READY, added to availability queue.
+2025/06/29 21:22:31 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:22:31 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:22:31 Worker worker-3 became READY, added to availability queue.
+2025/06/29 21:22:34 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:22:34 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:22:34 Worker worker-1 became READY, added to availability queue.
+2025/06/29 21:22:35 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:22:35 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:22:35 Worker worker-2 became READY, added to availability queue.
+2025/06/29 21:22:36 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:22:36 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:22:36 Worker worker-3 became READY, added to availability queue.
+2025/06/29 21:22:36 Running stale worker cleanup...
+2025/06/29 21:22:39 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:22:39 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:22:39 Worker worker-1 became READY, added to availability queue.
+2025/06/29 21:22:40 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:22:40 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:22:40 Worker worker-2 became READY, added to availability queue.
+2025/06/29 21:22:41 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:22:41 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:22:41 Worker worker-3 became READY, added to availability queue.
+2025/06/29 21:22:44 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:22:44 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:22:44 Worker worker-1 became READY, added to availability queue.
+2025/06/29 21:22:45 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:22:45 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:22:45 Worker worker-2 became READY, added to availability queue.
+2025/06/29 21:22:46 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:22:46 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:22:46 Worker worker-3 became READY, added to availability queue.
+2025/06/29 21:22:46 Running stale worker cleanup...
+2025/06/29 21:22:49 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:22:49 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:22:49 Worker worker-1 became READY, added to availability queue.
+2025/06/29 21:22:50 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:22:50 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:22:50 Worker worker-2 became READY, added to availability queue.
+2025/06/29 21:22:51 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:22:51 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:22:51 Worker worker-3 became READY, added to availability queue.
+2025/06/29 21:22:54 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:22:54 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:22:54 Worker worker-1 became READY, added to availability queue.
+2025/06/29 21:22:55 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:22:55 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:22:55 Worker worker-2 became READY, added to availability queue.
+2025/06/29 21:22:56 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:22:56 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:22:56 Worker worker-3 became READY, added to availability queue.
+2025/06/29 21:22:56 Running stale worker cleanup...
+2025/06/29 21:22:59 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:22:59 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:22:59 Worker worker-1 became READY, added to availability queue.
+2025/06/29 21:23:00 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:23:00 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:23:00 Worker worker-2 became READY, added to availability queue.
+2025/06/29 21:23:00 Test 057358a4-1455-4c27-b440-da8709d71396 submitted and added to assignment queue (requires 3 workers, rate distribution: shared).
+2025/06/29 21:23:00 Picked up test 057358a4-1455-4c27-b440-da8709d71396 from queue. Looking for 3 available workers...
+2025/06/29 21:23:00 Worker worker-1 assigned to test 057358a4-1455-4c27-b440-da8709d71396 (1/3 workers collected)
+2025/06/29 21:23:00 Worker worker-1 assigned to test 057358a4-1455-4c27-b440-da8709d71396 (2/3 workers collected)
+2025/06/29 21:23:00 Worker worker-2 assigned to test 057358a4-1455-4c27-b440-da8709d71396 (3/3 workers collected)
+2025/06/29 21:23:00 Assigning test 057358a4-1455-4c27-b440-da8709d71396 to 3 workers: [worker-1 worker-1 worker-2] (rate distribution: shared)
+2025/06/29 21:23:00 Using 'shared' rate distribution: rates [4 3 3] (total: 10 req/s)
+2025/06/29 21:23:00 Assigning test 057358a4-1455-4c27-b440-da8709d71396 to worker worker-2 with rate 3 req/s (mode: shared)
+2025/06/29 21:23:00 Assigning test 057358a4-1455-4c27-b440-da8709d71396 to worker worker-1 with rate 4 req/s (mode: shared)
+2025/06/29 21:23:00 Worker worker-2 status updated to BUSY (Test: 057358a4-1455-4c27-b440-da8709d71396, Progress: 0/0).
+2025/06/29 21:23:00 Assigning test 057358a4-1455-4c27-b440-da8709d71396 to worker worker-1 with rate 3 req/s (mode: shared)
+2025/06/29 21:23:00 Worker worker-1 status updated to BUSY (Test: 057358a4-1455-4c27-b440-da8709d71396, Progress: 0/0).
+2025/06/29 21:23:00 Worker worker-1 status updated to BUSY (Test: 057358a4-1455-4c27-b440-da8709d71396, Progress: 0/0).
+2025/06/29 21:23:00 Test 057358a4-1455-4c27-b440-da8709d71396 assigned successfully to worker worker-2 (rate: 3 req/s, mode: shared)
+2025/06/29 21:23:00 Received status from worker worker-2: BUSY, test: 057358a4-1455-4c27-b440-da8709d71396, progress: 0/0
+2025/06/29 21:23:00 Worker worker-2 status updated to BUSY (Test: 057358a4-1455-4c27-b440-da8709d71396, Progress: 0/0).
+2025/06/29 21:23:00 Received status from worker worker-1: BUSY, test: 057358a4-1455-4c27-b440-da8709d71396, progress: 0/0
+2025/06/29 21:23:00 Test 057358a4-1455-4c27-b440-da8709d71396 assigned successfully to worker worker-1 (rate: 4 req/s, mode: shared)
+2025/06/29 21:23:00 Worker worker-1 status updated to BUSY (Test: 057358a4-1455-4c27-b440-da8709d71396, Progress: 0/0).
+2025/06/29 21:23:00 Received status from worker worker-1: BUSY, test: 057358a4-1455-4c27-b440-da8709d71396, progress: 0/0
+2025/06/29 21:23:00 Worker worker-1 status updated to BUSY (Test: 057358a4-1455-4c27-b440-da8709d71396, Progress: 0/0).
+2025/06/29 21:23:00 Test 057358a4-1455-4c27-b440-da8709d71396 assigned successfully to worker worker-1 (rate: 3 req/s, mode: shared)
+2025/06/29 21:23:00 Multi-worker assignment completed for test 057358a4-1455-4c27-b440-da8709d71396: 3/3 workers assigned successfully
+2025/06/29 21:23:01 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:23:01 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:23:01 Worker worker-3 became READY, added to availability queue.
+2025/06/29 21:23:04 Received status from worker worker-1: BUSY, test: 057358a4-1455-4c27-b440-da8709d71396, progress: 0/0
+2025/06/29 21:23:04 Worker worker-1 status updated to BUSY (Test: 057358a4-1455-4c27-b440-da8709d71396, Progress: 0/0).
+2025/06/29 21:23:05 Received status from worker worker-2: BUSY, test: 057358a4-1455-4c27-b440-da8709d71396, progress: 0/0
+2025/06/29 21:23:05 Worker worker-2 status updated to BUSY (Test: 057358a4-1455-4c27-b440-da8709d71396, Progress: 0/0).
+2025/06/29 21:23:06 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:23:06 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:23:06 Worker worker-3 became READY, added to availability queue.
+2025/06/29 21:23:09 WebSocket client registered. Total clients: 1
+2025/06/29 21:23:09 Received status from worker worker-1: BUSY, test: 057358a4-1455-4c27-b440-da8709d71396, progress: 0/0
+2025/06/29 21:23:09 Worker worker-1 status updated to BUSY (Test: 057358a4-1455-4c27-b440-da8709d71396, Progress: 0/0).
+2025/06/29 21:23:10 Received status from worker worker-2: BUSY, test: 057358a4-1455-4c27-b440-da8709d71396, progress: 0/0
+2025/06/29 21:23:10 Worker worker-2 status updated to BUSY (Test: 057358a4-1455-4c27-b440-da8709d71396, Progress: 0/0).
+2025/06/29 21:23:10 Running stale worker cleanup...
+2025/06/29 21:23:11 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:23:11 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:23:11 Worker worker-3 became READY, added to availability queue.
+2025/06/29 21:23:14 Received status from worker worker-1: BUSY, test: 057358a4-1455-4c27-b440-da8709d71396, progress: 0/0
+2025/06/29 21:23:14 Worker worker-1 status updated to BUSY (Test: 057358a4-1455-4c27-b440-da8709d71396, Progress: 0/0).
+2025/06/29 21:23:15 Received status from worker worker-2: BUSY, test: 057358a4-1455-4c27-b440-da8709d71396, progress: 0/0
+2025/06/29 21:23:15 Worker worker-2 status updated to BUSY (Test: 057358a4-1455-4c27-b440-da8709d71396, Progress: 0/0).
+2025/06/29 21:23:16 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:23:16 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:23:16 Worker worker-3 became READY, added to availability queue.
+2025/06/29 21:23:19 Received status from worker worker-1: BUSY, test: 057358a4-1455-4c27-b440-da8709d71396, progress: 0/0
+2025/06/29 21:23:19 Worker worker-1 status updated to BUSY (Test: 057358a4-1455-4c27-b440-da8709d71396, Progress: 0/0).
+2025/06/29 21:23:20 Received status from worker worker-2: BUSY, test: 057358a4-1455-4c27-b440-da8709d71396, progress: 0/0
+2025/06/29 21:23:20 Worker worker-2 status updated to BUSY (Test: 057358a4-1455-4c27-b440-da8709d71396, Progress: 0/0).
+2025/06/29 21:23:20 Running stale worker cleanup...
+2025/06/29 21:23:21 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:23:21 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:23:21 Worker worker-3 became READY, added to availability queue.
+2025/06/29 21:23:24 Received status from worker worker-1: BUSY, test: 057358a4-1455-4c27-b440-da8709d71396, progress: 0/0
+2025/06/29 21:23:24 Worker worker-1 status updated to BUSY (Test: 057358a4-1455-4c27-b440-da8709d71396, Progress: 0/0).
+2025/06/29 21:23:25 Received status from worker worker-2: BUSY, test: 057358a4-1455-4c27-b440-da8709d71396, progress: 0/0
+2025/06/29 21:23:25 Worker worker-2 status updated to BUSY (Test: 057358a4-1455-4c27-b440-da8709d71396, Progress: 0/0).
+2025/06/29 21:23:26 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:23:26 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:23:26 Worker worker-3 became READY, added to availability queue.
+2025/06/29 21:23:29 Received status from worker worker-1: BUSY, test: 057358a4-1455-4c27-b440-da8709d71396, progress: 0/0
+2025/06/29 21:23:29 Worker worker-1 status updated to BUSY (Test: 057358a4-1455-4c27-b440-da8709d71396, Progress: 0/0).
+2025/06/29 21:23:30 Received status from worker worker-2: BUSY, test: 057358a4-1455-4c27-b440-da8709d71396, progress: 0/0
+2025/06/29 21:23:30 Worker worker-2 status updated to BUSY (Test: 057358a4-1455-4c27-b440-da8709d71396, Progress: 0/0).
+2025/06/29 21:23:30 Running stale worker cleanup...
+2025/06/29 21:23:31 Received status from worker worker-2: FINISHING, test: 057358a4-1455-4c27-b440-da8709d71396, progress: 90/90
+2025/06/29 21:23:31 Worker worker-2 status updated to FINISHING (Test: 057358a4-1455-4c27-b440-da8709d71396, Progress: 90/90).
+2025/06/29 21:23:31 Worker worker-2 signaling test 057358a4-1455-4c27-b440-da8709d71396 completion/error.
+2025/06/29 21:23:31 Handling completion for test 057358a4-1455-4c27-b440-da8709d71396 by worker worker-2. Is Error: false
+2025/06/29 21:23:31 Test 057358a4-1455-4c27-b440-da8709d71396 worker status: Expected=3, Completed=1, Failed=0, Total Finished=1
+2025/06/29 21:23:31 Test 057358a4-1455-4c27-b440-da8709d71396 still waiting for 2 more workers to finish
+2025/06/29 21:23:31 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:23:31 Worker worker-2 became READY, added to availability queue.
+2025/06/29 21:23:31 Received status from worker worker-1: FINISHING, test: 057358a4-1455-4c27-b440-da8709d71396, progress: 90/90
+2025/06/29 21:23:31 Worker worker-1 status updated to FINISHING (Test: 057358a4-1455-4c27-b440-da8709d71396, Progress: 90/90).
+2025/06/29 21:23:31 Worker worker-1 signaling test 057358a4-1455-4c27-b440-da8709d71396 completion/error.
+2025/06/29 21:23:31 Handling completion for test 057358a4-1455-4c27-b440-da8709d71396 by worker worker-1. Is Error: false
+2025/06/29 21:23:31 Test 057358a4-1455-4c27-b440-da8709d71396 worker status: Expected=3, Completed=2, Failed=0, Total Finished=2
+2025/06/29 21:23:31 Test 057358a4-1455-4c27-b440-da8709d71396 still waiting for 1 more workers to finish
+2025/06/29 21:23:31 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:23:31 Worker worker-1 became READY, added to availability queue.
+2025/06/29 21:23:31 Received status from worker worker-1: FINISHING, test: 057358a4-1455-4c27-b440-da8709d71396, progress: 120/120
+2025/06/29 21:23:31 Worker worker-1 status updated to FINISHING (Test: 057358a4-1455-4c27-b440-da8709d71396, Progress: 120/120).
+2025/06/29 21:23:31 Worker worker-1 signaling test 057358a4-1455-4c27-b440-da8709d71396 completion/error.
+2025/06/29 21:23:31 Handling completion for test 057358a4-1455-4c27-b440-da8709d71396 by worker worker-1. Is Error: false
+2025/06/29 21:23:31 Test 057358a4-1455-4c27-b440-da8709d71396 worker status: Expected=3, Completed=3, Failed=0, Total Finished=3
+2025/06/29 21:23:31 All 3 workers for test 057358a4-1455-4c27-b440-da8709d71396 have finished (completed: 3, failed: 0)
+2025/06/29 21:23:31 Setting test 057358a4-1455-4c27-b440-da8709d71396 final status to: COMPLETED
+2025/06/29 21:23:31 Triggering aggregation for completed test 057358a4-1455-4c27-b440-da8709d71396
+2025/06/29 21:23:31 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:23:31 Worker worker-1 became READY, added to availability queue.
+2025/06/29 21:23:31 Starting aggregation for test: 057358a4-1455-4c27-b440-da8709d71396
+2025/06/29 21:23:31 Aggregated results saved for test: 057358a4-1455-4c27-b440-da8709d71396
+2025/06/29 21:23:31 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:23:31 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:23:31 Worker worker-3 became READY, added to availability queue.
+2025/06/29 21:23:32 WebSocket error: websocket: close 1005 (no status)
+2025/06/29 21:23:32 WebSocket client unregistered. Total clients: 0
+2025/06/29 21:23:34 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:23:34 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:23:34 Worker worker-1 became READY, added to availability queue.
+2025/06/29 21:23:35 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:23:35 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:23:35 Worker worker-2 became READY, added to availability queue.
+2025/06/29 21:23:36 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:23:36 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:23:36 Worker worker-3 became READY, added to availability queue.
+2025/06/29 21:23:36 Checking for completed tests without aggregated results...
+2025/06/29 21:23:36 No orphaned tests found
+2025/06/29 21:23:39 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:23:39 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:23:39 Worker worker-1 became READY, added to availability queue.
+2025/06/29 21:23:40 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:23:40 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:23:40 Worker worker-2 became READY, added to availability queue.
+2025/06/29 21:23:40 Running stale worker cleanup...
+2025/06/29 21:23:41 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:23:41 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:23:41 Worker worker-3 became READY, added to availability queue.
+2025/06/29 21:23:44 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:23:44 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:23:44 Worker worker-1 became READY, added to availability queue.
+2025/06/29 21:23:45 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:23:45 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:23:45 Worker worker-2 became READY, added to availability queue.
+2025/06/29 21:23:46 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:23:46 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:23:46 Worker worker-3 became READY, added to availability queue.
+2025/06/29 21:23:47 WebSocket client registered. Total clients: 1
+2025/06/29 21:23:49 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:23:49 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:23:49 Worker worker-1 became READY, added to availability queue.
+2025/06/29 21:23:50 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:23:50 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:23:50 Worker worker-2 became READY, added to availability queue.
+2025/06/29 21:23:50 Running stale worker cleanup...
+2025/06/29 21:23:51 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:23:51 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:23:51 Worker worker-3 became READY, added to availability queue.
+2025/06/29 21:23:51 WebSocket error: websocket: close 1005 (no status)
+2025/06/29 21:23:51 WebSocket client unregistered. Total clients: 0
+2025/06/29 21:23:54 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:23:54 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:23:54 Worker worker-1 became READY, added to availability queue.
+2025/06/29 21:23:55 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:23:55 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:23:55 Worker worker-2 became READY, added to availability queue.
+2025/06/29 21:23:56 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:23:56 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:23:56 Worker worker-3 became READY, added to availability queue.
+2025/06/29 21:23:59 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:23:59 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:23:59 Worker worker-1 became READY, added to availability queue.
+2025/06/29 21:24:00 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:24:00 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:24:00 Worker worker-2 became READY, added to availability queue.
+2025/06/29 21:24:00 Running stale worker cleanup...
+2025/06/29 21:24:01 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:24:01 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:24:01 Worker worker-3 became READY, added to availability queue.
+2025/06/29 21:24:04 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:24:04 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:24:04 Worker worker-1 became READY, added to availability queue.
+2025/06/29 21:24:05 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:24:05 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:24:05 Worker worker-2 became READY, added to availability queue.
+2025/06/29 21:24:06 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:24:06 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:24:06 Worker worker-3 became READY, added to availability queue.
+2025/06/29 21:24:09 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:24:09 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:24:09 Worker worker-1 became READY, added to availability queue.
+2025/06/29 21:24:10 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:24:10 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:24:10 Worker worker-2 became READY, added to availability queue.
+2025/06/29 21:24:10 Running stale worker cleanup...
+2025/06/29 21:24:11 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:24:11 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:24:11 Worker worker-3 became READY, added to availability queue.
+2025/06/29 21:24:14 WebSocket client registered. Total clients: 1
+2025/06/29 21:24:14 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:24:14 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:24:14 Worker worker-1 became READY, added to availability queue.
+2025/06/29 21:24:15 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:24:15 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:24:15 Worker worker-2 became READY, added to availability queue.
+2025/06/29 21:24:16 WebSocket error: websocket: close 1005 (no status)
+2025/06/29 21:24:16 WebSocket client unregistered. Total clients: 0
+2025/06/29 21:24:16 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:24:16 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:24:16 Worker worker-3 became READY, added to availability queue.
+2025/06/29 21:24:19 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:24:19 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:24:19 Worker worker-1 became READY, added to availability queue.
+2025/06/29 21:24:20 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:24:20 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:24:20 Worker worker-2 became READY, added to availability queue.
+2025/06/29 21:24:20 Running stale worker cleanup...
+2025/06/29 21:24:21 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:24:21 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:24:21 Worker worker-3 became READY, added to availability queue.
+2025/06/29 21:24:24 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:24:24 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:24:24 Worker worker-1 became READY, added to availability queue.
+2025/06/29 21:24:25 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:24:25 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:24:25 Worker worker-2 became READY, added to availability queue.
+2025/06/29 21:24:26 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:24:26 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:24:26 Worker worker-3 became READY, added to availability queue.
+2025/06/29 21:24:29 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:24:29 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:24:29 Worker worker-1 became READY, added to availability queue.
+2025/06/29 21:24:30 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:24:30 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:24:30 Worker worker-2 became READY, added to availability queue.
+2025/06/29 21:24:30 Running stale worker cleanup...
+2025/06/29 21:24:31 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:24:31 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:24:31 Worker worker-3 became READY, added to availability queue.
+2025/06/29 21:24:34 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:24:34 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:24:34 Worker worker-1 became READY, added to availability queue.
+2025/06/29 21:24:35 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:24:35 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:24:35 Worker worker-2 became READY, added to availability queue.
+2025/06/29 21:24:36 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:24:36 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:24:36 Worker worker-3 became READY, added to availability queue.
+2025/06/29 21:24:39 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:24:39 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:24:39 Worker worker-1 became READY, added to availability queue.
+2025/06/29 21:24:40 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:24:40 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:24:40 Worker availability queue full, worker-2 not added immediately upon READY status.
+2025/06/29 21:24:40 Running stale worker cleanup...
+2025/06/29 21:24:41 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:24:41 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:24:41 Worker availability queue full, worker-3 not added immediately upon READY status.
+2025/06/29 21:24:44 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:24:44 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:24:44 Worker availability queue full, worker-1 not added immediately upon READY status.
+2025/06/29 21:24:45 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:24:45 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:24:45 Worker availability queue full, worker-2 not added immediately upon READY status.
+2025/06/29 21:24:46 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:24:46 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:24:46 Worker availability queue full, worker-3 not added immediately upon READY status.
+2025/06/29 21:24:49 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:24:49 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:24:49 Worker availability queue full, worker-1 not added immediately upon READY status.
+2025/06/29 21:24:50 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:24:50 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:24:50 Worker availability queue full, worker-2 not added immediately upon READY status.
+2025/06/29 21:24:50 Running stale worker cleanup...
+2025/06/29 21:24:51 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:24:51 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:24:51 Worker availability queue full, worker-3 not added immediately upon READY status.
+2025/06/29 21:24:54 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:24:54 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:24:54 Worker availability queue full, worker-1 not added immediately upon READY status.
+2025/06/29 21:24:55 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:24:55 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:24:55 Worker availability queue full, worker-2 not added immediately upon READY status.
+2025/06/29 21:24:56 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:24:56 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:24:56 Worker availability queue full, worker-3 not added immediately upon READY status.
+2025/06/29 21:24:59 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:24:59 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:24:59 Worker availability queue full, worker-1 not added immediately upon READY status.
+2025/06/29 21:25:00 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:25:00 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:25:00 Worker availability queue full, worker-2 not added immediately upon READY status.
+2025/06/29 21:25:00 Running stale worker cleanup...
+2025/06/29 21:25:01 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:25:01 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:25:01 Worker availability queue full, worker-3 not added immediately upon READY status.
+2025/06/29 21:25:04 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:25:04 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:25:04 Worker availability queue full, worker-1 not added immediately upon READY status.
+2025/06/29 21:25:05 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:25:05 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:25:05 Worker availability queue full, worker-2 not added immediately upon READY status.
+2025/06/29 21:25:06 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:25:06 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:25:06 Worker availability queue full, worker-3 not added immediately upon READY status.
+2025/06/29 21:25:09 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:25:09 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:25:09 Worker availability queue full, worker-1 not added immediately upon READY status.
+2025/06/29 21:25:10 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:25:10 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:25:10 Worker availability queue full, worker-2 not added immediately upon READY status.
+2025/06/29 21:25:10 Running stale worker cleanup...
+2025/06/29 21:25:11 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:25:11 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:25:11 Worker availability queue full, worker-3 not added immediately upon READY status.
+2025/06/29 21:25:14 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:25:14 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:25:14 Worker availability queue full, worker-1 not added immediately upon READY status.
+2025/06/29 21:25:15 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:25:15 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:25:15 Worker availability queue full, worker-2 not added immediately upon READY status.
+2025/06/29 21:25:16 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:25:16 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:25:16 Worker availability queue full, worker-3 not added immediately upon READY status.
+2025/06/29 21:25:19 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:25:19 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:25:19 Worker availability queue full, worker-1 not added immediately upon READY status.
+2025/06/29 21:25:20 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:25:20 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:25:20 Worker availability queue full, worker-2 not added immediately upon READY status.
+2025/06/29 21:25:20 Running stale worker cleanup...
+2025/06/29 21:25:21 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:25:21 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:25:21 Worker availability queue full, worker-3 not added immediately upon READY status.
+2025/06/29 21:25:24 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:25:24 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:25:24 Worker availability queue full, worker-1 not added immediately upon READY status.
+2025/06/29 21:25:25 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:25:25 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:25:25 Worker availability queue full, worker-2 not added immediately upon READY status.
+2025/06/29 21:25:26 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:25:26 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:25:26 Worker availability queue full, worker-3 not added immediately upon READY status.
+2025/06/29 21:25:29 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:25:29 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:25:29 Worker availability queue full, worker-1 not added immediately upon READY status.
+2025/06/29 21:25:30 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:25:30 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:25:30 Worker availability queue full, worker-2 not added immediately upon READY status.
+2025/06/29 21:25:30 Running stale worker cleanup...
+2025/06/29 21:25:31 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:25:31 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:25:31 Worker availability queue full, worker-3 not added immediately upon READY status.
+2025/06/29 21:25:34 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:25:34 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:25:34 Worker availability queue full, worker-1 not added immediately upon READY status.
+2025/06/29 21:25:35 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:25:35 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:25:35 Worker availability queue full, worker-2 not added immediately upon READY status.
+2025/06/29 21:25:36 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:25:36 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:25:36 Worker availability queue full, worker-3 not added immediately upon READY status.
+2025/06/29 21:25:36 Checking for completed tests without aggregated results...
+2025/06/29 21:25:36 No orphaned tests found
+2025/06/29 21:25:39 Test 0b21c669-b3e8-4a3e-937b-dc775a4ad68b submitted and added to assignment queue (requires 3 workers, rate distribution: shared).
+2025/06/29 21:25:39 Picked up test 0b21c669-b3e8-4a3e-937b-dc775a4ad68b from queue. Looking for 3 available workers...
+2025/06/29 21:25:39 Worker worker-2 assigned to test 0b21c669-b3e8-4a3e-937b-dc775a4ad68b (1/3 workers collected)
+2025/06/29 21:25:39 Worker worker-3 assigned to test 0b21c669-b3e8-4a3e-937b-dc775a4ad68b (2/3 workers collected)
+2025/06/29 21:25:39 Worker worker-3 assigned to test 0b21c669-b3e8-4a3e-937b-dc775a4ad68b (3/3 workers collected)
+2025/06/29 21:25:39 Assigning test 0b21c669-b3e8-4a3e-937b-dc775a4ad68b to 3 workers: [worker-2 worker-3 worker-3] (rate distribution: shared)
+2025/06/29 21:25:39 Using 'shared' rate distribution: rates [10 10 10] (total: 30 req/s)
+2025/06/29 21:25:39 Assigning test 0b21c669-b3e8-4a3e-937b-dc775a4ad68b to worker worker-3 with rate 10 req/s (mode: shared)
+2025/06/29 21:25:39 Worker worker-3 status updated to BUSY (Test: 0b21c669-b3e8-4a3e-937b-dc775a4ad68b, Progress: 0/0).
+2025/06/29 21:25:39 Assigning test 0b21c669-b3e8-4a3e-937b-dc775a4ad68b to worker worker-2 with rate 10 req/s (mode: shared)
+2025/06/29 21:25:39 Worker worker-2 status updated to BUSY (Test: 0b21c669-b3e8-4a3e-937b-dc775a4ad68b, Progress: 0/0).
+2025/06/29 21:25:39 Assigning test 0b21c669-b3e8-4a3e-937b-dc775a4ad68b to worker worker-3 with rate 10 req/s (mode: shared)
+2025/06/29 21:25:39 Worker worker-3 status updated to BUSY (Test: 0b21c669-b3e8-4a3e-937b-dc775a4ad68b, Progress: 0/0).
+2025/06/29 21:25:39 Test 0b21c669-b3e8-4a3e-937b-dc775a4ad68b assigned successfully to worker worker-2 (rate: 10 req/s, mode: shared)
+2025/06/29 21:25:39 Received status from worker worker-2: BUSY, test: 0b21c669-b3e8-4a3e-937b-dc775a4ad68b, progress: 0/0
+2025/06/29 21:25:39 Worker worker-2 status updated to BUSY (Test: 0b21c669-b3e8-4a3e-937b-dc775a4ad68b, Progress: 0/0).
+2025/06/29 21:25:39 Test 0b21c669-b3e8-4a3e-937b-dc775a4ad68b assigned successfully to worker worker-3 (rate: 10 req/s, mode: shared)
+2025/06/29 21:25:39 Received status from worker worker-3: BUSY, test: 0b21c669-b3e8-4a3e-937b-dc775a4ad68b, progress: 0/0
+2025/06/29 21:25:39 Worker worker-3 status updated to BUSY (Test: 0b21c669-b3e8-4a3e-937b-dc775a4ad68b, Progress: 0/0).
+2025/06/29 21:25:39 Test 0b21c669-b3e8-4a3e-937b-dc775a4ad68b assigned successfully to worker worker-3 (rate: 10 req/s, mode: shared)
+2025/06/29 21:25:39 Received status from worker worker-3: BUSY, test: 0b21c669-b3e8-4a3e-937b-dc775a4ad68b, progress: 0/0
+2025/06/29 21:25:39 Worker worker-3 status updated to BUSY (Test: 0b21c669-b3e8-4a3e-937b-dc775a4ad68b, Progress: 0/0).
+2025/06/29 21:25:39 Multi-worker assignment completed for test 0b21c669-b3e8-4a3e-937b-dc775a4ad68b: 3/3 workers assigned successfully
+2025/06/29 21:25:39 Test 6cf07bdf-4018-42af-b77d-63f367ef6b0e submitted and added to assignment queue (requires 3 workers, rate distribution: shared).
+2025/06/29 21:25:39 Picked up test 6cf07bdf-4018-42af-b77d-63f367ef6b0e from queue. Looking for 3 available workers...
+2025/06/29 21:25:39 Worker worker-1 assigned to test 6cf07bdf-4018-42af-b77d-63f367ef6b0e (1/3 workers collected)
+2025/06/29 21:25:39 Worker worker-2 assigned to test 6cf07bdf-4018-42af-b77d-63f367ef6b0e (2/3 workers collected)
+2025/06/29 21:25:39 Worker worker-3 assigned to test 6cf07bdf-4018-42af-b77d-63f367ef6b0e (3/3 workers collected)
+2025/06/29 21:25:39 Assigning test 6cf07bdf-4018-42af-b77d-63f367ef6b0e to 3 workers: [worker-1 worker-2 worker-3] (rate distribution: shared)
+2025/06/29 21:25:39 Using 'shared' rate distribution: rates [10 10 10] (total: 30 req/s)
+2025/06/29 21:25:39 Assigning test 6cf07bdf-4018-42af-b77d-63f367ef6b0e to worker worker-3 with rate 10 req/s (mode: shared)
+2025/06/29 21:25:39 Assigning test 6cf07bdf-4018-42af-b77d-63f367ef6b0e to worker worker-2 with rate 10 req/s (mode: shared)
+2025/06/29 21:25:39 Worker worker-3 status updated to BUSY (Test: 6cf07bdf-4018-42af-b77d-63f367ef6b0e, Progress: 0/0).
+2025/06/29 21:25:39 Assigning test 6cf07bdf-4018-42af-b77d-63f367ef6b0e to worker worker-1 with rate 10 req/s (mode: shared)
+2025/06/29 21:25:39 Worker worker-1 status updated to BUSY (Test: 6cf07bdf-4018-42af-b77d-63f367ef6b0e, Progress: 0/0).
+2025/06/29 21:25:39 Worker worker-2 status updated to BUSY (Test: 6cf07bdf-4018-42af-b77d-63f367ef6b0e, Progress: 0/0).
+2025/06/29 21:25:39 Test 6cf07bdf-4018-42af-b77d-63f367ef6b0e assigned successfully to worker worker-2 (rate: 10 req/s, mode: shared)
+2025/06/29 21:25:39 Received status from worker worker-1: BUSY, test: 6cf07bdf-4018-42af-b77d-63f367ef6b0e, progress: 0/0
+2025/06/29 21:25:39 Worker worker-1 status updated to BUSY (Test: 6cf07bdf-4018-42af-b77d-63f367ef6b0e, Progress: 0/0).
+2025/06/29 21:25:39 Test 6cf07bdf-4018-42af-b77d-63f367ef6b0e assigned successfully to worker worker-1 (rate: 10 req/s, mode: shared)
+2025/06/29 21:25:39 Received status from worker worker-2: BUSY, test: 6cf07bdf-4018-42af-b77d-63f367ef6b0e, progress: 0/0
+2025/06/29 21:25:39 Worker worker-2 status updated to BUSY (Test: 6cf07bdf-4018-42af-b77d-63f367ef6b0e, Progress: 0/0).
+2025/06/29 21:25:39 Received status from worker worker-3: BUSY, test: 6cf07bdf-4018-42af-b77d-63f367ef6b0e, progress: 0/0
+2025/06/29 21:25:39 Worker worker-3 status updated to BUSY (Test: 6cf07bdf-4018-42af-b77d-63f367ef6b0e, Progress: 0/0).
+2025/06/29 21:25:39 Test 6cf07bdf-4018-42af-b77d-63f367ef6b0e assigned successfully to worker worker-3 (rate: 10 req/s, mode: shared)
+2025/06/29 21:25:39 Multi-worker assignment completed for test 6cf07bdf-4018-42af-b77d-63f367ef6b0e: 3/3 workers assigned successfully
+2025/06/29 21:25:39 Test eb51c435-d794-4312-ba1d-bcb9c125db7f submitted and added to assignment queue (requires 3 workers, rate distribution: shared).
+2025/06/29 21:25:39 Picked up test eb51c435-d794-4312-ba1d-bcb9c125db7f from queue. Looking for 3 available workers...
+2025/06/29 21:25:39 Worker worker-1 assigned to test eb51c435-d794-4312-ba1d-bcb9c125db7f (1/3 workers collected)
+2025/06/29 21:25:39 Worker worker-2 assigned to test eb51c435-d794-4312-ba1d-bcb9c125db7f (2/3 workers collected)
+2025/06/29 21:25:39 Worker worker-3 assigned to test eb51c435-d794-4312-ba1d-bcb9c125db7f (3/3 workers collected)
+2025/06/29 21:25:39 Assigning test eb51c435-d794-4312-ba1d-bcb9c125db7f to 3 workers: [worker-1 worker-2 worker-3] (rate distribution: shared)
+2025/06/29 21:25:39 Using 'shared' rate distribution: rates [10 10 10] (total: 30 req/s)
+2025/06/29 21:25:39 Assigning test eb51c435-d794-4312-ba1d-bcb9c125db7f to worker worker-3 with rate 10 req/s (mode: shared)
+2025/06/29 21:25:39 Assigning test eb51c435-d794-4312-ba1d-bcb9c125db7f to worker worker-2 with rate 10 req/s (mode: shared)
+2025/06/29 21:25:39 Assigning test eb51c435-d794-4312-ba1d-bcb9c125db7f to worker worker-1 with rate 10 req/s (mode: shared)
+2025/06/29 21:25:39 Worker worker-3 status updated to BUSY (Test: eb51c435-d794-4312-ba1d-bcb9c125db7f, Progress: 0/0).
+2025/06/29 21:25:39 Worker worker-2 status updated to BUSY (Test: eb51c435-d794-4312-ba1d-bcb9c125db7f, Progress: 0/0).
+2025/06/29 21:25:39 Worker worker-1 status updated to BUSY (Test: eb51c435-d794-4312-ba1d-bcb9c125db7f, Progress: 0/0).
+2025/06/29 21:25:39 Test eb51c435-d794-4312-ba1d-bcb9c125db7f assigned successfully to worker worker-3 (rate: 10 req/s, mode: shared)
+2025/06/29 21:25:39 Test eb51c435-d794-4312-ba1d-bcb9c125db7f assigned successfully to worker worker-1 (rate: 10 req/s, mode: shared)
+2025/06/29 21:25:39 Received status from worker worker-2: BUSY, test: eb51c435-d794-4312-ba1d-bcb9c125db7f, progress: 0/0
+2025/06/29 21:25:39 Worker worker-2 status updated to BUSY (Test: eb51c435-d794-4312-ba1d-bcb9c125db7f, Progress: 0/0).
+2025/06/29 21:25:39 Test eb51c435-d794-4312-ba1d-bcb9c125db7f assigned successfully to worker worker-2 (rate: 10 req/s, mode: shared)
+2025/06/29 21:25:39 Received status from worker worker-3: BUSY, test: eb51c435-d794-4312-ba1d-bcb9c125db7f, progress: 0/0
+2025/06/29 21:25:39 Worker worker-3 status updated to BUSY (Test: eb51c435-d794-4312-ba1d-bcb9c125db7f, Progress: 0/0).
+2025/06/29 21:25:39 Multi-worker assignment completed for test eb51c435-d794-4312-ba1d-bcb9c125db7f: 3/3 workers assigned successfully
+2025/06/29 21:25:39 Received status from worker worker-1: BUSY, test: eb51c435-d794-4312-ba1d-bcb9c125db7f, progress: 0/0
+2025/06/29 21:25:39 Worker worker-1 status updated to BUSY (Test: eb51c435-d794-4312-ba1d-bcb9c125db7f, Progress: 0/0).
+2025/06/29 21:25:39 Test 42eb6b1b-18a8-4dc2-9613-55cbe064cf12 submitted and added to assignment queue (requires 3 workers, rate distribution: shared).
+2025/06/29 21:25:39 Picked up test 42eb6b1b-18a8-4dc2-9613-55cbe064cf12 from queue. Looking for 3 available workers...
+2025/06/29 21:25:39 Worker worker-1 assigned to test 42eb6b1b-18a8-4dc2-9613-55cbe064cf12 (1/3 workers collected)
+2025/06/29 21:25:39 Worker worker-2 assigned to test 42eb6b1b-18a8-4dc2-9613-55cbe064cf12 (2/3 workers collected)
+2025/06/29 21:25:39 Worker worker-3 assigned to test 42eb6b1b-18a8-4dc2-9613-55cbe064cf12 (3/3 workers collected)
+2025/06/29 21:25:39 Assigning test 42eb6b1b-18a8-4dc2-9613-55cbe064cf12 to 3 workers: [worker-1 worker-2 worker-3] (rate distribution: shared)
+2025/06/29 21:25:39 Using 'shared' rate distribution: rates [10 10 10] (total: 30 req/s)
+2025/06/29 21:25:39 Assigning test 42eb6b1b-18a8-4dc2-9613-55cbe064cf12 to worker worker-3 with rate 10 req/s (mode: shared)
+2025/06/29 21:25:39 Assigning test 42eb6b1b-18a8-4dc2-9613-55cbe064cf12 to worker worker-1 with rate 10 req/s (mode: shared)
+2025/06/29 21:25:39 Assigning test 42eb6b1b-18a8-4dc2-9613-55cbe064cf12 to worker worker-2 with rate 10 req/s (mode: shared)
+2025/06/29 21:25:39 Worker worker-3 status updated to BUSY (Test: 42eb6b1b-18a8-4dc2-9613-55cbe064cf12, Progress: 0/0).
+2025/06/29 21:25:39 Worker worker-1 status updated to BUSY (Test: 42eb6b1b-18a8-4dc2-9613-55cbe064cf12, Progress: 0/0).
+2025/06/29 21:25:39 Worker worker-2 status updated to BUSY (Test: 42eb6b1b-18a8-4dc2-9613-55cbe064cf12, Progress: 0/0).
+2025/06/29 21:25:39 Test 42eb6b1b-18a8-4dc2-9613-55cbe064cf12 assigned successfully to worker worker-1 (rate: 10 req/s, mode: shared)
+2025/06/29 21:25:39 Received status from worker worker-3: BUSY, test: 42eb6b1b-18a8-4dc2-9613-55cbe064cf12, progress: 0/0
+2025/06/29 21:25:39 Worker worker-3 status updated to BUSY (Test: 42eb6b1b-18a8-4dc2-9613-55cbe064cf12, Progress: 0/0).
+2025/06/29 21:25:39 Received status from worker worker-2: BUSY, test: 42eb6b1b-18a8-4dc2-9613-55cbe064cf12, progress: 0/0
+2025/06/29 21:25:39 Worker worker-2 status updated to BUSY (Test: 42eb6b1b-18a8-4dc2-9613-55cbe064cf12, Progress: 0/0).
+2025/06/29 21:25:39 Test 42eb6b1b-18a8-4dc2-9613-55cbe064cf12 assigned successfully to worker worker-3 (rate: 10 req/s, mode: shared)
+2025/06/29 21:25:39 Received status from worker worker-1: BUSY, test: 42eb6b1b-18a8-4dc2-9613-55cbe064cf12, progress: 0/0
+2025/06/29 21:25:39 Worker worker-1 status updated to BUSY (Test: 42eb6b1b-18a8-4dc2-9613-55cbe064cf12, Progress: 0/0).
+2025/06/29 21:25:39 Test 42eb6b1b-18a8-4dc2-9613-55cbe064cf12 assigned successfully to worker worker-2 (rate: 10 req/s, mode: shared)
+2025/06/29 21:25:39 Multi-worker assignment completed for test 42eb6b1b-18a8-4dc2-9613-55cbe064cf12: 3/3 workers assigned successfully
+2025/06/29 21:25:39 Test b726ccd8-46d5-4305-a0a4-c12ff0e09320 submitted and added to assignment queue (requires 3 workers, rate distribution: shared).
+2025/06/29 21:25:39 Picked up test b726ccd8-46d5-4305-a0a4-c12ff0e09320 from queue. Looking for 3 available workers...
+2025/06/29 21:25:39 Worker worker-1 assigned to test b726ccd8-46d5-4305-a0a4-c12ff0e09320 (1/3 workers collected)
+2025/06/29 21:25:39 Worker worker-2 assigned to test b726ccd8-46d5-4305-a0a4-c12ff0e09320 (2/3 workers collected)
+2025/06/29 21:25:39 Worker worker-3 assigned to test b726ccd8-46d5-4305-a0a4-c12ff0e09320 (3/3 workers collected)
+2025/06/29 21:25:39 Assigning test b726ccd8-46d5-4305-a0a4-c12ff0e09320 to 3 workers: [worker-1 worker-2 worker-3] (rate distribution: shared)
+2025/06/29 21:25:39 Using 'shared' rate distribution: rates [17 17 16] (total: 50 req/s)
+2025/06/29 21:25:39 Assigning test b726ccd8-46d5-4305-a0a4-c12ff0e09320 to worker worker-3 with rate 16 req/s (mode: shared)
+2025/06/29 21:25:39 Assigning test b726ccd8-46d5-4305-a0a4-c12ff0e09320 to worker worker-1 with rate 17 req/s (mode: shared)
+2025/06/29 21:25:39 Worker worker-3 status updated to BUSY (Test: b726ccd8-46d5-4305-a0a4-c12ff0e09320, Progress: 0/0).
+2025/06/29 21:25:39 Assigning test b726ccd8-46d5-4305-a0a4-c12ff0e09320 to worker worker-2 with rate 17 req/s (mode: shared)
+2025/06/29 21:25:39 Worker worker-2 status updated to BUSY (Test: b726ccd8-46d5-4305-a0a4-c12ff0e09320, Progress: 0/0).
+2025/06/29 21:25:39 Worker worker-1 status updated to BUSY (Test: b726ccd8-46d5-4305-a0a4-c12ff0e09320, Progress: 0/0).
+2025/06/29 21:25:39 Test b726ccd8-46d5-4305-a0a4-c12ff0e09320 assigned successfully to worker worker-2 (rate: 17 req/s, mode: shared)
+2025/06/29 21:25:39 Test b726ccd8-46d5-4305-a0a4-c12ff0e09320 assigned successfully to worker worker-3 (rate: 16 req/s, mode: shared)
+2025/06/29 21:25:39 Received status from worker worker-3: BUSY, test: b726ccd8-46d5-4305-a0a4-c12ff0e09320, progress: 0/0
+2025/06/29 21:25:39 Worker worker-3 status updated to BUSY (Test: b726ccd8-46d5-4305-a0a4-c12ff0e09320, Progress: 0/0).
+2025/06/29 21:25:39 Received status from worker worker-1: BUSY, test: b726ccd8-46d5-4305-a0a4-c12ff0e09320, progress: 0/0
+2025/06/29 21:25:39 Worker worker-1 status updated to BUSY (Test: b726ccd8-46d5-4305-a0a4-c12ff0e09320, Progress: 0/0).
+2025/06/29 21:25:39 Received status from worker worker-2: BUSY, test: b726ccd8-46d5-4305-a0a4-c12ff0e09320, progress: 0/0
+2025/06/29 21:25:39 Worker worker-2 status updated to BUSY (Test: b726ccd8-46d5-4305-a0a4-c12ff0e09320, Progress: 0/0).
+2025/06/29 21:25:39 Test b726ccd8-46d5-4305-a0a4-c12ff0e09320 assigned successfully to worker worker-1 (rate: 17 req/s, mode: shared)
+2025/06/29 21:25:39 Multi-worker assignment completed for test b726ccd8-46d5-4305-a0a4-c12ff0e09320: 3/3 workers assigned successfully
+2025/06/29 21:25:39 Test a7848ea2-22d5-4d4c-87c6-2475a4fe3376 submitted and added to assignment queue (requires 4 workers, rate distribution: shared).
+2025/06/29 21:25:39 Picked up test a7848ea2-22d5-4d4c-87c6-2475a4fe3376 from queue. Looking for 4 available workers...
+2025/06/29 21:25:39 Worker worker-1 assigned to test a7848ea2-22d5-4d4c-87c6-2475a4fe3376 (1/4 workers collected)
+2025/06/29 21:25:39 Worker worker-2 assigned to test a7848ea2-22d5-4d4c-87c6-2475a4fe3376 (2/4 workers collected)
+2025/06/29 21:25:39 Worker worker-3 assigned to test a7848ea2-22d5-4d4c-87c6-2475a4fe3376 (3/4 workers collected)
+2025/06/29 21:25:39 Worker worker-1 assigned to test a7848ea2-22d5-4d4c-87c6-2475a4fe3376 (4/4 workers collected)
+2025/06/29 21:25:39 Assigning test a7848ea2-22d5-4d4c-87c6-2475a4fe3376 to 4 workers: [worker-1 worker-2 worker-3 worker-1] (rate distribution: shared)
+2025/06/29 21:25:39 Using 'shared' rate distribution: rates [8 8 7 7] (total: 30 req/s)
+2025/06/29 21:25:39 Assigning test a7848ea2-22d5-4d4c-87c6-2475a4fe3376 to worker worker-1 with rate 7 req/s (mode: shared)
+2025/06/29 21:25:39 Assigning test a7848ea2-22d5-4d4c-87c6-2475a4fe3376 to worker worker-1 with rate 8 req/s (mode: shared)
+2025/06/29 21:25:39 Assigning test a7848ea2-22d5-4d4c-87c6-2475a4fe3376 to worker worker-3 with rate 7 req/s (mode: shared)
+2025/06/29 21:25:39 Assigning test a7848ea2-22d5-4d4c-87c6-2475a4fe3376 to worker worker-2 with rate 8 req/s (mode: shared)
+2025/06/29 21:25:39 Worker worker-1 status updated to BUSY (Test: a7848ea2-22d5-4d4c-87c6-2475a4fe3376, Progress: 0/0).
+2025/06/29 21:25:39 Worker worker-1 status updated to BUSY (Test: a7848ea2-22d5-4d4c-87c6-2475a4fe3376, Progress: 0/0).
+2025/06/29 21:25:39 Worker worker-3 status updated to BUSY (Test: a7848ea2-22d5-4d4c-87c6-2475a4fe3376, Progress: 0/0).
+2025/06/29 21:25:39 Worker worker-2 status updated to BUSY (Test: a7848ea2-22d5-4d4c-87c6-2475a4fe3376, Progress: 0/0).
+2025/06/29 21:25:39 Test a7848ea2-22d5-4d4c-87c6-2475a4fe3376 assigned successfully to worker worker-1 (rate: 8 req/s, mode: shared)
+2025/06/29 21:25:39 Test a7848ea2-22d5-4d4c-87c6-2475a4fe3376 assigned successfully to worker worker-3 (rate: 7 req/s, mode: shared)
+2025/06/29 21:25:39 Received status from worker worker-1: BUSY, test: a7848ea2-22d5-4d4c-87c6-2475a4fe3376, progress: 0/0
+2025/06/29 21:25:39 Worker worker-1 status updated to BUSY (Test: a7848ea2-22d5-4d4c-87c6-2475a4fe3376, Progress: 0/0).
+2025/06/29 21:25:39 Received status from worker worker-2: BUSY, test: a7848ea2-22d5-4d4c-87c6-2475a4fe3376, progress: 0/0
+2025/06/29 21:25:39 Worker worker-2 status updated to BUSY (Test: a7848ea2-22d5-4d4c-87c6-2475a4fe3376, Progress: 0/0).
+2025/06/29 21:25:39 Received status from worker worker-3: BUSY, test: a7848ea2-22d5-4d4c-87c6-2475a4fe3376, progress: 0/0
+2025/06/29 21:25:39 Worker worker-3 status updated to BUSY (Test: a7848ea2-22d5-4d4c-87c6-2475a4fe3376, Progress: 0/0).
+2025/06/29 21:25:39 Test a7848ea2-22d5-4d4c-87c6-2475a4fe3376 assigned successfully to worker worker-2 (rate: 8 req/s, mode: shared)
+2025/06/29 21:25:39 Test a7848ea2-22d5-4d4c-87c6-2475a4fe3376 assigned successfully to worker worker-1 (rate: 7 req/s, mode: shared)
+2025/06/29 21:25:39 Multi-worker assignment completed for test a7848ea2-22d5-4d4c-87c6-2475a4fe3376: 4/4 workers assigned successfully
+2025/06/29 21:25:39 Received status from worker worker-1: BUSY, test: a7848ea2-22d5-4d4c-87c6-2475a4fe3376, progress: 0/0
+2025/06/29 21:25:39 Worker worker-1 status updated to BUSY (Test: a7848ea2-22d5-4d4c-87c6-2475a4fe3376, Progress: 0/0).
+2025/06/29 21:25:39 Test 3eb06c8a-8f3a-4b40-ac6c-f4460de7a872 submitted and added to assignment queue (requires 2 workers, rate distribution: shared).
+2025/06/29 21:25:39 Picked up test 3eb06c8a-8f3a-4b40-ac6c-f4460de7a872 from queue. Looking for 2 available workers...
+2025/06/29 21:25:39 Worker worker-2 assigned to test 3eb06c8a-8f3a-4b40-ac6c-f4460de7a872 (1/2 workers collected)
+2025/06/29 21:25:39 Worker worker-3 assigned to test 3eb06c8a-8f3a-4b40-ac6c-f4460de7a872 (2/2 workers collected)
+2025/06/29 21:25:39 Assigning test 3eb06c8a-8f3a-4b40-ac6c-f4460de7a872 to 2 workers: [worker-2 worker-3] (rate distribution: shared)
+2025/06/29 21:25:39 Using 'shared' rate distribution: rates [10 10] (total: 20 req/s)
+2025/06/29 21:25:39 Assigning test 3eb06c8a-8f3a-4b40-ac6c-f4460de7a872 to worker worker-3 with rate 10 req/s (mode: shared)
+2025/06/29 21:25:39 Worker worker-3 status updated to BUSY (Test: 3eb06c8a-8f3a-4b40-ac6c-f4460de7a872, Progress: 0/0).
+2025/06/29 21:25:39 Assigning test 3eb06c8a-8f3a-4b40-ac6c-f4460de7a872 to worker worker-2 with rate 10 req/s (mode: shared)
+2025/06/29 21:25:39 Worker worker-2 status updated to BUSY (Test: 3eb06c8a-8f3a-4b40-ac6c-f4460de7a872, Progress: 0/0).
+2025/06/29 21:25:39 Test 3eb06c8a-8f3a-4b40-ac6c-f4460de7a872 assigned successfully to worker worker-2 (rate: 10 req/s, mode: shared)
+2025/06/29 21:25:39 Test 3eb06c8a-8f3a-4b40-ac6c-f4460de7a872 assigned successfully to worker worker-3 (rate: 10 req/s, mode: shared)
+2025/06/29 21:25:39 Received status from worker worker-3: BUSY, test: 3eb06c8a-8f3a-4b40-ac6c-f4460de7a872, progress: 0/0
+2025/06/29 21:25:39 Worker worker-3 status updated to BUSY (Test: 3eb06c8a-8f3a-4b40-ac6c-f4460de7a872, Progress: 0/0).
+2025/06/29 21:25:39 Multi-worker assignment completed for test 3eb06c8a-8f3a-4b40-ac6c-f4460de7a872: 2/2 workers assigned successfully
+2025/06/29 21:25:39 Received status from worker worker-2: BUSY, test: 3eb06c8a-8f3a-4b40-ac6c-f4460de7a872, progress: 0/0
+2025/06/29 21:25:39 Worker worker-2 status updated to BUSY (Test: 3eb06c8a-8f3a-4b40-ac6c-f4460de7a872, Progress: 0/0).
+2025/06/29 21:25:39 Test efcb213e-5d28-4387-958c-aabffce3b68f submitted and added to assignment queue (requires 3 workers, rate distribution: shared).
+2025/06/29 21:25:39 Picked up test efcb213e-5d28-4387-958c-aabffce3b68f from queue. Looking for 3 available workers...
+2025/06/29 21:25:39 Worker worker-1 assigned to test efcb213e-5d28-4387-958c-aabffce3b68f (1/3 workers collected)
+2025/06/29 21:25:39 Worker worker-2 assigned to test efcb213e-5d28-4387-958c-aabffce3b68f (2/3 workers collected)
+2025/06/29 21:25:39 Worker worker-3 assigned to test efcb213e-5d28-4387-958c-aabffce3b68f (3/3 workers collected)
+2025/06/29 21:25:39 Assigning test efcb213e-5d28-4387-958c-aabffce3b68f to 3 workers: [worker-1 worker-2 worker-3] (rate distribution: shared)
+2025/06/29 21:25:39 Using 'shared' rate distribution: rates [10 10 10] (total: 30 req/s)
+2025/06/29 21:25:39 Assigning test efcb213e-5d28-4387-958c-aabffce3b68f to worker worker-3 with rate 10 req/s (mode: shared)
+2025/06/29 21:25:39 Assigning test efcb213e-5d28-4387-958c-aabffce3b68f to worker worker-1 with rate 10 req/s (mode: shared)
+2025/06/29 21:25:39 Worker worker-3 status updated to BUSY (Test: efcb213e-5d28-4387-958c-aabffce3b68f, Progress: 0/0).
+2025/06/29 21:25:39 Assigning test efcb213e-5d28-4387-958c-aabffce3b68f to worker worker-2 with rate 10 req/s (mode: shared)
+2025/06/29 21:25:39 Worker worker-1 status updated to BUSY (Test: efcb213e-5d28-4387-958c-aabffce3b68f, Progress: 0/0).
+2025/06/29 21:25:39 Worker worker-2 status updated to BUSY (Test: efcb213e-5d28-4387-958c-aabffce3b68f, Progress: 0/0).
+2025/06/29 21:25:39 Test efcb213e-5d28-4387-958c-aabffce3b68f assigned successfully to worker worker-1 (rate: 10 req/s, mode: shared)
+2025/06/29 21:25:39 Test efcb213e-5d28-4387-958c-aabffce3b68f assigned successfully to worker worker-3 (rate: 10 req/s, mode: shared)
+2025/06/29 21:25:39 Received status from worker worker-3: BUSY, test: efcb213e-5d28-4387-958c-aabffce3b68f, progress: 0/0
+2025/06/29 21:25:39 Worker worker-3 status updated to BUSY (Test: efcb213e-5d28-4387-958c-aabffce3b68f, Progress: 0/0).
+2025/06/29 21:25:39 Test efcb213e-5d28-4387-958c-aabffce3b68f assigned successfully to worker worker-2 (rate: 10 req/s, mode: shared)
+2025/06/29 21:25:39 Multi-worker assignment completed for test efcb213e-5d28-4387-958c-aabffce3b68f: 3/3 workers assigned successfully
+2025/06/29 21:25:39 Received status from worker worker-1: BUSY, test: efcb213e-5d28-4387-958c-aabffce3b68f, progress: 0/0
+2025/06/29 21:25:39 Worker worker-1 status updated to BUSY (Test: efcb213e-5d28-4387-958c-aabffce3b68f, Progress: 0/0).
+2025/06/29 21:25:39 Received status from worker worker-2: BUSY, test: efcb213e-5d28-4387-958c-aabffce3b68f, progress: 0/0
+2025/06/29 21:25:39 Worker worker-2 status updated to BUSY (Test: efcb213e-5d28-4387-958c-aabffce3b68f, Progress: 0/0).
+2025/06/29 21:25:39 Test 157ee288-71aa-4305-88a8-3aa0f7c3677e submitted and added to assignment queue (requires 3 workers, rate distribution: shared).
+2025/06/29 21:25:39 Picked up test 157ee288-71aa-4305-88a8-3aa0f7c3677e from queue. Looking for 3 available workers...
+2025/06/29 21:25:39 Worker worker-1 assigned to test 157ee288-71aa-4305-88a8-3aa0f7c3677e (1/3 workers collected)
+2025/06/29 21:25:39 Worker worker-2 assigned to test 157ee288-71aa-4305-88a8-3aa0f7c3677e (2/3 workers collected)
+2025/06/29 21:25:39 Worker worker-3 assigned to test 157ee288-71aa-4305-88a8-3aa0f7c3677e (3/3 workers collected)
+2025/06/29 21:25:39 Assigning test 157ee288-71aa-4305-88a8-3aa0f7c3677e to 3 workers: [worker-1 worker-2 worker-3] (rate distribution: shared)
+2025/06/29 21:25:39 Using 'shared' rate distribution: rates [10 10 10] (total: 30 req/s)
+2025/06/29 21:25:39 Assigning test 157ee288-71aa-4305-88a8-3aa0f7c3677e to worker worker-3 with rate 10 req/s (mode: shared)
+2025/06/29 21:25:39 Worker worker-3 status updated to BUSY (Test: 157ee288-71aa-4305-88a8-3aa0f7c3677e, Progress: 0/0).
+2025/06/29 21:25:39 Assigning test 157ee288-71aa-4305-88a8-3aa0f7c3677e to worker worker-1 with rate 10 req/s (mode: shared)
+2025/06/29 21:25:39 Worker worker-1 status updated to BUSY (Test: 157ee288-71aa-4305-88a8-3aa0f7c3677e, Progress: 0/0).
+2025/06/29 21:25:39 Assigning test 157ee288-71aa-4305-88a8-3aa0f7c3677e to worker worker-2 with rate 10 req/s (mode: shared)
+2025/06/29 21:25:39 Worker worker-2 status updated to BUSY (Test: 157ee288-71aa-4305-88a8-3aa0f7c3677e, Progress: 0/0).
+2025/06/29 21:25:39 Test 157ee288-71aa-4305-88a8-3aa0f7c3677e assigned successfully to worker worker-1 (rate: 10 req/s, mode: shared)
+2025/06/29 21:25:39 Test 157ee288-71aa-4305-88a8-3aa0f7c3677e assigned successfully to worker worker-3 (rate: 10 req/s, mode: shared)
+2025/06/29 21:25:39 Received status from worker worker-3: BUSY, test: 157ee288-71aa-4305-88a8-3aa0f7c3677e, progress: 0/0
+2025/06/29 21:25:39 Worker worker-3 status updated to BUSY (Test: 157ee288-71aa-4305-88a8-3aa0f7c3677e, Progress: 0/0).
+2025/06/29 21:25:39 Received status from worker worker-2: BUSY, test: 157ee288-71aa-4305-88a8-3aa0f7c3677e, progress: 0/0
+2025/06/29 21:25:39 Worker worker-2 status updated to BUSY (Test: 157ee288-71aa-4305-88a8-3aa0f7c3677e, Progress: 0/0).
+2025/06/29 21:25:39 Received status from worker worker-1: BUSY, test: 157ee288-71aa-4305-88a8-3aa0f7c3677e, progress: 0/0
+2025/06/29 21:25:39 Worker worker-1 status updated to BUSY (Test: 157ee288-71aa-4305-88a8-3aa0f7c3677e, Progress: 0/0).
+2025/06/29 21:25:39 Test 157ee288-71aa-4305-88a8-3aa0f7c3677e assigned successfully to worker worker-2 (rate: 10 req/s, mode: shared)
+2025/06/29 21:25:39 Multi-worker assignment completed for test 157ee288-71aa-4305-88a8-3aa0f7c3677e: 3/3 workers assigned successfully
+2025/06/29 21:25:39 Test 1461af47-694e-4d0d-9add-0dd73a0de895 submitted and added to assignment queue (requires 3 workers, rate distribution: shared).
+2025/06/29 21:25:39 Picked up test 1461af47-694e-4d0d-9add-0dd73a0de895 from queue. Looking for 3 available workers...
+2025/06/29 21:25:39 Worker worker-1 assigned to test 1461af47-694e-4d0d-9add-0dd73a0de895 (1/3 workers collected)
+2025/06/29 21:25:39 Worker worker-2 assigned to test 1461af47-694e-4d0d-9add-0dd73a0de895 (2/3 workers collected)
+2025/06/29 21:25:39 Worker worker-3 assigned to test 1461af47-694e-4d0d-9add-0dd73a0de895 (3/3 workers collected)
+2025/06/29 21:25:39 Assigning test 1461af47-694e-4d0d-9add-0dd73a0de895 to 3 workers: [worker-1 worker-2 worker-3] (rate distribution: shared)
+2025/06/29 21:25:39 Using 'shared' rate distribution: rates [10 10 10] (total: 30 req/s)
+2025/06/29 21:25:39 Assigning test 1461af47-694e-4d0d-9add-0dd73a0de895 to worker worker-3 with rate 10 req/s (mode: shared)
+2025/06/29 21:25:39 Worker worker-3 status updated to BUSY (Test: 1461af47-694e-4d0d-9add-0dd73a0de895, Progress: 0/0).
+2025/06/29 21:25:39 Assigning test 1461af47-694e-4d0d-9add-0dd73a0de895 to worker worker-1 with rate 10 req/s (mode: shared)
+2025/06/29 21:25:39 Worker worker-1 status updated to BUSY (Test: 1461af47-694e-4d0d-9add-0dd73a0de895, Progress: 0/0).
+2025/06/29 21:25:39 Assigning test 1461af47-694e-4d0d-9add-0dd73a0de895 to worker worker-2 with rate 10 req/s (mode: shared)
+2025/06/29 21:25:39 Worker worker-2 status updated to BUSY (Test: 1461af47-694e-4d0d-9add-0dd73a0de895, Progress: 0/0).
+2025/06/29 21:25:39 Test 1461af47-694e-4d0d-9add-0dd73a0de895 assigned successfully to worker worker-3 (rate: 10 req/s, mode: shared)
+2025/06/29 21:25:39 Test 1461af47-694e-4d0d-9add-0dd73a0de895 assigned successfully to worker worker-1 (rate: 10 req/s, mode: shared)
+2025/06/29 21:25:39 Test 1461af47-694e-4d0d-9add-0dd73a0de895 assigned successfully to worker worker-2 (rate: 10 req/s, mode: shared)
+2025/06/29 21:25:39 Multi-worker assignment completed for test 1461af47-694e-4d0d-9add-0dd73a0de895: 3/3 workers assigned successfully
+2025/06/29 21:25:39 Received status from worker worker-3: BUSY, test: 1461af47-694e-4d0d-9add-0dd73a0de895, progress: 0/0
+2025/06/29 21:25:39 Worker worker-3 status updated to BUSY (Test: 1461af47-694e-4d0d-9add-0dd73a0de895, Progress: 0/0).
+2025/06/29 21:25:39 Received status from worker worker-2: BUSY, test: 1461af47-694e-4d0d-9add-0dd73a0de895, progress: 0/0
+2025/06/29 21:25:39 Worker worker-2 status updated to BUSY (Test: 1461af47-694e-4d0d-9add-0dd73a0de895, Progress: 0/0).
+2025/06/29 21:25:39 Received status from worker worker-1: BUSY, test: 1461af47-694e-4d0d-9add-0dd73a0de895, progress: 0/0
+2025/06/29 21:25:39 Worker worker-1 status updated to BUSY (Test: 1461af47-694e-4d0d-9add-0dd73a0de895, Progress: 0/0).
+2025/06/29 21:25:39 Received status from worker worker-1: BUSY, test: 1461af47-694e-4d0d-9add-0dd73a0de895, progress: 0/0
+2025/06/29 21:25:39 Worker worker-1 status updated to BUSY (Test: 1461af47-694e-4d0d-9add-0dd73a0de895, Progress: 0/0).
+2025/06/29 21:25:40 Received status from worker worker-2: BUSY, test: 1461af47-694e-4d0d-9add-0dd73a0de895, progress: 0/0
+2025/06/29 21:25:40 Worker worker-2 status updated to BUSY (Test: 1461af47-694e-4d0d-9add-0dd73a0de895, Progress: 0/0).
+2025/06/29 21:25:41 Received status from worker worker-3: BUSY, test: 1461af47-694e-4d0d-9add-0dd73a0de895, progress: 0/0
+2025/06/29 21:25:41 Worker worker-3 status updated to BUSY (Test: 1461af47-694e-4d0d-9add-0dd73a0de895, Progress: 0/0).
+2025/06/29 21:25:44 Received status from worker worker-1: BUSY, test: 1461af47-694e-4d0d-9add-0dd73a0de895, progress: 0/0
+2025/06/29 21:25:44 Worker worker-1 status updated to BUSY (Test: 1461af47-694e-4d0d-9add-0dd73a0de895, Progress: 0/0).
+2025/06/29 21:25:45 Received status from worker worker-2: BUSY, test: 1461af47-694e-4d0d-9add-0dd73a0de895, progress: 0/0
+2025/06/29 21:25:45 Worker worker-2 status updated to BUSY (Test: 1461af47-694e-4d0d-9add-0dd73a0de895, Progress: 0/0).
+2025/06/29 21:25:46 WebSocket client registered. Total clients: 1
+2025/06/29 21:25:46 Received status from worker worker-3: BUSY, test: 1461af47-694e-4d0d-9add-0dd73a0de895, progress: 0/0
+2025/06/29 21:25:46 Worker worker-3 status updated to BUSY (Test: 1461af47-694e-4d0d-9add-0dd73a0de895, Progress: 0/0).
+2025/06/29 21:25:48 WebSocket error: websocket: close 1005 (no status)
+2025/06/29 21:25:48 WebSocket client unregistered. Total clients: 0
+2025/06/29 21:25:49 Received status from worker worker-2: FINISHING, test: 0b21c669-b3e8-4a3e-937b-dc775a4ad68b, progress: 100/100
+2025/06/29 21:25:49 Worker worker-2 status updated to FINISHING (Test: 0b21c669-b3e8-4a3e-937b-dc775a4ad68b, Progress: 100/100).
+2025/06/29 21:25:49 Worker worker-2 signaling test 0b21c669-b3e8-4a3e-937b-dc775a4ad68b completion/error.
+2025/06/29 21:25:49 Handling completion for test 0b21c669-b3e8-4a3e-937b-dc775a4ad68b by worker worker-2. Is Error: false
+2025/06/29 21:25:49 Test 0b21c669-b3e8-4a3e-937b-dc775a4ad68b worker status: Expected=3, Completed=1, Failed=0, Total Finished=1
+2025/06/29 21:25:49 Test 0b21c669-b3e8-4a3e-937b-dc775a4ad68b still waiting for 2 more workers to finish
+2025/06/29 21:25:49 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:25:49 Worker worker-2 became READY, added to availability queue.
+2025/06/29 21:25:49 Received status from worker worker-3: FINISHING, test: 0b21c669-b3e8-4a3e-937b-dc775a4ad68b, progress: 100/100
+2025/06/29 21:25:49 Worker worker-3 status updated to FINISHING (Test: 0b21c669-b3e8-4a3e-937b-dc775a4ad68b, Progress: 100/100).
+2025/06/29 21:25:49 Worker worker-3 signaling test 0b21c669-b3e8-4a3e-937b-dc775a4ad68b completion/error.
+2025/06/29 21:25:49 Handling completion for test 0b21c669-b3e8-4a3e-937b-dc775a4ad68b by worker worker-3. Is Error: false
+2025/06/29 21:25:49 Test 0b21c669-b3e8-4a3e-937b-dc775a4ad68b worker status: Expected=3, Completed=2, Failed=0, Total Finished=2
+2025/06/29 21:25:49 Test 0b21c669-b3e8-4a3e-937b-dc775a4ad68b still waiting for 1 more workers to finish
+2025/06/29 21:25:49 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:25:49 Worker worker-3 became READY, added to availability queue.
+2025/06/29 21:25:49 Received status from worker worker-3: FINISHING, test: 6cf07bdf-4018-42af-b77d-63f367ef6b0e, progress: 100/100
+2025/06/29 21:25:49 Worker worker-3 status updated to FINISHING (Test: 6cf07bdf-4018-42af-b77d-63f367ef6b0e, Progress: 100/100).
+2025/06/29 21:25:49 Worker worker-3 signaling test 6cf07bdf-4018-42af-b77d-63f367ef6b0e completion/error.
+2025/06/29 21:25:49 Handling completion for test 6cf07bdf-4018-42af-b77d-63f367ef6b0e by worker worker-3. Is Error: false
+2025/06/29 21:25:49 Received status from worker worker-2: FINISHING, test: 6cf07bdf-4018-42af-b77d-63f367ef6b0e, progress: 100/100
+2025/06/29 21:25:49 Worker worker-2 status updated to FINISHING (Test: 6cf07bdf-4018-42af-b77d-63f367ef6b0e, Progress: 100/100).
+2025/06/29 21:25:49 Worker worker-2 signaling test 6cf07bdf-4018-42af-b77d-63f367ef6b0e completion/error.
+2025/06/29 21:25:49 Handling completion for test 6cf07bdf-4018-42af-b77d-63f367ef6b0e by worker worker-2. Is Error: false
+2025/06/29 21:25:49 Received status from worker worker-1: FINISHING, test: 6cf07bdf-4018-42af-b77d-63f367ef6b0e, progress: 100/100
+2025/06/29 21:25:49 Worker worker-1 status updated to FINISHING (Test: 6cf07bdf-4018-42af-b77d-63f367ef6b0e, Progress: 100/100).
+2025/06/29 21:25:49 Worker worker-1 signaling test 6cf07bdf-4018-42af-b77d-63f367ef6b0e completion/error.
+2025/06/29 21:25:49 Handling completion for test 6cf07bdf-4018-42af-b77d-63f367ef6b0e by worker worker-1. Is Error: false
+2025/06/29 21:25:49 Test 6cf07bdf-4018-42af-b77d-63f367ef6b0e worker status: Expected=3, Completed=1, Failed=0, Total Finished=1
+2025/06/29 21:25:49 Test 6cf07bdf-4018-42af-b77d-63f367ef6b0e still waiting for 2 more workers to finish
+2025/06/29 21:25:49 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:25:49 Worker worker-3 became READY, added to availability queue.
+2025/06/29 21:25:49 Test 6cf07bdf-4018-42af-b77d-63f367ef6b0e worker status: Expected=3, Completed=2, Failed=0, Total Finished=2
+2025/06/29 21:25:49 Test 6cf07bdf-4018-42af-b77d-63f367ef6b0e still waiting for 1 more workers to finish
+2025/06/29 21:25:49 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:25:49 Worker worker-2 became READY, added to availability queue.
+2025/06/29 21:25:49 Received status from worker worker-3: FINISHING, test: 0b21c669-b3e8-4a3e-937b-dc775a4ad68b, progress: 100/100
+2025/06/29 21:25:49 Worker worker-3 status updated to FINISHING (Test: 0b21c669-b3e8-4a3e-937b-dc775a4ad68b, Progress: 100/100).
+2025/06/29 21:25:49 Worker worker-3 signaling test 0b21c669-b3e8-4a3e-937b-dc775a4ad68b completion/error.
+2025/06/29 21:25:49 Handling completion for test 0b21c669-b3e8-4a3e-937b-dc775a4ad68b by worker worker-3. Is Error: false
+2025/06/29 21:25:49 Test 0b21c669-b3e8-4a3e-937b-dc775a4ad68b worker status: Expected=3, Completed=3, Failed=0, Total Finished=3
+2025/06/29 21:25:49 All 3 workers for test 0b21c669-b3e8-4a3e-937b-dc775a4ad68b have finished (completed: 3, failed: 0)
+2025/06/29 21:25:49 Setting test 0b21c669-b3e8-4a3e-937b-dc775a4ad68b final status to: COMPLETED
+2025/06/29 21:25:49 Triggering aggregation for completed test 0b21c669-b3e8-4a3e-937b-dc775a4ad68b
+2025/06/29 21:25:49 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:25:49 Worker worker-3 became READY, added to availability queue.
+2025/06/29 21:25:49 Starting aggregation for test: 0b21c669-b3e8-4a3e-937b-dc775a4ad68b
+2025/06/29 21:25:49 Aggregated results saved for test: 0b21c669-b3e8-4a3e-937b-dc775a4ad68b
+2025/06/29 21:25:49 Test 6cf07bdf-4018-42af-b77d-63f367ef6b0e worker status: Expected=3, Completed=3, Failed=0, Total Finished=3
+2025/06/29 21:25:49 All 3 workers for test 6cf07bdf-4018-42af-b77d-63f367ef6b0e have finished (completed: 3, failed: 0)
+2025/06/29 21:25:49 Setting test 6cf07bdf-4018-42af-b77d-63f367ef6b0e final status to: COMPLETED
+2025/06/29 21:25:49 Triggering aggregation for completed test 6cf07bdf-4018-42af-b77d-63f367ef6b0e
+2025/06/29 21:25:49 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:25:49 Worker worker-1 became READY, added to availability queue.
+2025/06/29 21:25:49 Starting aggregation for test: 6cf07bdf-4018-42af-b77d-63f367ef6b0e
+2025/06/29 21:25:49 Received status from worker worker-1: FINISHING, test: eb51c435-d794-4312-ba1d-bcb9c125db7f, progress: 100/100
+2025/06/29 21:25:49 Worker worker-1 status updated to FINISHING (Test: eb51c435-d794-4312-ba1d-bcb9c125db7f, Progress: 100/100).
+2025/06/29 21:25:49 Worker worker-1 signaling test eb51c435-d794-4312-ba1d-bcb9c125db7f completion/error.
+2025/06/29 21:25:49 Handling completion for test eb51c435-d794-4312-ba1d-bcb9c125db7f by worker worker-1. Is Error: false
+2025/06/29 21:25:49 Received status from worker worker-3: FINISHING, test: eb51c435-d794-4312-ba1d-bcb9c125db7f, progress: 100/100
+2025/06/29 21:25:49 Worker worker-3 status updated to FINISHING (Test: eb51c435-d794-4312-ba1d-bcb9c125db7f, Progress: 100/100).
+2025/06/29 21:25:49 Worker worker-3 signaling test eb51c435-d794-4312-ba1d-bcb9c125db7f completion/error.
+2025/06/29 21:25:49 Handling completion for test eb51c435-d794-4312-ba1d-bcb9c125db7f by worker worker-3. Is Error: false
+2025/06/29 21:25:49 Aggregated results saved for test: 6cf07bdf-4018-42af-b77d-63f367ef6b0e
+2025/06/29 21:25:49 Test eb51c435-d794-4312-ba1d-bcb9c125db7f worker status: Expected=3, Completed=1, Failed=0, Total Finished=1
+2025/06/29 21:25:49 Test eb51c435-d794-4312-ba1d-bcb9c125db7f still waiting for 2 more workers to finish
+2025/06/29 21:25:49 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:25:49 Worker worker-1 became READY, added to availability queue.
+2025/06/29 21:25:49 Test eb51c435-d794-4312-ba1d-bcb9c125db7f worker status: Expected=3, Completed=2, Failed=0, Total Finished=2
+2025/06/29 21:25:49 Test eb51c435-d794-4312-ba1d-bcb9c125db7f still waiting for 1 more workers to finish
+2025/06/29 21:25:49 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:25:49 Worker worker-3 became READY, added to availability queue.
+2025/06/29 21:25:49 Received status from worker worker-2: FINISHING, test: eb51c435-d794-4312-ba1d-bcb9c125db7f, progress: 100/100
+2025/06/29 21:25:49 Worker worker-2 status updated to FINISHING (Test: eb51c435-d794-4312-ba1d-bcb9c125db7f, Progress: 100/100).
+2025/06/29 21:25:49 Worker worker-2 signaling test eb51c435-d794-4312-ba1d-bcb9c125db7f completion/error.
+2025/06/29 21:25:49 Handling completion for test eb51c435-d794-4312-ba1d-bcb9c125db7f by worker worker-2. Is Error: false
+2025/06/29 21:25:49 Test eb51c435-d794-4312-ba1d-bcb9c125db7f worker status: Expected=3, Completed=3, Failed=0, Total Finished=3
+2025/06/29 21:25:49 All 3 workers for test eb51c435-d794-4312-ba1d-bcb9c125db7f have finished (completed: 3, failed: 0)
+2025/06/29 21:25:49 Setting test eb51c435-d794-4312-ba1d-bcb9c125db7f final status to: COMPLETED
+2025/06/29 21:25:49 Triggering aggregation for completed test eb51c435-d794-4312-ba1d-bcb9c125db7f
+2025/06/29 21:25:49 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:25:49 Worker worker-2 became READY, added to availability queue.
+2025/06/29 21:25:49 Starting aggregation for test: eb51c435-d794-4312-ba1d-bcb9c125db7f
+2025/06/29 21:25:49 Aggregated results saved for test: eb51c435-d794-4312-ba1d-bcb9c125db7f
+2025/06/29 21:25:49 Received status from worker worker-2: FINISHING, test: 42eb6b1b-18a8-4dc2-9613-55cbe064cf12, progress: 100/100
+2025/06/29 21:25:49 Worker worker-2 status updated to FINISHING (Test: 42eb6b1b-18a8-4dc2-9613-55cbe064cf12, Progress: 100/100).
+2025/06/29 21:25:49 Worker worker-2 signaling test 42eb6b1b-18a8-4dc2-9613-55cbe064cf12 completion/error.
+2025/06/29 21:25:49 Handling completion for test 42eb6b1b-18a8-4dc2-9613-55cbe064cf12 by worker worker-2. Is Error: false
+2025/06/29 21:25:49 Received status from worker worker-1: FINISHING, test: 42eb6b1b-18a8-4dc2-9613-55cbe064cf12, progress: 100/100
+2025/06/29 21:25:49 Worker worker-1 status updated to FINISHING (Test: 42eb6b1b-18a8-4dc2-9613-55cbe064cf12, Progress: 100/100).
+2025/06/29 21:25:49 Worker worker-1 signaling test 42eb6b1b-18a8-4dc2-9613-55cbe064cf12 completion/error.
+2025/06/29 21:25:49 Handling completion for test 42eb6b1b-18a8-4dc2-9613-55cbe064cf12 by worker worker-1. Is Error: false
+2025/06/29 21:25:49 Received status from worker worker-3: FINISHING, test: 42eb6b1b-18a8-4dc2-9613-55cbe064cf12, progress: 100/100
+2025/06/29 21:25:49 Worker worker-3 status updated to FINISHING (Test: 42eb6b1b-18a8-4dc2-9613-55cbe064cf12, Progress: 100/100).
+2025/06/29 21:25:49 Worker worker-3 signaling test 42eb6b1b-18a8-4dc2-9613-55cbe064cf12 completion/error.
+2025/06/29 21:25:49 Handling completion for test 42eb6b1b-18a8-4dc2-9613-55cbe064cf12 by worker worker-3. Is Error: false
+2025/06/29 21:25:49 Test 42eb6b1b-18a8-4dc2-9613-55cbe064cf12 worker status: Expected=3, Completed=1, Failed=0, Total Finished=1
+2025/06/29 21:25:49 Test 42eb6b1b-18a8-4dc2-9613-55cbe064cf12 still waiting for 2 more workers to finish
+2025/06/29 21:25:49 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:25:49 Worker worker-2 became READY, added to availability queue.
+2025/06/29 21:25:49 Test 42eb6b1b-18a8-4dc2-9613-55cbe064cf12 worker status: Expected=3, Completed=2, Failed=0, Total Finished=2
+2025/06/29 21:25:49 Test 42eb6b1b-18a8-4dc2-9613-55cbe064cf12 still waiting for 1 more workers to finish
+2025/06/29 21:25:49 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:25:49 Worker worker-1 became READY, added to availability queue.
+2025/06/29 21:25:49 Test 42eb6b1b-18a8-4dc2-9613-55cbe064cf12 worker status: Expected=3, Completed=3, Failed=0, Total Finished=3
+2025/06/29 21:25:49 All 3 workers for test 42eb6b1b-18a8-4dc2-9613-55cbe064cf12 have finished (completed: 3, failed: 0)
+2025/06/29 21:25:49 Setting test 42eb6b1b-18a8-4dc2-9613-55cbe064cf12 final status to: COMPLETED
+2025/06/29 21:25:49 Triggering aggregation for completed test 42eb6b1b-18a8-4dc2-9613-55cbe064cf12
+2025/06/29 21:25:49 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:25:49 Worker worker-3 became READY, added to availability queue.
+2025/06/29 21:25:49 Starting aggregation for test: 42eb6b1b-18a8-4dc2-9613-55cbe064cf12
+2025/06/29 21:25:49 Aggregated results saved for test: 42eb6b1b-18a8-4dc2-9613-55cbe064cf12
+2025/06/29 21:25:49 Received status from worker worker-3: FINISHING, test: a7848ea2-22d5-4d4c-87c6-2475a4fe3376, progress: 70/70
+2025/06/29 21:25:49 Worker worker-3 status updated to FINISHING (Test: a7848ea2-22d5-4d4c-87c6-2475a4fe3376, Progress: 70/70).
+2025/06/29 21:25:49 Worker worker-3 signaling test a7848ea2-22d5-4d4c-87c6-2475a4fe3376 completion/error.
+2025/06/29 21:25:49 Handling completion for test a7848ea2-22d5-4d4c-87c6-2475a4fe3376 by worker worker-3. Is Error: false
+2025/06/29 21:25:49 Received status from worker worker-1: FINISHING, test: a7848ea2-22d5-4d4c-87c6-2475a4fe3376, progress: 70/70
+2025/06/29 21:25:49 Worker worker-1 status updated to FINISHING (Test: a7848ea2-22d5-4d4c-87c6-2475a4fe3376, Progress: 70/70).
+2025/06/29 21:25:49 Worker worker-1 signaling test a7848ea2-22d5-4d4c-87c6-2475a4fe3376 completion/error.
+2025/06/29 21:25:49 Handling completion for test a7848ea2-22d5-4d4c-87c6-2475a4fe3376 by worker worker-1. Is Error: false
+2025/06/29 21:25:49 Received status from worker worker-2: FINISHING, test: a7848ea2-22d5-4d4c-87c6-2475a4fe3376, progress: 80/80
+2025/06/29 21:25:49 Worker worker-2 status updated to FINISHING (Test: a7848ea2-22d5-4d4c-87c6-2475a4fe3376, Progress: 80/80).
+2025/06/29 21:25:49 Worker worker-2 signaling test a7848ea2-22d5-4d4c-87c6-2475a4fe3376 completion/error.
+2025/06/29 21:25:49 Handling completion for test a7848ea2-22d5-4d4c-87c6-2475a4fe3376 by worker worker-2. Is Error: false
+2025/06/29 21:25:49 Test a7848ea2-22d5-4d4c-87c6-2475a4fe3376 worker status: Expected=4, Completed=1, Failed=0, Total Finished=1
+2025/06/29 21:25:49 Test a7848ea2-22d5-4d4c-87c6-2475a4fe3376 still waiting for 3 more workers to finish
+2025/06/29 21:25:49 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:25:49 Worker worker-1 became READY, added to availability queue.
+2025/06/29 21:25:49 Test a7848ea2-22d5-4d4c-87c6-2475a4fe3376 worker status: Expected=4, Completed=2, Failed=0, Total Finished=2
+2025/06/29 21:25:49 Test a7848ea2-22d5-4d4c-87c6-2475a4fe3376 still waiting for 2 more workers to finish
+2025/06/29 21:25:49 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:25:49 Worker worker-3 became READY, added to availability queue.
+2025/06/29 21:25:49 Test a7848ea2-22d5-4d4c-87c6-2475a4fe3376 worker status: Expected=4, Completed=3, Failed=0, Total Finished=3
+2025/06/29 21:25:49 Test a7848ea2-22d5-4d4c-87c6-2475a4fe3376 still waiting for 1 more workers to finish
+2025/06/29 21:25:49 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:25:49 Worker worker-2 became READY, added to availability queue.
+2025/06/29 21:25:49 Received status from worker worker-1: FINISHING, test: a7848ea2-22d5-4d4c-87c6-2475a4fe3376, progress: 80/80
+2025/06/29 21:25:49 Worker worker-1 status updated to FINISHING (Test: a7848ea2-22d5-4d4c-87c6-2475a4fe3376, Progress: 80/80).
+2025/06/29 21:25:49 Worker worker-1 signaling test a7848ea2-22d5-4d4c-87c6-2475a4fe3376 completion/error.
+2025/06/29 21:25:49 Handling completion for test a7848ea2-22d5-4d4c-87c6-2475a4fe3376 by worker worker-1. Is Error: false
+2025/06/29 21:25:49 Test a7848ea2-22d5-4d4c-87c6-2475a4fe3376 worker status: Expected=4, Completed=4, Failed=0, Total Finished=4
+2025/06/29 21:25:49 All 4 workers for test a7848ea2-22d5-4d4c-87c6-2475a4fe3376 have finished (completed: 4, failed: 0)
+2025/06/29 21:25:49 Setting test a7848ea2-22d5-4d4c-87c6-2475a4fe3376 final status to: COMPLETED
+2025/06/29 21:25:49 Received status from worker worker-3: FINISHING, test: 3eb06c8a-8f3a-4b40-ac6c-f4460de7a872, progress: 100/100
+2025/06/29 21:25:49 Worker worker-3 status updated to FINISHING (Test: 3eb06c8a-8f3a-4b40-ac6c-f4460de7a872, Progress: 100/100).
+2025/06/29 21:25:49 Worker worker-3 signaling test 3eb06c8a-8f3a-4b40-ac6c-f4460de7a872 completion/error.
+2025/06/29 21:25:49 Handling completion for test 3eb06c8a-8f3a-4b40-ac6c-f4460de7a872 by worker worker-3. Is Error: false
+2025/06/29 21:25:49 Received status from worker worker-2: FINISHING, test: 3eb06c8a-8f3a-4b40-ac6c-f4460de7a872, progress: 100/100
+2025/06/29 21:25:49 Worker worker-2 status updated to FINISHING (Test: 3eb06c8a-8f3a-4b40-ac6c-f4460de7a872, Progress: 100/100).
+2025/06/29 21:25:49 Worker worker-2 signaling test 3eb06c8a-8f3a-4b40-ac6c-f4460de7a872 completion/error.
+2025/06/29 21:25:49 Handling completion for test 3eb06c8a-8f3a-4b40-ac6c-f4460de7a872 by worker worker-2. Is Error: false
+2025/06/29 21:25:49 Triggering aggregation for completed test a7848ea2-22d5-4d4c-87c6-2475a4fe3376
+2025/06/29 21:25:49 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:25:49 Worker worker-1 became READY, added to availability queue.
+2025/06/29 21:25:49 Starting aggregation for test: a7848ea2-22d5-4d4c-87c6-2475a4fe3376
+2025/06/29 21:25:49 Test 3eb06c8a-8f3a-4b40-ac6c-f4460de7a872 worker status: Expected=2, Completed=1, Failed=0, Total Finished=1
+2025/06/29 21:25:49 Test 3eb06c8a-8f3a-4b40-ac6c-f4460de7a872 still waiting for 1 more workers to finish
+2025/06/29 21:25:49 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:25:49 Worker worker-3 became READY, added to availability queue.
+2025/06/29 21:25:49 Aggregated results saved for test: a7848ea2-22d5-4d4c-87c6-2475a4fe3376
+2025/06/29 21:25:49 Test 3eb06c8a-8f3a-4b40-ac6c-f4460de7a872 worker status: Expected=2, Completed=2, Failed=0, Total Finished=2
+2025/06/29 21:25:49 All 2 workers for test 3eb06c8a-8f3a-4b40-ac6c-f4460de7a872 have finished (completed: 2, failed: 0)
+2025/06/29 21:25:49 Setting test 3eb06c8a-8f3a-4b40-ac6c-f4460de7a872 final status to: COMPLETED
+2025/06/29 21:25:49 Triggering aggregation for completed test 3eb06c8a-8f3a-4b40-ac6c-f4460de7a872
+2025/06/29 21:25:49 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:25:49 Worker worker-2 became READY, added to availability queue.
+2025/06/29 21:25:49 Starting aggregation for test: 3eb06c8a-8f3a-4b40-ac6c-f4460de7a872
+2025/06/29 21:25:49 Aggregated results saved for test: 3eb06c8a-8f3a-4b40-ac6c-f4460de7a872
+2025/06/29 21:25:49 Received status from worker worker-3: FINISHING, test: efcb213e-5d28-4387-958c-aabffce3b68f, progress: 100/100
+2025/06/29 21:25:49 Worker worker-3 status updated to FINISHING (Test: efcb213e-5d28-4387-958c-aabffce3b68f, Progress: 100/100).
+2025/06/29 21:25:49 Worker worker-3 signaling test efcb213e-5d28-4387-958c-aabffce3b68f completion/error.
+2025/06/29 21:25:49 Handling completion for test efcb213e-5d28-4387-958c-aabffce3b68f by worker worker-3. Is Error: false
+2025/06/29 21:25:49 Received status from worker worker-1: FINISHING, test: efcb213e-5d28-4387-958c-aabffce3b68f, progress: 100/100
+2025/06/29 21:25:49 Worker worker-1 status updated to FINISHING (Test: efcb213e-5d28-4387-958c-aabffce3b68f, Progress: 100/100).
+2025/06/29 21:25:49 Worker worker-1 signaling test efcb213e-5d28-4387-958c-aabffce3b68f completion/error.
+2025/06/29 21:25:49 Handling completion for test efcb213e-5d28-4387-958c-aabffce3b68f by worker worker-1. Is Error: false
+2025/06/29 21:25:49 Received status from worker worker-2: FINISHING, test: efcb213e-5d28-4387-958c-aabffce3b68f, progress: 100/100
+2025/06/29 21:25:49 Worker worker-2 status updated to FINISHING (Test: efcb213e-5d28-4387-958c-aabffce3b68f, Progress: 100/100).
+2025/06/29 21:25:49 Worker worker-2 signaling test efcb213e-5d28-4387-958c-aabffce3b68f completion/error.
+2025/06/29 21:25:49 Handling completion for test efcb213e-5d28-4387-958c-aabffce3b68f by worker worker-2. Is Error: false
+2025/06/29 21:25:49 Test efcb213e-5d28-4387-958c-aabffce3b68f worker status: Expected=3, Completed=1, Failed=0, Total Finished=1
+2025/06/29 21:25:49 Test efcb213e-5d28-4387-958c-aabffce3b68f still waiting for 2 more workers to finish
+2025/06/29 21:25:49 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:25:49 Worker worker-3 became READY, added to availability queue.
+2025/06/29 21:25:49 Test efcb213e-5d28-4387-958c-aabffce3b68f worker status: Expected=3, Completed=2, Failed=0, Total Finished=2
+2025/06/29 21:25:49 Test efcb213e-5d28-4387-958c-aabffce3b68f still waiting for 1 more workers to finish
+2025/06/29 21:25:49 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:25:49 Worker worker-2 became READY, added to availability queue.
+2025/06/29 21:25:49 Test efcb213e-5d28-4387-958c-aabffce3b68f worker status: Expected=3, Completed=3, Failed=0, Total Finished=3
+2025/06/29 21:25:49 All 3 workers for test efcb213e-5d28-4387-958c-aabffce3b68f have finished (completed: 3, failed: 0)
+2025/06/29 21:25:49 Setting test efcb213e-5d28-4387-958c-aabffce3b68f final status to: COMPLETED
+2025/06/29 21:25:49 Triggering aggregation for completed test efcb213e-5d28-4387-958c-aabffce3b68f
+2025/06/29 21:25:49 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:25:49 Worker worker-1 became READY, added to availability queue.
+2025/06/29 21:25:49 Starting aggregation for test: efcb213e-5d28-4387-958c-aabffce3b68f
+2025/06/29 21:25:49 Aggregated results saved for test: efcb213e-5d28-4387-958c-aabffce3b68f
+2025/06/29 21:25:49 Received status from worker worker-3: FINISHING, test: 157ee288-71aa-4305-88a8-3aa0f7c3677e, progress: 100/100
+2025/06/29 21:25:49 Worker worker-3 status updated to FINISHING (Test: 157ee288-71aa-4305-88a8-3aa0f7c3677e, Progress: 100/100).
+2025/06/29 21:25:49 Worker worker-3 signaling test 157ee288-71aa-4305-88a8-3aa0f7c3677e completion/error.
+2025/06/29 21:25:49 Handling completion for test 157ee288-71aa-4305-88a8-3aa0f7c3677e by worker worker-3. Is Error: false
+2025/06/29 21:25:49 Received status from worker worker-2: FINISHING, test: 157ee288-71aa-4305-88a8-3aa0f7c3677e, progress: 100/100
+2025/06/29 21:25:49 Received status from worker worker-1: FINISHING, test: 157ee288-71aa-4305-88a8-3aa0f7c3677e, progress: 100/100
+2025/06/29 21:25:49 Worker worker-2 status updated to FINISHING (Test: 157ee288-71aa-4305-88a8-3aa0f7c3677e, Progress: 100/100).
+2025/06/29 21:25:49 Worker worker-2 signaling test 157ee288-71aa-4305-88a8-3aa0f7c3677e completion/error.
+2025/06/29 21:25:49 Worker worker-1 status updated to FINISHING (Test: 157ee288-71aa-4305-88a8-3aa0f7c3677e, Progress: 100/100).
+2025/06/29 21:25:49 Worker worker-1 signaling test 157ee288-71aa-4305-88a8-3aa0f7c3677e completion/error.
+2025/06/29 21:25:49 Handling completion for test 157ee288-71aa-4305-88a8-3aa0f7c3677e by worker worker-2. Is Error: false
+2025/06/29 21:25:49 Handling completion for test 157ee288-71aa-4305-88a8-3aa0f7c3677e by worker worker-1. Is Error: false
+2025/06/29 21:25:49 Test 157ee288-71aa-4305-88a8-3aa0f7c3677e worker status: Expected=3, Completed=1, Failed=0, Total Finished=1
+2025/06/29 21:25:49 Test 157ee288-71aa-4305-88a8-3aa0f7c3677e still waiting for 2 more workers to finish
+2025/06/29 21:25:49 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:25:49 Worker worker-3 became READY, added to availability queue.
+2025/06/29 21:25:49 Test 157ee288-71aa-4305-88a8-3aa0f7c3677e worker status: Expected=3, Completed=2, Failed=0, Total Finished=2
+2025/06/29 21:25:49 Test 157ee288-71aa-4305-88a8-3aa0f7c3677e still waiting for 1 more workers to finish
+2025/06/29 21:25:49 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:25:49 Worker worker-2 became READY, added to availability queue.
+2025/06/29 21:25:49 Test 157ee288-71aa-4305-88a8-3aa0f7c3677e worker status: Expected=3, Completed=3, Failed=0, Total Finished=3
+2025/06/29 21:25:49 All 3 workers for test 157ee288-71aa-4305-88a8-3aa0f7c3677e have finished (completed: 3, failed: 0)
+2025/06/29 21:25:49 Setting test 157ee288-71aa-4305-88a8-3aa0f7c3677e final status to: COMPLETED
+2025/06/29 21:25:49 Triggering aggregation for completed test 157ee288-71aa-4305-88a8-3aa0f7c3677e
+2025/06/29 21:25:49 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:25:49 Worker worker-1 became READY, added to availability queue.
+2025/06/29 21:25:49 Starting aggregation for test: 157ee288-71aa-4305-88a8-3aa0f7c3677e
+2025/06/29 21:25:49 Aggregated results saved for test: 157ee288-71aa-4305-88a8-3aa0f7c3677e
+2025/06/29 21:25:49 Running stale worker cleanup...
+2025/06/29 21:25:49 Received status from worker worker-1: FINISHING, test: 1461af47-694e-4d0d-9add-0dd73a0de895, progress: 100/100
+2025/06/29 21:25:49 Worker worker-1 status updated to FINISHING (Test: 1461af47-694e-4d0d-9add-0dd73a0de895, Progress: 100/100).
+2025/06/29 21:25:49 Worker worker-1 signaling test 1461af47-694e-4d0d-9add-0dd73a0de895 completion/error.
+2025/06/29 21:25:49 Handling completion for test 1461af47-694e-4d0d-9add-0dd73a0de895 by worker worker-1. Is Error: false
+2025/06/29 21:25:49 Received status from worker worker-3: FINISHING, test: 1461af47-694e-4d0d-9add-0dd73a0de895, progress: 100/100
+2025/06/29 21:25:49 Worker worker-3 status updated to FINISHING (Test: 1461af47-694e-4d0d-9add-0dd73a0de895, Progress: 100/100).
+2025/06/29 21:25:49 Worker worker-3 signaling test 1461af47-694e-4d0d-9add-0dd73a0de895 completion/error.
+2025/06/29 21:25:49 Handling completion for test 1461af47-694e-4d0d-9add-0dd73a0de895 by worker worker-3. Is Error: false
+2025/06/29 21:25:49 Received status from worker worker-2: FINISHING, test: 1461af47-694e-4d0d-9add-0dd73a0de895, progress: 100/100
+2025/06/29 21:25:49 Worker worker-2 status updated to FINISHING (Test: 1461af47-694e-4d0d-9add-0dd73a0de895, Progress: 100/100).
+2025/06/29 21:25:49 Worker worker-2 signaling test 1461af47-694e-4d0d-9add-0dd73a0de895 completion/error.
+2025/06/29 21:25:49 Handling completion for test 1461af47-694e-4d0d-9add-0dd73a0de895 by worker worker-2. Is Error: false
+2025/06/29 21:25:49 Test 1461af47-694e-4d0d-9add-0dd73a0de895 worker status: Expected=3, Completed=1, Failed=0, Total Finished=1
+2025/06/29 21:25:49 Test 1461af47-694e-4d0d-9add-0dd73a0de895 still waiting for 2 more workers to finish
+2025/06/29 21:25:49 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:25:49 Worker worker-1 became READY, added to availability queue.
+2025/06/29 21:25:49 Test 1461af47-694e-4d0d-9add-0dd73a0de895 worker status: Expected=3, Completed=2, Failed=0, Total Finished=2
+2025/06/29 21:25:49 Test 1461af47-694e-4d0d-9add-0dd73a0de895 still waiting for 1 more workers to finish
+2025/06/29 21:25:49 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:25:49 Worker worker-3 became READY, added to availability queue.
+2025/06/29 21:25:49 Test 1461af47-694e-4d0d-9add-0dd73a0de895 worker status: Expected=3, Completed=3, Failed=0, Total Finished=3
+2025/06/29 21:25:49 All 3 workers for test 1461af47-694e-4d0d-9add-0dd73a0de895 have finished (completed: 3, failed: 0)
+2025/06/29 21:25:49 Setting test 1461af47-694e-4d0d-9add-0dd73a0de895 final status to: COMPLETED
+2025/06/29 21:25:49 Triggering aggregation for completed test 1461af47-694e-4d0d-9add-0dd73a0de895
+2025/06/29 21:25:49 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:25:49 Worker worker-2 became READY, added to availability queue.
+2025/06/29 21:25:49 Starting aggregation for test: 1461af47-694e-4d0d-9add-0dd73a0de895
+2025/06/29 21:25:49 Aggregated results saved for test: 1461af47-694e-4d0d-9add-0dd73a0de895
+2025/06/29 21:25:49 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:25:49 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:25:49 Worker worker-1 became READY, added to availability queue.
+2025/06/29 21:25:50 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:25:50 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:25:50 Worker worker-2 became READY, added to availability queue.
+2025/06/29 21:25:51 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:25:51 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:25:51 Worker worker-3 became READY, added to availability queue.
+2025/06/29 21:25:54 Received status from worker worker-2: FINISHING, test: b726ccd8-46d5-4305-a0a4-c12ff0e09320, progress: 255/255
+2025/06/29 21:25:54 Worker worker-2 status updated to FINISHING (Test: b726ccd8-46d5-4305-a0a4-c12ff0e09320, Progress: 255/255).
+2025/06/29 21:25:54 Worker worker-2 signaling test b726ccd8-46d5-4305-a0a4-c12ff0e09320 completion/error.
+2025/06/29 21:25:54 Handling completion for test b726ccd8-46d5-4305-a0a4-c12ff0e09320 by worker worker-2. Is Error: false
+2025/06/29 21:25:54 Received status from worker worker-3: FINISHING, test: b726ccd8-46d5-4305-a0a4-c12ff0e09320, progress: 240/240
+2025/06/29 21:25:54 Worker worker-3 status updated to FINISHING (Test: b726ccd8-46d5-4305-a0a4-c12ff0e09320, Progress: 240/240).
+2025/06/29 21:25:54 Worker worker-3 signaling test b726ccd8-46d5-4305-a0a4-c12ff0e09320 completion/error.
+2025/06/29 21:25:54 Handling completion for test b726ccd8-46d5-4305-a0a4-c12ff0e09320 by worker worker-3. Is Error: false
+2025/06/29 21:25:54 Test b726ccd8-46d5-4305-a0a4-c12ff0e09320 worker status: Expected=3, Completed=1, Failed=0, Total Finished=1
+2025/06/29 21:25:54 Test b726ccd8-46d5-4305-a0a4-c12ff0e09320 still waiting for 2 more workers to finish
+2025/06/29 21:25:54 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:25:54 Worker availability queue full, worker-2 not added immediately upon READY status.
+2025/06/29 21:25:54 Received status from worker worker-1: FINISHING, test: b726ccd8-46d5-4305-a0a4-c12ff0e09320, progress: 255/255
+2025/06/29 21:25:54 Worker worker-1 status updated to FINISHING (Test: b726ccd8-46d5-4305-a0a4-c12ff0e09320, Progress: 255/255).
+2025/06/29 21:25:54 Worker worker-1 signaling test b726ccd8-46d5-4305-a0a4-c12ff0e09320 completion/error.
+2025/06/29 21:25:54 Handling completion for test b726ccd8-46d5-4305-a0a4-c12ff0e09320 by worker worker-1. Is Error: false
+2025/06/29 21:25:54 Test b726ccd8-46d5-4305-a0a4-c12ff0e09320 worker status: Expected=3, Completed=2, Failed=0, Total Finished=2
+2025/06/29 21:25:54 Test b726ccd8-46d5-4305-a0a4-c12ff0e09320 still waiting for 1 more workers to finish
+2025/06/29 21:25:54 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:25:54 Worker availability queue full, worker-3 not added immediately upon READY status.
+2025/06/29 21:25:54 Test b726ccd8-46d5-4305-a0a4-c12ff0e09320 worker status: Expected=3, Completed=3, Failed=0, Total Finished=3
+2025/06/29 21:25:54 All 3 workers for test b726ccd8-46d5-4305-a0a4-c12ff0e09320 have finished (completed: 3, failed: 0)
+2025/06/29 21:25:54 Setting test b726ccd8-46d5-4305-a0a4-c12ff0e09320 final status to: COMPLETED
+2025/06/29 21:25:54 Triggering aggregation for completed test b726ccd8-46d5-4305-a0a4-c12ff0e09320
+2025/06/29 21:25:54 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:25:54 Worker availability queue full, worker-1 not added immediately upon READY status.
+2025/06/29 21:25:54 Starting aggregation for test: b726ccd8-46d5-4305-a0a4-c12ff0e09320
+2025/06/29 21:25:54 Aggregated results saved for test: b726ccd8-46d5-4305-a0a4-c12ff0e09320
+2025/06/29 21:25:54 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:25:54 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:25:54 Worker availability queue full, worker-1 not added immediately upon READY status.
+2025/06/29 21:25:55 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:25:55 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:25:55 Worker availability queue full, worker-2 not added immediately upon READY status.
+2025/06/29 21:25:56 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:25:56 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:25:56 Worker availability queue full, worker-3 not added immediately upon READY status.
+2025/06/29 21:25:56 WebSocket client registered. Total clients: 1
+2025/06/29 21:25:59 Running stale worker cleanup...
+2025/06/29 21:25:59 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:25:59 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:25:59 Worker availability queue full, worker-1 not added immediately upon READY status.
+2025/06/29 21:26:00 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:26:00 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:26:00 Worker availability queue full, worker-2 not added immediately upon READY status.
+2025/06/29 21:26:01 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:26:01 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:26:01 Worker availability queue full, worker-3 not added immediately upon READY status.
+2025/06/29 21:26:04 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:26:04 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:26:04 Worker availability queue full, worker-1 not added immediately upon READY status.
+2025/06/29 21:26:05 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:26:05 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:26:05 Worker availability queue full, worker-2 not added immediately upon READY status.
+2025/06/29 21:26:06 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:26:06 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:26:06 Worker availability queue full, worker-3 not added immediately upon READY status.
+2025/06/29 21:26:07 WebSocket error: websocket: close 1005 (no status)
+2025/06/29 21:26:07 WebSocket client unregistered. Total clients: 0
+2025/06/29 21:26:09 Running stale worker cleanup...
+2025/06/29 21:26:09 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:26:09 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:26:09 Worker availability queue full, worker-1 not added immediately upon READY status.
+2025/06/29 21:26:10 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:26:10 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:26:10 Worker availability queue full, worker-2 not added immediately upon READY status.
+2025/06/29 21:26:11 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:26:11 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:26:11 Worker availability queue full, worker-3 not added immediately upon READY status.
+2025/06/29 21:26:14 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:26:14 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:26:14 Worker availability queue full, worker-1 not added immediately upon READY status.
+2025/06/29 21:26:15 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:26:15 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:26:15 Worker availability queue full, worker-2 not added immediately upon READY status.
+2025/06/29 21:26:16 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:26:16 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:26:16 Worker availability queue full, worker-3 not added immediately upon READY status.
+2025/06/29 21:26:19 Running stale worker cleanup...
+2025/06/29 21:26:19 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:26:19 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:26:19 Worker availability queue full, worker-1 not added immediately upon READY status.
+2025/06/29 21:26:20 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:26:20 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:26:20 Worker availability queue full, worker-2 not added immediately upon READY status.
+2025/06/29 21:26:21 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:26:21 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:26:21 Worker availability queue full, worker-3 not added immediately upon READY status.
+2025/06/29 21:26:24 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:26:24 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:26:24 Worker availability queue full, worker-1 not added immediately upon READY status.
+2025/06/29 21:26:25 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:26:25 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:26:25 Worker availability queue full, worker-2 not added immediately upon READY status.
+2025/06/29 21:26:26 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:26:26 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:26:26 Worker availability queue full, worker-3 not added immediately upon READY status.
+2025/06/29 21:26:29 Running stale worker cleanup...
+2025/06/29 21:26:29 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:26:29 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:26:29 Worker availability queue full, worker-1 not added immediately upon READY status.
+2025/06/29 21:26:30 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:26:30 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:26:30 Worker availability queue full, worker-2 not added immediately upon READY status.
+2025/06/29 21:26:31 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:26:31 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:26:31 Worker availability queue full, worker-3 not added immediately upon READY status.
+2025/06/29 21:26:34 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:26:34 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:26:34 Worker availability queue full, worker-1 not added immediately upon READY status.
+2025/06/29 21:26:35 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:26:35 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:26:35 Worker availability queue full, worker-2 not added immediately upon READY status.
+2025/06/29 21:26:36 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:26:36 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:26:36 Worker availability queue full, worker-3 not added immediately upon READY status.
+2025/06/29 21:26:39 Running stale worker cleanup...
+2025/06/29 21:26:39 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:26:39 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:26:39 Worker availability queue full, worker-1 not added immediately upon READY status.
+2025/06/29 21:26:40 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:26:40 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:26:40 Worker availability queue full, worker-2 not added immediately upon READY status.
+2025/06/29 21:26:41 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:26:41 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:26:41 Worker availability queue full, worker-3 not added immediately upon READY status.
+2025/06/29 21:26:44 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:26:44 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:26:44 Worker availability queue full, worker-1 not added immediately upon READY status.
+2025/06/29 21:26:45 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:26:45 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:26:45 Worker availability queue full, worker-2 not added immediately upon READY status.
+2025/06/29 21:26:46 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:26:46 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:26:46 Worker availability queue full, worker-3 not added immediately upon READY status.
+2025/06/29 21:26:49 Running stale worker cleanup...
+2025/06/29 21:26:49 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:26:49 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:26:49 Worker availability queue full, worker-1 not added immediately upon READY status.
+2025/06/29 21:26:50 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:26:50 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:26:50 Worker availability queue full, worker-2 not added immediately upon READY status.
+2025/06/29 21:26:50 WebSocket client registered. Total clients: 1
+2025/06/29 21:26:51 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:26:51 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:26:51 Worker availability queue full, worker-3 not added immediately upon READY status.
+2025/06/29 21:26:53 WebSocket error: websocket: close 1005 (no status)
+2025/06/29 21:26:53 WebSocket client unregistered. Total clients: 0
+2025/06/29 21:26:54 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:26:54 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:26:54 Worker availability queue full, worker-1 not added immediately upon READY status.
+2025/06/29 21:26:55 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:26:55 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:26:55 Worker availability queue full, worker-2 not added immediately upon READY status.
+2025/06/29 21:26:56 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:26:56 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:26:56 Worker availability queue full, worker-3 not added immediately upon READY status.
+2025/06/29 21:26:59 Running stale worker cleanup...
+2025/06/29 21:26:59 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:26:59 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:26:59 Worker availability queue full, worker-1 not added immediately upon READY status.
+2025/06/29 21:27:00 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:27:00 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:27:00 Worker availability queue full, worker-2 not added immediately upon READY status.
+2025/06/29 21:27:01 Replayed test 27974e26-6f46-403d-8981-54d02d428e81 queued successfully
+2025/06/29 21:27:01 Picked up test 27974e26-6f46-403d-8981-54d02d428e81 from queue. Looking for 3 available workers...
+2025/06/29 21:27:01 Worker worker-1 assigned to test 27974e26-6f46-403d-8981-54d02d428e81 (1/3 workers collected)
+2025/06/29 21:27:01 Worker worker-2 assigned to test 27974e26-6f46-403d-8981-54d02d428e81 (2/3 workers collected)
+2025/06/29 21:27:01 Worker worker-3 assigned to test 27974e26-6f46-403d-8981-54d02d428e81 (3/3 workers collected)
+2025/06/29 21:27:01 Assigning test 27974e26-6f46-403d-8981-54d02d428e81 to 3 workers: [worker-1 worker-2 worker-3] (rate distribution: shared)
+2025/06/29 21:27:01 Using 'shared' rate distribution: rates [10 10 10] (total: 30 req/s)
+2025/06/29 21:27:01 Assigning test 27974e26-6f46-403d-8981-54d02d428e81 to worker worker-3 with rate 10 req/s (mode: shared)
+2025/06/29 21:27:01 Assigning test 27974e26-6f46-403d-8981-54d02d428e81 to worker worker-2 with rate 10 req/s (mode: shared)
+2025/06/29 21:27:01 Worker worker-3 status updated to BUSY (Test: 27974e26-6f46-403d-8981-54d02d428e81, Progress: 0/0).
+2025/06/29 21:27:01 Assigning test 27974e26-6f46-403d-8981-54d02d428e81 to worker worker-1 with rate 10 req/s (mode: shared)
+2025/06/29 21:27:01 Worker worker-2 status updated to BUSY (Test: 27974e26-6f46-403d-8981-54d02d428e81, Progress: 0/0).
+2025/06/29 21:27:01 Worker worker-1 status updated to BUSY (Test: 27974e26-6f46-403d-8981-54d02d428e81, Progress: 0/0).
+2025/06/29 21:27:01 Test 27974e26-6f46-403d-8981-54d02d428e81 assigned successfully to worker worker-2 (rate: 10 req/s, mode: shared)
+2025/06/29 21:27:01 Test 27974e26-6f46-403d-8981-54d02d428e81 assigned successfully to worker worker-3 (rate: 10 req/s, mode: shared)
+2025/06/29 21:27:01 Test 27974e26-6f46-403d-8981-54d02d428e81 assigned successfully to worker worker-1 (rate: 10 req/s, mode: shared)
+2025/06/29 21:27:01 Received status from worker worker-2: BUSY, test: 27974e26-6f46-403d-8981-54d02d428e81, progress: 0/0
+2025/06/29 21:27:01 Received status from worker worker-3: BUSY, test: 27974e26-6f46-403d-8981-54d02d428e81, progress: 0/0
+2025/06/29 21:27:01 Multi-worker assignment completed for test 27974e26-6f46-403d-8981-54d02d428e81: 3/3 workers assigned successfully
+2025/06/29 21:27:01 Received status from worker worker-1: BUSY, test: 27974e26-6f46-403d-8981-54d02d428e81, progress: 0/0
+2025/06/29 21:27:01 Worker worker-2 status updated to BUSY (Test: 27974e26-6f46-403d-8981-54d02d428e81, Progress: 0/0).
+2025/06/29 21:27:01 Worker worker-3 status updated to BUSY (Test: 27974e26-6f46-403d-8981-54d02d428e81, Progress: 0/0).
+2025/06/29 21:27:01 Worker worker-1 status updated to BUSY (Test: 27974e26-6f46-403d-8981-54d02d428e81, Progress: 0/0).
+2025/06/29 21:27:01 Received status from worker worker-3: BUSY, test: 27974e26-6f46-403d-8981-54d02d428e81, progress: 0/0
+2025/06/29 21:27:01 Worker worker-3 status updated to BUSY (Test: 27974e26-6f46-403d-8981-54d02d428e81, Progress: 0/0).
+2025/06/29 21:27:04 Received status from worker worker-1: BUSY, test: 27974e26-6f46-403d-8981-54d02d428e81, progress: 0/0
+2025/06/29 21:27:04 Worker worker-1 status updated to BUSY (Test: 27974e26-6f46-403d-8981-54d02d428e81, Progress: 0/0).
+2025/06/29 21:27:05 Received status from worker worker-2: BUSY, test: 27974e26-6f46-403d-8981-54d02d428e81, progress: 0/0
+2025/06/29 21:27:05 Worker worker-2 status updated to BUSY (Test: 27974e26-6f46-403d-8981-54d02d428e81, Progress: 0/0).
+2025/06/29 21:27:06 WebSocket client registered. Total clients: 1
+2025/06/29 21:27:06 Received status from worker worker-3: BUSY, test: 27974e26-6f46-403d-8981-54d02d428e81, progress: 0/0
+2025/06/29 21:27:06 Worker worker-3 status updated to BUSY (Test: 27974e26-6f46-403d-8981-54d02d428e81, Progress: 0/0).
+2025/06/29 21:27:09 Received status from worker worker-1: BUSY, test: 27974e26-6f46-403d-8981-54d02d428e81, progress: 0/0
+2025/06/29 21:27:09 Worker worker-1 status updated to BUSY (Test: 27974e26-6f46-403d-8981-54d02d428e81, Progress: 0/0).
+2025/06/29 21:27:10 Received status from worker worker-2: BUSY, test: 27974e26-6f46-403d-8981-54d02d428e81, progress: 0/0
+2025/06/29 21:27:10 Worker worker-2 status updated to BUSY (Test: 27974e26-6f46-403d-8981-54d02d428e81, Progress: 0/0).
+2025/06/29 21:27:11 Running stale worker cleanup...
+2025/06/29 21:27:11 Received status from worker worker-1: FINISHING, test: 27974e26-6f46-403d-8981-54d02d428e81, progress: 100/100
+2025/06/29 21:27:11 Worker worker-1 status updated to FINISHING (Test: 27974e26-6f46-403d-8981-54d02d428e81, Progress: 100/100).
+2025/06/29 21:27:11 Worker worker-1 signaling test 27974e26-6f46-403d-8981-54d02d428e81 completion/error.
+2025/06/29 21:27:11 Handling completion for test 27974e26-6f46-403d-8981-54d02d428e81 by worker worker-1. Is Error: false
+2025/06/29 21:27:11 Received status from worker worker-3: FINISHING, test: 27974e26-6f46-403d-8981-54d02d428e81, progress: 100/100
+2025/06/29 21:27:11 Worker worker-3 status updated to FINISHING (Test: 27974e26-6f46-403d-8981-54d02d428e81, Progress: 100/100).
+2025/06/29 21:27:11 Worker worker-3 signaling test 27974e26-6f46-403d-8981-54d02d428e81 completion/error.
+2025/06/29 21:27:11 Handling completion for test 27974e26-6f46-403d-8981-54d02d428e81 by worker worker-3. Is Error: false
+2025/06/29 21:27:11 Test 27974e26-6f46-403d-8981-54d02d428e81 worker status: Expected=3, Completed=1, Failed=0, Total Finished=1
+2025/06/29 21:27:11 Test 27974e26-6f46-403d-8981-54d02d428e81 still waiting for 2 more workers to finish
+2025/06/29 21:27:11 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:27:11 Worker worker-1 became READY, added to availability queue.
+2025/06/29 21:27:11 Test 27974e26-6f46-403d-8981-54d02d428e81 worker status: Expected=3, Completed=2, Failed=0, Total Finished=2
+2025/06/29 21:27:11 Test 27974e26-6f46-403d-8981-54d02d428e81 still waiting for 1 more workers to finish
+2025/06/29 21:27:11 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:27:11 Worker worker-3 became READY, added to availability queue.
+2025/06/29 21:27:11 Received status from worker worker-2: FINISHING, test: 27974e26-6f46-403d-8981-54d02d428e81, progress: 100/100
+2025/06/29 21:27:11 Worker worker-2 status updated to FINISHING (Test: 27974e26-6f46-403d-8981-54d02d428e81, Progress: 100/100).
+2025/06/29 21:27:11 Worker worker-2 signaling test 27974e26-6f46-403d-8981-54d02d428e81 completion/error.
+2025/06/29 21:27:11 Handling completion for test 27974e26-6f46-403d-8981-54d02d428e81 by worker worker-2. Is Error: false
+2025/06/29 21:27:11 Test 27974e26-6f46-403d-8981-54d02d428e81 worker status: Expected=3, Completed=3, Failed=0, Total Finished=3
+2025/06/29 21:27:11 All 3 workers for test 27974e26-6f46-403d-8981-54d02d428e81 have finished (completed: 3, failed: 0)
+2025/06/29 21:27:11 Setting test 27974e26-6f46-403d-8981-54d02d428e81 final status to: COMPLETED
+2025/06/29 21:27:11 Triggering aggregation for completed test 27974e26-6f46-403d-8981-54d02d428e81
+2025/06/29 21:27:11 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:27:11 Worker worker-2 became READY, added to availability queue.
+2025/06/29 21:27:11 Starting aggregation for test: 27974e26-6f46-403d-8981-54d02d428e81
+2025/06/29 21:27:11 Aggregated results saved for test: 27974e26-6f46-403d-8981-54d02d428e81
+2025/06/29 21:27:11 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:27:11 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:27:11 Worker availability queue full, worker-3 not added immediately upon READY status.
+2025/06/29 21:27:14 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:27:14 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:27:14 Worker availability queue full, worker-1 not added immediately upon READY status.
+2025/06/29 21:27:15 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:27:15 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:27:15 Worker availability queue full, worker-2 not added immediately upon READY status.
+2025/06/29 21:27:16 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:27:16 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:27:16 Worker availability queue full, worker-3 not added immediately upon READY status.
+2025/06/29 21:27:19 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:27:19 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:27:19 Worker availability queue full, worker-1 not added immediately upon READY status.
+2025/06/29 21:27:20 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:27:20 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:27:20 Worker availability queue full, worker-2 not added immediately upon READY status.
+2025/06/29 21:27:21 Running stale worker cleanup...
+2025/06/29 21:27:21 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:27:21 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:27:21 Worker availability queue full, worker-3 not added immediately upon READY status.
+2025/06/29 21:27:24 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:27:24 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:27:24 Worker availability queue full, worker-1 not added immediately upon READY status.
+2025/06/29 21:27:25 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:27:25 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:27:25 Worker availability queue full, worker-2 not added immediately upon READY status.
+2025/06/29 21:27:26 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:27:26 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:27:26 Worker availability queue full, worker-3 not added immediately upon READY status.
+2025/06/29 21:27:29 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:27:29 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:27:29 Worker availability queue full, worker-1 not added immediately upon READY status.
+2025/06/29 21:27:30 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:27:30 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:27:30 Worker availability queue full, worker-2 not added immediately upon READY status.
+2025/06/29 21:27:31 Running stale worker cleanup...
+2025/06/29 21:27:31 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:27:31 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:27:31 Worker availability queue full, worker-3 not added immediately upon READY status.
+2025/06/29 21:27:34 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:27:34 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:27:34 Worker availability queue full, worker-1 not added immediately upon READY status.
+2025/06/29 21:27:35 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:27:35 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:27:35 Worker availability queue full, worker-2 not added immediately upon READY status.
+2025/06/29 21:27:36 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:27:36 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:27:36 Worker availability queue full, worker-3 not added immediately upon READY status.
+2025/06/29 21:27:36 Checking for completed tests without aggregated results...
+2025/06/29 21:27:36 No orphaned tests found
+2025/06/29 21:27:39 Received status from worker worker-1: READY, test: , progress: 0/0
+2025/06/29 21:27:39 Worker worker-1 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:27:39 Worker availability queue full, worker-1 not added immediately upon READY status.
+2025/06/29 21:27:40 Received status from worker worker-2: READY, test: , progress: 0/0
+2025/06/29 21:27:40 Worker worker-2 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:27:40 Worker availability queue full, worker-2 not added immediately upon READY status.
+2025/06/29 21:27:41 Running stale worker cleanup...
+2025/06/29 21:27:41 Received status from worker worker-3: READY, test: , progress: 0/0
+2025/06/29 21:27:41 Worker worker-3 status updated to READY (Test: , Progress: 0/0).
+2025/06/29 21:27:41 Worker availability queue full, worker-3 not added immediately upon READY status.

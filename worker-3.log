@@ -1,41 +1,333 @@
-2025/06/29 21:02:26 Successfully connected to PostgreSQL!
-2025/06/29 21:02:26 PostgreSQL schema initialized successfully.
-2025/06/29 21:02:26 Worker worker-3 starting lifecycle...
-2025/06/29 21:02:26 Attempting to register worker worker-3 with master at 192.168.1.6:50003
-2025/06/29 21:02:26 Worker gRPC server starting on port 50003...
-2025/06/29 21:02:26 Worker worker-3 registered successfully with master.
-2025/06/29 21:02:26 Worker worker-3 established bidirectional status stream to master.
-2025/06/29 21:02:26 Worker worker-3 sent status: READY (Test: )
-2025/06/29 21:02:26 Received ACK from Master for worker worker-3: Success=true, Message=Status received
-2025/06/29 21:02:31 Worker worker-3 sent status: READY (Test: )
-2025/06/29 21:02:31 Received ACK from Master for worker worker-3: Success=true, Message=Status received
-2025/06/29 21:02:36 Worker worker-3 sent status: READY (Test: )
-2025/06/29 21:02:36 Received ACK from Master for worker worker-3: Success=true, Message=Status received
-2025/06/29 21:02:41 Worker worker-3 sent status: READY (Test: )
-2025/06/29 21:02:41 Received ACK from Master for worker worker-3: Success=true, Message=Status received
-2025/06/29 21:02:46 Worker worker-3 sent status: READY (Test: )
-2025/06/29 21:02:46 Received ACK from Master for worker worker-3: Success=true, Message=Status received
-2025/06/29 21:02:51 Worker worker-3 sent status: READY (Test: )
-2025/06/29 21:02:51 Received ACK from Master for worker worker-3: Success=true, Message=Status received
-2025/06/29 21:02:56 Worker worker-3 sent status: READY (Test: )
-2025/06/29 21:02:56 Received ACK from Master for worker worker-3: Success=true, Message=Status received
-2025/06/29 21:03:01 Worker worker-3 sent status: READY (Test: )
-2025/06/29 21:03:01 Received ACK from Master for worker worker-3: Success=true, Message=Status received
-2025/06/29 21:03:06 Worker worker-3 sent status: READY (Test: )
-2025/06/29 21:03:06 Received ACK from Master for worker worker-3: Success=true, Message=Status received
-2025/06/29 21:03:11 Worker worker-3 sent status: READY (Test: )
-2025/06/29 21:03:11 Received ACK from Master for worker worker-3: Success=true, Message=Status received
-2025/06/29 21:03:16 Worker worker-3 sent status: READY (Test: )
-2025/06/29 21:03:16 Received ACK from Master for worker worker-3: Success=true, Message=Status received
-2025/06/29 21:03:21 Worker worker-3 sent status: READY (Test: )
-2025/06/29 21:03:21 Received ACK from Master for worker worker-3: Success=true, Message=Status received
-2025/06/29 21:03:26 Worker worker-3 sent status: READY (Test: )
-2025/06/29 21:03:26 Received ACK from Master for worker worker-3: Success=true, Message=Status received
-2025/06/29 21:03:31 Worker worker-3 sent status: READY (Test: )
-2025/06/29 21:03:31 Received ACK from Master for worker worker-3: Success=true, Message=Status received
-2025/06/29 21:03:36 Worker worker-3 sent status: READY (Test: )
-2025/06/29 21:03:36 Received ACK from Master for worker worker-3: Success=true, Message=Status received
-2025/06/29 21:03:41 Worker worker-3 sent status: READY (Test: )
-2025/06/29 21:03:41 Received ACK from Master for worker worker-3: Success=true, Message=Status received
-2025/06/29 21:03:46 Worker worker-3 sent status: READY (Test: )
-2025/06/29 21:03:46 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:21:41 Successfully connected to PostgreSQL!
+2025/06/29 21:21:41 PostgreSQL schema initialized successfully.
+2025/06/29 21:21:41 Worker worker-3 starting lifecycle...
+2025/06/29 21:21:41 Worker gRPC server starting on port 50003...
+2025/06/29 21:21:41 Attempting to register worker worker-3 with master at 192.168.1.6:50003
+2025/06/29 21:21:41 Worker worker-3 registered successfully with master.
+2025/06/29 21:21:41 Worker worker-3 established bidirectional status stream to master.
+2025/06/29 21:21:41 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:21:41 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:21:46 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:21:46 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:21:51 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:21:51 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:21:56 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:21:56 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:22:01 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:22:01 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:22:06 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:22:06 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:22:11 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:22:11 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:22:16 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:22:16 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:22:21 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:22:21 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:22:26 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:22:26 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:22:31 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:22:31 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:22:36 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:22:36 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:22:41 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:22:41 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:22:46 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:22:46 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:22:51 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:22:51 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:22:56 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:22:56 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:23:01 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:23:01 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:23:06 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:23:06 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:23:11 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:23:11 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:23:16 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:23:16 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:23:21 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:23:21 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:23:26 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:23:26 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:23:31 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:23:31 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:23:36 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:23:36 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:23:41 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:23:41 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:23:46 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:23:46 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:23:51 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:23:51 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:23:56 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:23:56 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:24:01 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:24:01 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:24:06 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:24:06 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:24:11 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:24:11 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:24:16 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:24:16 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:24:21 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:24:21 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:24:26 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:24:26 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:24:31 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:24:31 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:24:36 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:24:36 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:24:41 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:24:41 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:24:46 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:24:46 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:24:51 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:24:51 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:24:56 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:24:56 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:25:01 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:25:01 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:25:06 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:25:06 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:25:11 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:25:11 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:25:16 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:25:16 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:25:21 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:25:21 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:25:26 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:25:26 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:25:31 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:25:31 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:25:36 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:25:36 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:25:39 Worker received test assignment for Test ID: 0b21c669-b3e8-4a3e-937b-dc775a4ad68b
+2025/06/29 21:25:39 Worker received test assignment for Test ID: 0b21c669-b3e8-4a3e-937b-dc775a4ad68b
+2025/06/29 21:25:39 Worker worker-3 starting test 0b21c669-b3e8-4a3e-937b-dc775a4ad68b...
+2025/06/29 21:25:39 Worker worker-3 sent status: BUSY (Test: 0b21c669-b3e8-4a3e-937b-dc775a4ad68b)
+2025/06/29 21:25:39 Starting Vegeta attack with duration=10s, rate=10, targetsBase64 length=84
+2025/06/29 21:25:39 Decoded targets: [{"method":"GET","url":"https://dummyjson.com/http/200/test"}]
+2025/06/29 21:25:39 Worker worker-3 starting test 0b21c669-b3e8-4a3e-937b-dc775a4ad68b...
+2025/06/29 21:25:39 Worker worker-3 sent status: BUSY (Test: 0b21c669-b3e8-4a3e-937b-dc775a4ad68b)
+2025/06/29 21:25:39 Starting Vegeta attack with duration=10s, rate=10, targetsBase64 length=84
+2025/06/29 21:25:39 Decoded targets: [{"method":"GET","url":"https://dummyjson.com/http/200/test"}]
+2025/06/29 21:25:39 Parsed 1 targets successfully
+2025/06/29 21:25:39 Target 0: GET https://dummyjson.com/http/200/test
+2025/06/29 21:25:39 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:25:39 Parsed 1 targets successfully
+2025/06/29 21:25:39 Target 0: GET https://dummyjson.com/http/200/test
+2025/06/29 21:25:39 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:25:39 Starting Vegeta attack: rate=Constant{10 hits/1s}, duration=10s, targets=1
+2025/06/29 21:25:39 Starting Vegeta attack: rate=Constant{10 hits/1s}, duration=10s, targets=1
+2025/06/29 21:25:39 Worker received test assignment for Test ID: 6cf07bdf-4018-42af-b77d-63f367ef6b0e
+2025/06/29 21:25:39 Worker worker-3 starting test 6cf07bdf-4018-42af-b77d-63f367ef6b0e...
+2025/06/29 21:25:39 Worker worker-3 sent status: BUSY (Test: 6cf07bdf-4018-42af-b77d-63f367ef6b0e)
+2025/06/29 21:25:39 Starting Vegeta attack with duration=10s, rate=10, targetsBase64 length=84
+2025/06/29 21:25:39 Decoded targets: [{"method":"GET","url":"https://dummyjson.com/http/200/test"}]
+2025/06/29 21:25:39 Parsed 1 targets successfully
+2025/06/29 21:25:39 Target 0: GET https://dummyjson.com/http/200/test
+2025/06/29 21:25:39 Starting Vegeta attack: rate=Constant{10 hits/1s}, duration=10s, targets=1
+2025/06/29 21:25:39 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:25:39 Worker received test assignment for Test ID: eb51c435-d794-4312-ba1d-bcb9c125db7f
+2025/06/29 21:25:39 Worker worker-3 starting test eb51c435-d794-4312-ba1d-bcb9c125db7f...
+2025/06/29 21:25:39 Worker worker-3 sent status: BUSY (Test: eb51c435-d794-4312-ba1d-bcb9c125db7f)
+2025/06/29 21:25:39 Starting Vegeta attack with duration=10s, rate=10, targetsBase64 length=84
+2025/06/29 21:25:39 Decoded targets: [{"method":"GET","url":"https://dummyjson.com/http/200/test"}]
+2025/06/29 21:25:39 Parsed 1 targets successfully
+2025/06/29 21:25:39 Target 0: GET https://dummyjson.com/http/200/test
+2025/06/29 21:25:39 Starting Vegeta attack: rate=Constant{10 hits/1s}, duration=10s, targets=1
+2025/06/29 21:25:39 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:25:39 Worker received test assignment for Test ID: 42eb6b1b-18a8-4dc2-9613-55cbe064cf12
+2025/06/29 21:25:39 Worker worker-3 starting test 42eb6b1b-18a8-4dc2-9613-55cbe064cf12...
+2025/06/29 21:25:39 Worker worker-3 sent status: BUSY (Test: 42eb6b1b-18a8-4dc2-9613-55cbe064cf12)
+2025/06/29 21:25:39 Starting Vegeta attack with duration=10s, rate=10, targetsBase64 length=84
+2025/06/29 21:25:39 Decoded targets: [{"method":"GET","url":"https://dummyjson.com/http/200/test"}]
+2025/06/29 21:25:39 Parsed 1 targets successfully
+2025/06/29 21:25:39 Target 0: GET https://dummyjson.com/http/200/test
+2025/06/29 21:25:39 Starting Vegeta attack: rate=Constant{10 hits/1s}, duration=10s, targets=1
+2025/06/29 21:25:39 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:25:39 Worker received test assignment for Test ID: b726ccd8-46d5-4305-a0a4-c12ff0e09320
+2025/06/29 21:25:39 Worker worker-3 starting test b726ccd8-46d5-4305-a0a4-c12ff0e09320...
+2025/06/29 21:25:39 Worker worker-3 sent status: BUSY (Test: b726ccd8-46d5-4305-a0a4-c12ff0e09320)
+2025/06/29 21:25:39 Starting Vegeta attack with duration=15s, rate=16, targetsBase64 length=84
+2025/06/29 21:25:39 Decoded targets: [{"method":"GET","url":"https://dummyjson.com/http/200/test"}]
+2025/06/29 21:25:39 Parsed 1 targets successfully
+2025/06/29 21:25:39 Target 0: GET https://dummyjson.com/http/200/test
+2025/06/29 21:25:39 Starting Vegeta attack: rate=Constant{16 hits/1s}, duration=15s, targets=1
+2025/06/29 21:25:39 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:25:39 Worker received test assignment for Test ID: a7848ea2-22d5-4d4c-87c6-2475a4fe3376
+2025/06/29 21:25:39 Worker worker-3 starting test a7848ea2-22d5-4d4c-87c6-2475a4fe3376...
+2025/06/29 21:25:39 Worker worker-3 sent status: BUSY (Test: a7848ea2-22d5-4d4c-87c6-2475a4fe3376)
+2025/06/29 21:25:39 Starting Vegeta attack with duration=10s, rate=7, targetsBase64 length=84
+2025/06/29 21:25:39 Decoded targets: [{"method":"GET","url":"https://dummyjson.com/http/200/test"}]
+2025/06/29 21:25:39 Parsed 1 targets successfully
+2025/06/29 21:25:39 Target 0: GET https://dummyjson.com/http/200/test
+2025/06/29 21:25:39 Starting Vegeta attack: rate=Constant{7 hits/1s}, duration=10s, targets=1
+2025/06/29 21:25:39 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:25:39 Worker received test assignment for Test ID: 3eb06c8a-8f3a-4b40-ac6c-f4460de7a872
+2025/06/29 21:25:39 Worker worker-3 starting test 3eb06c8a-8f3a-4b40-ac6c-f4460de7a872...
+2025/06/29 21:25:39 Worker worker-3 sent status: BUSY (Test: 3eb06c8a-8f3a-4b40-ac6c-f4460de7a872)
+2025/06/29 21:25:39 Starting Vegeta attack with duration=10s, rate=10, targetsBase64 length=84
+2025/06/29 21:25:39 Decoded targets: [{"method":"GET","url":"https://dummyjson.com/http/200/test"}]
+2025/06/29 21:25:39 Parsed 1 targets successfully
+2025/06/29 21:25:39 Target 0: GET https://dummyjson.com/http/200/test
+2025/06/29 21:25:39 Starting Vegeta attack: rate=Constant{10 hits/1s}, duration=10s, targets=1
+2025/06/29 21:25:39 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:25:39 Worker received test assignment for Test ID: efcb213e-5d28-4387-958c-aabffce3b68f
+2025/06/29 21:25:39 Worker worker-3 starting test efcb213e-5d28-4387-958c-aabffce3b68f...
+2025/06/29 21:25:39 Worker worker-3 sent status: BUSY (Test: efcb213e-5d28-4387-958c-aabffce3b68f)
+2025/06/29 21:25:39 Starting Vegeta attack with duration=10s, rate=10, targetsBase64 length=84
+2025/06/29 21:25:39 Decoded targets: [{"method":"GET","url":"https://dummyjson.com/http/200/test"}]
+2025/06/29 21:25:39 Parsed 1 targets successfully
+2025/06/29 21:25:39 Target 0: GET https://dummyjson.com/http/200/test
+2025/06/29 21:25:39 Starting Vegeta attack: rate=Constant{10 hits/1s}, duration=10s, targets=1
+2025/06/29 21:25:39 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:25:39 Worker received test assignment for Test ID: 157ee288-71aa-4305-88a8-3aa0f7c3677e
+2025/06/29 21:25:39 Worker worker-3 starting test 157ee288-71aa-4305-88a8-3aa0f7c3677e...
+2025/06/29 21:25:39 Worker worker-3 sent status: BUSY (Test: 157ee288-71aa-4305-88a8-3aa0f7c3677e)
+2025/06/29 21:25:39 Starting Vegeta attack with duration=10s, rate=10, targetsBase64 length=84
+2025/06/29 21:25:39 Decoded targets: [{"method":"GET","url":"https://dummyjson.com/http/200/test"}]
+2025/06/29 21:25:39 Parsed 1 targets successfully
+2025/06/29 21:25:39 Target 0: GET https://dummyjson.com/http/200/test
+2025/06/29 21:25:39 Starting Vegeta attack: rate=Constant{10 hits/1s}, duration=10s, targets=1
+2025/06/29 21:25:39 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:25:39 Worker received test assignment for Test ID: 1461af47-694e-4d0d-9add-0dd73a0de895
+2025/06/29 21:25:39 Worker worker-3 starting test 1461af47-694e-4d0d-9add-0dd73a0de895...
+2025/06/29 21:25:39 Worker worker-3 sent status: BUSY (Test: 1461af47-694e-4d0d-9add-0dd73a0de895)
+2025/06/29 21:25:39 Starting Vegeta attack with duration=10s, rate=10, targetsBase64 length=84
+2025/06/29 21:25:39 Decoded targets: [{"method":"GET","url":"https://dummyjson.com/http/200/test"}]
+2025/06/29 21:25:39 Parsed 1 targets successfully
+2025/06/29 21:25:39 Target 0: GET https://dummyjson.com/http/200/test
+2025/06/29 21:25:39 Starting Vegeta attack: rate=Constant{10 hits/1s}, duration=10s, targets=1
+2025/06/29 21:25:39 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:25:41 Worker worker-3 sent status: BUSY (Test: 1461af47-694e-4d0d-9add-0dd73a0de895)
+2025/06/29 21:25:41 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:25:46 Worker worker-3 sent status: BUSY (Test: 1461af47-694e-4d0d-9add-0dd73a0de895)
+2025/06/29 21:25:46 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:25:49 Vegeta attack completed
+2025/06/29 21:25:49 Worker worker-3 saving test result to database for test 0b21c669-b3e8-4a3e-937b-dc775a4ad68b
+2025/06/29 21:25:49 Vegeta attack completed
+2025/06/29 21:25:49 Worker worker-3 saving test result to database for test 0b21c669-b3e8-4a3e-937b-dc775a4ad68b
+2025/06/29 21:25:49 Worker worker-3 completed test 0b21c669-b3e8-4a3e-937b-dc775a4ad68b and saved results: TotalRequests=100, CompletedRequests=100, DurationMs=9899, SuccessRate=0.53
+2025/06/29 21:25:49 Worker worker-3 sent status: FINISHING (Test: 0b21c669-b3e8-4a3e-937b-dc775a4ad68b)
+2025/06/29 21:25:49 Worker worker-3 finished test 0b21c669-b3e8-4a3e-937b-dc775a4ad68b.
+2025/06/29 21:25:49 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:25:49 Vegeta attack completed
+2025/06/29 21:25:49 Worker worker-3 saving test result to database for test 6cf07bdf-4018-42af-b77d-63f367ef6b0e
+2025/06/29 21:25:49 Worker worker-3 completed test 6cf07bdf-4018-42af-b77d-63f367ef6b0e and saved results: TotalRequests=100, CompletedRequests=100, DurationMs=9899, SuccessRate=0.56
+2025/06/29 21:25:49 Worker worker-3 sent status: FINISHING (Test: 6cf07bdf-4018-42af-b77d-63f367ef6b0e)
+2025/06/29 21:25:49 Worker worker-3 finished test 6cf07bdf-4018-42af-b77d-63f367ef6b0e.
+2025/06/29 21:25:49 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:25:49 Worker worker-3 completed test 0b21c669-b3e8-4a3e-937b-dc775a4ad68b and saved results: TotalRequests=100, CompletedRequests=100, DurationMs=9899, SuccessRate=0.47
+2025/06/29 21:25:49 Worker worker-3 sent status: FINISHING (Test: 0b21c669-b3e8-4a3e-937b-dc775a4ad68b)
+2025/06/29 21:25:49 Worker worker-3 finished test 0b21c669-b3e8-4a3e-937b-dc775a4ad68b.
+2025/06/29 21:25:49 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:25:49 Vegeta attack completed
+2025/06/29 21:25:49 Worker worker-3 saving test result to database for test eb51c435-d794-4312-ba1d-bcb9c125db7f
+2025/06/29 21:25:49 Worker worker-3 completed test eb51c435-d794-4312-ba1d-bcb9c125db7f and saved results: TotalRequests=100, CompletedRequests=100, DurationMs=9899, SuccessRate=0.50
+2025/06/29 21:25:49 Worker worker-3 sent status: FINISHING (Test: eb51c435-d794-4312-ba1d-bcb9c125db7f)
+2025/06/29 21:25:49 Worker worker-3 finished test eb51c435-d794-4312-ba1d-bcb9c125db7f.
+2025/06/29 21:25:49 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:25:49 Vegeta attack completed
+2025/06/29 21:25:49 Worker worker-3 saving test result to database for test 42eb6b1b-18a8-4dc2-9613-55cbe064cf12
+2025/06/29 21:25:49 Worker worker-3 completed test 42eb6b1b-18a8-4dc2-9613-55cbe064cf12 and saved results: TotalRequests=100, CompletedRequests=100, DurationMs=9899, SuccessRate=0.54
+2025/06/29 21:25:49 Worker worker-3 sent status: FINISHING (Test: 42eb6b1b-18a8-4dc2-9613-55cbe064cf12)
+2025/06/29 21:25:49 Worker worker-3 finished test 42eb6b1b-18a8-4dc2-9613-55cbe064cf12.
+2025/06/29 21:25:49 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:25:49 Vegeta attack completed
+2025/06/29 21:25:49 Worker worker-3 saving test result to database for test a7848ea2-22d5-4d4c-87c6-2475a4fe3376
+2025/06/29 21:25:49 Worker worker-3 completed test a7848ea2-22d5-4d4c-87c6-2475a4fe3376 and saved results: TotalRequests=70, CompletedRequests=70, DurationMs=9857, SuccessRate=0.61
+2025/06/29 21:25:49 Worker worker-3 sent status: FINISHING (Test: a7848ea2-22d5-4d4c-87c6-2475a4fe3376)
+2025/06/29 21:25:49 Worker worker-3 finished test a7848ea2-22d5-4d4c-87c6-2475a4fe3376.
+2025/06/29 21:25:49 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:25:49 Vegeta attack completed
+2025/06/29 21:25:49 Worker worker-3 saving test result to database for test 3eb06c8a-8f3a-4b40-ac6c-f4460de7a872
+2025/06/29 21:25:49 Worker worker-3 completed test 3eb06c8a-8f3a-4b40-ac6c-f4460de7a872 and saved results: TotalRequests=100, CompletedRequests=100, DurationMs=9900, SuccessRate=0.55
+2025/06/29 21:25:49 Worker worker-3 sent status: FINISHING (Test: 3eb06c8a-8f3a-4b40-ac6c-f4460de7a872)
+2025/06/29 21:25:49 Worker worker-3 finished test 3eb06c8a-8f3a-4b40-ac6c-f4460de7a872.
+2025/06/29 21:25:49 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:25:49 Vegeta attack completed
+2025/06/29 21:25:49 Worker worker-3 saving test result to database for test efcb213e-5d28-4387-958c-aabffce3b68f
+2025/06/29 21:25:49 Worker worker-3 completed test efcb213e-5d28-4387-958c-aabffce3b68f and saved results: TotalRequests=100, CompletedRequests=100, DurationMs=9899, SuccessRate=0.44
+2025/06/29 21:25:49 Worker worker-3 sent status: FINISHING (Test: efcb213e-5d28-4387-958c-aabffce3b68f)
+2025/06/29 21:25:49 Worker worker-3 finished test efcb213e-5d28-4387-958c-aabffce3b68f.
+2025/06/29 21:25:49 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:25:49 Vegeta attack completed
+2025/06/29 21:25:49 Worker worker-3 saving test result to database for test 157ee288-71aa-4305-88a8-3aa0f7c3677e
+2025/06/29 21:25:49 Worker worker-3 completed test 157ee288-71aa-4305-88a8-3aa0f7c3677e and saved results: TotalRequests=100, CompletedRequests=100, DurationMs=9899, SuccessRate=0.42
+2025/06/29 21:25:49 Worker worker-3 sent status: FINISHING (Test: 157ee288-71aa-4305-88a8-3aa0f7c3677e)
+2025/06/29 21:25:49 Worker worker-3 finished test 157ee288-71aa-4305-88a8-3aa0f7c3677e.
+2025/06/29 21:25:49 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:25:49 Vegeta attack completed
+2025/06/29 21:25:49 Worker worker-3 saving test result to database for test 1461af47-694e-4d0d-9add-0dd73a0de895
+2025/06/29 21:25:49 Worker worker-3 completed test 1461af47-694e-4d0d-9add-0dd73a0de895 and saved results: TotalRequests=100, CompletedRequests=100, DurationMs=9900, SuccessRate=0.41
+2025/06/29 21:25:49 Worker worker-3 sent status: FINISHING (Test: 1461af47-694e-4d0d-9add-0dd73a0de895)
+2025/06/29 21:25:49 Worker worker-3 finished test 1461af47-694e-4d0d-9add-0dd73a0de895.
+2025/06/29 21:25:49 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:25:51 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:25:51 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:25:54 Vegeta attack completed
+2025/06/29 21:25:54 Worker worker-3 saving test result to database for test b726ccd8-46d5-4305-a0a4-c12ff0e09320
+2025/06/29 21:25:54 Worker worker-3 completed test b726ccd8-46d5-4305-a0a4-c12ff0e09320 and saved results: TotalRequests=240, CompletedRequests=240, DurationMs=14938, SuccessRate=0.34
+2025/06/29 21:25:54 Worker worker-3 sent status: FINISHING (Test: b726ccd8-46d5-4305-a0a4-c12ff0e09320)
+2025/06/29 21:25:54 Worker worker-3 finished test b726ccd8-46d5-4305-a0a4-c12ff0e09320.
+2025/06/29 21:25:54 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:25:56 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:25:56 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:26:01 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:26:01 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:26:06 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:26:06 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:26:11 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:26:11 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:26:16 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:26:16 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:26:21 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:26:21 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:26:26 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:26:26 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:26:31 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:26:31 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:26:36 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:26:36 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:26:41 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:26:41 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:26:46 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:26:46 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:26:51 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:26:51 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:26:56 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:26:56 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:27:01 Worker received test assignment for Test ID: 27974e26-6f46-403d-8981-54d02d428e81
+2025/06/29 21:27:01 Worker worker-3 starting test 27974e26-6f46-403d-8981-54d02d428e81...
+2025/06/29 21:27:01 Worker worker-3 sent status: BUSY (Test: 27974e26-6f46-403d-8981-54d02d428e81)
+2025/06/29 21:27:01 Starting Vegeta attack with duration=10s, rate=10, targetsBase64 length=84
+2025/06/29 21:27:01 Decoded targets: [{"method":"GET","url":"https://dummyjson.com/http/200/test"}]
+2025/06/29 21:27:01 Parsed 1 targets successfully
+2025/06/29 21:27:01 Target 0: GET https://dummyjson.com/http/200/test
+2025/06/29 21:27:01 Starting Vegeta attack: rate=Constant{10 hits/1s}, duration=10s, targets=1
+2025/06/29 21:27:01 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:27:01 Worker worker-3 sent status: BUSY (Test: 27974e26-6f46-403d-8981-54d02d428e81)
+2025/06/29 21:27:01 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:27:06 Worker worker-3 sent status: BUSY (Test: 27974e26-6f46-403d-8981-54d02d428e81)
+2025/06/29 21:27:06 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:27:11 Vegeta attack completed
+2025/06/29 21:27:11 Worker worker-3 saving test result to database for test 27974e26-6f46-403d-8981-54d02d428e81
+2025/06/29 21:27:11 Worker worker-3 completed test 27974e26-6f46-403d-8981-54d02d428e81 and saved results: TotalRequests=100, CompletedRequests=100, DurationMs=9897, SuccessRate=1.00
+2025/06/29 21:27:11 Worker worker-3 sent status: FINISHING (Test: 27974e26-6f46-403d-8981-54d02d428e81)
+2025/06/29 21:27:11 Worker worker-3 finished test 27974e26-6f46-403d-8981-54d02d428e81.
+2025/06/29 21:27:11 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:27:11 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:27:11 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:27:16 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:27:16 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:27:21 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:27:21 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:27:26 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:27:26 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:27:31 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:27:31 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:27:36 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:27:36 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:27:41 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:27:41 Received ACK from Master for worker worker-3: Success=true, Message=Status received
