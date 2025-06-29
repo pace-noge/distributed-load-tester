@@ -445,11 +445,42 @@ const TestSubmissionPage = () => {
     const [duration, setDuration] = useState('30s');
     const [rate, setRate] = useState(10);
     const [workerCount, setWorkerCount] = useState(1);
+    const [availableWorkers, setAvailableWorkers] = useState([]);
     const [targets, setTargets] = useState(''); // Raw targets data
     const [vegetaPayload, setVegetaPayload] = useState('{}'); // JSON string
     const [message, setMessage] = useState('');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
+
+    // Fetch available workers on component mount
+    useEffect(() => {
+        const fetchAvailableWorkers = async () => {
+            try {
+                const data = await authenticatedFetch(`${API_BASE_URL}/dashboard`);
+                if (data && data.worker_summaries) {
+                    // Filter for READY workers
+                    const readyWorkers = data.worker_summaries.filter(worker => 
+                        worker.status_type === 'READY' || worker.status_type === 'ready'
+                    );
+                    setAvailableWorkers(readyWorkers);
+                    
+                    // Set initial worker count to 1, but max it to available workers
+                    const maxWorkers = Math.max(1, readyWorkers.length);
+                    if (workerCount > maxWorkers) {
+                        setWorkerCount(maxWorkers);
+                    }
+                }
+            } catch (err) {
+                console.error("Failed to fetch available workers:", err);
+                setError(`Failed to fetch available workers: ${err.message}`);
+            }
+        };
+
+        fetchAvailableWorkers();
+        // Refresh worker list every 10 seconds
+        const interval = setInterval(fetchAvailableWorkers, 10000);
+        return () => clearInterval(interval);
+    }, [workerCount]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -540,18 +571,32 @@ const TestSubmissionPage = () => {
                     </div>
                     <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="workerCount">Number of Workers</label>
-                        <input
-                            type="number"
+                        <select
                             id="workerCount"
                             value={workerCount}
-                            onChange={(e) => setWorkerCount(e.target.value)}
+                            onChange={(e) => setWorkerCount(parseInt(e.target.value))}
                             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
                             required
-                            min="1"
-                            max="10"
                             disabled={loading}
-                        />
-                        <p className="text-xs text-gray-500 mt-1">Load will be distributed across all workers</p>
+                        >
+                            {availableWorkers.length === 0 ? (
+                                <option value={1}>1 worker (no workers available)</option>
+                            ) : (
+                                Array.from({ length: Math.min(availableWorkers.length, 10) }, (_, i) => i + 1).map(num => (
+                                    <option key={num} value={num}>
+                                        {num} worker{num > 1 ? 's' : ''} {num === availableWorkers.length ? '(all available)' : ''}
+                                    </option>
+                                ))
+                            )}
+                        </select>
+                        <div className="flex items-center justify-between mt-1">
+                            <p className="text-xs text-gray-500">
+                                Load will be distributed across all selected workers
+                            </p>
+                            <p className="text-xs text-green-600">
+                                {availableWorkers.length} worker{availableWorkers.length !== 1 ? 's' : ''} ready
+                            </p>
+                        </div>
                     </div>
                 </div>
                 <div>

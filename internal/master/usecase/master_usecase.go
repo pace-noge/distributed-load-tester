@@ -22,7 +22,6 @@ type MasterUsecase struct {
 	testRepo              domain.TestRepository
 	testResultRepo        domain.TestResultRepository
 	aggregatedResultRepo  domain.AggregatedResultRepository
-	kafkaProducer         domain.KafkaProducer
 	activeWorkerClients   sync.Map // Map[string]*grpc.ClientConn
 	activeTestAssignments sync.Map // Map[string]map[string]bool // testID -> workerID -> assigned
 	// For managing test distribution to workers
@@ -36,15 +35,13 @@ func NewMasterUsecase(
 	wr domain.WorkerRepository,
 	tr domain.TestRepository,
 	trr domain.TestResultRepository,
-	arr domain.AggregatedResultRepository,
-	kp domain.KafkaProducer) *MasterUsecase {
+	arr domain.AggregatedResultRepository) *MasterUsecase {
 
 	uc := &MasterUsecase{
 		workerRepo:           wr,
 		testRepo:             tr,
 		testResultRepo:       trr,
 		aggregatedResultRepo: arr,
-		kafkaProducer:        kp,
 		testQueue:            make(chan *domain.TestRequest, 100), // Buffered channel for tests
 		workerAvailability:   make(chan string, 100),              // Buffered channel for available worker IDs
 	}
@@ -310,18 +307,46 @@ func (uc *MasterUsecase) HandleWorkerTestCompletion(ctx context.Context, testID,
 		}
 	}
 
-	// Check if all assigned workers have completed/failed
-	if len(test.AssignedWorkersIDs) > 0 && len(test.CompletedWorkers)+len(test.FailedWorkers) >= len(test.AssignedWorkersIDs) {
-		log.Printf("All assigned workers for test %s have reported completion.", testID)
-		// Perform aggregation and update overall test status
-		if len(test.FailedWorkers) > 0 {
-			uc.testRepo.UpdateTestStatus(ctx, testID, "PARTIALLY_FAILED", test.CompletedWorkers, test.FailedWorkers)
+	// Get updated test data to ensure we have the latest worker counts
+	updatedTest, err := uc.testRepo.GetTestRequestByID(ctx, testID)
+	if err != nil {
+		log.Printf("Error getting updated test %s during completion handling: %v", testID, err)
+		return
+	}
+
+	// Check if all workers assigned to this test have completed or failed
+	totalExpectedWorkers := int(updatedTest.WorkerCount)
+	totalCompletedWorkers := len(updatedTest.CompletedWorkers)
+	totalFailedWorkers := len(updatedTest.FailedWorkers)
+	totalFinishedWorkers := totalCompletedWorkers + totalFailedWorkers
+
+	log.Printf("Test %s worker status: Expected=%d, Completed=%d, Failed=%d, Total Finished=%d",
+		testID, totalExpectedWorkers, totalCompletedWorkers, totalFailedWorkers, totalFinishedWorkers)
+
+	// Check if all expected workers have finished (either completed or failed)
+	if totalFinishedWorkers >= totalExpectedWorkers {
+		log.Printf("All %d workers for test %s have finished (completed: %d, failed: %d)",
+			totalExpectedWorkers, testID, totalCompletedWorkers, totalFailedWorkers)
+
+		// Determine final test status based on worker results
+		var finalStatus string
+		if totalFailedWorkers == 0 {
+			finalStatus = "COMPLETED"
+		} else if totalCompletedWorkers > 0 {
+			finalStatus = "PARTIALLY_FAILED"
 		} else {
-			uc.testRepo.UpdateTestStatus(ctx, testID, "COMPLETED", test.CompletedWorkers, test.FailedWorkers)
+			finalStatus = "FAILED"
 		}
 
+		log.Printf("Setting test %s final status to: %s", testID, finalStatus)
+		uc.testRepo.UpdateTestStatus(ctx, testID, finalStatus, updatedTest.CompletedWorkers, updatedTest.FailedWorkers)
+
 		// Trigger aggregation of results for this test
+		log.Printf("Triggering aggregation for completed test %s", testID)
 		go uc.aggregateTestResults(context.Background(), testID)
+	} else {
+		log.Printf("Test %s still waiting for %d more workers to finish",
+			testID, totalExpectedWorkers-totalFinishedWorkers)
 	}
 
 	// Mark worker as READY again

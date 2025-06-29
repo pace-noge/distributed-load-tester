@@ -1,0 +1,71 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch Master",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/main.go",
+            "args": [
+                "master",
+                "--port=8080",
+                "--grpc-port=50051",
+                "--database-url=postgres://user:password@localhost:5432/loadtester?sslmode=disable"
+            ],
+            "env": {},
+            "console": "integratedTerminal",
+            "stopOnEntry": false
+        },
+        {
+            "name": "Launch Worker",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/main.go",
+            "args": [
+                "worker",
+                "--master-address=localhost:50051",
+                "--worker-id=worker-1",
+                "--database-url=postgres://user:password@localhost:5432/loadtester?sslmode=disable"
+            ],
+            "env": {},
+            "console": "integratedTerminal",
+            "stopOnEntry": false
+        },
+        {
+            "name": "Debug Tests",
+            "type": "go",
+            "request": "launch",
+            "mode": "test",
+            "program": "${workspaceFolder}",
+            "args": [
+                "-test.v"
+            ],
+            "env": {},
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Debug Current Test",
+            "type": "go",
+            "request": "launch",
+            "mode": "test",
+            "program": "${fileDirname}",
+            "args": [
+                "-test.run",
+                "^${input:testName}$",
+                "-test.v"
+            ],
+            "env": {},
+            "console": "integratedTerminal"
+        }
+    ],
+    "inputs": [
+        {
+            "id": "testName",
+            "description": "Test function name",
+            "default": "",
+            "type": "promptString"
+        }
+    ]
+}

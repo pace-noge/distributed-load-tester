@@ -39,18 +39,6 @@ type AggregatedResultRepository interface {
 	GetAllAggregatedResults(ctx context.Context) ([]*TestResultAggregated, error)
 }
 
-// KafkaProducer defines operations for producing messages to Kafka.
-type KafkaProducer interface {
-	Produce(ctx context.Context, key string, value []byte) error
-	Close() error
-}
-
-// KafkaConsumer defines operations for consuming messages from Kafka.
-type KafkaConsumer interface {
-	Consume(ctx context.Context, topic string, handler func(key, value []byte) error) error
-	Close() error
-}
-
 // VegetaExecutor defines operations for executing Vegeta load tests.
 type VegetaExecutor interface {
 	Attack(ctx context.Context, vegetaPayloadJSON, durationStr string, rate uint64, targetsBase64 string) (*TestResult, error)

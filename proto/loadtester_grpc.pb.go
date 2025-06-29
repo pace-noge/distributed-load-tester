@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.2.0
 // - protoc             v5.29.3
-// source: proto/loadtester.proto
+// source: loadtester.proto
 
 package proto
 
@@ -210,7 +210,7 @@ var WorkerService_ServiceDesc = grpc.ServiceDesc{
 			ClientStreams: true,
 		},
 	},
-	Metadata: "proto/loadtester.proto",
+	Metadata: "loadtester.proto",
 }
 
 // MasterServiceClient is the client API for MasterService service.
@@ -332,5 +332,5 @@ var MasterService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "proto/loadtester.proto",
+	Metadata: "loadtester.proto",
 }

@@ -3,7 +3,6 @@ package usecase
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"io" // For io.EOF
 	"log"
@@ -20,8 +19,8 @@ type WorkerUsecase struct {
 	workerID       string
 	masterClient   pb.WorkerServiceClient
 	vegetaExecutor domain.VegetaExecutor
-	kafkaProducer  domain.KafkaProducer
-	currentTestID  string // Tracks the ID of the test currently being executed
+	testResultRepo domain.TestResultRepository // Add database access for storing results
+	currentTestID  string                      // Tracks the ID of the test currently being executed
 
 	statusStreamClient pb.WorkerService_StreamWorkerStatusClient
 	statusStreamCancel context.CancelFunc // To cancel the status stream context
@@ -29,13 +28,13 @@ type WorkerUsecase struct {
 	statusStreamMu     sync.Mutex         // Protects sending on the stream
 }
 
-// NewWorkerUsecase creates a new WorkerUsecase instance.
-func NewWorkerUsecase(workerID string, masterClient pb.WorkerServiceClient, ve domain.VegetaExecutor, kp domain.KafkaProducer) *WorkerUsecase {
+// NewWorkerUsecase creates a new WorkerUsecase instance without Kafka.
+func NewWorkerUsecase(workerID string, vegetaExecutor domain.VegetaExecutor, masterClient pb.WorkerServiceClient, testResultRepo domain.TestResultRepository) *WorkerUsecase {
 	return &WorkerUsecase{
 		workerID:       workerID,
 		masterClient:   masterClient,
-		vegetaExecutor: ve,
-		kafkaProducer:  kp,
+		vegetaExecutor: vegetaExecutor,
+		testResultRepo: testResultRepo,
 	}
 }
 
@@ -285,27 +284,34 @@ func (uc *WorkerUsecase) ExecuteTest(ctx context.Context, assignment *domain.Tes
 	result.TestID = assignment.TestID
 	result.WorkerID = uc.workerID
 
-	// Produce result to Kafka
-	resultBytes, err := json.Marshal(result) // Marshal the domain.TestResult
+	// Save result directly to PostgreSQL database
+	log.Printf("Worker %s saving test result to database for test %s", uc.workerID, assignment.TestID)
+	saveCtx, saveCancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer saveCancel()
+
+	err = uc.testResultRepo.SaveTestResult(saveCtx, result)
 	if err != nil {
-		log.Printf("Failed to marshal test result for Kafka: %v", err)
-		// Still send FINISHING status even if Kafka fails
-	} else {
-		produceCtx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-		defer cancel()
-		err = uc.kafkaProducer.Produce(produceCtx, assignment.TestID, resultBytes)
-		if err != nil {
-			log.Printf("Failed to produce test result to Kafka for test %s: %v", assignment.TestID, err)
-			// Decide if this should lead to a test failure or just a warning
-		} else {
-			log.Printf("Worker %s successfully produced result to Kafka for test %s", uc.workerID, assignment.TestID)
+		log.Printf("Worker %s failed to save test result to database for test %s: %v", uc.workerID, assignment.TestID, err)
+		// Send ERROR status to master
+		sendErr := uc.sendStatusToMaster(
+			pb.StatusType_ERROR,
+			fmt.Sprintf("Failed to save test result: %v", err),
+			assignment.TestID, result.TotalRequests, result.CompletedRequests, result.DurationMs,
+		)
+		if sendErr != nil {
+			log.Printf("Warning: Could not send error status to master: %v", sendErr)
 		}
+		uc.currentTestID = "" // Clear current test
+		return fmt.Errorf("failed to save test result: %w", err)
 	}
 
-	// Inform master that test is finished
+	log.Printf("Worker %s completed test %s and saved results: TotalRequests=%d, CompletedRequests=%d, DurationMs=%d, SuccessRate=%.2f",
+		uc.workerID, assignment.TestID, result.TotalRequests, result.CompletedRequests, result.DurationMs, result.SuccessRate)
+
+	// Inform master that test is finished and results are saved
 	sendErr := uc.sendStatusToMaster(
 		pb.StatusType_FINISHING,
-		"Test completed and results sent",
+		"Test completed and results saved to database",
 		assignment.TestID, result.TotalRequests, result.CompletedRequests, result.DurationMs,
 	)
 	if sendErr != nil {

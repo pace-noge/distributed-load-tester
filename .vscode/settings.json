@@ -1,0 +1,62 @@
+{
+    // Core terminal settings for reliable Copilot integration
+    "terminal.integrated.scrollback": 100000,
+    "terminal.integrated.shellIntegration.enabled": true,
+    "terminal.integrated.shellIntegration.history": 100000,
+    "terminal.integrated.enablePersistentSessions": false,
+    "terminal.integrated.confirmOnExit": "never",
+    "terminal.integrated.confirmOnKill": "never",
+    "terminal.integrated.copyOnSelection": false,
+    "terminal.integrated.rightClickBehavior": "default",
+    "terminal.integrated.automationShell.osx": "/bin/zsh",
+    "terminal.integrated.cwd": "${workspaceFolder}",
+
+    // macOS-specific terminal settings
+    "terminal.integrated.defaultProfile.osx": "zsh",
+    "terminal.integrated.profiles.osx": {
+        "zsh": {
+            "path": "/bin/zsh",
+            "args": ["-l"]
+        }
+    },
+
+    // Copilot settings
+    "github.copilot.enable": {
+        "*": true,
+        "go": true,
+        "javascript": true,
+        "typescript": true,
+        "json": true,
+        "shell": true,
+        "shellscript": true,
+        "zsh": true,
+        "bash": true
+    },
+    "github.copilot.terminal.executeCommand": "always",
+    "github.copilot.editor.enableCodeActions": true,
+    "github.copilot.chat.terminalChatLocation": "terminal",
+    "github.copilot.terminal.suggestCommands": "always",
+    "github.copilot.terminal.focusOnExecution": false,
+
+    // Go settings
+    "go.useLanguageServer": true,
+    "go.formatTool": "goimports",
+    "go.lintTool": "golangci-lint",
+    "go.toolsManagement.autoUpdate": true,
+
+    // Language-specific formatting
+    "[go]": {
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": "explicit"
+        }
+    },
+
+    // File and editor settings
+    "files.autoSave": "afterDelay",
+    "files.autoSaveDelay": 1000,
+    "files.trimTrailingWhitespace": true,
+    "files.insertFinalNewline": true,
+    "workbench.editor.enablePreview": false,
+    "workbench.editor.enablePreviewFromQuickOpen": false
+}
