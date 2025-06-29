@@ -1,4 +1,3 @@
-// Main App - Now using modular structure
 import React, { useState, useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
 
@@ -8,11 +7,24 @@ import { AuthProvider, useAuth } from './src/contexts/AuthContext.jsx';
 // Pages
 import { LoginPage } from './src/pages/LoginPage.jsx';
 import { TestHistoryPage } from './src/pages/TestHistoryPage.jsx';
-import { DashboardPage } from './src/pages/DashboardPage.jsx';
-import NewTestPage from './src/pages/NewTestPage.jsx';
 
 // Layout Components
 import { Navbar } from './src/components/layout/Navbar.jsx';
+
+// Placeholder components for other pages
+const DashboardPage = () => (
+    <div className="text-center py-12">
+        <h1 className="text-2xl font-bold text-gray-900 mb-4">Dashboard</h1>
+        <p className="text-gray-600">Dashboard implementation coming soon...</p>
+    </div>
+);
+
+const NewTestPage = () => (
+    <div className="text-center py-12">
+        <h1 className="text-2xl font-bold text-gray-900 mb-4">New Test</h1>
+        <p className="text-gray-600">New test creation form coming soon...</p>
+    </div>
+);
 
 const AppContent = () => {
     const { isLoggedIn } = useAuth();
@@ -68,5 +80,3 @@ const App = () => {
 const container = document.getElementById('root');
 const root = createRoot(container);
 root.render(<App />);
-
-export default App;
