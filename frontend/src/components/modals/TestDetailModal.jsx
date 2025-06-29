@@ -1,23 +1,19 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
     Play, XCircle, Target, Users, Clock, BarChart3,
-    CheckCircle, AlertCircle
+    ExternalLink
 } from 'lucide-react';
-import {
-    BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
-    LineChart, Line, PieChart, Pie, Cell
-} from 'recharts';
 
 import { LoadingSpinner, StatusBadge } from '../common/UIComponents.jsx';
 import { formatDate, formatDuration, formatRateDistribution, getValueWithFallback } from '../../utils/formatters.js';
 import { fetchTestDetail, replayTest } from '../../utils/api.js';
-import { COLORS, MODAL_TABS } from '../../utils/constants.js';
 
 export const TestDetailModal = ({ testId, isOpen, onClose }) => {
+    const navigate = useNavigate();
     const [testDetail, setTestDetail] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
-    const [activeTab, setActiveTab] = useState('overview');
 
     const handleFetchTestDetail = useCallback(async () => {
         if (!testId || !isOpen) return;
@@ -49,31 +45,18 @@ export const TestDetailModal = ({ testId, isOpen, onClose }) => {
         }
     };
 
-    if (!isOpen) return null;
+    const handleViewFullDetails = () => {
+        navigate(`/test/${testId}`);
+        onClose();
+    };
 
-    // Prepare chart data
-    const workerPerformanceData = testDetail?.results?.map((result, index) => ({
-        name: `Worker ${index + 1}`,
-        requests: result.total_requests,
-        completed: result.completed_requests,
-        avgLatency: result.average_latency_ms,
-        p95Latency: result.p95_latency_ms,
-        successRate: result.success_rate * 100
-    })) || [];
-
-    const statusCodeData = testDetail?.aggregated_result ?
-        Object.entries(testDetail.aggregated_result.error_rates || {}).map(([code, count]) => ({
-            name: `HTTP ${code}`,
-            value: count
-        })) : [];
-
-    return (
+    if (!isOpen) return null;    return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-            <div className="bg-white rounded-2xl shadow-2xl w-full max-w-6xl max-h-[90vh] overflow-hidden">
+            <div className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[80vh] overflow-hidden">
                 {/* Header */}
                 <div className="flex items-center justify-between p-6 border-b border-gray-200">
                     <div>
-                        <h2 className="text-2xl font-bold text-gray-900">Test Details</h2>
+                        <h2 className="text-2xl font-bold text-gray-900">Test Overview</h2>
                         {testDetail?.test && (
                             <p className="text-gray-600 mt-1">{testDetail.test.name}</p>
                         )}
@@ -95,25 +78,6 @@ export const TestDetailModal = ({ testId, isOpen, onClose }) => {
                     </div>
                 </div>
 
-                {/* Tabs */}
-                <div className="border-b border-gray-200">
-                    <nav className="flex space-x-8 px-6">
-                        {MODAL_TABS.map((tab) => (
-                            <button
-                                key={tab.id}
-                                onClick={() => setActiveTab(tab.id)}
-                                className={`py-4 text-sm font-medium border-b-2 transition-all ${
-                                    activeTab === tab.id
-                                        ? 'border-blue-500 text-blue-600'
-                                        : 'border-transparent text-gray-500 hover:text-gray-700'
-                                }`}
-                            >
-                                {tab.label}
-                            </button>
-                        ))}
-                    </nav>
-                </div>
-
                 {/* Content */}
                 <div className="p-6 overflow-y-auto max-h-[60vh]">
                     {loading ? (
@@ -127,12 +91,26 @@ export const TestDetailModal = ({ testId, isOpen, onClose }) => {
                     ) : !testDetail ? (
                         <div className="text-gray-500 text-center py-12">No data available</div>
                     ) : (
-                        <ModalContent
-                            activeTab={activeTab}
-                            testDetail={testDetail}
-                            workerPerformanceData={workerPerformanceData}
-                            statusCodeData={statusCodeData}
-                        />
+                        <div className="space-y-6">
+                            {/* Test Configuration Overview */}
+                            <OverviewContent test={testDetail.test} />
+
+                            {/* Quick Results Summary */}
+                            {testDetail.aggregated_result && (
+                                <QuickResultsSummary aggregatedResult={testDetail.aggregated_result} />
+                            )}
+
+                            {/* Action Buttons */}
+                            <div className="flex justify-center pt-4">
+                                <button
+                                    onClick={handleViewFullDetails}
+                                    className="flex items-center space-x-2 px-6 py-3 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-all"
+                                >
+                                    <ExternalLink className="w-4 h-4" />
+                                    <span>View Full Details & Charts</span>
+                                </button>
+                            </div>
+                        </div>
                     )}
                 </div>
             </div>
@@ -140,28 +118,10 @@ export const TestDetailModal = ({ testId, isOpen, onClose }) => {
     );
 };
 
-const ModalContent = ({ activeTab, testDetail, workerPerformanceData, statusCodeData }) => {
-    const test = testDetail.test;
-
-    if (activeTab === 'overview') {
-        return <OverviewTab test={test} />;
-    }
-
-    if (activeTab === 'results') {
-        return <ResultsTab testDetail={testDetail} />;
-    }
-
-    if (activeTab === 'charts') {
-        return <ChartsTab workerPerformanceData={workerPerformanceData} statusCodeData={statusCodeData} />;
-    }
-
-    return null;
-};
-
-const OverviewTab = ({ test }) => (
+const OverviewContent = ({ test }) => (
     <div className="space-y-6">
-        {/* Test Info */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* Test Configuration Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <InfoCard
                 icon={Target}
                 value={getValueWithFallback(test, ['ratePerSecond', 'rate_per_second'])}
@@ -196,10 +156,10 @@ const OverviewTab = ({ test }) => (
             />
         </div>
 
-        {/* Status and Timeline */}
-        <div className="bg-gray-50 p-6 rounded-lg">
-            <h3 className="text-lg font-medium text-gray-900 mb-4">Test Status</h3>
-            <div className="flex items-center justify-between">
+        {/* Status and Basic Info */}
+        <div className="bg-gray-50 p-4 rounded-lg">
+            <h3 className="text-lg font-medium text-gray-900 mb-3">Test Status</h3>
+            <div className="flex items-center justify-between mb-3">
                 <StatusBadge status={test.status} />
                 <div className="text-sm text-gray-600">
                     Created: {formatDate(getValueWithFallback(test, ['createdAt', 'created_at', 'created']))}
@@ -207,8 +167,8 @@ const OverviewTab = ({ test }) => (
             </div>
 
             {test.assigned_workers_ids?.length > 0 && (
-                <div className="mt-4">
-                    <div className="text-sm font-medium text-gray-700 mb-2">Worker Status:</div>
+                <div>
+                    <div className="text-sm font-medium text-gray-700 mb-2">Assigned Workers:</div>
                     <div className="flex flex-wrap gap-2">
                         {test.assigned_workers_ids.map((workerId) => (
                             <span key={workerId} className="px-2 py-1 bg-blue-100 text-blue-800 rounded text-xs">
@@ -222,170 +182,54 @@ const OverviewTab = ({ test }) => (
     </div>
 );
 
-const ResultsTab = ({ testDetail }) => (
-    <div className="space-y-6">
-        {testDetail.aggregated_result ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <InfoCard
-                    value={testDetail.aggregated_result.total_requests.toLocaleString()}
-                    label="Total Requests"
-                    bgColor="bg-blue-50"
-                    textColor="text-blue-900"
-                />
-                <InfoCard
-                    value={testDetail.aggregated_result.successful_requests.toLocaleString()}
-                    label="Successful"
-                    bgColor="bg-green-50"
-                    textColor="text-green-900"
-                />
-                <InfoCard
-                    value={testDetail.aggregated_result.failed_requests.toLocaleString()}
-                    label="Failed"
-                    bgColor="bg-red-50"
-                    textColor="text-red-900"
-                />
-                <InfoCard
-                    value={`${testDetail.aggregated_result.avg_latency_ms.toFixed(2)}ms`}
-                    label="Avg Latency"
-                    bgColor="bg-yellow-50"
-                    textColor="text-yellow-900"
-                />
-            </div>
-        ) : (
-            <div className="text-gray-500 text-center py-8">
-                No aggregated results available yet.
-            </div>
-        )}
-
-        {/* Individual Worker Results */}
-        {testDetail.results?.length > 0 && <WorkerResultsTable results={testDetail.results} />}
-    </div>
-);
-
-const ChartsTab = ({ workerPerformanceData, statusCodeData }) => (
-    <div className="space-y-8">
-        {workerPerformanceData.length > 0 && (
-            <>
-                {/* Worker Performance Chart */}
-                <ChartContainer title="Worker Performance">
-                    <ResponsiveContainer width="100%" height={300}>
-                        <BarChart data={workerPerformanceData}>
-                            <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis dataKey="name" />
-                            <YAxis />
-                            <Tooltip />
-                            <Legend />
-                            <Bar dataKey="requests" fill="#3B82F6" name="Total Requests" />
-                            <Bar dataKey="completed" fill="#10B981" name="Completed Requests" />
-                        </BarChart>
-                    </ResponsiveContainer>
-                </ChartContainer>
-
-                {/* Latency Chart */}
-                <ChartContainer title="Latency Distribution">
-                    <ResponsiveContainer width="100%" height={300}>
-                        <LineChart data={workerPerformanceData}>
-                            <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis dataKey="name" />
-                            <YAxis />
-                            <Tooltip />
-                            <Legend />
-                            <Line type="monotone" dataKey="avgLatency" stroke="#F59E0B" name="Avg Latency (ms)" />
-                            <Line type="monotone" dataKey="p95Latency" stroke="#EF4444" name="P95 Latency (ms)" />
-                        </LineChart>
-                    </ResponsiveContainer>
-                </ChartContainer>
-            </>
-        )}
-
-        {/* Status Code Distribution */}
-        {statusCodeData.length > 0 && (
-            <ChartContainer title="Status Code Distribution">
-                <ResponsiveContainer width="100%" height={300}>
-                    <PieChart>
-                        <Pie
-                            data={statusCodeData}
-                            cx="50%"
-                            cy="50%"
-                            labelLine={false}
-                            label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
-                            outerRadius={80}
-                            fill="#8884d8"
-                            dataKey="value"
-                        >
-                            {statusCodeData.map((entry, index) => (
-                                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                            ))}
-                        </Pie>
-                        <Tooltip />
-                    </PieChart>
-                </ResponsiveContainer>
-            </ChartContainer>
-        )}
-
-        {workerPerformanceData.length === 0 && statusCodeData.length === 0 && (
-            <div className="text-gray-500 text-center py-12">
-                No chart data available. Results may still be processing.
-            </div>
-        )}
-    </div>
-);
-
-// Helper Components
-const InfoCard = ({ icon: Icon, value, label, bgColor, textColor, iconColor }) => (
-    <div className={`${bgColor} p-4 rounded-lg`}>
-        <div className="flex items-center space-x-3">
-            {Icon && <Icon className={`w-8 h-8 ${iconColor}`} />}
-            <div>
-                <div className={`text-2xl font-bold ${textColor}`}>
-                    {value}
+const QuickResultsSummary = ({ aggregatedResult }) => (
+    <div className="bg-gray-50 p-4 rounded-lg">
+        <h3 className="text-lg font-medium text-gray-900 mb-3">Quick Results Summary</h3>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="text-center">
+                <div className="text-2xl font-bold text-blue-600">
+                    {(aggregatedResult.total_requests || 0).toLocaleString()}
                 </div>
-                <div className={`text-sm ${iconColor}`}>{label}</div>
+                <div className="text-sm text-gray-600">Total Requests</div>
+            </div>
+            <div className="text-center">
+                <div className="text-2xl font-bold text-green-600">
+                    {(aggregatedResult.successful_requests || 0).toLocaleString()}
+                </div>
+                <div className="text-sm text-gray-600">Successful</div>
+            </div>
+            <div className="text-center">
+                <div className="text-2xl font-bold text-red-600">
+                    {(aggregatedResult.failed_requests || 0).toLocaleString()}
+                </div>
+                <div className="text-sm text-gray-600">Failed</div>
+            </div>
+            <div className="text-center">
+                <div className="text-2xl font-bold text-yellow-600">
+                    {(aggregatedResult.avg_latency_ms || 0).toFixed(2)}ms
+                </div>
+                <div className="text-sm text-gray-600">Avg Latency</div>
+            </div>
+        </div>
+
+        <div className="mt-3 text-center">
+            <div className="text-sm text-gray-600">
+                View the dedicated page for detailed worker metrics, charts, and comprehensive analysis.
             </div>
         </div>
     </div>
 );
 
-const WorkerResultsTable = ({ results }) => (
-    <div className="overflow-x-auto">
-        <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
-                <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Worker</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Requests</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Success Rate</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Avg Latency</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">P95 Latency</th>
-                </tr>
-            </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
-                {results.map((result, index) => (
-                    <tr key={result.id}>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                            Worker {index + 1}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            {result.completed_requests}/{result.total_requests}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            {(result.success_rate * 100).toFixed(1)}%
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            {result.average_latency_ms.toFixed(2)}ms
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            {result.p95_latency_ms.toFixed(2)}ms
-                        </td>
-                    </tr>
-                ))}
-            </tbody>
-        </table>
-    </div>
-);
-
-const ChartContainer = ({ title, children }) => (
-    <div className="bg-white p-6 rounded-lg border border-gray-200">
-        <h3 className="text-lg font-medium text-gray-900 mb-4">{title}</h3>
-        {children}
+const InfoCard = ({ icon: Icon, value, label, bgColor, textColor, iconColor }) => (
+    <div className={`${bgColor} p-4 rounded-lg`}>
+        <div className="flex items-center space-x-3">
+            {Icon && <Icon className={`w-6 h-6 ${iconColor}`} />}
+            <div>
+                <div className={`text-xl font-bold ${textColor}`}>
+                    {value}
+                </div>
+                <div className={`text-xs ${iconColor}`}>{label}</div>
+            </div>
+        </div>
     </div>
 );

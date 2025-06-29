@@ -1,15 +1,17 @@
 import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { LayoutDashboard, Rocket, History, LogOut, Zap } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext.jsx';
 
 const NAV_ITEMS = [
-    { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
-    { id: 'new-test', label: 'New Test', icon: Rocket },
-    { id: 'test-history', label: 'Test History', icon: History },
+    { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard, path: '/dashboard' },
+    { id: 'new-test', label: 'New Test', icon: Rocket, path: '/new-test' },
+    { id: 'test-history', label: 'Test History', icon: History, path: '/test-history' },
 ];
 
-export const Navbar = ({ currentPage, setCurrentPage }) => {
+export const Navbar = () => {
     const { logout } = useAuth();
+    const location = useLocation();
 
     return (
         <nav className="bg-white border-b border-gray-200 px-6 py-4">
@@ -25,19 +27,20 @@ export const Navbar = ({ currentPage, setCurrentPage }) => {
                     <div className="flex space-x-1">
                         {NAV_ITEMS.map((item) => {
                             const Icon = item.icon;
+                            const isActive = location.pathname === item.path;
                             return (
-                                <button
+                                <Link
                                     key={item.id}
-                                    onClick={() => setCurrentPage(item.id)}
+                                    to={item.path}
                                     className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition-all ${
-                                        currentPage === item.id
+                                        isActive
                                             ? 'bg-blue-50 text-blue-700 border border-blue-200'
                                             : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
                                     }`}
                                 >
                                     <Icon className="w-4 h-4" />
                                     <span>{item.label}</span>
-                                </button>
+                                </Link>
                             );
                         })}
                     </div>

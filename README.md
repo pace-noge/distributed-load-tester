@@ -318,3 +318,6 @@ Once the Master service is running, you can access the dashboard (which will be 
     * Verify you are including the Authorization: Bearer <TOKEN> header correctly.
 
 This guide should help you get your distributed load tester up and running. Happy testing!
+
+---
+*Note: This comment was added to test file editing capabilities - Copilot edit test successful!*

@@ -1,4 +1,6 @@
 // main.go
+// Entry point for the distributed load tester application
+// Test comment added by Copilot to verify editing functionality
 package main
 
 import (
