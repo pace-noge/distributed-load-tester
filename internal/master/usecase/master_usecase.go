@@ -129,6 +129,40 @@ func (uc *MasterUsecase) SubmitTest(ctx context.Context, testReq *domain.TestReq
 		testReq.WorkerCount = 1
 	}
 
+	// Set default rate distribution mode if not specified
+	if testReq.RateDistribution == "" {
+		testReq.RateDistribution = "shared" // Default to shared distribution
+	}
+
+	// Validate rate distribution mode
+	validModes := []string{"shared", "same", "weighted", "ramped", "burst"}
+	isValid := false
+	for _, mode := range validModes {
+		if testReq.RateDistribution == mode {
+			isValid = true
+			break
+		}
+	}
+	if !isValid {
+		return "", fmt.Errorf("invalid rate_distribution: must be one of %v", validModes)
+	}
+
+	// Validate weighted distribution
+	if testReq.RateDistribution == "weighted" {
+		if len(testReq.RateWeights) == 0 {
+			return "", fmt.Errorf("rate_weights must be provided for weighted distribution")
+		}
+		if len(testReq.RateWeights) != int(testReq.WorkerCount) {
+			return "", fmt.Errorf("rate_weights length (%d) must match worker_count (%d)", len(testReq.RateWeights), testReq.WorkerCount)
+		}
+		// Validate weights are positive
+		for i, weight := range testReq.RateWeights {
+			if weight <= 0 {
+				return "", fmt.Errorf("rate_weights[%d] must be positive, got %f", i, weight)
+			}
+		}
+	}
+
 	err := uc.testRepo.SaveTestRequest(ctx, testReq)
 	if err != nil {
 		return "", fmt.Errorf("failed to save test request: %w", err)
@@ -137,7 +171,8 @@ func (uc *MasterUsecase) SubmitTest(ctx context.Context, testReq *domain.TestReq
 	// Put test into queue for assignment
 	select {
 	case uc.testQueue <- testReq:
-		log.Printf("Test %s submitted and added to assignment queue (requires %d workers).", testReq.ID, testReq.WorkerCount)
+		log.Printf("Test %s submitted and added to assignment queue (requires %d workers, rate distribution: %s).",
+			testReq.ID, testReq.WorkerCount, testReq.RateDistribution)
 		return testReq.ID, nil
 	case <-ctx.Done():
 		return "", ctx.Err()
@@ -656,12 +691,136 @@ func (uc *MasterUsecase) findCompletedTestsWithoutAggregation(ctx context.Contex
 
 // assignTestToMultipleWorkers distributes a test across multiple workers concurrently
 func (uc *MasterUsecase) assignTestToMultipleWorkers(ctx context.Context, testReq *domain.TestRequest, workerIDs []string) {
-	log.Printf("Assigning test %s to %d workers: %v", testReq.ID, len(workerIDs), workerIDs)
+	log.Printf("Assigning test %s to %d workers: %v (rate distribution: %s)",
+		testReq.ID, len(workerIDs), workerIDs, testReq.RateDistribution)
 
-	// Calculate how to distribute the load across workers
-	// We'll divide the rate per second evenly across all workers
-	baseRate := testReq.RatePerSecond / uint64(len(workerIDs))
-	remainder := testReq.RatePerSecond % uint64(len(workerIDs))
+	// Calculate how to distribute the load across workers based on distribution mode
+	var workerRates []uint64
+	var totalExpectedRate uint64
+
+	switch testReq.RateDistribution {
+	case "same":
+		// Each worker gets the same full rate
+		for i := 0; i < len(workerIDs); i++ {
+			workerRates = append(workerRates, testReq.RatePerSecond)
+		}
+		totalExpectedRate = testReq.RatePerSecond * uint64(len(workerIDs))
+		log.Printf("Using 'same' rate distribution: each worker gets %d req/s (total: %d req/s)",
+			testReq.RatePerSecond, totalExpectedRate)
+
+	case "weighted":
+		// Distribute rate based on provided weights
+		totalWeight := 0.0
+		for _, weight := range testReq.RateWeights {
+			totalWeight += weight
+		}
+
+		totalAssigned := uint64(0)
+		for _, weight := range testReq.RateWeights {
+			workerRate := uint64(float64(testReq.RatePerSecond) * weight / totalWeight)
+			workerRates = append(workerRates, workerRate)
+			totalAssigned += workerRate
+		}
+
+		// Handle rounding errors by adding remainder to the first worker
+		if totalAssigned < testReq.RatePerSecond {
+			remainder := testReq.RatePerSecond - totalAssigned
+			workerRates[0] += remainder
+		}
+
+		totalExpectedRate = testReq.RatePerSecond
+		log.Printf("Using 'weighted' rate distribution: weights %v, rates %v (total: %d req/s)",
+			testReq.RateWeights, workerRates, totalExpectedRate)
+
+	case "ramped":
+		// Enhanced ramped distribution with configurable parameters
+
+		// Parse ramp configuration with defaults
+		rampDuration := testReq.RampDuration
+		if rampDuration == "" {
+			rampDuration = testReq.DurationSeconds // Default: ramp over entire test duration
+		}
+
+		rampStartDelay := testReq.RampStartDelay
+		if rampStartDelay == "" {
+			rampStartDelay = "0s" // Default: start immediately
+		}
+
+		rampSteps := testReq.RampSteps
+		if rampSteps == 0 {
+			rampSteps = uint32(len(workerIDs)) // Default: one step per worker
+		}
+
+		// Calculate step increment based on total rate and number of steps
+		stepRate := testReq.RatePerSecond / uint64(rampSteps)
+		if stepRate < 1 {
+			stepRate = 1
+		}
+
+		for i := 0; i < len(workerIDs); i++ {
+			// Distribute workers across ramp steps
+			stepIndex := float64(i) / float64(len(workerIDs)-1) * float64(rampSteps-1)
+			currentStep := uint32(stepIndex)
+
+			// Calculate rate for this worker based on its step position
+			workerRate := stepRate * uint64(currentStep+1) / uint64(len(workerIDs))
+			if workerRate < 1 {
+				workerRate = 1 // Minimum 1 req/s
+			}
+			workerRates = append(workerRates, workerRate)
+		}
+
+		totalExpectedRate = 0
+		for _, rate := range workerRates {
+			totalExpectedRate += rate
+		}
+		log.Printf("Using 'ramped' rate distribution: rates %v (total: %d req/s)",
+			workerRates, totalExpectedRate)
+		log.Printf("Ramp config: duration=%s, start_delay=%s, steps=%d",
+			rampDuration, rampStartDelay, rampSteps)
+
+	case "burst":
+		// Concentrate higher load on first few workers, lower on the rest
+		burstWorkers := len(workerIDs) / 2
+		if burstWorkers < 1 {
+			burstWorkers = 1
+		}
+
+		burstRate := (testReq.RatePerSecond * 70) / (100 * uint64(burstWorkers))                 // 70% of load on burst workers
+		normalRate := (testReq.RatePerSecond * 30) / (100 * uint64(len(workerIDs)-burstWorkers)) // 30% on remaining
+
+		for i := 0; i < len(workerIDs); i++ {
+			if i < burstWorkers {
+				workerRates = append(workerRates, burstRate)
+			} else {
+				workerRates = append(workerRates, normalRate)
+			}
+		}
+
+		totalExpectedRate = 0
+		for _, rate := range workerRates {
+			totalExpectedRate += rate
+		}
+		log.Printf("Using 'burst' rate distribution: %d burst workers at %d req/s, %d normal workers at %d req/s (total: %d req/s)",
+			burstWorkers, burstRate, len(workerIDs)-burstWorkers, normalRate, totalExpectedRate)
+
+	default:
+		// Default "shared" - divide the rate evenly across all workers
+		baseRate := testReq.RatePerSecond / uint64(len(workerIDs))
+		remainder := testReq.RatePerSecond % uint64(len(workerIDs))
+
+		for i := 0; i < len(workerIDs); i++ {
+			workerRate := baseRate
+			if i < int(remainder) {
+				workerRate++ // Distribute remainder among first workers
+			}
+			workerRates = append(workerRates, workerRate)
+		}
+
+		totalExpectedRate = testReq.RatePerSecond
+		log.Printf("Using 'shared' rate distribution: rates %v (total: %d req/s)",
+			workerRates, totalExpectedRate)
+	}
 
 	// Update test status to RUNNING and assign all workers
 	testReq.AssignedWorkersIDs = workerIDs
@@ -686,17 +845,15 @@ func (uc *MasterUsecase) assignTestToMultipleWorkers(ctx context.Context, testRe
 		go func(workerID string, workerIndex int) {
 			defer wg.Done()
 
-			// Calculate this worker's rate (distribute remainder among first workers)
-			workerRate := baseRate
-			if workerIndex < int(remainder) {
-				workerRate++
-			}
+			// Get this worker's rate from the pre-calculated rates
+			workerRate := workerRates[workerIndex]
 
 			// Create a modified test request for this worker with its specific rate
 			workerTestReq := *testReq
 			workerTestReq.RatePerSecond = workerRate
 
-			log.Printf("Assigning test %s to worker %s with rate %d req/s", testReq.ID, workerID, workerRate)
+			log.Printf("Assigning test %s to worker %s with rate %d req/s (mode: %s)",
+				testReq.ID, workerID, workerRate, testReq.RateDistribution)
 
 			connVal, ok := uc.activeWorkerClients.Load(workerID)
 			if !ok {
@@ -711,7 +868,7 @@ func (uc *MasterUsecase) assignTestToMultipleWorkers(ctx context.Context, testRe
 
 			// Mark worker as busy
 			uc.workerRepo.UpdateWorkerStatus(ctx, workerID, "BUSY", testReq.ID,
-				fmt.Sprintf("Running test (rate: %d req/s)", workerRate), 0, 0)
+				fmt.Sprintf("Running test (rate: %d req/s, mode: %s)", workerRate, testReq.RateDistribution), 0, 0)
 
 			assignment := &pb.TestAssignment{
 				TestId:            testReq.ID,
@@ -738,7 +895,8 @@ func (uc *MasterUsecase) assignTestToMultipleWorkers(ctx context.Context, testRe
 				return
 			}
 
-			log.Printf("Test %s assigned successfully to worker %s (rate: %d req/s)", testReq.ID, workerID, workerRate)
+			log.Printf("Test %s assigned successfully to worker %s (rate: %d req/s, mode: %s)",
+				testReq.ID, workerID, workerRate, testReq.RateDistribution)
 
 			assignmentMutex.Lock()
 			successfulAssignments++

@@ -32,7 +32,7 @@ func LoadMasterConfig() (*MasterConfig, error) {
 		HTTPPort:     8080,
 		KafkaBroker:  "localhost:9092",
 		KafkaTopic:   "test_results",
-		DatabaseURL:  "postgres://user:password@localhost:5432/distributed_load_tester?sslmode=disable",
+		DatabaseURL:  "postgres://postgres:password@localhost:5432/distributed_load_tester?sslmode=disable",
 		JWTSecretKey: "your-very-secret-key-that-should-be-in-env", // Default, but override with env var
 	}
 

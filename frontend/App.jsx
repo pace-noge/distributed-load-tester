@@ -165,7 +165,7 @@ const Navbar = ({ currentPage, setCurrentPage }) => {
                         <li key={item.page}>
                             <button
                                 onClick={() => setCurrentPage(item.page)}
-                                className={`flex items-center space-x-2 p-2 rounded-md transition-colors duration-200 
+                                className={`flex items-center space-x-2 p-2 rounded-md transition-colors duration-200
                                     ${currentPage === item.page ? 'bg-blue-600' : 'hover:bg-gray-700'}`}
                             >
                                 <item.icon size={18} />
@@ -221,11 +221,11 @@ const DashboardPage = () => {
         }
 
         console.log('Starting WebSocket connection...');
-        
+
         // Create WebSocket connection
         const wsUrl = `ws://localhost:8080/ws?token=${encodeURIComponent(token)}`;
         console.log('WebSocket URL:', wsUrl);
-        
+
         const ws = new WebSocket(wsUrl);
         let wsConnected = false;
 
@@ -236,7 +236,7 @@ const DashboardPage = () => {
                 setUsingWebSocket(false);
                 setConnectionStatus('http_polling');
                 fetchDashboardData();
-                
+
                 // Start HTTP polling
                 const interval = setInterval(fetchDashboardData, 5000);
                 return () => clearInterval(interval);
@@ -337,8 +337,8 @@ const DashboardPage = () => {
                 <h1 className="text-3xl font-bold text-gray-800">Dashboard</h1>
                 <div className="flex items-center">
                     <div className={`w-3 h-3 rounded-full mr-2 ${
-                        connectionStatus === 'connected' ? 'bg-green-500' : 
-                        connectionStatus === 'connecting' ? 'bg-yellow-500' : 
+                        connectionStatus === 'connected' ? 'bg-green-500' :
+                        connectionStatus === 'connecting' ? 'bg-yellow-500' :
                         connectionStatus === 'http_polling' ? 'bg-blue-500' : 'bg-red-500'
                     }`}></div>
                     <span className="text-sm text-gray-600">
@@ -410,7 +410,7 @@ const DashboardPage = () => {
                                 <tr key={worker.worker_id}>
                                     <td className="px-6 py-4 whitespace-nowrap text-sm font-mono text-gray-900">{worker.worker_id}</td>
                                     <td className="px-6 py-4 whitespace-nowrap text-sm">
-                                        <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
+                                        <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full
                                             ${worker.status_type === 'READY' ? 'bg-green-100 text-green-800' :
                                               worker.status_type === 'BUSY' ? 'bg-blue-100 text-blue-800' :
                                               worker.status_type === 'FINISHING' ? 'bg-yellow-100 text-yellow-800' :
@@ -445,12 +445,32 @@ const TestSubmissionPage = () => {
     const [duration, setDuration] = useState('30s');
     const [rate, setRate] = useState(10);
     const [workerCount, setWorkerCount] = useState(1);
+    const [rateDistribution, setRateDistribution] = useState('shared'); // 'shared', 'same', 'weighted', 'ramped', or 'burst'
+    const [rateWeights, setRateWeights] = useState([]);  // For weighted distribution
+    // Ramped configuration
+    const [rampDuration, setRampDuration] = useState('');
+    const [rampStartDelay, setRampStartDelay] = useState('0s');
+    const [rampSteps, setRampSteps] = useState('');
+    // Common Vegeta options
+    const [timeout, setTimeout] = useState(30);
+    const [maxRedirects, setMaxRedirects] = useState(10);
+    const [keepAlive, setKeepAlive] = useState(true);
+    const [http2Enabled, setHttp2Enabled] = useState(true);
+    const [skipTLSVerify, setSkipTLSVerify] = useState(false);
+    const [maxConnections, setMaxConnections] = useState(100);
     const [availableWorkers, setAvailableWorkers] = useState([]);
     const [targets, setTargets] = useState(''); // Raw targets data
     const [vegetaPayload, setVegetaPayload] = useState('{}'); // JSON string
     const [message, setMessage] = useState('');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
+
+    // Auto-initialize rate weights when worker count changes and weighted distribution is selected
+    useEffect(() => {
+        if (rateDistribution === 'weighted') {
+            setRateWeights(new Array(parseInt(workerCount)).fill(1.0));
+        }
+    }, [workerCount, rateDistribution]);
 
     // Fetch available workers on component mount
     useEffect(() => {
@@ -459,11 +479,11 @@ const TestSubmissionPage = () => {
                 const data = await authenticatedFetch(`${API_BASE_URL}/dashboard`);
                 if (data && data.worker_summaries) {
                     // Filter for READY workers
-                    const readyWorkers = data.worker_summaries.filter(worker => 
+                    const readyWorkers = data.worker_summaries.filter(worker =>
                         worker.status_type === 'READY' || worker.status_type === 'ready'
                     );
                     setAvailableWorkers(readyWorkers);
-                    
+
                     // Set initial worker count to 1, but max it to available workers
                     const maxWorkers = Math.max(1, readyWorkers.length);
                     if (workerCount > maxWorkers) {
@@ -497,9 +517,52 @@ const TestSubmissionPage = () => {
                 duration_seconds: duration,
                 rate_per_second: parseInt(rate),
                 worker_count: parseInt(workerCount),  // This will be mapped to workerCount in JSON
+                rate_distribution: rateDistribution,  // 'shared', 'same', 'weighted', 'ramped', or 'burst'
                 targets_base64: encodedTargets,
                 vegeta_payload_json: vegetaPayload,
             };
+
+            // Combine dedicated Vegeta options with JSON payload
+            let combinedVegetaOptions = {};
+
+            // Start with dedicated form fields
+            combinedVegetaOptions.timeout = parseFloat(timeout);
+            combinedVegetaOptions.redirects = parseInt(maxRedirects);
+            combinedVegetaOptions.keepalive = keepAlive;
+            combinedVegetaOptions.http2 = http2Enabled;
+            combinedVegetaOptions.insecure = skipTLSVerify;
+            combinedVegetaOptions.connections = parseInt(maxConnections);
+
+            // Parse and merge with user-provided JSON (JSON takes precedence)
+            if (vegetaPayload && vegetaPayload.trim() !== '' && vegetaPayload.trim() !== '{}') {
+                try {
+                    const userOptions = JSON.parse(vegetaPayload);
+                    combinedVegetaOptions = { ...combinedVegetaOptions, ...userOptions };
+                } catch (e) {
+                    setError('Invalid JSON in Vegeta Attack Options');
+                    return;
+                }
+            }
+
+            testData.vegeta_payload_json = JSON.stringify(combinedVegetaOptions);
+
+            // Add rate weights for weighted distribution
+            if (rateDistribution === 'weighted' && rateWeights.length > 0) {
+                testData.rate_weights = rateWeights;
+            }
+
+            // Add ramped configuration
+            if (rateDistribution === 'ramped') {
+                if (rampDuration && rampDuration.trim() !== '') {
+                    testData.ramp_duration = rampDuration;
+                }
+                if (rampStartDelay && rampStartDelay.trim() !== '') {
+                    testData.ramp_start_delay = rampStartDelay;
+                }
+                if (rampSteps && rampSteps.trim() !== '') {
+                    testData.ramp_steps = parseInt(rampSteps);
+                }
+            }
 
             // Call Master API to submit test
             const response = await authenticatedFetch(`${API_BASE_URL}/test/submit`, {
@@ -598,6 +661,146 @@ const TestSubmissionPage = () => {
                             </p>
                         </div>
                     </div>
+
+                    {/* Rate Distribution Mode */}
+                    {workerCount > 1 && (
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="rateDistribution">Rate Distribution Mode</label>
+                            <select
+                                id="rateDistribution"
+                                value={rateDistribution}
+                                onChange={(e) => {
+                                    setRateDistribution(e.target.value);
+                                    // Initialize weights for weighted distribution
+                                    if (e.target.value === 'weighted') {
+                                        setRateWeights(new Array(parseInt(workerCount)).fill(1.0));
+                                    }
+                                }}
+                                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                                disabled={loading}
+                            >
+                                <option value="shared">Shared - Divide rate evenly among workers</option>
+                                <option value="same">Same - Each worker gets full rate</option>
+                                <option value="weighted">Weighted - Custom distribution by weight</option>
+                                <option value="ramped">Ramped - Gradually increase rate across workers</option>
+                                <option value="burst">Burst - Concentrate load on first few workers</option>
+                            </select>
+                            <div className="mt-1">
+                                {rateDistribution === 'shared' && (
+                                    <p className="text-xs text-blue-600">
+                                        Total rate: {rate} req/s ÷ {workerCount} workers = ~{Math.floor(rate / workerCount)} req/s per worker
+                                    </p>
+                                )}
+                                {rateDistribution === 'same' && (
+                                    <p className="text-xs text-orange-600">
+                                        Total rate: {rate} req/s × {workerCount} workers = {rate * workerCount} req/s total
+                                    </p>
+                                )}
+                                {rateDistribution === 'weighted' && (
+                                    <p className="text-xs text-purple-600">
+                                        Total rate: {rate} req/s distributed by custom weights
+                                    </p>
+                                )}
+                                {rateDistribution === 'ramped' && (
+                                    <p className="text-xs text-green-600">
+                                        Rate gradually increases from first to last worker (good for testing scalability)
+                                    </p>
+                                )}
+                                {rateDistribution === 'burst' && (
+                                    <p className="text-xs text-red-600">
+                                        70% load on first half of workers, 30% on remainder (good for testing load concentration)
+                                    </p>
+                                )}
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Rate Weights Configuration for Weighted Distribution */}
+                    {workerCount > 1 && rateDistribution === 'weighted' && (
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">Rate Weights (one per worker)</label>
+                            <div className="space-y-2">
+                                {Array.from({ length: parseInt(workerCount) }, (_, i) => (
+                                    <div key={i} className="flex items-center space-x-2">
+                                        <label className="text-sm text-gray-600 w-20">Worker {i + 1}:</label>
+                                        <input
+                                            type="number"
+                                            min="0.1"
+                                            step="0.1"
+                                            value={rateWeights[i] || 1.0}
+                                            onChange={(e) => {
+                                                const newWeights = [...rateWeights];
+                                                newWeights[i] = parseFloat(e.target.value) || 1.0;
+                                                setRateWeights(newWeights);
+                                            }}
+                                            className="flex-1 px-3 py-1 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                                            disabled={loading}
+                                        />
+                                        <span className="text-xs text-gray-500 w-24">
+                                            (~{Math.round(rate * (rateWeights[i] || 1.0) / rateWeights.reduce((sum, w) => sum + (w || 1.0), 0))} req/s)
+                                        </span>
+                                    </div>
+                                ))}
+                            </div>
+                            <p className="text-xs text-gray-500 mt-1">
+                                Higher weight = more requests. Total weight: {rateWeights.reduce((sum, w) => sum + (w || 1.0), 0).toFixed(1)}
+                            </p>
+                        </div>
+                    )}
+
+                    {/* Ramped Configuration */}
+                    {workerCount > 1 && rateDistribution === 'ramped' && (
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">Ramped Configuration</label>
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div>
+                                    <label className="block text-xs text-gray-600 mb-1">Ramp Duration (optional)</label>
+                                    <input
+                                        type="text"
+                                        value={rampDuration}
+                                        onChange={(e) => setRampDuration(e.target.value)}
+                                        placeholder="e.g., 30s, 2m"
+                                        className="w-full px-3 py-1 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                                        disabled={loading}
+                                    />
+                                    <p className="text-xs text-gray-500 mt-1">Default: entire test duration</p>
+                                </div>
+                                <div>
+                                    <label className="block text-xs text-gray-600 mb-1">Start Delay</label>
+                                    <input
+                                        type="text"
+                                        value={rampStartDelay}
+                                        onChange={(e) => setRampStartDelay(e.target.value)}
+                                        placeholder="e.g., 0s, 10s"
+                                        className="w-full px-3 py-1 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                                        disabled={loading}
+                                    />
+                                    <p className="text-xs text-gray-500 mt-1">Delay before starting ramp</p>
+                                </div>
+                                <div>
+                                    <label className="block text-xs text-gray-600 mb-1">Ramp Steps (optional)</label>
+                                    <input
+                                        type="number"
+                                        value={rampSteps}
+                                        onChange={(e) => setRampSteps(e.target.value)}
+                                        placeholder="e.g., 5, 10"
+                                        min="1"
+                                        className="w-full px-3 py-1 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                                        disabled={loading}
+                                    />
+                                    <p className="text-xs text-gray-500 mt-1">Default: number of workers</p>
+                                </div>
+                            </div>
+                            <div className="mt-2 p-2 bg-green-50 rounded-md">
+                                <p className="text-xs text-green-700">
+                                    <strong>Ramped Mode:</strong> Load will gradually increase over time across workers.
+                                    {rampDuration && ` Ramp duration: ${rampDuration}.`}
+                                    {rampStartDelay && rampStartDelay !== '0s' && ` Start delay: ${rampStartDelay}.`}
+                                    {rampSteps && ` Steps: ${rampSteps}.`}
+                                </p>
+                            </div>
+                        </div>
+                    )}
                 </div>
                 <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="targets">Targets (JSON or plain text, e.g., [{`"method":"GET","url":"http://example.com"`}] or GET http://example.com)</label>
@@ -612,17 +815,103 @@ const TestSubmissionPage = () => {
                         disabled={loading}
                     ></textarea>
                 </div>
+
+                {/* Common Vegeta Options */}
                 <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="vegetaPayload">Vegeta Attack Options (JSON, optional)</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Common Load Test Options</label>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <label className="block text-xs text-gray-600 mb-1">Timeout (seconds)</label>
+                            <input
+                                type="number"
+                                value={timeout}
+                                onChange={(e) => setTimeout(e.target.value)}
+                                min="1"
+                                max="300"
+                                className="w-full px-3 py-1 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                                disabled={loading}
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-xs text-gray-600 mb-1">Max Redirects</label>
+                            <input
+                                type="number"
+                                value={maxRedirects}
+                                onChange={(e) => setMaxRedirects(e.target.value)}
+                                min="0"
+                                max="50"
+                                className="w-full px-3 py-1 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                                disabled={loading}
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-xs text-gray-600 mb-1">Max Connections</label>
+                            <input
+                                type="number"
+                                value={maxConnections}
+                                onChange={(e) => setMaxConnections(e.target.value)}
+                                min="1"
+                                max="1000"
+                                className="w-full px-3 py-1 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                                disabled={loading}
+                            />
+                        </div>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-3">
+                        <div className="flex items-center">
+                            <input
+                                type="checkbox"
+                                id="keepAlive"
+                                checked={keepAlive}
+                                onChange={(e) => setKeepAlive(e.target.checked)}
+                                className="mr-2"
+                                disabled={loading}
+                            />
+                            <label htmlFor="keepAlive" className="text-sm text-gray-700">Keep-Alive Connections</label>
+                        </div>
+                        <div className="flex items-center">
+                            <input
+                                type="checkbox"
+                                id="http2Enabled"
+                                checked={http2Enabled}
+                                onChange={(e) => setHttp2Enabled(e.target.checked)}
+                                className="mr-2"
+                                disabled={loading}
+                            />
+                            <label htmlFor="http2Enabled" className="text-sm text-gray-700">Enable HTTP/2</label>
+                        </div>
+                        <div className="flex items-center">
+                            <input
+                                type="checkbox"
+                                id="skipTLSVerify"
+                                checked={skipTLSVerify}
+                                onChange={(e) => setSkipTLSVerify(e.target.checked)}
+                                className="mr-2"
+                                disabled={loading}
+                            />
+                            <label htmlFor="skipTLSVerify" className="text-sm text-red-600">Skip TLS Verification</label>
+                        </div>
+                    </div>
+                    <p className="text-xs text-gray-500 mt-2">
+                        These options will be automatically combined with any JSON options below.
+                    </p>
+                </div>
+
+                <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="vegetaPayload">Advanced Vegeta Options (JSON, optional)</label>
                     <textarea
                         id="vegetaPayload"
                         value={vegetaPayload}
                         onChange={(e) => setVegetaPayload(e.target.value)}
                         rows="4"
                         className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 font-mono"
-                        placeholder='{"timeout": 5}'
+                        placeholder='{"headers": {"Authorization": "Bearer token"}, "max_body": 1048576}'
                         disabled={loading}
                     ></textarea>
+                    <p className="text-xs text-gray-500 mt-1">
+                        Advanced options in JSON format. These will override the common options above if specified.
+                        Examples: headers, proxy settings, custom certificates, etc.
+                    </p>
                 </div>
 
                 {message && (
@@ -758,7 +1047,7 @@ const TestHistoryPage = () => {
                                 <tr key={test.id}>
                                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{test.name}</td>
                                     <td className="px-6 py-4 whitespace-nowrap text-sm">
-                                        <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
+                                        <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full
                                             ${test.status === 'COMPLETED' ? 'bg-green-100 text-green-800' :
                                               test.status === 'RUNNING' ? 'bg-blue-100 text-blue-800' :
                                               test.status === 'PENDING' ? 'bg-yellow-100 text-yellow-800' :

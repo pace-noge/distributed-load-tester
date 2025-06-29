@@ -52,7 +52,7 @@ func NewWorkerCommand() *cli.Command {
 			&cli.StringFlag{
 				Name:    "database-url",
 				Aliases: []string{"db"},
-				Value:   "postgres://user:password@localhost:5432/distributed_load_tester?sslmode=disable",
+				Value:   "postgres://postgres:postgres@localhost:5432/load_tester?sslmode=disable",
 				Usage:   "PostgreSQL database connection URL",
 				EnvVars: []string{"DATABASE_URL"},
 			},

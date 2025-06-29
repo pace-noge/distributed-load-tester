@@ -6,14 +6,20 @@ import (
 
 // TestRequest represents a user-submitted load test configuration.
 type TestRequest struct {
-	ID                 string    `json:"id"`
-	Name               string    `json:"name"`
-	VegetaPayloadJSON  string    `json:"vegetaPayloadJson"` // Raw JSON for Vegeta attack options
-	DurationSeconds    string    `json:"durationSeconds"`   // e.g., "10s"
-	RatePerSecond      uint64    `json:"ratePerSecond"`     // e.g., 50 for 50 req/s
-	TargetsBase64      string    `json:"targetsBase64"`     // Base64 encoded targets content
-	RequesterID        string    `json:"requesterId"`
-	WorkerCount        uint32    `json:"workerCount"` // Number of workers to use for this test
+	ID                string    `json:"id"`
+	Name              string    `json:"name"`
+	VegetaPayloadJSON string    `json:"vegetaPayloadJson"` // Raw JSON for Vegeta attack options
+	DurationSeconds   string    `json:"durationSeconds"`   // e.g., "10s"
+	RatePerSecond     uint64    `json:"ratePerSecond"`     // e.g., 50 for 50 req/s
+	TargetsBase64     string    `json:"targetsBase64"`     // Base64 encoded targets content
+	RequesterID       string    `json:"requesterId"`
+	WorkerCount       uint32    `json:"workerCount"`           // Number of workers to use for this test
+	RateDistribution  string    `json:"rateDistribution"`      // "shared", "same", "weighted", "ramped", or "burst" - how to distribute rate among workers
+	RateWeights       []float64 `json:"rateWeights,omitempty"` // For "weighted" distribution: weight for each worker (optional)
+	// Ramped distribution configuration
+	RampDuration       string    `json:"rampDuration,omitempty"`   // Duration to ramp up (e.g., "30s", "2m") - defaults to test duration
+	RampStartDelay     string    `json:"rampStartDelay,omitempty"` // Delay before starting ramp (e.g., "10s") - defaults to 0
+	RampSteps          uint32    `json:"rampSteps,omitempty"`      // Number of rate increment steps - defaults to worker count
 	CreatedAt          time.Time `json:"createdAt"`
 	Status             string    `json:"status"` // e.g., "PENDING", "RUNNING", "COMPLETED", "FAILED"
 	AssignedWorkersIDs []string  `json:"assignedWorkersIds"`
