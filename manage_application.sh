@@ -156,10 +156,7 @@ start_application() {
     fi
 }
 
-# Function to stop the application
-stop_application() {
-    echo "🛑 Stopping Distributed Load Tester Application"
-    echo "==============================================="
+
 kill_processes() {
     local pattern=$1
     local description=$2
@@ -206,10 +203,6 @@ kill_processes() {
     fi
 }
 
-# Alternative method using pkill
-kill_with_pkill() {
-    local pattern=$1
-    local description=$2
 # Function to kill processes by pattern with better error handling
 kill_processes() {
     local pattern=$1
@@ -280,79 +273,84 @@ kill_with_pkill() {
     fi
 }
 
-# Final verification
-remaining=$(ps aux | grep -E "distributed-load-tester" | grep -v grep | wc -l | tr -d ' ')
-if [ "$remaining" -eq 0 ]; then
-    echo "✅ All distributed-load-tester processes stopped successfully"
-else
-    echo "⚠️  Some processes may still be running:"
-    ps aux | grep -E "distributed-load-tester" | grep -v grep
-    echo ""
-    echo "Manual cleanup options:"
-    echo "  1. Kill by PID: kill -9 <PID>"
-    echo "  2. Force kill all: sudo pkill -9 -f distributed-load-tester"
-fi
+# Function to stop the application
+stop_application() {
+    echo "🛑 Stopping Distributed Load Tester Application"
+    echo "==============================================="
 
-echo ""
-echo "3. Checking port availability..."
-
-# Check if ports are free
-ports=(8080 50051 50001 50002 50003)
-all_ports_free=true
-
-for port in "${ports[@]}"; do
-    if lsof -Pi :$port -sTCP:LISTEN -t >/dev/null 2>&1; then
-        echo "⚠️  Port $port is still in use:"
-        lsof -Pi :$port -sTCP:LISTEN
-        all_ports_free=false
+    # Final verification
+    remaining=$(ps aux | grep -E "distributed-load-tester" | grep -v grep | wc -l | tr -d ' ')
+    if [ "$remaining" -eq 0 ]; then
+        echo "✅ All distributed-load-tester processes stopped successfully"
     else
-        echo "✅ Port $port is available"
+        echo "⚠️  Some processes may still be running:"
+        ps aux | grep -E "distributed-load-tester" | grep -v grep
+        echo ""
+        echo "Manual cleanup options:"
+        echo "  1. Kill by PID: kill -9 <PID>"
+        echo "  2. Force kill all: sudo pkill -9 -f distributed-load-tester"
     fi
-done
 
-if [ "$all_ports_free" = true ]; then
     echo ""
-    echo "✅ All application ports are now available"
-else
-    echo ""
-    echo "⚠️  Some ports are still in use. You may need to:"
-    echo "  1. Wait a few seconds and check again"
-    echo "  2. Kill processes using those ports manually"
-    echo "  3. Restart your terminal/system if ports remain stuck"
-fi
+    echo "3. Checking port availability..."
 
-echo ""
-echo "4. Cleaning up log files (optional)..."
+    # Check if ports are free
+    ports=(8080 50051 50001 50002 50003)
+    all_ports_free=true
 
-# List existing log files
-if ls *.log >/dev/null 2>&1; then
-    echo "Found log files:"
-    ls -la *.log
-    echo ""
-    read -p "Do you want to remove old log files? (y/N): " -n 1 -r
-    echo
-    if [[ $REPLY =~ ^[Yy]$ ]]; then
-        rm -f *.log
-        echo "✅ Log files removed"
+    for port in "${ports[@]}"; do
+        if lsof -Pi :$port -sTCP:LISTEN -t >/dev/null 2>&1; then
+            echo "⚠️  Port $port is still in use:"
+            lsof -Pi :$port -sTCP:LISTEN
+            all_ports_free=false
+        else
+            echo "✅ Port $port is available"
+        fi
+    done
+
+    if [ "$all_ports_free" = true ]; then
+        echo ""
+        echo "✅ All application ports are now available"
     else
-        echo "ℹ️  Log files kept"
+        echo ""
+        echo "⚠️  Some ports are still in use. You may need to:"
+        echo "  1. Wait a few seconds and check again"
+        echo "  2. Kill processes using those ports manually"
+        echo "  3. Restart your terminal/system if ports remain stuck"
     fi
-else
-    echo "ℹ️  No log files found"
-fi
 
-echo ""
-echo "🎉 Stop process completed!"
-echo "========================="
-echo ""
-echo "📊 Final Status:"
-echo "  • Processes stopped: $([ "$remaining" -eq 0 ] && echo "✅ Yes" || echo "❌ Some may remain")"
-echo "  • Ports available: $([ "$all_ports_free" = true ] && echo "✅ Yes" || echo "⚠️  Some in use")"
-echo ""
-echo "🚀 Next Steps:"
-echo "  • To restart: ./restart_application.sh"
-echo "  • To start fresh: ./start_application.sh (if available)"
-echo "  • To build and run manually: go run main.go"
+    echo ""
+    echo "4. Cleaning up log files (optional)..."
+
+    # List existing log files
+    if ls *.log >/dev/null 2>&1; then
+        echo "Found log files:"
+        ls -la *.log
+        echo ""
+        read -p "Do you want to remove old log files? (y/N): " -n 1 -r
+        echo
+        if [[ $REPLY =~ ^[Yy]$ ]]; then
+            rm -f *.log
+            echo "✅ Log files removed"
+        else
+            echo "ℹ️  Log files kept"
+        fi
+    else
+        echo "ℹ️  No log files found"
+    fi
+
+    echo ""
+    echo "🎉 Stop process completed!"
+    echo "========================="
+    echo ""
+    echo "📊 Final Status:"
+    echo "  • Processes stopped: $([ "$remaining" -eq 0 ] && echo "✅ Yes" || echo "❌ Some may remain")"
+    echo "  • Ports available: $([ "$all_ports_free" = true ] && echo "✅ Yes" || echo "⚠️  Some in use")"
+    echo ""
+    echo "🚀 Next Steps:"
+    echo "  • To restart: ./restart_application.sh"
+    echo "  • To start fresh: ./start_application.sh (if available)"
+    echo "  • To build and run manually: go run main.go"
 
     echo "1. Stopping application processes..."
 
