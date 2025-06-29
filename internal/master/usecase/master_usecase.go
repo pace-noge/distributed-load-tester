@@ -26,9 +26,9 @@ type MasterUsecase struct {
 	activeTestAssignments sync.Map // Map[string]map[string]bool // testID -> workerID -> assigned
 	// For managing test distribution to workers
 	testQueue          chan *domain.TestRequest
-	workerAvailability chan string    // Channel for available worker IDs
+	workerAvailability chan string     // Channel for available worker IDs
 	availableWorkers   map[string]bool // Track which workers are already in the availability queue
-	mu                 sync.Mutex     // Protects access to testQueue, workerAvailability, and availableWorkers
+	mu                 sync.Mutex      // Protects access to testQueue, workerAvailability, and availableWorkers
 }
 
 // NewMasterUsecase creates a new MasterUsecase instance.
@@ -979,7 +979,7 @@ func (uc *MasterUsecase) addWorkerToAvailabilityQueue(workerID string) {
 func (uc *MasterUsecase) removeWorkerFromAvailabilityQueue(workerID string) {
 	uc.mu.Lock()
 	defer uc.mu.Unlock()
-	
+
 	delete(uc.availableWorkers, workerID)
 	log.Printf("Worker %s removed from availability tracking (queue size: %d)", workerID, len(uc.availableWorkers))
 }
@@ -987,7 +987,7 @@ func (uc *MasterUsecase) removeWorkerFromAvailabilityQueue(workerID string) {
 // fixStuckTests detects and fixes tests that are stuck due to worker count mismatches
 func (uc *MasterUsecase) fixStuckTests(ctx context.Context) {
 	log.Println("Checking for stuck tests due to worker count mismatches...")
-	
+
 	// Get all running tests
 	allTests, err := uc.testRepo.GetAllTestRequests(ctx)
 	if err != nil {
@@ -1018,24 +1018,24 @@ func (uc *MasterUsecase) fixStuckTests(ctx context.Context) {
 			totalFailed := len(test.FailedWorkers)
 			totalFinished := totalCompleted + totalFailed
 
-			log.Printf("Checking stuck test %s: Assigned=%d, Completed=%d, Failed=%d, ActiveWorkers=%d", 
+			log.Printf("Checking stuck test %s: Assigned=%d, Completed=%d, Failed=%d, ActiveWorkers=%d",
 				test.ID, totalAssigned, totalCompleted, totalFailed, activeWorkerCount)
 
 			// Case 1: More workers assigned than exist in system
 			if totalAssigned > activeWorkerCount {
-				log.Printf("🔧 Test %s has %d assigned workers but only %d active workers exist - fixing assignment count", 
+				log.Printf("🔧 Test %s has %d assigned workers but only %d active workers exist - fixing assignment count",
 					test.ID, totalAssigned, activeWorkerCount)
-				
+
 				// If all active workers have finished, complete the test
 				if totalFinished >= activeWorkerCount {
 					newStatus := "COMPLETED"
 					if totalFailed > 0 {
 						newStatus = "PARTIALLY_FAILED"
 					}
-					
-					log.Printf("🔧 Completing stuck test %s (all %d active workers finished): %s", 
+
+					log.Printf("🔧 Completing stuck test %s (all %d active workers finished): %s",
 						test.ID, activeWorkerCount, newStatus)
-					
+
 					err = uc.testRepo.UpdateTestStatus(ctx, test.ID, newStatus, test.CompletedWorkers, test.FailedWorkers)
 					if err != nil {
 						log.Printf("Error updating stuck test %s status: %v", test.ID, err)
@@ -1047,23 +1047,23 @@ func (uc *MasterUsecase) fixStuckTests(ctx context.Context) {
 
 			// Case 2: Test has been running for too long (timeout)
 			testAge := time.Since(test.CreatedAt)
-			
+
 			// Parse duration string (e.g., "10s", "5m")
 			testDuration, err := time.ParseDuration(test.DurationSeconds)
 			if err != nil {
 				testDuration = 60 * time.Second // Default 60s if parse fails
 			}
 			maxTestDuration := testDuration + 5*time.Minute // Add 5 min buffer
-			
+
 			if testAge > maxTestDuration {
-				log.Printf("🔧 Test %s has been running for %v (max: %v) - timing out", 
+				log.Printf("🔧 Test %s has been running for %v (max: %v) - timing out",
 					test.ID, testAge, maxTestDuration)
-				
+
 				newStatus := "PARTIALLY_FAILED"
 				if totalCompleted == 0 {
 					newStatus = "FAILED"
 				}
-				
+
 				err = uc.testRepo.UpdateTestStatus(ctx, test.ID, newStatus, test.CompletedWorkers, test.FailedWorkers)
 				if err != nil {
 					log.Printf("Error timing out stuck test %s: %v", test.ID, err)
