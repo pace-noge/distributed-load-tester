@@ -77,7 +77,7 @@ check_status() {
         echo "  🌐 Frontend: http://localhost:8080"
         return 0
     elif [ "$master_count" -gt 0 ] || [ "$worker_count" -gt 0 ]; then
-        echo "  🟡 Application is PARTIALLY RUNNING"
+        echo "  � Application is PARTIALLY RUNNING"
         return 1
     else
         echo "  🔴 Application is STOPPED"
@@ -85,6 +85,131 @@ check_status() {
     fi
 }
 
+echo "🔧 Managing Distributed Load Tester Application"
+echo "==============================================="
+
+# Function to start the application
+start_application() {
+    echo "🚀 Starting Distributed Load Tester Application"
+    echo "==============================================="
+
+    # Check if already running
+    if check_status >/dev/null 2>&1; then
+        echo "⚠️  Application appears to be already running."
+        echo "Use 'restart' command to restart or 'stop' to stop first."
+        return 1
+    fi
+
+    echo "1. Building the application..."
+    cd "$SCRIPT_DIR"
+
+    if go build -o $APP_NAME .; then
+        echo "✅ Application built successfully"
+    else
+        echo "❌ Build failed"
+        return 1
+    fi
+
+    echo ""
+    echo "2. Starting master process..."
+    ./$APP_NAME master \
+        --database-url="postgres://postgres:postgres@localhost:5432/load_tester?sslmode=disable" \
+        --http-port=8080 \
+        --grpc-port=50051 > master.log 2>&1 &
+
+    MASTER_PID=$!
+    echo "✅ Master started (PID: $MASTER_PID)"
+
+    # Wait for master to initialize
+    sleep 3
+
+    echo ""
+    echo "3. Starting worker processes..."
+    for i in {1..3}; do
+        echo "Starting worker-$i..."
+        ./$APP_NAME worker \
+            --worker-id="worker-$i" \
+            --grpc-port="5000$i" \
+            --master-address="localhost:50051" \
+            --database-url="postgres://postgres:postgres@localhost:5432/load_tester?sslmode=disable" > "worker-$i.log" 2>&1 &
+
+        WORKER_PID=$!
+        echo "✅ Worker-$i started (PID: $WORKER_PID)"
+        sleep 1
+    done
+
+    echo ""
+    echo "4. Verifying startup..."
+    sleep 3
+
+    if check_status; then
+        echo ""
+        echo "🎉 Application started successfully!"
+        echo "🌐 Frontend available at: http://localhost:8080"
+        echo "🔑 Login with: admin/password"
+    else
+        echo ""
+        echo "❌ Application startup may have failed. Check logs:"
+        echo "   tail -f master.log"
+        echo "   tail -f worker-*.log"
+        return 1
+    fi
+}
+
+# Function to stop the application
+stop_application() {
+    echo "🛑 Stopping Distributed Load Tester Application"
+    echo "==============================================="
+kill_processes() {
+    local pattern=$1
+    local description=$2
+
+    echo "Stopping $description..."
+
+    # Find processes using multiple methods for better accuracy
+    pids=$(ps aux | grep -E "$pattern" | grep -v grep | awk '{print $2}')
+
+    if [ -n "$pids" ]; then
+        echo "Found processes: $pids"
+
+        # First try graceful termination (SIGTERM)
+        echo "Sending SIGTERM to processes..."
+        for pid in $pids; do
+            if kill -TERM "$pid" 2>/dev/null; then
+                echo "  ✅ Sent SIGTERM to PID $pid"
+            else
+                echo "  ⚠️  Failed to send SIGTERM to PID $pid (may already be stopped)"
+            fi
+        done
+
+        # Wait for graceful shutdown
+        echo "Waiting 3 seconds for graceful shutdown..."
+        sleep 3
+
+        # Check which processes are still running
+        remaining_pids=$(ps aux | grep -E "$pattern" | grep -v grep | awk '{print $2}')
+        if [ -n "$remaining_pids" ]; then
+            echo "Force killing remaining processes: $remaining_pids"
+            for pid in $remaining_pids; do
+                if kill -KILL "$pid" 2>/dev/null; then
+                    echo "  ✅ Force killed PID $pid"
+                else
+                    echo "  ⚠️  Failed to kill PID $pid (may already be stopped)"
+                fi
+            done
+            sleep 1
+        fi
+
+        echo "✅ $description stopped"
+    else
+        echo "ℹ️  No $description processes found"
+    fi
+}
+
+# Alternative method using pkill
+kill_with_pkill() {
+    local pattern=$1
+    local description=$2
 # Function to kill processes by pattern with better error handling
 kill_processes() {
     local pattern=$1
@@ -155,84 +280,79 @@ kill_with_pkill() {
     fi
 }
 
-# Function to start the application
-start_application() {
-    echo "🚀 Starting Distributed Load Tester Application"
-    echo "==============================================="
+# Final verification
+remaining=$(ps aux | grep -E "distributed-load-tester" | grep -v grep | wc -l | tr -d ' ')
+if [ "$remaining" -eq 0 ]; then
+    echo "✅ All distributed-load-tester processes stopped successfully"
+else
+    echo "⚠️  Some processes may still be running:"
+    ps aux | grep -E "distributed-load-tester" | grep -v grep
+    echo ""
+    echo "Manual cleanup options:"
+    echo "  1. Kill by PID: kill -9 <PID>"
+    echo "  2. Force kill all: sudo pkill -9 -f distributed-load-tester"
+fi
 
-    # Check if already running
-    local master_count=$(ps aux | grep -E "$APP_NAME.*master" | grep -v grep | wc -l | tr -d ' ')
-    local worker_count=$(ps aux | grep -E "$APP_NAME.*worker" | grep -v grep | wc -l | tr -d ' ')
+echo ""
+echo "3. Checking port availability..."
 
-    if [ "$master_count" -gt 0 ] || [ "$worker_count" -gt 0 ]; then
-        echo "⚠️  Application appears to be already running."
-        echo "Use 'restart' command to restart or 'stop' to stop first."
-        return 1
-    fi
+# Check if ports are free
+ports=(8080 50051 50001 50002 50003)
+all_ports_free=true
 
-    echo "1. Building the application..."
-    cd "$SCRIPT_DIR"
-
-    if go build -o $APP_NAME .; then
-        echo "✅ Application built successfully"
+for port in "${ports[@]}"; do
+    if lsof -Pi :$port -sTCP:LISTEN -t >/dev/null 2>&1; then
+        echo "⚠️  Port $port is still in use:"
+        lsof -Pi :$port -sTCP:LISTEN
+        all_ports_free=false
     else
-        echo "❌ Build failed"
-        return 1
+        echo "✅ Port $port is available"
     fi
+done
 
+if [ "$all_ports_free" = true ]; then
     echo ""
-    echo "2. Starting master process..."
-    ./$APP_NAME master \
-        --database-url="postgres://postgres:postgres@localhost:5432/load_tester?sslmode=disable" \
-        --http-port=8080 \
-        --grpc-port=50051 > master.log 2>&1 &
-
-    MASTER_PID=$!
-    echo "✅ Master started (PID: $MASTER_PID)"
-
-    # Wait for master to initialize
-    sleep 3
-
+    echo "✅ All application ports are now available"
+else
     echo ""
-    echo "3. Starting worker processes..."
-    for i in {1..3}; do
-        echo "Starting worker-$i..."
-        ./$APP_NAME worker \
-            --worker-id="worker-$i" \
-            --grpc-port="5000$i" \
-            --master-address="localhost:50051" \
-            --database-url="postgres://postgres:postgres@localhost:5432/load_tester?sslmode=disable" > "worker-$i.log" 2>&1 &
+    echo "⚠️  Some ports are still in use. You may need to:"
+    echo "  1. Wait a few seconds and check again"
+    echo "  2. Kill processes using those ports manually"
+    echo "  3. Restart your terminal/system if ports remain stuck"
+fi
 
-        WORKER_PID=$!
-        echo "✅ Worker-$i started (PID: $WORKER_PID)"
-        sleep 1
-    done
+echo ""
+echo "4. Cleaning up log files (optional)..."
 
+# List existing log files
+if ls *.log >/dev/null 2>&1; then
+    echo "Found log files:"
+    ls -la *.log
     echo ""
-    echo "4. Verifying startup..."
-    sleep 3
-
-    # Check if processes are running
-    local master_count=$(ps aux | grep -E "$APP_NAME.*master" | grep -v grep | wc -l | tr -d ' ')
-    local worker_count=$(ps aux | grep -E "$APP_NAME.*worker" | grep -v grep | wc -l | tr -d ' ')
-
-    if [ "$master_count" -gt 0 ] && [ "$worker_count" -gt 0 ]; then
-        echo "🎉 Application started successfully!"
-        echo "🌐 Frontend available at: http://localhost:8080"
-        echo "🔑 Login with: admin/password"
-        return 0
+    read -p "Do you want to remove old log files? (y/N): " -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        rm -f *.log
+        echo "✅ Log files removed"
     else
-        echo "❌ Application startup may have failed. Check logs:"
-        echo "   tail -f master.log"
-        echo "   tail -f worker-*.log"
-        return 1
+        echo "ℹ️  Log files kept"
     fi
-}
+else
+    echo "ℹ️  No log files found"
+fi
 
-# Function to stop the application
-stop_application() {
-    echo "🛑 Stopping Distributed Load Tester Application"
-    echo "==============================================="
+echo ""
+echo "🎉 Stop process completed!"
+echo "========================="
+echo ""
+echo "📊 Final Status:"
+echo "  • Processes stopped: $([ "$remaining" -eq 0 ] && echo "✅ Yes" || echo "❌ Some may remain")"
+echo "  • Ports available: $([ "$all_ports_free" = true ] && echo "✅ Yes" || echo "⚠️  Some in use")"
+echo ""
+echo "🚀 Next Steps:"
+echo "  • To restart: ./restart_application.sh"
+echo "  • To start fresh: ./start_application.sh (if available)"
+echo "  • To build and run manually: go run main.go"
 
     echo "1. Stopping application processes..."
 
@@ -246,7 +366,6 @@ stop_application() {
 
     echo ""
     echo "2. Verifying all processes are stopped..."
-
     remaining=$(ps aux | grep -E "$APP_NAME" | grep -v grep | wc -l | tr -d ' ')
     if [ "$remaining" -eq 0 ]; then
         echo "✅ All $APP_NAME processes stopped successfully"
@@ -290,9 +409,6 @@ restart_application() {
     echo "Step 2: Starting application..."
     start_application
 }
-
-echo "🔧 Managing Distributed Load Tester Application"
-echo "==============================================="
 
 # Main script logic
 case "$ACTION" in

@@ -92,25 +92,6 @@ curl -s -X POST "$API_BASE/test/submit" \
     "vegeta_payload_json": "{}"
   }' | jq '.'
 
-# Test 4b: Enhanced Ramped distribution with custom configuration
-echo ""
-echo "4b. Testing ENHANCED RAMPED distribution (ramp over 8s, start after 2s delay, 5 steps)"
-curl -s -X POST "$API_BASE/test/submit" \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Bearer $TOKEN" \
-  -d '{
-    "name": "Test Enhanced Ramped Distribution",
-    "duration_seconds": "15s",
-    "rate_per_second": 50,
-    "worker_count": 3,
-    "rate_distribution": "ramped",
-    "ramp_duration": "8s",
-    "ramp_start_delay": "2s",
-    "ramp_steps": 5,
-    "targets_base64": "'"$TARGETS_BASE64"'",
-    "vegeta_payload_json": "{}"
-  }' | jq '.'
-
 # Test 5: Burst distribution
 echo ""
 echo "5. Testing BURST distribution (70% load on first workers, 30% on remainder)"
@@ -127,28 +108,12 @@ curl -s -X POST "$API_BASE/test/submit" \
     "vegeta_payload_json": "{}"
   }' | jq '.'
 
-# Test 6: Enhanced Vegeta options
-echo ""
-echo "6. Testing ENHANCED VEGETA OPTIONS (custom timeout, redirects, HTTP/2, TLS settings)"
-curl -s -X POST "$API_BASE/test/submit" \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Bearer $TOKEN" \
-  -d '{
-    "name": "Test Enhanced Vegeta Options",
-    "duration_seconds": "10s",
-    "rate_per_second": 20,
-    "worker_count": 2,
-    "rate_distribution": "shared",
-    "targets_base64": "'"$TARGETS_BASE64"'",
-    "vegeta_payload_json": "{\"timeout\": 15, \"redirects\": 5, \"keepalive\": true, \"http2\": true, \"insecure\": false, \"connections\": 50, \"headers\": {\"User-Agent\": \"Enhanced-Load-Tester/1.0\"}}"
-  }' | jq '.'
-
 echo ""
 echo "=== Testing Error Cases ==="
 
-# Test 7: Invalid distribution mode
+# Test 6: Invalid distribution mode
 echo ""
-echo "7. Testing invalid distribution mode (should fail)"
+echo "6. Testing invalid distribution mode (should fail)"
 curl -s -X POST "$API_BASE/test/submit" \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer $TOKEN" \
@@ -162,9 +127,9 @@ curl -s -X POST "$API_BASE/test/submit" \
     "vegeta_payload_json": "{}"
   }' | jq '.'
 
-# Test 8: Weighted distribution without weights
+# Test 7: Weighted distribution without weights
 echo ""
-echo "8. Testing weighted distribution without weights (should fail)"
+echo "7. Testing weighted distribution without weights (should fail)"
 curl -s -X POST "$API_BASE/test/submit" \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer $TOKEN" \
@@ -178,9 +143,9 @@ curl -s -X POST "$API_BASE/test/submit" \
     "vegeta_payload_json": "{}"
   }' | jq '.'
 
-# Test 9: Weighted distribution with wrong number of weights
+# Test 8: Weighted distribution with wrong number of weights
 echo ""
-echo "9. Testing weighted distribution with wrong number of weights (should fail)"
+echo "8. Testing weighted distribution with wrong number of weights (should fail)"
 curl -s -X POST "$API_BASE/test/submit" \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer $TOKEN" \

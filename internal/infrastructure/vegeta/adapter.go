@@ -4,7 +4,6 @@ package vegeta
 import (
 	"bytes"
 	"context"
-	"crypto/tls"
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
@@ -14,7 +13,6 @@ import (
 
 	"github.com/pace-noge/distributed-load-tester/internal/domain"
 	lib "github.com/tsenart/vegeta/v12/lib" // Corrected import path
-	"golang.org/x/net/http2"
 )
 
 // VegetaAdapter implements the domain.VegetaExecutor interface.
@@ -88,90 +86,34 @@ func (va *VegetaAdapter) Attack(ctx context.Context, vegetaPayloadJSON, duration
 	}
 
 	// 4. Configure attacker options (from vegetaPayloadJSON)
-	var attackOptions map[string]interface{}
+	attacker := lib.NewAttacker() // Use lib.NewAttacker
 	if vegetaPayloadJSON != "" {
+		var attackOptions map[string]interface{}
 		err = json.Unmarshal([]byte(vegetaPayloadJSON), &attackOptions)
 		if err != nil {
 			log.Printf("Warning: Failed to unmarshal vegetaPayloadJSON: %v. Using default attacker options.", err)
-			attackOptions = make(map[string]interface{})
+			// Continue with default attacker if payload is invalid
+		} else {
+			// Apply specific attacker options if they exist in the payload
+			if timeout, ok := attackOptions["timeout"].(float64); ok {
+				attacker = lib.NewAttacker(lib.Client(&http.Client{Timeout: time.Duration(timeout) * time.Second}))
+			}
+			if redirects, ok := attackOptions["redirects"].(float64); ok {
+				attacker = lib.NewAttacker(lib.Client(&http.Client{
+					CheckRedirect: func(req *http.Request, via []*http.Request) error {
+						if len(via) >= int(redirects) {
+							return http.ErrUseLastResponse
+						}
+						return nil
+					},
+				}))
+			}
+			// Add more options as needed (connections, http2, keepalive, etc.)
+			// Note: Converting map[string]interface{} to direct vegeta.Attacker options can be complex.
+			// For a comprehensive solution, you might need reflection or specific struct mapping.
+			// For this example, we'll just handle a few common ones.
 		}
-	} else {
-		attackOptions = make(map[string]interface{})
 	}
-
-	// Build HTTP client with enhanced options
-	client := &http.Client{}
-
-	// Timeout configuration
-	timeout := 30.0 // Default 30 seconds
-	if val, ok := attackOptions["timeout"].(float64); ok {
-		timeout = val
-	}
-	client.Timeout = time.Duration(timeout) * time.Second
-
-	// Redirect configuration
-	maxRedirects := 10 // Default 10 redirects
-	if val, ok := attackOptions["redirects"].(float64); ok {
-		maxRedirects = int(val)
-	}
-	client.CheckRedirect = func(req *http.Request, via []*http.Request) error {
-		if len(via) >= maxRedirects {
-			return http.ErrUseLastResponse
-		}
-		return nil
-	}
-
-	// TLS configuration
-	tlsConfig := &tls.Config{}
-	if val, ok := attackOptions["insecure"].(bool); ok && val {
-		tlsConfig.InsecureSkipVerify = true
-	}
-
-	// HTTP/2 configuration
-	http2Enabled := true // Default enable HTTP/2
-	if val, ok := attackOptions["http2"].(bool); ok {
-		http2Enabled = val
-	}
-
-	// Connection pooling
-	maxConnections := 100 // Default max connections
-	if val, ok := attackOptions["connections"].(float64); ok {
-		maxConnections = int(val)
-	}
-
-	// Keep-alive configuration
-	keepAlive := true // Default enable keep-alive
-	if val, ok := attackOptions["keepalive"].(bool); ok {
-		keepAlive = val
-	}
-
-	// Build transport with enhanced options
-	transport := &http.Transport{
-		TLSClientConfig:     tlsConfig,
-		MaxIdleConns:        maxConnections,
-		MaxIdleConnsPerHost: maxConnections / 10,
-		IdleConnTimeout:     90 * time.Second,
-		DisableKeepAlives:   !keepAlive,
-	}
-
-	// Configure HTTP/2
-	if http2Enabled {
-		err = http2.ConfigureTransport(transport)
-		if err != nil {
-			log.Printf("Warning: Failed to configure HTTP/2: %v", err)
-		}
-	} else {
-		transport.TLSNextProto = make(map[string]func(authority string, c *tls.Conn) http.RoundTripper)
-	}
-
-	client.Transport = transport
-
-	// Create attacker with configured client
-	attacker := lib.NewAttacker(lib.Client(client))
-
-	// Apply additional options if supported
-	// Note: Some options like workers, max_body might need different approaches
-	// depending on the vegeta version
 
 	// 5. Start the attack
 	log.Printf("Starting Vegeta attack: rate=%v, duration=%v, targets=%d", attackRate, duration, len(targets))

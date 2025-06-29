@@ -331,3 +331,832 @@
 2025/06/29 21:27:36 Received ACK from Master for worker worker-3: Success=true, Message=Status received
 2025/06/29 21:27:41 Worker worker-3 sent status: READY (Test: )
 2025/06/29 21:27:41 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:27:46 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:27:46 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:27:51 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:27:51 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:27:56 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:27:56 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:28:01 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:28:01 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:28:06 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:28:06 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:28:11 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:28:11 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:28:16 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:28:16 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:28:21 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:28:21 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:28:26 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:28:26 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:28:31 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:28:31 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:28:36 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:28:36 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:28:41 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:28:41 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:28:46 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:28:46 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:28:51 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:28:51 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:28:56 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:28:56 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:29:01 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:29:01 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:29:06 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:29:06 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:29:11 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:29:11 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:29:16 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:29:16 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:29:21 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:29:21 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:29:26 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:29:26 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:29:31 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:29:31 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:29:36 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:29:36 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:29:41 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:29:41 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:29:46 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:29:46 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:29:51 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:29:51 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:29:56 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:29:56 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:30:01 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:30:01 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:30:06 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:30:06 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:30:11 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:30:11 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:30:16 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:30:16 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:30:21 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:30:21 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:30:26 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:30:26 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:30:31 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:30:31 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:30:36 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:30:36 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:30:41 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:30:41 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:30:46 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:30:46 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:30:51 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:30:51 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:30:56 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:30:56 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:31:01 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:31:01 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:31:06 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:31:06 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:31:11 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:31:11 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:31:16 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:31:16 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:31:21 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:31:21 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:31:26 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:31:26 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:31:31 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:31:31 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:31:36 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:31:36 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:31:41 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:31:41 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:31:46 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:31:46 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:31:51 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:31:51 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:31:56 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:31:56 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:31:59 Worker received test assignment for Test ID: 6e4a9cac-ccb7-42bf-a8dc-916550c66f87
+2025/06/29 21:31:59 Worker worker-3 starting test 6e4a9cac-ccb7-42bf-a8dc-916550c66f87...
+2025/06/29 21:31:59 Worker worker-3 sent status: BUSY (Test: 6e4a9cac-ccb7-42bf-a8dc-916550c66f87)
+2025/06/29 21:31:59 Starting Vegeta attack with duration=10s, rate=10, targetsBase64 length=84
+2025/06/29 21:31:59 Decoded targets: [{"method":"GET","url":"https://dummyjson.com/http/200/test"}]
+2025/06/29 21:31:59 Parsed 1 targets successfully
+2025/06/29 21:31:59 Target 0: GET https://dummyjson.com/http/200/test
+2025/06/29 21:31:59 Starting Vegeta attack: rate=Constant{10 hits/1s}, duration=10s, targets=1
+2025/06/29 21:31:59 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:32:01 Worker worker-3 sent status: BUSY (Test: 6e4a9cac-ccb7-42bf-a8dc-916550c66f87)
+2025/06/29 21:32:01 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:32:06 Worker worker-3 sent status: BUSY (Test: 6e4a9cac-ccb7-42bf-a8dc-916550c66f87)
+2025/06/29 21:32:06 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:32:09 Vegeta attack completed
+2025/06/29 21:32:09 Worker worker-3 saving test result to database for test 6e4a9cac-ccb7-42bf-a8dc-916550c66f87
+2025/06/29 21:32:09 Worker worker-3 completed test 6e4a9cac-ccb7-42bf-a8dc-916550c66f87 and saved results: TotalRequests=100, CompletedRequests=100, DurationMs=9899, SuccessRate=1.00
+2025/06/29 21:32:09 Worker worker-3 sent status: FINISHING (Test: 6e4a9cac-ccb7-42bf-a8dc-916550c66f87)
+2025/06/29 21:32:09 Worker worker-3 finished test 6e4a9cac-ccb7-42bf-a8dc-916550c66f87.
+2025/06/29 21:32:09 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:32:11 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:32:11 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:32:16 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:32:16 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:32:21 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:32:21 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:32:26 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:32:26 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:32:31 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:32:31 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:32:36 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:32:36 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:32:41 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:32:41 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:32:46 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:32:46 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:32:51 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:32:51 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:32:56 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:32:56 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:33:01 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:33:01 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:33:06 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:33:06 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:33:11 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:33:11 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:33:16 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:33:16 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:33:21 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:33:21 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:33:26 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:33:26 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:33:31 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:33:31 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:33:36 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:33:36 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:33:41 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:33:41 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:33:46 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:33:46 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:33:51 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:33:51 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:33:56 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:33:56 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:34:01 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:34:01 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:34:06 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:34:06 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:34:11 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:34:11 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:34:16 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:34:16 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:34:21 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:34:21 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:34:26 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:34:26 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:34:31 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:34:31 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:34:36 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:34:36 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:34:41 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:34:41 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:34:46 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:34:46 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:34:51 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:34:51 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:34:56 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:34:56 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:35:01 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:35:01 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:35:06 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:35:06 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:35:11 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:35:11 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:35:16 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:35:16 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:35:21 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:35:21 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:35:26 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:35:26 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:35:31 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:35:31 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:35:36 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:35:36 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:35:41 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:35:41 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:35:46 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:35:46 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:35:51 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:35:51 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:35:56 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:35:56 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:36:01 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:36:01 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:36:06 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:36:06 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:36:11 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:36:11 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:36:16 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:36:16 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:36:21 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:36:21 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:36:26 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:36:26 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:36:31 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:36:31 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:36:36 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:36:36 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:36:41 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:36:41 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:36:46 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:36:46 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:36:51 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:36:51 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:36:56 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:36:56 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:37:01 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:37:01 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:37:06 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:37:06 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:37:11 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:37:11 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:37:16 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:37:16 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:37:21 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:37:21 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:37:26 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:37:26 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:37:31 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:37:31 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:37:36 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:37:36 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:37:41 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:37:41 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:37:46 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:37:46 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:37:51 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:37:51 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:37:56 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:37:56 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:38:01 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:38:01 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:38:06 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:38:06 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:38:11 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:38:11 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:38:16 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:38:16 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:38:21 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:38:21 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:38:26 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:38:26 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:38:31 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:38:31 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:38:36 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:38:36 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:38:41 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:38:41 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:38:46 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:38:46 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:38:51 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:38:51 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:38:56 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:38:56 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:39:01 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:39:01 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:39:06 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:39:06 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:39:11 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:39:11 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:39:16 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:39:16 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:39:21 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:39:21 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:39:26 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:39:26 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:39:31 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:39:31 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:39:36 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:39:36 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:39:41 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:39:41 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:39:46 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:39:46 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:39:51 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:39:51 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:39:56 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:39:56 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:40:01 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:40:01 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:40:06 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:40:06 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:40:11 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:40:11 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:40:16 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:40:16 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:40:21 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:40:21 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:40:26 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:40:26 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:40:31 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:40:31 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:40:36 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:40:36 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:40:41 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:40:41 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:40:46 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:40:46 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:40:51 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:40:51 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:40:56 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:40:56 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:41:01 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:41:01 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:41:06 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:41:06 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:41:11 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:41:11 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:41:16 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:41:16 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:41:21 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:41:21 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:41:26 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:41:26 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:41:31 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:41:31 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:41:36 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:41:36 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:41:41 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:41:41 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:41:46 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:41:46 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:41:51 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:41:51 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:41:56 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:41:56 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:42:01 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:42:01 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:42:06 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:42:06 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:42:11 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:42:11 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:42:16 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:42:16 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:42:21 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:42:21 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:42:26 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:42:26 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:42:31 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:42:31 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:42:36 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:42:36 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:42:41 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:42:41 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:42:46 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:42:46 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:42:51 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:42:51 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:42:56 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:42:56 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:43:01 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:43:01 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:43:06 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:43:06 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:43:11 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:43:11 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:43:16 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:43:16 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:43:21 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:43:21 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:43:26 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:43:26 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:43:31 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:43:31 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:43:36 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:43:36 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:43:41 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:43:41 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:43:46 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:43:46 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:43:51 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:43:51 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:43:56 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:43:56 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:44:01 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:44:01 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:44:06 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:44:06 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:44:11 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:44:11 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:44:16 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:44:16 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:44:21 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:44:21 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:44:26 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:44:26 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:44:31 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:44:31 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:44:36 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:44:36 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:44:41 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:44:41 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:44:46 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:44:46 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:44:51 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:44:51 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:44:56 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:44:56 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:45:01 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:45:01 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:45:06 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:45:06 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:45:11 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:45:11 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:45:16 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:45:16 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:45:21 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:45:21 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:45:26 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:45:26 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:45:31 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:45:31 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:45:36 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:45:36 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:45:41 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:45:41 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:45:46 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:45:46 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:45:51 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:45:51 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:45:56 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:45:56 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:46:01 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:46:01 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:46:06 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:46:06 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:46:11 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:46:11 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:46:16 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:46:16 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:46:21 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:46:21 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:46:26 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:46:26 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:46:31 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:46:31 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:46:36 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:46:36 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:46:41 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:46:41 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:46:46 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:46:46 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:46:51 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:46:51 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:46:56 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:46:56 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:47:01 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:47:01 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:47:06 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:47:06 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:47:11 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:47:11 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:47:16 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:47:16 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:47:21 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:47:21 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:47:26 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:47:26 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:47:31 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:47:31 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:47:36 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:47:36 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:47:41 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:47:41 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:47:46 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:47:46 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:47:51 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:47:51 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:47:56 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:47:56 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:48:01 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:48:01 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:48:06 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:48:06 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:48:11 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:48:11 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:48:16 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:48:16 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:48:21 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:48:21 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:48:26 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:48:26 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:48:31 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:48:31 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:48:36 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:48:36 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:48:41 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:48:41 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:48:46 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:48:46 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:48:51 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:48:51 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:48:56 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:48:56 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:49:01 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:49:01 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:49:06 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:49:06 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:49:11 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:49:11 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:49:16 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:49:16 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:49:21 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:49:21 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:49:26 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:49:26 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:49:31 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:49:31 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:49:36 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:49:36 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:49:41 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:49:41 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:49:46 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:49:46 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:49:51 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:49:51 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:49:56 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:49:56 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:50:01 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:50:01 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:50:06 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:50:06 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:50:11 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:50:11 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:50:16 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:50:16 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:50:21 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:50:21 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:50:26 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:50:26 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:50:31 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:50:31 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:50:36 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:50:36 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:50:41 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:50:41 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:50:46 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:50:46 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:50:51 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:50:51 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:50:56 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:50:56 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:51:01 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:51:01 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:51:06 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:51:06 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:51:11 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:51:11 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:51:16 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:51:16 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:51:21 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:51:21 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:51:26 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:51:26 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:51:31 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:51:31 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:51:36 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:51:36 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:51:41 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:51:41 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:51:46 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:51:46 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:51:51 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:51:51 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:51:56 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:51:56 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:52:01 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:52:01 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:52:06 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:52:06 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:52:11 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:52:11 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:52:16 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:52:16 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:52:21 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:52:21 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:52:26 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:52:26 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:52:31 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:52:31 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:52:36 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:52:36 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:52:41 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:52:41 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:52:46 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:52:46 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:52:51 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:52:51 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:52:56 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:52:56 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:53:01 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:53:01 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:53:06 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:53:06 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:53:11 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:53:11 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:53:16 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:53:16 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:53:21 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:53:21 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:53:26 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:53:26 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:53:31 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:53:31 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:53:36 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:53:36 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:53:41 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:53:41 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:53:46 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:53:46 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:53:51 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:53:51 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:53:56 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:53:56 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:54:01 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:54:01 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:54:06 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:54:06 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:54:11 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:54:11 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:54:16 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:54:16 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:54:21 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:54:21 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:54:26 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:54:26 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:54:31 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:54:31 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:54:36 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:54:36 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:54:41 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:54:41 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:54:46 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:54:46 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:54:51 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:54:51 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:54:56 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:54:56 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:55:01 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:55:01 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:55:06 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:55:06 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:55:11 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:55:11 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:55:16 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:55:16 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:55:21 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:55:21 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:55:26 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:55:26 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:55:31 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:55:31 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:55:36 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:55:36 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:55:41 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:55:41 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:55:46 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:55:46 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:55:51 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:55:51 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:55:56 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:55:56 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:56:01 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:56:01 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:56:06 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:56:06 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:56:11 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:56:11 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:56:16 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:56:16 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:56:21 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:56:21 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:56:26 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:56:26 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:56:31 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:56:31 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:56:36 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:56:36 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:56:41 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:56:41 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:56:46 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:56:46 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:56:51 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:56:51 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:56:56 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:56:56 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:57:01 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:57:01 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:57:06 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:57:06 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:57:11 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:57:11 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:57:16 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:57:16 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:57:21 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:57:21 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:57:26 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:57:26 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:57:31 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:57:31 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:57:36 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:57:36 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:57:41 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:57:41 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:57:46 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:57:46 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:57:51 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:57:51 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:57:56 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:57:56 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:58:01 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:58:01 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:58:06 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:58:06 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:58:11 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:58:11 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:58:16 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:58:16 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:58:21 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:58:21 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:58:26 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:58:26 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:58:31 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:58:31 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:58:36 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:58:36 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:58:41 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:58:41 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:58:46 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:58:46 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:58:51 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:58:51 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:58:56 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:58:56 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:59:01 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:59:01 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:59:06 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:59:06 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:59:11 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:59:11 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:59:16 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:59:16 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:59:21 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:59:21 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:59:26 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:59:26 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:59:31 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:59:31 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:59:36 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:59:36 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:59:41 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:59:41 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:59:46 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:59:46 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:59:51 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:59:51 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 21:59:56 Worker worker-3 sent status: READY (Test: )
+2025/06/29 21:59:56 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 22:00:01 Worker worker-3 sent status: READY (Test: )
+2025/06/29 22:00:01 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 22:00:06 Worker worker-3 sent status: READY (Test: )
+2025/06/29 22:00:06 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 22:00:11 Worker worker-3 sent status: READY (Test: )
+2025/06/29 22:00:11 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 22:00:16 Worker worker-3 sent status: READY (Test: )
+2025/06/29 22:00:16 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 22:00:21 Worker worker-3 sent status: READY (Test: )
+2025/06/29 22:00:21 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 22:00:26 Worker worker-3 sent status: READY (Test: )
+2025/06/29 22:00:26 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 22:00:31 Worker worker-3 sent status: READY (Test: )
+2025/06/29 22:00:31 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 22:00:36 Worker worker-3 sent status: READY (Test: )
+2025/06/29 22:00:36 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 22:00:41 Worker worker-3 sent status: READY (Test: )
+2025/06/29 22:00:41 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 22:00:46 Worker worker-3 sent status: READY (Test: )
+2025/06/29 22:00:46 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 22:00:51 Worker worker-3 sent status: READY (Test: )
+2025/06/29 22:00:51 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 22:00:56 Worker worker-3 sent status: READY (Test: )
+2025/06/29 22:00:56 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 22:01:01 Worker worker-3 sent status: READY (Test: )
+2025/06/29 22:01:01 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 22:01:06 Worker worker-3 sent status: READY (Test: )
+2025/06/29 22:01:06 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 22:01:11 Worker worker-3 sent status: READY (Test: )
+2025/06/29 22:01:11 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 22:01:16 Worker worker-3 sent status: READY (Test: )
+2025/06/29 22:01:16 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 22:01:21 Worker worker-3 sent status: READY (Test: )
+2025/06/29 22:01:21 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 22:01:26 Worker worker-3 sent status: READY (Test: )
+2025/06/29 22:01:26 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 22:01:31 Worker worker-3 sent status: READY (Test: )
+2025/06/29 22:01:31 Received ACK from Master for worker worker-3: Success=true, Message=Status received
+2025/06/29 22:01:36 Worker worker-3 sent status: READY (Test: )
+2025/06/29 22:01:36 Received ACK from Master for worker worker-3: Success=true, Message=Status received

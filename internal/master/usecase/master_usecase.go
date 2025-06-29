@@ -193,7 +193,6 @@ func (uc *MasterUsecase) startTestDistributionRoutine() {
 			var assignedWorkers []string
 			timeout := time.After(30 * time.Second) // Wait up to 30 seconds to gather workers
 
-		workerCollection:
 			for uint32(len(assignedWorkers)) < testReq.WorkerCount {
 				select {
 				case workerID := <-uc.workerAvailability:
@@ -208,7 +207,7 @@ func (uc *MasterUsecase) startTestDistributionRoutine() {
 					if len(assignedWorkers) > 0 {
 						log.Printf("Proceeding with partial assignment for test %s using %d workers",
 							testReq.ID, len(assignedWorkers))
-						break workerCollection
+						break
 					} else {
 						// No workers available, re-queue the test
 						log.Printf("No workers available for test %s, re-queueing", testReq.ID)
@@ -734,37 +733,14 @@ func (uc *MasterUsecase) assignTestToMultipleWorkers(ctx context.Context, testRe
 			testReq.RateWeights, workerRates, totalExpectedRate)
 
 	case "ramped":
-		// Enhanced ramped distribution with configurable parameters
-
-		// Parse ramp configuration with defaults
-		rampDuration := testReq.RampDuration
-		if rampDuration == "" {
-			rampDuration = testReq.DurationSeconds // Default: ramp over entire test duration
-		}
-
-		rampStartDelay := testReq.RampStartDelay
-		if rampStartDelay == "" {
-			rampStartDelay = "0s" // Default: start immediately
-		}
-
-		rampSteps := testReq.RampSteps
-		if rampSteps == 0 {
-			rampSteps = uint32(len(workerIDs)) // Default: one step per worker
-		}
-
-		// Calculate step increment based on total rate and number of steps
-		stepRate := testReq.RatePerSecond / uint64(rampSteps)
-		if stepRate < 1 {
-			stepRate = 1
-		}
+		// Gradually increase rate across workers (first worker gets lower rate, last gets higher)
+		baseRate := testReq.RatePerSecond / uint64(len(workerIDs))
+		rampStep := baseRate / 2 // Ramp from 50% to 150% of base rate
 
 		for i := 0; i < len(workerIDs); i++ {
-			// Distribute workers across ramp steps
-			stepIndex := float64(i) / float64(len(workerIDs)-1) * float64(rampSteps-1)
-			currentStep := uint32(stepIndex)
-
-			// Calculate rate for this worker based on its step position
-			workerRate := stepRate * uint64(currentStep+1) / uint64(len(workerIDs))
+			// Calculate ramped rate: starts at baseRate - rampStep, ends at baseRate + rampStep
+			rampFactor := float64(i) / float64(len(workerIDs)-1) // 0.0 to 1.0
+			workerRate := uint64(float64(baseRate) + (2.0*rampFactor-1.0)*float64(rampStep))
 			if workerRate < 1 {
 				workerRate = 1 // Minimum 1 req/s
 			}
@@ -777,8 +753,6 @@ func (uc *MasterUsecase) assignTestToMultipleWorkers(ctx context.Context, testRe
 		}
 		log.Printf("Using 'ramped' rate distribution: rates %v (total: %d req/s)",
 			workerRates, totalExpectedRate)
-		log.Printf("Ramp config: duration=%s, start_delay=%s, steps=%d",
-			rampDuration, rampStartDelay, rampSteps)
 
 	case "burst":
 		// Concentrate higher load on first few workers, lower on the rest
@@ -787,7 +761,7 @@ func (uc *MasterUsecase) assignTestToMultipleWorkers(ctx context.Context, testRe
 			burstWorkers = 1
 		}
 
-		burstRate := (testReq.RatePerSecond * 70) / (100 * uint64(burstWorkers))                 // 70% of load on burst workers
+		burstRate := (testReq.RatePerSecond * 70) / (100 * uint64(burstWorkers)) // 70% of load on burst workers
 		normalRate := (testReq.RatePerSecond * 30) / (100 * uint64(len(workerIDs)-burstWorkers)) // 30% on remaining
 
 		for i := 0; i < len(workerIDs); i++ {
@@ -917,102 +891,4 @@ func (uc *MasterUsecase) assignTestToMultipleWorkers(ctx context.Context, testRe
 		uc.testRepo.UpdateTestStatus(ctx, testReq.ID, "FAILED",
 			testReq.CompletedWorkers, append(testReq.FailedWorkers, "AllWorkersRejected"))
 	}
-}
-
-// GetTestHistoryPaginated retrieves paginated test history.
-func (uc *MasterUsecase) GetTestHistoryPaginated(ctx context.Context, offset, limit int) ([]*domain.TestRequest, int, error) {
-	tests, err := uc.testRepo.GetTestsPaginated(ctx, offset, limit)
-	if err != nil {
-		return nil, 0, fmt.Errorf("failed to get paginated tests: %w", err)
-	}
-
-	total, err := uc.testRepo.GetTestsCount(ctx)
-	if err != nil {
-		return nil, 0, fmt.Errorf("failed to get tests count: %w", err)
-	}
-
-	return tests, total, nil
-}
-
-// GetTestDetail retrieves detailed information about a specific test.
-func (uc *MasterUsecase) GetTestDetail(ctx context.Context, testID string) (*domain.TestDetail, error) {
-	test, err := uc.testRepo.GetTestByID(ctx, testID)
-	if err != nil {
-		return nil, fmt.Errorf("failed to get test: %w", err)
-	}
-
-	// Get test results
-	results, err := uc.testResultRepo.GetTestResultsByTestID(ctx, testID)
-	if err != nil {
-		log.Printf("Failed to get test results for test %s: %v", testID, err)
-		results = []*domain.TestResult{} // Return empty results if error
-	}
-
-	// Get aggregated result if available
-	aggregatedResult, err := uc.aggregatedResultRepo.GetAggregatedResult(ctx, testID)
-	if err != nil {
-		log.Printf("No aggregated result found for test %s: %v", testID, err)
-		aggregatedResult = nil // OK if not found
-	}
-
-	return &domain.TestDetail{
-		Test:             test,
-		Results:          results,
-		AggregatedResult: aggregatedResult,
-	}, nil
-}
-
-// ReplayTest creates a new test based on an existing test configuration.
-func (uc *MasterUsecase) ReplayTest(ctx context.Context, testID string, newName string) (*domain.TestRequest, error) {
-	// Get the original test
-	originalTest, err := uc.testRepo.GetTestByID(ctx, testID)
-	if err != nil {
-		return nil, fmt.Errorf("failed to get original test: %w", err)
-	}
-
-	// Create a new test with the same configuration
-	newTest := &domain.TestRequest{
-		ID:                 uuid.New().String(),
-		Name:               newName,
-		VegetaPayloadJSON:  originalTest.VegetaPayloadJSON,
-		DurationSeconds:    originalTest.DurationSeconds,
-		RatePerSecond:      originalTest.RatePerSecond,
-		TargetsBase64:      originalTest.TargetsBase64,
-		RequesterID:        originalTest.RequesterID,
-		WorkerCount:        originalTest.WorkerCount,
-		RateDistribution:   originalTest.RateDistribution,
-		RateWeights:        originalTest.RateWeights,
-		RampDuration:       originalTest.RampDuration,
-		RampStartDelay:     originalTest.RampStartDelay,
-		RampSteps:          originalTest.RampSteps,
-		CreatedAt:          time.Now(),
-		Status:             "PENDING",
-		AssignedWorkersIDs: []string{},
-		CompletedWorkers:   []string{},
-		FailedWorkers:      []string{},
-	}
-
-	// Use original test name if no new name provided
-	if newTest.Name == "" {
-		newTest.Name = fmt.Sprintf("%s (Replay)", originalTest.Name)
-	}
-
-	// Save the new test
-	err = uc.testRepo.CreateTest(ctx, newTest)
-	if err != nil {
-		return nil, fmt.Errorf("failed to create replayed test: %w", err)
-	}
-
-	// Queue the test for execution
-	select {
-	case uc.testQueue <- newTest:
-		log.Printf("Replayed test %s queued successfully", newTest.ID)
-	default:
-		log.Printf("Test queue is full, test %s not queued", newTest.ID)
-		// Update test status to failed if queue is full
-		uc.testRepo.UpdateTestStatus(ctx, newTest.ID, "FAILED", []string{}, []string{"QueueFull"})
-		return nil, fmt.Errorf("test queue is full")
-	}
-
-	return newTest, nil
 }

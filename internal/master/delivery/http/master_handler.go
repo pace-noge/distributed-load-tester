@@ -41,9 +41,6 @@ func NewHTTPHandler(uc *masterUsecase.MasterUsecase, jwtSecret string) *HTTPHand
 	api.HandleFunc("/test/submit", h.submitTest).Methods("POST")
 	api.HandleFunc("/dashboard", h.getDashboardStatus).Methods("GET")
 	api.HandleFunc("/tests", h.getTests).Methods("GET")
-	api.HandleFunc("/tests/history", h.getTestHistory).Methods("GET")
-	api.HandleFunc("/tests/{testId}", h.getTestDetail).Methods("GET")
-	api.HandleFunc("/tests/{testId}/replay", h.replayTest).Methods("POST")
 	api.HandleFunc("/tests/{testId}/results", h.getTestResults).Methods("GET")
 	api.HandleFunc("/tests/{testId}/aggregated-result", h.getAggregatedTestResult).Methods("GET")
 	api.HandleFunc("/tests/{testId}/aggregate", h.triggerAggregation).Methods("POST")
@@ -188,88 +185,6 @@ func (h *HTTPHandler) getTests(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	json.NewEncoder(w).Encode(tests)
-}
-
-// getTestHistory retrieves paginated test history.
-func (h *HTTPHandler) getTestHistory(w http.ResponseWriter, r *http.Request) {
-	// Parse query parameters for pagination
-	page := 1
-	limit := 10
-	if p := r.URL.Query().Get("page"); p != "" {
-		if parsedPage, err := fmt.Sscanf(p, "%d", &page); err != nil || parsedPage != 1 || page < 1 {
-			page = 1
-		}
-	}
-	if l := r.URL.Query().Get("limit"); l != "" {
-		if parsedLimit, err := fmt.Sscanf(l, "%d", &limit); err != nil || parsedLimit != 1 || limit < 1 || limit > 100 {
-			limit = 10
-		}
-	}
-
-	offset := (page - 1) * limit
-	tests, total, err := h.usecase.GetTestHistoryPaginated(r.Context(), offset, limit)
-	if err != nil {
-		http.Error(w, fmt.Sprintf("Failed to get test history: %v", err), http.StatusInternalServerError)
-		return
-	}
-
-	response := map[string]interface{}{
-		"tests":       tests,
-		"total":       total,
-		"page":        page,
-		"limit":       limit,
-		"total_pages": (total + limit - 1) / limit,
-	}
-	json.NewEncoder(w).Encode(response)
-}
-
-// getTestDetail retrieves the details of a specific test.
-func (h *HTTPHandler) getTestDetail(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
-	testID := vars["testId"]
-	if testID == "" {
-		http.Error(w, "Test ID is required", http.StatusBadRequest)
-		return
-	}
-
-	detail, err := h.usecase.GetTestDetail(r.Context(), testID)
-	if err != nil {
-		if strings.Contains(err.Error(), "not found") {
-			http.Error(w, fmt.Sprintf("Test %s not found", testID), http.StatusNotFound)
-			return
-		}
-		http.Error(w, fmt.Sprintf("Failed to get test detail: %v", err), http.StatusInternalServerError)
-		return
-	}
-	json.NewEncoder(w).Encode(detail)
-}
-
-// replayTest creates a new test based on an existing test configuration.
-func (h *HTTPHandler) replayTest(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
-	testID := vars["testId"]
-	if testID == "" {
-		http.Error(w, "Test ID is required", http.StatusBadRequest)
-		return
-	}
-
-	var replayReq struct {
-		Name string `json:"name,omitempty"` // Optional new name for the replayed test
-	}
-	if err := json.NewDecoder(r.Body).Decode(&replayReq); err != nil {
-		// Body might be empty, which is OK
-	}
-
-	newTest, err := h.usecase.ReplayTest(r.Context(), testID, replayReq.Name)
-	if err != nil {
-		if strings.Contains(err.Error(), "not found") {
-			http.Error(w, fmt.Sprintf("Test %s not found", testID), http.StatusNotFound)
-			return
-		}
-		http.Error(w, fmt.Sprintf("Failed to replay test: %v", err), http.StatusInternalServerError)
-		return
-	}
-	json.NewEncoder(w).Encode(newTest)
 }
 
 // getTestResults retrieves raw results for a specific test.

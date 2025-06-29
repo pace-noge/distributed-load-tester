@@ -17,13 +17,9 @@ type WorkerRepository interface {
 // TestRepository defines operations for managing test requests and their states.
 type TestRepository interface {
 	SaveTestRequest(ctx context.Context, test *TestRequest) error
-	CreateTest(ctx context.Context, test *TestRequest) error
 	UpdateTestStatus(ctx context.Context, testID string, status string, completedWorkers, failedWorkers []string) error
 	GetTestRequestByID(ctx context.Context, testID string) (*TestRequest, error)
-	GetTestByID(ctx context.Context, testID string) (*TestRequest, error)
 	GetAllTestRequests(ctx context.Context) ([]*TestRequest, error)
-	GetTestsPaginated(ctx context.Context, offset, limit int) ([]*TestRequest, error)
-	GetTestsCount(ctx context.Context) (int, error)
 	IncrementTestAssignedWorkers(ctx context.Context, testID string, workerID string) error
 	AddCompletedWorkerToTest(ctx context.Context, testID string, workerID string) error
 	AddFailedWorkerToTest(ctx context.Context, testID string, workerID string) error
@@ -33,7 +29,6 @@ type TestRepository interface {
 type TestResultRepository interface {
 	SaveTestResult(ctx context.Context, result *TestResult) error
 	GetResultsByTestID(ctx context.Context, testID string) ([]*TestResult, error)
-	GetTestResultsByTestID(ctx context.Context, testID string) ([]*TestResult, error)
 	DeleteResultsByTestID(ctx context.Context, testID string) error
 }
 
@@ -41,7 +36,6 @@ type TestResultRepository interface {
 type AggregatedResultRepository interface {
 	SaveAggregatedResult(ctx context.Context, result *TestResultAggregated) error
 	GetAggregatedResultByTestID(ctx context.Context, testID string) (*TestResultAggregated, error)
-	GetAggregatedResult(ctx context.Context, testID string) (*TestResultAggregated, error)
 	GetAllAggregatedResults(ctx context.Context) ([]*TestResultAggregated, error)
 }
 
