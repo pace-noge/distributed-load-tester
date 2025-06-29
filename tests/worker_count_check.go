@@ -175,3 +175,8 @@ func testWorkerCountFeatureCheck() {
 func runWorkerCountTest() {
 	testWorkerCountFeatureCheck()
 }
+
+func main() {
+	runWorkerCountTest()
+	fmt.Println("\n=== All Tests Completed Successfully! ===")
+}

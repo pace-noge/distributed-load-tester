@@ -11,6 +11,7 @@ import (
 	"time"
 
 	"github.com/pace-noge/distributed-load-tester/internal/domain"
+	"github.com/pace-noge/distributed-load-tester/internal/utils"
 	pb "github.com/pace-noge/distributed-load-tester/proto"
 )
 
@@ -19,8 +20,7 @@ type WorkerUsecase struct {
 	workerID       string
 	masterClient   pb.WorkerServiceClient
 	vegetaExecutor domain.VegetaExecutor
-	testResultRepo domain.TestResultRepository // Add database access for storing results
-	currentTestID  string                      // Tracks the ID of the test currently being executed
+	currentTestID  string // Tracks the ID of the test currently being executed
 
 	statusStreamClient pb.WorkerService_StreamWorkerStatusClient
 	statusStreamCancel context.CancelFunc // To cancel the status stream context
@@ -28,13 +28,18 @@ type WorkerUsecase struct {
 	statusStreamMu     sync.Mutex         // Protects sending on the stream
 }
 
-// NewWorkerUsecase creates a new WorkerUsecase instance without Kafka.
-func NewWorkerUsecase(workerID string, vegetaExecutor domain.VegetaExecutor, masterClient pb.WorkerServiceClient, testResultRepo domain.TestResultRepository) *WorkerUsecase {
+// NewWorkerUsecase creates a new WorkerUsecase instance without database dependency.
+func NewWorkerUsecase(workerID string, vegetaExecutor domain.VegetaExecutor, masterClient pb.WorkerServiceClient) *WorkerUsecase {
+	// Generate a memorable worker name if not provided or if it's generic
+	if workerID == "" || workerID == "worker-1" || workerID == "worker-2" {
+		workerID = utils.GenerateWorkerName()
+		log.Printf("Generated memorable worker name: %s", workerID)
+	}
+
 	return &WorkerUsecase{
 		workerID:       workerID,
 		masterClient:   masterClient,
 		vegetaExecutor: vegetaExecutor,
-		testResultRepo: testResultRepo,
 	}
 }
 
@@ -284,39 +289,71 @@ func (uc *WorkerUsecase) ExecuteTest(ctx context.Context, assignment *domain.Tes
 	result.TestID = assignment.TestID
 	result.WorkerID = uc.workerID
 
-	// Save result directly to PostgreSQL database
-	log.Printf("Worker %s saving test result to database for test %s", uc.workerID, assignment.TestID)
-	saveCtx, saveCancel := context.WithTimeout(context.Background(), 30*time.Second)
-	defer saveCancel()
+	// Send test result to master via gRPC instead of saving to database directly
+	log.Printf("Worker %s sending test result to master for test %s", uc.workerID, assignment.TestID)
+	submitCtx, submitCancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer submitCancel()
 
-	err = uc.testResultRepo.SaveTestResult(saveCtx, result)
+	// Create the test result submission request
+	submitRequest := &pb.TestResultSubmission{
+		TestId:              assignment.TestID,
+		WorkerId:            uc.workerID,
+		TotalRequests:       result.TotalRequests,
+		CompletedRequests:   result.CompletedRequests,
+		SuccessRate:         result.SuccessRate,
+		AverageLatencyMs:    result.AverageLatencyMs,
+		P95LatencyMs:        result.P95LatencyMs,
+		DurationMs:          result.DurationMs,
+		VegetaMetricsBase64: string(result.Metric), // Base64 encoded Vegeta results as string
+		Timestamp:           time.Now().Unix(),
+	}
+
+	// Send result to master
+	submitResponse, err := uc.masterClient.SubmitTestResult(submitCtx, submitRequest)
 	if err != nil {
-		log.Printf("Worker %s failed to save test result to database for test %s: %v", uc.workerID, assignment.TestID, err)
+		log.Printf("Worker %s failed to submit test result to master for test %s: %v", uc.workerID, assignment.TestID, err)
 		// Send ERROR status to master
 		sendErr := uc.sendStatusToMaster(
 			pb.StatusType_ERROR,
-			fmt.Sprintf("Failed to save test result: %v", err),
+			fmt.Sprintf("Failed to submit test result: %v", err),
 			assignment.TestID, result.TotalRequests, result.CompletedRequests, result.DurationMs,
 		)
 		if sendErr != nil {
 			log.Printf("Warning: Could not send error status to master: %v", sendErr)
 		}
 		uc.currentTestID = "" // Clear current test
-		return fmt.Errorf("failed to save test result: %w", err)
+		return fmt.Errorf("failed to submit test result: %w", err)
 	}
 
-	log.Printf("Worker %s completed test %s and saved results: TotalRequests=%d, CompletedRequests=%d, DurationMs=%d, SuccessRate=%.2f",
+	if !submitResponse.Success {
+		log.Printf("Worker %s: Master rejected test result submission for test %s: %s", uc.workerID, assignment.TestID, submitResponse.Message)
+		// Send ERROR status to master
+		sendErr := uc.sendStatusToMaster(
+			pb.StatusType_ERROR,
+			fmt.Sprintf("Master rejected result submission: %s", submitResponse.Message),
+			assignment.TestID, result.TotalRequests, result.CompletedRequests, result.DurationMs,
+		)
+		if sendErr != nil {
+			log.Printf("Warning: Could not send error status to master: %v", sendErr)
+		}
+		uc.currentTestID = "" // Clear current test
+		return fmt.Errorf("master rejected test result: %s", submitResponse.Message)
+	}
+
+	log.Printf("Worker %s completed test %s and submitted results successfully: TotalRequests=%d, CompletedRequests=%d, DurationMs=%d, SuccessRate=%.2f",
 		uc.workerID, assignment.TestID, result.TotalRequests, result.CompletedRequests, result.DurationMs, result.SuccessRate)
 
-	// Inform master that test is finished and results are saved
-	sendErr := uc.sendStatusToMaster(
-		pb.StatusType_FINISHING,
-		"Test completed and results saved to database",
-		assignment.TestID, result.TotalRequests, result.CompletedRequests, result.DurationMs,
-	)
-	if sendErr != nil {
-		log.Printf("Warning: Could not send finishing status to master: %v", sendErr)
-	}
+	// Update worker status back to READY (non-blocking)
+	go func() {
+		sendErr := uc.sendStatusToMaster(
+			pb.StatusType_READY,
+			"Test completed, worker ready for new assignments",
+			"", 0, 0, 0, // No test ID since we're back to ready
+		)
+		if sendErr != nil {
+			log.Printf("Warning: Could not send ready status to master: %v", sendErr)
+		}
+	}()
 
 	log.Printf("Worker %s finished test %s.", uc.workerID, assignment.TestID)
 	uc.currentTestID = "" // Clear current test

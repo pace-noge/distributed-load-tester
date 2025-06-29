@@ -13,6 +13,8 @@ service WorkerService {
   // Worker sends WorkerStatus, Master can respond with WorkerStatusAck.
   rpc StreamWorkerStatus(stream WorkerStatus) returns (stream WorkerStatusAck);
   rpc AssignTest(TestAssignment) returns (AssignmentResponse);
+  // New RPC for workers to submit test results to master
+  rpc SubmitTestResult(TestResultSubmission) returns (TestResultResponse);
 }
 
 // Service for external API (e.g., UI, cURL)
@@ -122,4 +124,26 @@ message WorkerSummary {
   string current_test_id = 4;
   int64 completed_requests = 5;
   int64 total_requests = 6;
+}
+
+// Test Result Submission from Worker to Master
+message TestResultSubmission {
+  string test_id = 1;
+  string worker_id = 2;
+  int64 total_requests = 3;
+  int64 completed_requests = 4;
+  int64 duration_ms = 5;
+  double success_rate = 6;
+  double average_latency_ms = 7;
+  double p95_latency_ms = 8;
+  string vegeta_metrics_base64 = 9; // Base64 encoded complete Vegeta result
+  map<string, int64> status_codes = 10;
+  repeated string errors = 11;
+  int64 timestamp = 12; // Unix timestamp when test completed
+}
+
+// Response to test result submission
+message TestResultResponse {
+  bool success = 1;
+  string message = 2;
 }

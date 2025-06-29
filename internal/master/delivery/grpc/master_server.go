@@ -110,10 +110,11 @@ func (s *GRPCServer) StreamWorkerStatus(stream pb.WorkerService_StreamWorkerStat
 				stream.Send(&pb.WorkerStatusAck{Accepted: true, Message: "Status received"})
 			}
 
-			// If worker signals completion/error for a test, update test status
-			if statusMsg.TestId != "" && (statusMsg.Status == pb.StatusType_FINISHING || statusMsg.Status == pb.StatusType_ERROR) {
-				log.Printf("Worker %s signaling test %s completion/error.", statusMsg.WorkerId, statusMsg.TestId)
-				s.usecase.HandleWorkerTestCompletion(ctx, statusMsg.TestId, statusMsg.WorkerId, statusMsg.Status == pb.StatusType_ERROR)
+			// If worker signals error for a test, handle it
+			if statusMsg.TestId != "" && statusMsg.Status == pb.StatusType_ERROR {
+				log.Printf("Worker %s signaling test %s error.", statusMsg.WorkerId, statusMsg.TestId)
+				// Just log the error - the worker should handle result submission properly
+				log.Printf("Worker %s reported error for test %s: %s", statusMsg.WorkerId, statusMsg.TestId, statusMsg.Message)
 			}
 		}
 	}
@@ -205,5 +206,41 @@ func (s *GRPCServer) GetDashboardStatus(ctx context.Context, req *pb.DashboardRe
 		BusyWorkers:      dashboard.BusyWorkers,
 		ActiveTests:      pbActiveTests,
 		WorkerSummaries:  pbWorkerSummaries,
+	}, nil
+}
+
+// SubmitTestResult handles test result submission from workers
+func (s *GRPCServer) SubmitTestResult(ctx context.Context, req *pb.TestResultSubmission) (*pb.TestResultResponse, error) {
+	log.Printf("Received test result submission from worker %s for test %s", req.WorkerId, req.TestId)
+
+	// Convert protobuf message to domain entity
+	testResult := &domain.TestResult{
+		ID:                req.WorkerId + "_" + req.TestId, // Generate unique ID
+		TestID:            req.TestId,
+		WorkerID:          req.WorkerId,
+		TotalRequests:     req.TotalRequests,
+		CompletedRequests: req.CompletedRequests,
+		SuccessRate:       req.SuccessRate,
+		AverageLatencyMs:  req.AverageLatencyMs,
+		P95LatencyMs:      req.P95LatencyMs,
+		DurationMs:        req.DurationMs,
+		Metric:            []byte(req.VegetaMetricsBase64), // Convert string back to bytes
+		Timestamp:         time.Unix(req.Timestamp, 0),
+	}
+
+	// Save the test result to database via usecase
+	err := s.usecase.SaveWorkerTestResult(ctx, testResult)
+	if err != nil {
+		log.Printf("Failed to save test result from worker %s for test %s: %v", req.WorkerId, req.TestId, err)
+		return &pb.TestResultResponse{
+			Success: false,
+			Message: fmt.Sprintf("Failed to save test result: %v", err),
+		}, status.Errorf(codes.Internal, "failed to save test result: %v", err)
+	}
+
+	log.Printf("Successfully saved test result from worker %s for test %s", req.WorkerId, req.TestId)
+	return &pb.TestResultResponse{
+		Success: true,
+		Message: "Test result saved successfully",
 	}, nil
 }

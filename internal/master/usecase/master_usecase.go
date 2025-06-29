@@ -26,8 +26,9 @@ type MasterUsecase struct {
 	activeTestAssignments sync.Map // Map[string]map[string]bool // testID -> workerID -> assigned
 	// For managing test distribution to workers
 	testQueue          chan *domain.TestRequest
-	workerAvailability chan string // Channel for available worker IDs
-	mu                 sync.Mutex  // Protects access to testQueue and workerAvailability
+	workerAvailability chan string    // Channel for available worker IDs
+	availableWorkers   map[string]bool // Track which workers are already in the availability queue
+	mu                 sync.Mutex     // Protects access to testQueue, workerAvailability, and availableWorkers
 }
 
 // NewMasterUsecase creates a new MasterUsecase instance.
@@ -43,7 +44,8 @@ func NewMasterUsecase(
 		testResultRepo:       trr,
 		aggregatedResultRepo: arr,
 		testQueue:            make(chan *domain.TestRequest, 100), // Buffered channel for tests
-		workerAvailability:   make(chan string, 100),              // Buffered channel for available worker IDs
+		workerAvailability:   make(chan string, 200),              // Buffered channel for available worker IDs
+		availableWorkers:     make(map[string]bool),               // Track workers in availability queue
 	}
 	go uc.startTestDistributionRoutine()
 	return uc
@@ -67,12 +69,7 @@ func (uc *MasterUsecase) RegisterWorker(ctx context.Context, worker *domain.Work
 	}
 
 	// Add worker to availability queue
-	select {
-	case uc.workerAvailability <- worker.ID:
-		log.Printf("Worker %s added to availability queue.", worker.ID)
-	default:
-		log.Printf("Worker availability queue full, %s not added immediately.", worker.ID)
-	}
+	uc.addWorkerToAvailabilityQueue(worker.ID)
 	return nil
 }
 
@@ -86,12 +83,7 @@ func (uc *MasterUsecase) UpdateWorkerStatus(ctx context.Context, workerID string
 
 	// If worker becomes READY, push to availability queue
 	if status == "READY" {
-		select {
-		case uc.workerAvailability <- workerID:
-			log.Printf("Worker %s became READY, added to availability queue.", workerID)
-		default:
-			log.Printf("Worker availability queue full, %s not added immediately upon READY status.", workerID)
-		}
+		uc.addWorkerToAvailabilityQueue(workerID)
 	}
 	return nil
 }
@@ -197,6 +189,7 @@ func (uc *MasterUsecase) startTestDistributionRoutine() {
 				select {
 				case workerID := <-uc.workerAvailability:
 					assignedWorkers = append(assignedWorkers, workerID)
+					uc.removeWorkerFromAvailabilityQueue(workerID) // Remove from tracking
 					log.Printf("Worker %s assigned to test %s (%d/%d workers collected)",
 						workerID, testReq.ID, len(assignedWorkers), testReq.WorkerCount)
 				case <-timeout:
@@ -230,6 +223,8 @@ func (uc *MasterUsecase) startTestDistributionRoutine() {
 			// Periodically check for workers that might have gone offline without notifying
 			// and re-queue tests if assigned to offline workers.
 			uc.cleanupStaleWorkers(context.Background())
+			// Also check for stuck tests due to worker count mismatches
+			uc.fixStuckTests(context.Background())
 		}
 	}
 }
@@ -311,87 +306,6 @@ func (uc *MasterUsecase) assignTestToWorker(ctx context.Context, testReq *domain
 		workersMap.(map[string]bool)[workerID] = true
 	}
 	uc.mu.Unlock()
-}
-
-// HandleWorkerTestCompletion is called by the gRPC handler when a worker finishes or errors.
-func (uc *MasterUsecase) HandleWorkerTestCompletion(ctx context.Context, testID, workerID string, isError bool) {
-	log.Printf("Handling completion for test %s by worker %s. Is Error: %t", testID, workerID, isError)
-
-	test, err := uc.testRepo.GetTestRequestByID(ctx, testID)
-	if err != nil {
-		log.Printf("Error getting test %s during completion handling: %v", testID, err)
-		return
-	}
-
-	uc.mu.Lock()
-	defer uc.mu.Unlock()
-
-	// Update test status (completed/failed worker)
-	if isError {
-		test.FailedWorkers = append(test.FailedWorkers, workerID)
-		uc.testRepo.AddFailedWorkerToTest(ctx, testID, workerID)
-	} else {
-		test.CompletedWorkers = append(test.CompletedWorkers, workerID)
-		uc.testRepo.AddCompletedWorkerToTest(ctx, testID, workerID)
-	}
-
-	// Remove assignment from tracking map
-	if workersMapVal, ok := uc.activeTestAssignments.Load(testID); ok {
-		if workersMap, ok := workersMapVal.(map[string]bool); ok {
-			delete(workersMap, workerID)
-		}
-	}
-
-	// Get updated test data to ensure we have the latest worker counts
-	updatedTest, err := uc.testRepo.GetTestRequestByID(ctx, testID)
-	if err != nil {
-		log.Printf("Error getting updated test %s during completion handling: %v", testID, err)
-		return
-	}
-
-	// Check if all workers assigned to this test have completed or failed
-	totalExpectedWorkers := int(updatedTest.WorkerCount)
-	totalCompletedWorkers := len(updatedTest.CompletedWorkers)
-	totalFailedWorkers := len(updatedTest.FailedWorkers)
-	totalFinishedWorkers := totalCompletedWorkers + totalFailedWorkers
-
-	log.Printf("Test %s worker status: Expected=%d, Completed=%d, Failed=%d, Total Finished=%d",
-		testID, totalExpectedWorkers, totalCompletedWorkers, totalFailedWorkers, totalFinishedWorkers)
-
-	// Check if all expected workers have finished (either completed or failed)
-	if totalFinishedWorkers >= totalExpectedWorkers {
-		log.Printf("All %d workers for test %s have finished (completed: %d, failed: %d)",
-			totalExpectedWorkers, testID, totalCompletedWorkers, totalFailedWorkers)
-
-		// Determine final test status based on worker results
-		var finalStatus string
-		if totalFailedWorkers == 0 {
-			finalStatus = "COMPLETED"
-		} else if totalCompletedWorkers > 0 {
-			finalStatus = "PARTIALLY_FAILED"
-		} else {
-			finalStatus = "FAILED"
-		}
-
-		log.Printf("Setting test %s final status to: %s", testID, finalStatus)
-		uc.testRepo.UpdateTestStatus(ctx, testID, finalStatus, updatedTest.CompletedWorkers, updatedTest.FailedWorkers)
-
-		// Trigger aggregation of results for this test
-		log.Printf("Triggering aggregation for completed test %s", testID)
-		go uc.aggregateTestResults(context.Background(), testID)
-	} else {
-		log.Printf("Test %s still waiting for %d more workers to finish",
-			testID, totalExpectedWorkers-totalFinishedWorkers)
-	}
-
-	// Mark worker as READY again
-	uc.workerRepo.UpdateWorkerStatus(ctx, workerID, "READY", "", "Ready for new tests", 0, 0)
-	select {
-	case uc.workerAvailability <- workerID:
-		log.Printf("Worker %s became READY, added to availability queue.", workerID)
-	default:
-		log.Printf("Worker availability queue full, %s not added immediately upon READY status.", workerID)
-	}
 }
 
 // TriggerAggregation manually triggers aggregation for a specific test.
@@ -761,7 +675,7 @@ func (uc *MasterUsecase) assignTestToMultipleWorkers(ctx context.Context, testRe
 			burstWorkers = 1
 		}
 
-		burstRate := (testReq.RatePerSecond * 70) / (100 * uint64(burstWorkers)) // 70% of load on burst workers
+		burstRate := (testReq.RatePerSecond * 70) / (100 * uint64(burstWorkers))                 // 70% of load on burst workers
 		normalRate := (testReq.RatePerSecond * 30) / (100 * uint64(len(workerIDs)-burstWorkers)) // 30% on remaining
 
 		for i := 0; i < len(workerIDs); i++ {
@@ -800,6 +714,13 @@ func (uc *MasterUsecase) assignTestToMultipleWorkers(ctx context.Context, testRe
 	// Update test status to RUNNING and assign all workers
 	testReq.AssignedWorkersIDs = workerIDs
 	uc.testRepo.UpdateTestStatus(ctx, testReq.ID, "RUNNING", nil, nil)
+
+	// Add each worker to the assigned workers list in the database
+	for _, workerID := range workerIDs {
+		if err := uc.testRepo.IncrementTestAssignedWorkers(ctx, testReq.ID, workerID); err != nil {
+			log.Printf("Warning: Failed to add worker %s to assigned workers for test %s: %v", workerID, testReq.ID, err)
+		}
+	}
 
 	// Initialize assignment tracking
 	uc.mu.Lock()
@@ -890,5 +811,266 @@ func (uc *MasterUsecase) assignTestToMultipleWorkers(ctx context.Context, testRe
 		log.Printf("No workers accepted test %s assignment, marking as failed", testReq.ID)
 		uc.testRepo.UpdateTestStatus(ctx, testReq.ID, "FAILED",
 			testReq.CompletedWorkers, append(testReq.FailedWorkers, "AllWorkersRejected"))
+	}
+}
+
+// SaveWorkerTestResult saves a test result received from a worker to the database
+func (uc *MasterUsecase) SaveWorkerTestResult(ctx context.Context, testResult *domain.TestResult) error {
+	log.Printf("Saving test result from worker %s for test %s", testResult.WorkerID, testResult.TestID)
+
+	// Save the test result to database
+	err := uc.testResultRepo.SaveTestResult(ctx, testResult)
+	if err != nil {
+		log.Printf("Failed to save test result from worker %s for test %s: %v", testResult.WorkerID, testResult.TestID, err)
+		return fmt.Errorf("failed to save test result: %w", err)
+	}
+
+	log.Printf("Successfully saved test result from worker %s for test %s (Total: %d, Completed: %d, Success Rate: %.2f%%)",
+		testResult.WorkerID, testResult.TestID, testResult.TotalRequests, testResult.CompletedRequests, testResult.SuccessRate*100)
+
+	// Mark this worker as completed in the test record
+	err = uc.testRepo.AddCompletedWorkerToTest(ctx, testResult.TestID, testResult.WorkerID)
+	if err != nil {
+		log.Printf("Warning: Failed to mark worker %s as completed for test %s: %v", testResult.WorkerID, testResult.TestID, err)
+	}
+
+	// Check if all assigned workers have completed and update test status accordingly
+	go func() {
+		statusCtx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+		defer cancel()
+
+		if err := uc.checkAndUpdateTestCompletion(statusCtx, testResult.TestID); err != nil {
+			log.Printf("Warning: Failed to check test completion status for test %s: %v", testResult.TestID, err)
+		}
+	}()
+
+	// Trigger aggregation asynchronously
+	go func() {
+		aggregateCtx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+		defer cancel()
+
+		if err := uc.updateAggregatedResult(aggregateCtx, testResult.TestID); err != nil {
+			log.Printf("Warning: Failed to update aggregated result for test %s after receiving result from worker %s: %v",
+				testResult.TestID, testResult.WorkerID, err)
+		}
+	}()
+
+	return nil
+}
+
+// checkAndUpdateTestCompletion checks if all workers for a test have completed and updates the test status
+func (uc *MasterUsecase) checkAndUpdateTestCompletion(ctx context.Context, testID string) error {
+	// Get the test details
+	test, err := uc.testRepo.GetTestRequestByID(ctx, testID)
+	if err != nil {
+		return fmt.Errorf("failed to get test %s: %w", testID, err)
+	}
+
+	// Skip if test is already marked as completed
+	if test.Status == "COMPLETED" || test.Status == "FAILED" {
+		return nil
+	}
+
+	totalAssigned := len(test.AssignedWorkersIDs)
+	totalCompleted := len(test.CompletedWorkers)
+	totalFailed := len(test.FailedWorkers)
+
+	log.Printf("Test %s status check: Assigned=%d, Completed=%d, Failed=%d",
+		testID, totalAssigned, totalCompleted, totalFailed)
+	log.Printf("Test %s details: AssignedWorkers=%v, CompletedWorkers=%v, FailedWorkers=%v",
+		testID, test.AssignedWorkersIDs, test.CompletedWorkers, test.FailedWorkers)
+
+	// Check if all workers have finished (either completed or failed)
+	if totalCompleted+totalFailed >= totalAssigned {
+		var newStatus string
+		if totalCompleted == totalAssigned {
+			newStatus = "COMPLETED"
+			log.Printf("✅ All workers completed successfully for test %s", testID)
+		} else if totalCompleted > 0 {
+			newStatus = "PARTIALLY_FAILED"
+			log.Printf("⚠️ Test %s partially completed: %d succeeded, %d failed", testID, totalCompleted, totalFailed)
+		} else {
+			newStatus = "FAILED"
+			log.Printf("❌ Test %s failed: all %d workers failed", testID, totalFailed)
+		}
+
+		// Update the test status
+		err = uc.testRepo.UpdateTestStatus(ctx, testID, newStatus, test.CompletedWorkers, test.FailedWorkers)
+		if err != nil {
+			return fmt.Errorf("failed to update test %s status to %s: %w", testID, newStatus, err)
+		}
+
+		log.Printf("🎯 Updated test %s status to: %s", testID, newStatus)
+
+		// Also update worker status back to READY
+		for _, workerID := range test.AssignedWorkersIDs {
+			err = uc.workerRepo.UpdateWorkerStatus(ctx, workerID, "READY", "", "Test completed", 0, 0)
+			if err != nil {
+				log.Printf("Warning: Failed to reset worker %s status to READY: %v", workerID, err)
+			}
+		}
+	}
+
+	return nil
+}
+
+// updateAggregatedResult recalculates and updates the aggregated result for a test
+func (uc *MasterUsecase) updateAggregatedResult(ctx context.Context, testID string) error {
+	// Get all results for this test
+	results, err := uc.testResultRepo.GetResultsByTestID(ctx, testID)
+	if err != nil {
+		return fmt.Errorf("failed to get results for test %s: %w", testID, err)
+	}
+
+	if len(results) == 0 {
+		return nil // No results to aggregate yet
+	}
+	// Calculate aggregated metrics
+	var totalRequests, totalCompleted int64
+	var totalDuration, totalLatency, totalP95 float64
+
+	for _, result := range results {
+		totalRequests += result.TotalRequests
+		totalCompleted += result.CompletedRequests
+		totalDuration += float64(result.DurationMs)
+		totalLatency += result.AverageLatencyMs
+		totalP95 += result.P95LatencyMs
+	}
+
+	numWorkers := len(results)
+	aggregatedResult := &domain.TestResultAggregated{
+		TestID:             testID,
+		TotalRequests:      totalRequests,
+		SuccessfulRequests: totalCompleted,
+		FailedRequests:     totalRequests - totalCompleted,
+		AvgLatencyMs:       totalLatency / float64(numWorkers),
+		P95LatencyMs:       totalP95 / float64(numWorkers),
+		DurationMs:         int64(totalDuration / float64(numWorkers)),
+		OverallStatus:      "Completed",
+		CompletedAt:        time.Now(),
+	}
+
+	// Save the aggregated result
+	return uc.aggregatedResultRepo.SaveAggregatedResult(ctx, aggregatedResult)
+}
+
+// addWorkerToAvailabilityQueue safely adds a worker to the availability queue without duplicates
+func (uc *MasterUsecase) addWorkerToAvailabilityQueue(workerID string) {
+	uc.mu.Lock()
+	defer uc.mu.Unlock()
+
+	// Check if worker is already in the queue
+	if uc.availableWorkers[workerID] {
+		log.Printf("Worker %s is already in availability queue, skipping duplicate addition", workerID)
+		return
+	}
+
+	// Try to add to the channel (non-blocking)
+	select {
+	case uc.workerAvailability <- workerID:
+		uc.availableWorkers[workerID] = true
+		log.Printf("Worker %s added to availability queue (queue size: %d)", workerID, len(uc.availableWorkers))
+	default:
+		log.Printf("Worker availability queue full, %s not added immediately", workerID)
+	}
+}
+
+// removeWorkerFromAvailabilityQueue removes a worker from tracking when assigned to a test
+func (uc *MasterUsecase) removeWorkerFromAvailabilityQueue(workerID string) {
+	uc.mu.Lock()
+	defer uc.mu.Unlock()
+	
+	delete(uc.availableWorkers, workerID)
+	log.Printf("Worker %s removed from availability tracking (queue size: %d)", workerID, len(uc.availableWorkers))
+}
+
+// fixStuckTests detects and fixes tests that are stuck due to worker count mismatches
+func (uc *MasterUsecase) fixStuckTests(ctx context.Context) {
+	log.Println("Checking for stuck tests due to worker count mismatches...")
+	
+	// Get all running tests
+	allTests, err := uc.testRepo.GetAllTestRequests(ctx)
+	if err != nil {
+		log.Printf("Error fetching tests for stuck test cleanup: %v", err)
+		return
+	}
+
+	// Get total number of active workers
+	allWorkers, err := uc.workerRepo.GetAllWorkers(ctx)
+	if err != nil {
+		log.Printf("Error fetching workers for stuck test cleanup: %v", err)
+		return
+	}
+
+	activeWorkerCount := 0
+	for _, worker := range allWorkers {
+		if worker.Status != "OFFLINE" {
+			activeWorkerCount++
+		}
+	}
+
+	log.Printf("Active workers in system: %d", activeWorkerCount)
+
+	for _, test := range allTests {
+		if test.Status == "RUNNING" {
+			totalAssigned := len(test.AssignedWorkersIDs)
+			totalCompleted := len(test.CompletedWorkers)
+			totalFailed := len(test.FailedWorkers)
+			totalFinished := totalCompleted + totalFailed
+
+			log.Printf("Checking stuck test %s: Assigned=%d, Completed=%d, Failed=%d, ActiveWorkers=%d", 
+				test.ID, totalAssigned, totalCompleted, totalFailed, activeWorkerCount)
+
+			// Case 1: More workers assigned than exist in system
+			if totalAssigned > activeWorkerCount {
+				log.Printf("🔧 Test %s has %d assigned workers but only %d active workers exist - fixing assignment count", 
+					test.ID, totalAssigned, activeWorkerCount)
+				
+				// If all active workers have finished, complete the test
+				if totalFinished >= activeWorkerCount {
+					newStatus := "COMPLETED"
+					if totalFailed > 0 {
+						newStatus = "PARTIALLY_FAILED"
+					}
+					
+					log.Printf("🔧 Completing stuck test %s (all %d active workers finished): %s", 
+						test.ID, activeWorkerCount, newStatus)
+					
+					err = uc.testRepo.UpdateTestStatus(ctx, test.ID, newStatus, test.CompletedWorkers, test.FailedWorkers)
+					if err != nil {
+						log.Printf("Error updating stuck test %s status: %v", test.ID, err)
+					} else {
+						log.Printf("✅ Fixed stuck test %s - status updated to %s", test.ID, newStatus)
+					}
+				}
+			}
+
+			// Case 2: Test has been running for too long (timeout)
+			testAge := time.Since(test.CreatedAt)
+			
+			// Parse duration string (e.g., "10s", "5m")
+			testDuration, err := time.ParseDuration(test.DurationSeconds)
+			if err != nil {
+				testDuration = 60 * time.Second // Default 60s if parse fails
+			}
+			maxTestDuration := testDuration + 5*time.Minute // Add 5 min buffer
+			
+			if testAge > maxTestDuration {
+				log.Printf("🔧 Test %s has been running for %v (max: %v) - timing out", 
+					test.ID, testAge, maxTestDuration)
+				
+				newStatus := "PARTIALLY_FAILED"
+				if totalCompleted == 0 {
+					newStatus = "FAILED"
+				}
+				
+				err = uc.testRepo.UpdateTestStatus(ctx, test.ID, newStatus, test.CompletedWorkers, test.FailedWorkers)
+				if err != nil {
+					log.Printf("Error timing out stuck test %s: %v", test.ID, err)
+				} else {
+					log.Printf("✅ Timed out stuck test %s - status updated to %s", test.ID, newStatus)
+				}
+			}
+		}
 	}
 }

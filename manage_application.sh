@@ -14,6 +14,11 @@ show_usage() {
     echo "🔧 Distributed Load Tester Management Script"
     echo "============================================="
     echo ""
+    echo "🏗️  Architecture: Simplified Worker Design"
+    echo "   • Master: Handles database, coordination, and web UI"
+    echo "   • Workers: Lightweight, auto-named, send results to master"
+    echo "   • No database dependency for workers (simplified deployment)"
+    echo ""
     echo "Usage: $0 [COMMAND]"
     echo ""
     echo "Commands:"
@@ -28,6 +33,11 @@ show_usage() {
     echo "  $0 stop     # Stop the application"
     echo "  $0 restart  # Restart the application"
     echo "  $0 status   # Check status"
+    echo ""
+    echo "🎯 Features:"
+    echo "  • Auto-generated memorable worker names (e.g., SwiftRedFalcon-7X2K)"
+    echo "  • Workers only need master address (no database setup required)"
+    echo "  • Master handles all database operations and result aggregation"
     echo ""
 }
 
@@ -87,6 +97,11 @@ check_status() {
 
 echo "🔧 Managing Distributed Load Tester Application"
 echo "==============================================="
+echo "🏗️  Architecture: Simplified & Improved"
+echo "   • Workers: Auto-named, lightweight, database-free"
+echo "   • Master: Centralized database & result handling"
+echo "   • Communication: gRPC result submission"
+echo "==============================================="
 
 # Function to start the application
 start_application() {
@@ -124,18 +139,18 @@ start_application() {
     sleep 3
 
     echo ""
-    echo "3. Starting worker processes..."
+    echo "3. Starting worker processes with auto-generated memorable names..."
+    echo "   (Workers no longer need database connections - they send results to master)"
+
     for i in {1..3}; do
-        echo "Starting worker-$i..."
+        echo "Starting worker $i (will auto-generate memorable name)..."
         ./$APP_NAME worker \
-            --worker-id="worker-$i" \
             --grpc-port="5000$i" \
-            --master-address="localhost:50051" \
-            --database-url="postgres://postgres:postgres@localhost:5432/load_tester?sslmode=disable" > "worker-$i.log" 2>&1 &
+            --master-address="localhost:50051" > "worker-$i.log" 2>&1 &
 
         WORKER_PID=$!
-        echo "✅ Worker-$i started (PID: $WORKER_PID)"
-        sleep 1
+        echo "✅ Worker $i started (PID: $WORKER_PID) - Check logs for generated name"
+        sleep 2
     done
 
     echo ""
@@ -147,6 +162,14 @@ start_application() {
         echo "🎉 Application started successfully!"
         echo "🌐 Frontend available at: http://localhost:8080"
         echo "🔑 Login with: admin/password"
+        echo ""
+        echo "🎯 New Features Active:"
+        echo "   • Workers auto-generated memorable names (check logs for actual names)"
+        echo "   • Simplified worker architecture (no database dependency)"
+        echo "   • Workers send results directly to master via gRPC"
+        echo ""
+        echo "📋 Check worker names in logs:"
+        echo "   tail -f worker-*.log | grep 'Generated memorable worker name'"
     else
         echo ""
         echo "❌ Application startup may have failed. Check logs:"

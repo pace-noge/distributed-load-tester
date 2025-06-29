@@ -8,15 +8,13 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
-	"time"
 
 	"github.com/urfave/cli/v2"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 
-	"github.com/pace-noge/distributed-load-tester/internal/domain"
-	"github.com/pace-noge/distributed-load-tester/internal/infrastructure/database"
 	"github.com/pace-noge/distributed-load-tester/internal/infrastructure/vegeta"
+	"github.com/pace-noge/distributed-load-tester/internal/utils"
 	workerGRPC "github.com/pace-noge/distributed-load-tester/internal/worker/delivery/grpc"
 	workerUsecase "github.com/pace-noge/distributed-load-tester/internal/worker/usecase"
 	pb "github.com/pace-noge/distributed-load-tester/proto"
@@ -45,16 +43,9 @@ func NewWorkerCommand() *cli.Command {
 			&cli.StringFlag{
 				Name:    "worker-id",
 				Aliases: []string{"id"},
-				Value:   "worker-1",
-				Usage:   "Unique ID for this worker instance",
+				Value:   "", // Empty value will trigger auto-generation
+				Usage:   "Unique ID for this worker instance (leave empty for auto-generated memorable name)",
 				EnvVars: []string{"WORKER_ID"},
-			},
-			&cli.StringFlag{
-				Name:    "database-url",
-				Aliases: []string{"db"},
-				Value:   "postgres://postgres:password@localhost:5432/distributed_load_tester?sslmode=disable",
-				Usage:   "PostgreSQL database connection URL",
-				EnvVars: []string{"DATABASE_URL"},
 			},
 		},
 		Action: runWorker,
@@ -65,20 +56,13 @@ func runWorker(c *cli.Context) error {
 	workerGRPCPort := c.Int("grpc-port")
 	masterAddress := c.String("master-address")
 	workerID := c.String("worker-id")
-	databaseURL := c.String("database-url")
 
-	// Initialize Database
-	db, err := database.NewPostgresDB(databaseURL)
-	if err != nil {
-		return fmt.Errorf("failed to initialize database: %w", err)
-	}
-	defer db.Close()
-
-	// Initialize DB schema
-	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
-	defer cancel()
-	if err := db.InitSchema(ctx); err != nil {
-		return fmt.Errorf("failed to initialize database schema: %w", err)
+	// Generate memorable worker name if not provided or generic
+	if workerID == "" || workerID == "worker-1" || workerID == "worker-2" {
+		workerID = utils.GenerateWorkerName()
+		log.Printf("🎯 Generated memorable worker name: %s (Display: %s)", workerID, utils.GetWorkerDisplayName(workerID))
+	} else {
+		log.Printf("🔧 Using provided worker ID: %s", workerID)
 	}
 
 	// Initialize Vegeta Adapter
@@ -93,12 +77,11 @@ func runWorker(c *cli.Context) error {
 
 	masterClient := pb.NewWorkerServiceClient(masterConn)
 
-	// Create worker usecase with database access
-	var testResultRepo domain.TestResultRepository = db
-	workerUC := workerUsecase.NewWorkerUsecase(workerID, vegetaExecutor, masterClient, testResultRepo)
+	// Create worker usecase without database dependency
+	workerUC := workerUsecase.NewWorkerUsecase(workerID, vegetaExecutor, masterClient)
 
 	// Start worker lifecycle (registration and status streaming)
-	ctx, cancel = context.WithCancel(context.Background())
+	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
 	go func() {

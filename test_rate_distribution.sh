@@ -102,7 +102,7 @@ curl -s -X POST "$API_BASE/test/submit" \
     "name": "Test Burst Distribution",
     "duration_seconds": "10s",
     "rate_per_second": 30,
-    "worker_count": 4,
+    "worker_count": 3,
     "rate_distribution": "burst",
     "targets_base64": "'"$TARGETS_BASE64"'",
     "vegeta_payload_json": "{}"

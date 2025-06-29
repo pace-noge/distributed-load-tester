@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.2.0
 // - protoc             v5.29.3
-// source: loadtester.proto
+// source: proto/loadtester.proto
 
 package proto
 
@@ -27,6 +27,8 @@ type WorkerServiceClient interface {
 	// Worker sends WorkerStatus, Master can respond with WorkerStatusAck.
 	StreamWorkerStatus(ctx context.Context, opts ...grpc.CallOption) (WorkerService_StreamWorkerStatusClient, error)
 	AssignTest(ctx context.Context, in *TestAssignment, opts ...grpc.CallOption) (*AssignmentResponse, error)
+	// New RPC for workers to submit test results to master
+	SubmitTestResult(ctx context.Context, in *TestResultSubmission, opts ...grpc.CallOption) (*TestResultResponse, error)
 }
 
 type workerServiceClient struct {
@@ -86,6 +88,15 @@ func (c *workerServiceClient) AssignTest(ctx context.Context, in *TestAssignment
 	return out, nil
 }
 
+func (c *workerServiceClient) SubmitTestResult(ctx context.Context, in *TestResultSubmission, opts ...grpc.CallOption) (*TestResultResponse, error) {
+	out := new(TestResultResponse)
+	err := c.cc.Invoke(ctx, "/loadtester.WorkerService/SubmitTestResult", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // WorkerServiceServer is the server API for WorkerService service.
 // All implementations must embed UnimplementedWorkerServiceServer
 // for forward compatibility
@@ -95,6 +106,8 @@ type WorkerServiceServer interface {
 	// Worker sends WorkerStatus, Master can respond with WorkerStatusAck.
 	StreamWorkerStatus(WorkerService_StreamWorkerStatusServer) error
 	AssignTest(context.Context, *TestAssignment) (*AssignmentResponse, error)
+	// New RPC for workers to submit test results to master
+	SubmitTestResult(context.Context, *TestResultSubmission) (*TestResultResponse, error)
 	mustEmbedUnimplementedWorkerServiceServer()
 }
 
@@ -110,6 +123,9 @@ func (UnimplementedWorkerServiceServer) StreamWorkerStatus(WorkerService_StreamW
 }
 func (UnimplementedWorkerServiceServer) AssignTest(context.Context, *TestAssignment) (*AssignmentResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AssignTest not implemented")
+}
+func (UnimplementedWorkerServiceServer) SubmitTestResult(context.Context, *TestResultSubmission) (*TestResultResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SubmitTestResult not implemented")
 }
 func (UnimplementedWorkerServiceServer) mustEmbedUnimplementedWorkerServiceServer() {}
 
@@ -186,6 +202,24 @@ func _WorkerService_AssignTest_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
+func _WorkerService_SubmitTestResult_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(TestResultSubmission)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WorkerServiceServer).SubmitTestResult(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/loadtester.WorkerService/SubmitTestResult",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WorkerServiceServer).SubmitTestResult(ctx, req.(*TestResultSubmission))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // WorkerService_ServiceDesc is the grpc.ServiceDesc for WorkerService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -201,6 +235,10 @@ var WorkerService_ServiceDesc = grpc.ServiceDesc{
 			MethodName: "AssignTest",
 			Handler:    _WorkerService_AssignTest_Handler,
 		},
+		{
+			MethodName: "SubmitTestResult",
+			Handler:    _WorkerService_SubmitTestResult_Handler,
+		},
 	},
 	Streams: []grpc.StreamDesc{
 		{
@@ -210,7 +248,7 @@ var WorkerService_ServiceDesc = grpc.ServiceDesc{
 			ClientStreams: true,
 		},
 	},
-	Metadata: "loadtester.proto",
+	Metadata: "proto/loadtester.proto",
 }
 
 // MasterServiceClient is the client API for MasterService service.
@@ -332,5 +370,5 @@ var MasterService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "loadtester.proto",
+	Metadata: "proto/loadtester.proto",
 }
