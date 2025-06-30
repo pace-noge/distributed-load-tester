@@ -15,6 +15,8 @@ import { TestDetailPage } from './src/pages/TestDetailPage.jsx';
 import { UserManagementPage } from './src/pages/UserManagementPage.jsx';
 import { ProfilePage } from './src/pages/ProfilePage.jsx';
 import AnalyticsPage from './src/pages/AnalyticsPage.jsx';
+import { InboxPage } from './src/pages/InboxPage.jsx';
+import { SharedTestPage } from './src/pages/SharedTestPage.jsx';
 
 // Layout Components
 import { MainLayout } from './src/components/layout/MainLayout.jsx';
@@ -48,6 +50,8 @@ const AppContent = () => {
                 <Route path="/analytics" element={<AnalyticsPage />} />
                 <Route path="/profile" element={<ProfilePage />} />
                 <Route path="/users" element={<UserManagementPage />} />
+                <Route path="/inbox" element={<InboxPage />} />
+                <Route path="/shared/:linkId" element={<SharedTestPage />} />
             </Routes>
         </MainLayout>
     );
@@ -55,11 +59,11 @@ const AppContent = () => {
 
 const App = () => {
     return (
-        <Router>
-            <AuthProvider>
+        <AuthProvider>
+            <Router>
                 <AppContent />
-            </AuthProvider>
-        </Router>
+            </Router>
+        </AuthProvider>
     );
 };
 

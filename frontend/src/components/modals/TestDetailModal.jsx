@@ -2,18 +2,27 @@ import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
     Play, XCircle, Target, Users, Clock, BarChart3,
-    ExternalLink
+    ExternalLink, UserPlus, Search
 } from 'lucide-react';
 
 import { LoadingSpinner, StatusBadge } from '../common/UIComponents.jsx';
 import { formatDate, formatDuration, formatRateDistribution, getValueWithFallback } from '../../utils/formatters.js';
-import { fetchTestDetail, replayTest } from '../../utils/api.js';
+import { fetchTestDetail, replayTest, shareTest, getAllUsers, sendTestToInbox, copyShareLink } from '../../utils/api.js';
 
 export const TestDetailModal = ({ testId, isOpen, onClose }) => {
     const navigate = useNavigate();
     const [testDetail, setTestDetail] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
+    const [shareLink, setShareLink] = useState(null);
+    const [shareError, setShareError] = useState('');
+    const [shareLoading, setShareLoading] = useState(false);
+    const [showShareDialog, setShowShareDialog] = useState(false);
+    const [shareMode, setShareMode] = useState(null); // 'inbox' or 'copy'
+    const [users, setUsers] = useState([]);
+    const [userSearch, setUserSearch] = useState('');
+    const [selectedUser, setSelectedUser] = useState(null);
+    const [userLoading, setUserLoading] = useState(false);
 
     const handleFetchTestDetail = useCallback(async () => {
         if (!testId || !isOpen) return;
@@ -50,7 +59,65 @@ export const TestDetailModal = ({ testId, isOpen, onClose }) => {
         onClose();
     };
 
-    if (!isOpen) return null;    return (
+    const handleShare = () => {
+        setShowShareDialog(true);
+        setShareMode(null);
+        setShareError('');
+        setShareLink(null);
+    };
+
+    const handleSelectShareMode = async (mode) => {
+        setShareMode(mode);
+        setShareError('');
+        setShareLink(null);
+        if (mode === 'inbox') {
+            setUserLoading(true);
+            try {
+                const allUsers = await getAllUsers();
+                setUsers(allUsers.filter(u => u.id !== testDetail?.test?.user_id)); // Exclude self
+            } catch (err) {
+                setShareError('Failed to load users');
+            } finally {
+                setUserLoading(false);
+            }
+        }
+    };
+
+    const handleUserShare = async () => {
+        if (!selectedUser) {
+            setShareError('Please select a user.');
+            return;
+        }
+        setShareLoading(true);
+        setShareError('');
+        try {
+            console.log('Sending to inbox:', testId, selectedUser.id); // Debug log
+            const res = await sendTestToInbox(testId, selectedUser.id);
+            setShareLink(window.location.origin + res.link);
+        } catch (err) {
+            setShareError(err.message);
+        } finally {
+            setShareLoading(false);
+        }
+    };
+
+    const handleCopyLink = async () => {
+        setShareLoading(true);
+        setShareError('');
+        try {
+            const res = await copyShareLink(testId);
+            const fullLink = window.location.origin + res.link;
+            setShareLink(fullLink);
+            await navigator.clipboard.writeText(fullLink);
+        } catch (err) {
+            setShareError(err.message);
+        } finally {
+            setShareLoading(false);
+        }
+    };
+
+    if (!isOpen) return null;
+    return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
             <div className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[80vh] overflow-hidden">
                 {/* Header */}
@@ -70,6 +137,14 @@ export const TestDetailModal = ({ testId, isOpen, onClose }) => {
                             <span>Replay</span>
                         </button>
                         <button
+                            onClick={handleShare}
+                            className="flex items-center space-x-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-all disabled:opacity-50"
+                            disabled={shareLoading}
+                        >
+                            <ExternalLink className="w-4 h-4" />
+                            <span>{shareLoading ? 'Sharing...' : 'Share'}</span>
+                        </button>
+                        <button
                             onClick={onClose}
                             className="text-gray-400 hover:text-gray-600 p-2"
                         >
@@ -78,8 +153,85 @@ export const TestDetailModal = ({ testId, isOpen, onClose }) => {
                     </div>
                 </div>
 
+                {/* Share Dialog */}
+                {showShareDialog && (
+                    <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30 z-10">
+                        <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md relative">
+                            <button className="absolute top-2 right-2 text-gray-400 hover:text-gray-600" onClick={() => setShowShareDialog(false)}><XCircle className="w-5 h-5" /></button>
+                            <h3 className="text-lg font-bold mb-2 flex items-center"><ExternalLink className="w-5 h-5 mr-2" />Share Test</h3>
+                            {!shareMode && (
+                                <div className="space-y-3">
+                                    <button
+                                        className="w-full bg-green-600 text-white py-2 rounded"
+                                        onClick={() => handleSelectShareMode('inbox')}
+                                    >
+                                        Send to User Inbox
+                                    </button>
+                                    <button
+                                        className="w-full bg-blue-600 text-white py-2 rounded"
+                                        onClick={handleCopyLink}
+                                        disabled={shareLoading}
+                                    >
+                                        {shareLoading ? 'Copying...' : 'Copy Shareable Link'}
+                                    </button>
+                                </div>
+                            )}
+                            {shareMode === 'inbox' && (
+                                <>
+                                    <div className="mb-2 mt-2">
+                                        <div className="flex items-center border rounded px-2 py-1">
+                                            <Search className="w-4 h-4 text-gray-400 mr-2" />
+                                            <input
+                                                type="text"
+                                                className="flex-1 outline-none"
+                                                placeholder="Search user by name or username..."
+                                                value={userSearch}
+                                                onChange={e => setUserSearch(e.target.value)}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="max-h-40 overflow-y-auto border rounded mb-2">
+                                        {userLoading ? <div className="p-2 text-center text-gray-500">Loading users...</div> :
+                                            users.filter(u =>
+                                                u.username.toLowerCase().includes(userSearch.toLowerCase()) ||
+                                                `${u.firstName} ${u.lastName}`.toLowerCase().includes(userSearch.toLowerCase())
+                                            ).map(u => (
+                                                <div
+                                                    key={u.id}
+                                                    className={`px-3 py-2 cursor-pointer hover:bg-blue-50 ${selectedUser?.id === u.id ? 'bg-blue-100' : ''}`}
+                                                    onClick={() => setSelectedUser(u)}
+                                                >
+                                                    <span className="font-medium">{u.firstName} {u.lastName}</span> <span className="text-xs text-gray-500">@{u.username}</span>
+                                                </div>
+                                            ))
+                                        }
+                                    </div>
+                                    <button
+                                        className={`w-full bg-green-600 text-white py-2 rounded transition disabled:opacity-50 ${!selectedUser ? 'opacity-70 cursor-not-allowed' : ''}`}
+                                        disabled={shareLoading}
+                                        onClick={handleUserShare}
+                                    >
+                                        {shareLoading ? 'Sharing...' : 'Send to Inbox'}
+                                    </button>
+                                    {!selectedUser && <div className="text-red-500 mt-2 text-sm">Please select a user to send to inbox.</div>}
+                                </>
+                            )}
+                            {shareError && <div className="text-red-500 mt-2 text-sm">{shareError}</div>}
+                            {shareLink && <div className="text-green-600 mt-2 text-sm break-all">Shareable Link: <a href={shareLink} target="_blank" rel="noopener noreferrer">{shareLink}</a></div>}
+                        </div>
+                    </div>
+                )}
+
                 {/* Content */}
                 <div className="p-6 overflow-y-auto max-h-[60vh]">
+                    {shareLink && (
+                        <div className="bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-lg mb-4">
+                            Shareable Link: <a href={shareLink} className="underline break-all" target="_blank" rel="noopener noreferrer">{shareLink}</a>
+                        </div>
+                    )}
+                    {shareError && (
+                        <div className="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-lg mb-4">{shareError}</div>
+                    )}
                     {loading ? (
                         <div className="flex items-center justify-center py-12">
                             <LoadingSpinner size="large" />

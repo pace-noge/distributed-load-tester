@@ -1,64 +1,30 @@
-import { useState, useEffect } from 'react';
-import { Sidebar, MobileMenuButton } from './Sidebar.jsx';
+import { Navbar } from './Navbar.jsx';
+import { Sidebar } from './Sidebar.jsx';
+import { useState } from 'react';
 
 export const MainLayout = ({ children }) => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
-    // Close sidebar on mobile when route changes
-    useEffect(() => {
-        setSidebarOpen(false);
-    }, [children]);
-
-    // Handle responsive behavior
-    useEffect(() => {
-        const handleResize = () => {
-            if (window.innerWidth >= 1024) {
-                setSidebarOpen(false); // Close mobile sidebar on desktop
-            }
-        };
-
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, []);
+    // Sidebar width: 64 (w-64) when expanded, 16 (w-16) when collapsed
+    const sidebarWidth = sidebarCollapsed ? 'lg:w-16' : 'lg:w-64';
+    const sidebarBaseWidth = 'w-64'; // for mobile
 
     return (
-        <div className="flex h-screen bg-gray-50">
-            {/* Sidebar */}
-            <Sidebar
-                isOpen={sidebarOpen}
-                setIsOpen={setSidebarOpen}
-                isCollapsed={sidebarCollapsed}
-                setIsCollapsed={setSidebarCollapsed}
-            />
-
-            {/* Main Content */}
-            <div className={`
-                flex-1 flex flex-col min-w-0 transition-all duration-300 ease-in-out
-                ${sidebarCollapsed ? 'lg:ml-16' : 'lg:ml-64'}
-            `}>
-                {/* Top Bar */}
-                <header className="bg-white border-b border-gray-200 px-4 py-3 lg:px-6">
-                    <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-4">
-                            <MobileMenuButton onClick={() => setSidebarOpen(true)} />
-
-                            {/* Breadcrumb or Page Title could go here */}
-                            <div className="hidden sm:block">
-                                <h2 className="text-lg font-semibold text-gray-900">
-                                    {/* This will be dynamically set by each page */}
-                                </h2>
-                            </div>
-                        </div>
-
-                        {/* Right side actions could go here */}
-                        <div className="flex items-center space-x-4">
-                            {/* Notifications, user menu, etc. */}
-                        </div>
-                    </div>
-                </header>
-
-                {/* Page Content */}
+        <div className="flex flex-col min-h-screen bg-gray-50">
+            {/* Top Bar */}
+            <Navbar inboxRight />
+            {/* Layout with Sidebar and Main Content */}
+            <div className="flex flex-1 min-h-0">
+                {/* Sidebar */}
+                <div className={`hidden lg:block ${sidebarWidth} ${sidebarBaseWidth} flex-shrink-0 transition-all duration-300`}>
+                    <Sidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} isCollapsed={sidebarCollapsed} setIsCollapsed={setSidebarCollapsed} />
+                </div>
+                {/* Mobile Sidebar Overlay */}
+                <div className="lg:hidden">
+                    <Sidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} isCollapsed={sidebarCollapsed} setIsCollapsed={setSidebarCollapsed} />
+                </div>
+                {/* Main Content */}
                 <main className="flex-1 overflow-auto">
                     <div className="p-4 lg:p-6">
                         {children}

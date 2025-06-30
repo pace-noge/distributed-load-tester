@@ -242,3 +242,14 @@ type AnalyticsRequest struct {
 	Granularity string              `json:"granularity,omitempty"` // "day", "hour", "week"
 	UserID      string              `json:"userId,omitempty"`
 }
+
+// SharedLink represents a link for sharing a test result between users.
+type SharedLink struct {
+	ID        string    `json:"id" db:"id"`
+	TestID    string    `json:"testId" db:"test_id"`
+	SharedBy  string    `json:"sharedBy" db:"shared_by"`
+	CreatedAt time.Time `json:"createdAt" db:"created_at"`
+	ExpiresAt time.Time `json:"expiresAt" db:"expires_at"`
+	UsedBy    []string  `json:"usedBy" db:"used_by"` // User IDs who accessed this link
+	IsExpired bool      `json:"isExpired" db:"-"`    // Computed, not stored
+}

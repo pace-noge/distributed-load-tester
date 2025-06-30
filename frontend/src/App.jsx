@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 // Context
 import { AuthProvider, useAuth } from './src/contexts/AuthContext.jsx';
@@ -7,6 +8,8 @@ import { AuthProvider, useAuth } from './src/contexts/AuthContext.jsx';
 // Pages
 import { LoginPage } from './src/pages/LoginPage.jsx';
 import { TestHistoryPage } from './src/pages/TestHistoryPage.jsx';
+import { InboxPage } from './src/pages/InboxPage.jsx';
+import { SharedTestPage } from './src/pages/SharedTestPage.jsx';
 
 // Layout Components
 import { Navbar } from './src/components/layout/Navbar.jsx';
@@ -28,7 +31,6 @@ const NewTestPage = () => (
 
 const AppContent = () => {
     const { isLoggedIn } = useAuth();
-    const [currentPage, setCurrentPage] = useState('dashboard');
 
     // Handle auth errors by listening to custom events
     useEffect(() => {
@@ -45,36 +47,29 @@ const AppContent = () => {
         return <LoginPage />;
     }
 
-    const renderPage = () => {
-        switch (currentPage) {
-            case 'dashboard':
-                return <DashboardPage />;
-            case 'new-test':
-                return <NewTestPage />;
-            case 'test-history':
-                return <TestHistoryPage />;
-            default:
-                return <DashboardPage />;
-        }
-    };
-
     return (
-        <div className="min-h-screen bg-gray-50">
-            <Navbar currentPage={currentPage} setCurrentPage={setCurrentPage} />
+        <Routes>
+            <Route path="/" element={<DashboardPage />} />
+            <Route path="/dashboard" element={<DashboardPage />} />
+            <Route path="/new-test" element={<NewTestPage />} />
+            <Route path="/test-history" element={<TestHistoryPage />} />
+            <Route path="/inbox" element={<InboxPage />} />
+            <Route path="/shared/:linkId" element={<SharedTestPage />} />
+            <Route path="/login" element={<LoginPage />} />
+        </Routes>
+    );
+};
+
+const App = () => (
+    <AuthProvider>
+        <Router>
+            <Navbar />
             <main className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                {renderPage()}
+                <AppContent />
             </main>
-        </div>
-    );
-};
-
-const App = () => {
-    return (
-        <AuthProvider>
-            <AppContent />
-        </AuthProvider>
-    );
-};
+        </Router>
+    </AuthProvider>
+);
 
 // Initialize React App
 const container = document.getElementById('root');
