@@ -32,6 +32,7 @@ type MasterUsecase struct {
 	workerAvailability chan string     // Channel for available worker IDs
 	availableWorkers   map[string]bool // Track which workers are already in the availability queue
 	mu                 sync.Mutex      // Protects access to testQueue, workerAvailability, and availableWorkers
+	sharedLinkRepo     domain.SharedLinkRepository
 }
 
 // NewMasterUsecase creates a new MasterUsecase instance.
@@ -39,13 +40,16 @@ func NewMasterUsecase(
 	wr domain.WorkerRepository,
 	tr domain.TestRepository,
 	trr domain.TestResultRepository,
-	arr domain.AggregatedResultRepository) *MasterUsecase {
+	arr domain.AggregatedResultRepository,
+	slr domain.SharedLinkRepository, // new
+) *MasterUsecase {
 
 	uc := &MasterUsecase{
 		workerRepo:           wr,
 		testRepo:             tr,
 		testResultRepo:       trr,
 		aggregatedResultRepo: arr,
+		sharedLinkRepo:       slr,                                 // new
 		testQueue:            make(chan *domain.TestRequest, 100), // Buffered channel for tests
 		workerAvailability:   make(chan string, 200),              // Buffered channel for available worker IDs
 		availableWorkers:     make(map[string]bool),               // Track workers in availability queue
@@ -508,6 +512,52 @@ func (uc *MasterUsecase) GetAggregatedTestResult(ctx context.Context, testID str
 // GetTestRequestsByUser retrieves all test requests for a specific user.
 func (uc *MasterUsecase) GetTestRequestsByUser(ctx context.Context, userID string) ([]*domain.TestRequest, error) {
 	return uc.testRepo.GetTestRequestsByUser(ctx, userID)
+}
+
+// --- Shared Link & Inbox Logic ---
+
+func (uc *MasterUsecase) ShareTest(ctx context.Context, testID, sharedBy string) (*domain.SharedLink, error) {
+	expiresAt := time.Now().Add(72 * time.Hour) // 3 days
+	return uc.sharedLinkRepo.CreateSharedLink(ctx, testID, sharedBy, expiresAt)
+}
+
+func (uc *MasterUsecase) AccessSharedLink(ctx context.Context, linkID, userID string) (*domain.TestRequest, error) {
+	link, err := uc.sharedLinkRepo.GetSharedLinkByID(ctx, linkID)
+	if err != nil {
+		return nil, err
+	}
+	if time.Now().After(link.ExpiresAt) {
+		return nil, fmt.Errorf("shared link expired")
+	}
+	_ = uc.sharedLinkRepo.AddUsedBy(ctx, linkID, userID) // Add user to used_by (ignore error if already present)
+	test, err := uc.testRepo.GetTestRequestByID(ctx, link.TestID)
+	if err != nil {
+		return nil, err
+	}
+	return test, nil
+}
+
+func (uc *MasterUsecase) GetInbox(ctx context.Context, userID string) ([]*domain.SharedLink, error) {
+	return uc.sharedLinkRepo.GetInboxForUser(ctx, userID)
+}
+
+func (uc *MasterUsecase) MarkInboxItemRead(ctx context.Context, linkID, userID string) error {
+	return uc.sharedLinkRepo.MarkInboxItemRead(ctx, linkID, userID)
+}
+
+// ShareTestToUserInbox shares a test and inserts the link into the specified user's inbox.
+func (uc *MasterUsecase) ShareTestToUserInbox(ctx context.Context, testID, sharedBy, targetUserID string) (*domain.SharedLink, error) {
+	expiresAt := time.Now().Add(72 * time.Hour) // 3 days
+	link, err := uc.sharedLinkRepo.CreateSharedLink(ctx, testID, sharedBy, expiresAt)
+	if err != nil {
+		return nil, err
+	}
+	// Insert into target user's inbox (used_by array)
+	err = uc.sharedLinkRepo.AddUsedBy(ctx, link.ID, targetUserID)
+	if err != nil {
+		return nil, err
+	}
+	return link, nil
 }
 
 // cleanupStaleWorkers periodically checks for workers that haven't sent status updates

@@ -111,6 +111,16 @@ func (p *PostgresDB) InitSchema(ctx context.Context) error {
             completed_at TIMESTAMP WITH TIME ZONE NOT NULL,
             FOREIGN KEY (test_id) REFERENCES test_requests(id) ON DELETE CASCADE
         );`,
+		`CREATE TABLE IF NOT EXISTS shared_links (
+			id VARCHAR(255) PRIMARY KEY,
+			test_id VARCHAR(255) NOT NULL,
+			shared_by VARCHAR(255) NOT NULL,
+			created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+			expires_at TIMESTAMP WITH TIME ZONE NOT NULL,
+			used_by TEXT[],
+			read_by TEXT[],
+			FOREIGN KEY (test_id) REFERENCES test_requests(id) ON DELETE CASCADE
+		);`,
 		// Add worker_count column to existing test_requests table if it doesn't exist
 		`ALTER TABLE test_requests ADD COLUMN IF NOT EXISTS worker_count INTEGER NOT NULL DEFAULT 1;`,
 		// Create indexes for better performance
@@ -666,4 +676,65 @@ func (p *PostgresDB) GetTestsInRangeByUser(ctx context.Context, userID string, s
 // GetByTestID is an alias for GetAggregatedResultByTestID for consistency
 func (p *PostgresDB) GetByTestID(ctx context.Context, testID string) (*domain.TestResultAggregated, error) {
 	return p.GetAggregatedResultByTestID(ctx, testID)
+}
+
+// SharedLinkRepository implementation
+func (p *PostgresDB) CreateSharedLink(ctx context.Context, testID, sharedBy string, expiresAt time.Time) (*domain.SharedLink, error) {
+	id := uuid.New().String()
+	_, err := p.db.ExecContext(ctx, `INSERT INTO shared_links (id, test_id, shared_by, created_at, expires_at, used_by, read_by) VALUES ($1, $2, $3, NOW(), $4, $5, $6)`,
+		id, testID, sharedBy, expiresAt, pq.Array([]string{}), pq.Array([]string{}))
+	if err != nil {
+		return nil, fmt.Errorf("failed to create shared link: %w", err)
+	}
+	return &domain.SharedLink{
+		ID:        id,
+		TestID:    testID,
+		SharedBy:  sharedBy,
+		CreatedAt: time.Now(),
+		ExpiresAt: expiresAt,
+		UsedBy:    []string{},
+	}, nil
+}
+
+func (p *PostgresDB) GetSharedLinkByID(ctx context.Context, linkID string) (*domain.SharedLink, error) {
+	row := p.db.QueryRowContext(ctx, `SELECT id, test_id, shared_by, created_at, expires_at, used_by FROM shared_links WHERE id = $1`, linkID)
+	var link domain.SharedLink
+	var usedBy []string
+	if err := row.Scan(&link.ID, &link.TestID, &link.SharedBy, &link.CreatedAt, &link.ExpiresAt, pq.Array(&usedBy)); err != nil {
+		return nil, fmt.Errorf("failed to get shared link: %w", err)
+	}
+	link.UsedBy = usedBy
+	link.IsExpired = time.Now().After(link.ExpiresAt)
+	return &link, nil
+}
+
+func (p *PostgresDB) AddUsedBy(ctx context.Context, linkID, userID string) error {
+	_, err := p.db.ExecContext(ctx, `UPDATE shared_links SET used_by = array_append(used_by, $1) WHERE id = $2 AND NOT (used_by @> ARRAY[$1])`, userID, linkID)
+	return err
+}
+
+func (p *PostgresDB) GetInboxForUser(ctx context.Context, userID string) ([]*domain.SharedLink, error) {
+	rows, err := p.db.QueryContext(ctx, `SELECT id, test_id, shared_by, created_at, expires_at, used_by, read_by FROM shared_links WHERE used_by @> ARRAY[$1]`, userID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var inbox []*domain.SharedLink
+	for rows.Next() {
+		var link domain.SharedLink
+		var usedBy, readBy []string
+		err := rows.Scan(&link.ID, &link.TestID, &link.SharedBy, &link.CreatedAt, &link.ExpiresAt, pq.Array(&usedBy), pq.Array(&readBy))
+		if err != nil {
+			return nil, err
+		}
+		link.UsedBy = usedBy
+		link.IsExpired = time.Now().After(link.ExpiresAt)
+		inbox = append(inbox, &link)
+	}
+	return inbox, nil
+}
+
+func (p *PostgresDB) MarkInboxItemRead(ctx context.Context, linkID, userID string) error {
+	_, err := p.db.ExecContext(ctx, `UPDATE shared_links SET read_by = array_append(read_by, $1) WHERE id = $2 AND NOT (read_by @> ARRAY[$1])`, userID, linkID)
+	return err
 }

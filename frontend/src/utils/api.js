@@ -278,3 +278,59 @@ export const getTargetAnalytics = async (options = {}) => {
     const url = `${API_BASE_URL}/analytics/targets${params.toString() ? '?' + params.toString() : ''}`;
     return await authenticatedFetch(url);
 };
+
+/**
+ * Share a test and get a shareable link
+ */
+export const shareTest = async (testId, userId = null) => {
+    let url = `${API_BASE_URL}/tests/${testId}/share`;
+    const options = { method: 'POST' };
+    if (userId) {
+        url += `?userId=${encodeURIComponent(userId)}`;
+    }
+    return authenticatedFetch(url, options);
+};
+
+/**
+ * Access a shared test by link
+ */
+export const fetchSharedTest = async (linkId, noAuth = false) => {
+    const url = `${API_BASE_URL}/shared/${linkId}`;
+    if (noAuth) {
+        // If backend allows, fetch without auth header
+        return fetch(url).then(res => res.json());
+    }
+    return authenticatedFetch(url);
+};
+
+/**
+ * Fetch inbox (shared tests)
+ */
+export const fetchInbox = async () => {
+    const url = `${API_BASE_URL}/inbox`;
+    return authenticatedFetch(url);
+};
+
+/**
+ * Mark inbox item as read
+ */
+export const markInboxItemRead = async (linkId) => {
+    const url = `${API_BASE_URL}/inbox/${linkId}/read`;
+    return authenticatedFetch(url, { method: 'POST' });
+};
+
+/**
+ * Send test to inbox (shared tests)
+ */
+export const sendTestToInbox = async (testId, userId) => {
+    // Explicitly call shareTest with userId for inbox
+    return shareTest(testId, userId);
+};
+
+/**
+ * Copy share link for a test
+ */
+export const copyShareLink = async (testId) => {
+    // Just get the share link, do not send to inbox
+    return shareTest(testId);
+};

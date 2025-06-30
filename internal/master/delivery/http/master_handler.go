@@ -63,6 +63,12 @@ func NewHTTPHandler(uc *masterUsecase.MasterUsecase, userUc *userUsecase.UserUse
 	api.HandleFunc("/tests/{testId}/aggregated-result", h.getAggregatedTestResult).Methods("GET")
 	api.HandleFunc("/tests/{testId}/aggregate", h.triggerAggregation).Methods("POST")
 
+	// Sharing and inbox endpoints
+	api.HandleFunc("/tests/{testId}/share", h.shareTest).Methods("POST")
+	api.HandleFunc("/shared/{linkId}", h.accessSharedLink).Methods("GET")
+	api.HandleFunc("/inbox", h.getInbox).Methods("GET")
+	api.HandleFunc("/inbox/{linkId}/read", h.markInboxItemRead).Methods("POST")
+
 	// Analytics routes
 	api.HandleFunc("/analytics/overview", h.getAnalyticsOverview).Methods("GET")
 	api.HandleFunc("/analytics/targets", h.getTargetAnalytics).Methods("GET")
@@ -369,4 +375,91 @@ func (h *HTTPHandler) getTargetAnalytics(w http.ResponseWriter, r *http.Request)
 
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(targetAnalytics)
+}
+
+// shareTest handles sharing a test and returns a shareable link.
+func (h *HTTPHandler) shareTest(w http.ResponseWriter, r *http.Request) {
+	user, ok := r.Context().Value(userContextKey).(*domain.UserProfile)
+	if !ok {
+		http.Error(w, "Unauthorized: User not found in context", http.StatusUnauthorized)
+		return
+	}
+	vars := mux.Vars(r)
+	testID := vars["testId"]
+	if testID == "" {
+		http.Error(w, "Test ID is required", http.StatusBadRequest)
+		return
+	}
+	// Check for optional userId query param
+	userIdParam := r.URL.Query().Get("userId")
+	var link *domain.SharedLink
+	var err error
+	if userIdParam != "" {
+		// Share to another user's inbox
+		link, err = h.usecase.ShareTestToUserInbox(r.Context(), testID, user.ID, userIdParam)
+	} else {
+		// Regular share (generate link only)
+		link, err = h.usecase.ShareTest(r.Context(), testID, user.ID)
+	}
+	if err != nil {
+		http.Error(w, fmt.Sprintf("Failed to share test: %v", err), http.StatusInternalServerError)
+		return
+	}
+	json.NewEncoder(w).Encode(map[string]string{"link": "/api/shared/" + link.ID, "expiresAt": link.ExpiresAt.Format(time.RFC3339)})
+}
+
+// accessSharedLink allows a user to access a shared test link and adds it to their history.
+func (h *HTTPHandler) accessSharedLink(w http.ResponseWriter, r *http.Request) {
+	user, ok := r.Context().Value(userContextKey).(*domain.UserProfile)
+	if !ok {
+		http.Error(w, "Unauthorized: User not found in context", http.StatusUnauthorized)
+		return
+	}
+	vars := mux.Vars(r)
+	linkID := vars["linkId"]
+	if linkID == "" {
+		http.Error(w, "Link ID is required", http.StatusBadRequest)
+		return
+	}
+	test, err := h.usecase.AccessSharedLink(r.Context(), linkID, user.ID)
+	if err != nil {
+		http.Error(w, fmt.Sprintf("Failed to access shared link: %v", err), http.StatusForbidden)
+		return
+	}
+	json.NewEncoder(w).Encode(test)
+}
+
+// getInbox returns the user's inbox of shared tests.
+func (h *HTTPHandler) getInbox(w http.ResponseWriter, r *http.Request) {
+	user, ok := r.Context().Value(userContextKey).(*domain.UserProfile)
+	if !ok {
+		http.Error(w, "Unauthorized: User not found in context", http.StatusUnauthorized)
+		return
+	}
+	inbox, err := h.usecase.GetInbox(r.Context(), user.ID)
+	if err != nil {
+		http.Error(w, fmt.Sprintf("Failed to get inbox: %v", err), http.StatusInternalServerError)
+		return
+	}
+	json.NewEncoder(w).Encode(map[string]interface{}{"inbox": inbox})
+}
+
+// markInboxItemRead marks a shared inbox item as read for the user.
+func (h *HTTPHandler) markInboxItemRead(w http.ResponseWriter, r *http.Request) {
+	user, ok := r.Context().Value(userContextKey).(*domain.UserProfile)
+	if !ok {
+		http.Error(w, "Unauthorized: User not found in context", http.StatusUnauthorized)
+		return
+	}
+	vars := mux.Vars(r)
+	linkID := vars["linkId"]
+	if linkID == "" {
+		http.Error(w, "Link ID is required", http.StatusBadRequest)
+		return
+	}
+	if err := h.usecase.MarkInboxItemRead(r.Context(), linkID, user.ID); err != nil {
+		http.Error(w, fmt.Sprintf("Failed to mark inbox item as read: %v", err), http.StatusInternalServerError)
+		return
+	}
+	w.WriteHeader(http.StatusNoContent)
 }

@@ -65,3 +65,12 @@ type AggregatedResultRepository interface {
 type VegetaExecutor interface {
 	Attack(ctx context.Context, vegetaPayloadJSON, durationStr string, rate uint64, targetsBase64 string) (*TestResult, error)
 }
+
+// SharedLinkRepository defines operations for managing shared test links.
+type SharedLinkRepository interface {
+	CreateSharedLink(ctx context.Context, testID, sharedBy string, expiresAt time.Time) (*SharedLink, error)
+	GetSharedLinkByID(ctx context.Context, linkID string) (*SharedLink, error)
+	AddUsedBy(ctx context.Context, linkID, userID string) error
+	GetInboxForUser(ctx context.Context, userID string) ([]*SharedLink, error)
+	MarkInboxItemRead(ctx context.Context, linkID, userID string) error
+}

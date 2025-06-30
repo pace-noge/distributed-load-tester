@@ -98,8 +98,9 @@ func runMaster(c *cli.Context) error {
 	var testResultRepo domain.TestResultRepository = db
 	var aggregatedResultRepo domain.AggregatedResultRepository = db
 	userRepo := database.NewUserRepository(db.GetDB())
+	sharedLinkRepo := database.NewSharedLinkRepository(db)
 
-	masterUC := masterUsecase.NewMasterUsecase(workerRepo, testRepo, testResultRepo, aggregatedResultRepo)
+	masterUC := masterUsecase.NewMasterUsecase(workerRepo, testRepo, testResultRepo, aggregatedResultRepo, sharedLinkRepo)
 	userUC := userUsecase.NewUserUsecase(userRepo, jwtSecretKey)
 
 	// Ensure default admin user exists
