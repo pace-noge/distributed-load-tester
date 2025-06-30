@@ -10,27 +10,28 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/pace-noge/distributed-load-tester/internal/infrastructure/auth"
-
 	"github.com/gorilla/mux"
 
 	"github.com/pace-noge/distributed-load-tester/internal/domain"
 	masterUsecase "github.com/pace-noge/distributed-load-tester/internal/master/usecase"
+	userUsecase "github.com/pace-noge/distributed-load-tester/internal/user/usecase"
 	pb "github.com/pace-noge/distributed-load-tester/proto" // Import generated protobuf
 )
 
 // HTTPHandler handles HTTP requests for the Master service.
 type HTTPHandler struct {
-	Router    *mux.Router
-	usecase   *masterUsecase.MasterUsecase
-	jwtSecret string
+	Router      *mux.Router
+	usecase     *masterUsecase.MasterUsecase
+	userUsecase *userUsecase.UserUsecase
+	jwtSecret   string
 }
 
 // NewHTTPHandler creates a new HTTPHandler instance.
-func NewHTTPHandler(uc *masterUsecase.MasterUsecase, jwtSecret string) *HTTPHandler {
+func NewHTTPHandler(uc *masterUsecase.MasterUsecase, userUc *userUsecase.UserUsecase, jwtSecret string) *HTTPHandler {
 	h := &HTTPHandler{
-		usecase:   uc,
-		jwtSecret: jwtSecret,
+		usecase:     uc,
+		userUsecase: userUc,
+		jwtSecret:   jwtSecret,
 	}
 	r := mux.NewRouter()
 
@@ -94,15 +95,18 @@ func (h *HTTPHandler) authMiddleware(next http.Handler) http.Handler {
 			return
 		}
 
-		userID, err := auth.ValidateJWT(tokenString) // Use the shared auth package
+		// Use the user management system for token validation
+		user, err := h.userUsecase.ValidateJWTToken(r.Context(), tokenString)
 		if err != nil {
 			log.Printf("JWT validation failed: %v", err)
 			http.Error(w, "Invalid or expired token", http.StatusUnauthorized)
 			return
 		}
 
-		// Add userID to context for downstream handlers
-		ctx := context.WithValue(r.Context(), "userID", userID)
+		// Add user to context for downstream handlers
+		type contextKey string
+		const userKey contextKey = "user"
+		ctx := context.WithValue(r.Context(), userKey, user)
 		next.ServeHTTP(w, r.WithContext(ctx))
 	})
 }
@@ -119,27 +123,29 @@ func (h *HTTPHandler) login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// In a real application, you'd validate username/password against a database.
-	// For this example, we'll use a very simple hardcoded check.
-	if credentials.Username == "admin" && credentials.Password == "password" {
-		token, err := auth.GenerateJWT("admin") // Use the shared auth package
-		if err != nil {
-			log.Printf("Failed to generate JWT: %v", err)
-			http.Error(w, "Failed to generate token", http.StatusInternalServerError)
-			return
-		}
-		json.NewEncoder(w).Encode(map[string]string{"token": token, "message": "Login successful"})
+	// Use the user management system for authentication
+	authResponse, err := h.userUsecase.AuthenticateUser(r.Context(), credentials.Username, credentials.Password)
+	if err != nil {
+		log.Printf("Authentication failed: %v", err)
+		http.Error(w, "Invalid username or password", http.StatusUnauthorized)
 		return
 	}
 
-	http.Error(w, "Invalid username or password", http.StatusUnauthorized)
+	w.Header().Set("Content-Type", "application/json")
+	if err := json.NewEncoder(w).Encode(authResponse); err != nil {
+		log.Printf("Failed to encode response: %v", err)
+		http.Error(w, "Internal server error", http.StatusInternalServerError)
+	}
 }
 
 // submitTest handles requests to submit a new load test.
 func (h *HTTPHandler) submitTest(w http.ResponseWriter, r *http.Request) {
-	userID, ok := r.Context().Value("userID").(string)
+	type contextKey string
+	const userKey contextKey = "user"
+
+	user, ok := r.Context().Value(userKey).(*domain.UserProfile)
 	if !ok {
-		http.Error(w, "Unauthorized: User ID not found in context", http.StatusUnauthorized)
+		http.Error(w, "Unauthorized: User not found in context", http.StatusUnauthorized)
 		return
 	}
 
@@ -149,7 +155,7 @@ func (h *HTTPHandler) submitTest(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	req.RequesterId = userID // Set requester ID from authenticated user
+	req.RequesterId = user.ID // Set requester ID from authenticated user
 
 	// Call the gRPC method directly via the usecase
 	resp, err := h.usecase.SubmitTest(r.Context(), &domain.TestRequest{

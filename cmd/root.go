@@ -16,6 +16,7 @@ func NewRootApp() *cli.App {
 		Commands: []*cli.Command{
 			NewMasterCommand(),
 			NewWorkerCommand(),
+			NewUserCommand(),
 		},
 	}
 }

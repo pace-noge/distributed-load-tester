@@ -45,6 +45,19 @@ func NewPostgresDB(databaseURL string) (*PostgresDB, error) {
 // InitSchema creates the necessary tables if they don't exist.
 func (p *PostgresDB) InitSchema(ctx context.Context) error {
 	queries := []string{
+		`CREATE TABLE IF NOT EXISTS users (
+            id VARCHAR(255) PRIMARY KEY,
+            username VARCHAR(255) UNIQUE NOT NULL,
+            email VARCHAR(255) UNIQUE NOT NULL,
+            password_hash VARCHAR(255) NOT NULL,
+            first_name VARCHAR(255) NOT NULL,
+            last_name VARCHAR(255) NOT NULL,
+            role VARCHAR(50) NOT NULL DEFAULT 'user',
+            is_active BOOLEAN NOT NULL DEFAULT true,
+            created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+            updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+            last_login_at TIMESTAMP WITH TIME ZONE
+        );`,
 		`CREATE TABLE IF NOT EXISTS workers (
             id VARCHAR(255) PRIMARY KEY,
             address VARCHAR(255) NOT NULL,
@@ -100,6 +113,10 @@ func (p *PostgresDB) InitSchema(ctx context.Context) error {
         );`,
 		// Add worker_count column to existing test_requests table if it doesn't exist
 		`ALTER TABLE test_requests ADD COLUMN IF NOT EXISTS worker_count INTEGER NOT NULL DEFAULT 1;`,
+		// Create indexes for better performance
+		`CREATE INDEX IF NOT EXISTS idx_users_username ON users(username);`,
+		`CREATE INDEX IF NOT EXISTS idx_users_email ON users(email);`,
+		`CREATE INDEX IF NOT EXISTS idx_users_role ON users(role);`,
 	}
 
 	for _, q := range queries {
@@ -115,6 +132,11 @@ func (p *PostgresDB) InitSchema(ctx context.Context) error {
 // Close closes the database connection.
 func (p *PostgresDB) Close() error {
 	return p.db.Close()
+}
+
+// GetDB returns the underlying sql.DB instance
+func (p *PostgresDB) GetDB() *sql.DB {
+	return p.db
 }
 
 // --- WorkerRepository Implementations ---
@@ -137,7 +159,7 @@ func (p *PostgresDB) UpdateWorkerStatus(ctx context.Context, workerID string, st
 	query := `UPDATE workers SET status = $1, last_seen = $2, current_test_id = $3, last_progress_message = $4, completed_requests = $5, total_requests = $6 WHERE id = $7;`
 	_, err := p.db.ExecContext(ctx, query, status, time.Now(), currentTestID, progressMsg, completedReqs, totalReqs, workerID)
 	if err != nil {
-		return fmt.Errorf("failed to update worker status: $w", err)
+		return fmt.Errorf("failed to update worker status: %w", err)
 	}
 	return nil
 }

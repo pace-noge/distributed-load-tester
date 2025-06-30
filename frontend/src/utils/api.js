@@ -96,9 +96,30 @@ export const fetchTestDetail = async (testId) => {
  * @returns {Promise} - Replay response
  */
 export const replayTest = async (testId, testName) => {
-    return await authenticatedFetch(`${API_BASE_URL}/tests/${testId}/replay`, {
+    // First, get the test details to extract the original configuration
+    const testDetail = await fetchTestDetail(testId);
+    const originalTest = testDetail.test;
+
+    if (!originalTest) {
+        throw new Error('Original test configuration not found');
+    }
+
+    // Create a new test request with the same configuration but new name
+    // Use snake_case field names to match the backend expectations
+    const replayRequest = {
+        name: `${testName} (Replay)`,
+        vegeta_payload_json: originalTest.vegetaPayloadJson || originalTest.vegetaPayloadJSON,
+        duration_seconds: originalTest.durationSeconds?.toString() || originalTest.duration_seconds?.toString(),
+        rate_per_second: originalTest.ratePerSecond || originalTest.rate_per_second,
+        targets_base64: originalTest.targetsBase64 || originalTest.targets_base64,
+        worker_count: originalTest.workerCount || originalTest.worker_count,
+        rate_distribution: originalTest.rateDistribution || originalTest.rate_distribution || "same"
+    };
+
+    // Submit the new test using the existing submit endpoint
+    return await authenticatedFetch(`${API_BASE_URL}/test/submit`, {
         method: 'POST',
-        body: JSON.stringify({ name: `${testName} (Replay)` })
+        body: JSON.stringify(replayRequest)
     });
 };
 

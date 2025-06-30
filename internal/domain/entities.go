@@ -4,6 +4,72 @@ import (
 	"time"
 )
 
+// User represents a user in the system
+type User struct {
+	ID          string     `json:"id" db:"id"`
+	Username    string     `json:"username" db:"username"`
+	Email       string     `json:"email" db:"email"`
+	Password    string     `json:"-" db:"password_hash"` // Never expose password in JSON
+	FirstName   string     `json:"firstName" db:"first_name"`
+	LastName    string     `json:"lastName" db:"last_name"`
+	Role        string     `json:"role" db:"role"`
+	IsActive    bool       `json:"isActive" db:"is_active"`
+	CreatedAt   time.Time  `json:"createdAt" db:"created_at"`
+	UpdatedAt   time.Time  `json:"updatedAt" db:"updated_at"`
+	LastLoginAt *time.Time `json:"lastLoginAt" db:"last_login_at"`
+}
+
+// UserProfile represents user profile information (without sensitive data)
+type UserProfile struct {
+	ID          string     `json:"id"`
+	Username    string     `json:"username"`
+	Email       string     `json:"email"`
+	FirstName   string     `json:"firstName"`
+	LastName    string     `json:"lastName"`
+	Role        string     `json:"role"`
+	IsActive    bool       `json:"isActive"`
+	CreatedAt   time.Time  `json:"createdAt"`
+	UpdatedAt   time.Time  `json:"updatedAt"`
+	LastLoginAt *time.Time `json:"lastLoginAt"`
+}
+
+// AuthResponse represents authentication response
+type AuthResponse struct {
+	Token     string       `json:"token"`
+	User      *UserProfile `json:"user"`
+	ExpiresAt time.Time    `json:"expiresAt"`
+}
+
+// CreateUserRequest represents request to create a new user
+type CreateUserRequest struct {
+	Username  string `json:"username" validate:"required,min=3,max=50"`
+	Email     string `json:"email" validate:"required,email"`
+	Password  string `json:"password" validate:"required,min=8"`
+	FirstName string `json:"firstName" validate:"required,min=1,max=100"`
+	LastName  string `json:"lastName" validate:"required,min=1,max=100"`
+	Role      string `json:"role" validate:"required,oneof=admin user"`
+}
+
+// UpdateUserRequest represents request to update user information
+type UpdateUserRequest struct {
+	Email     string `json:"email" validate:"omitempty,email"`
+	FirstName string `json:"firstName" validate:"omitempty,min=1,max=100"`
+	LastName  string `json:"lastName" validate:"omitempty,min=1,max=100"`
+	Role      string `json:"role" validate:"omitempty,oneof=admin user"`
+}
+
+// ChangePasswordRequest represents request to change password
+type ChangePasswordRequest struct {
+	CurrentPassword string `json:"currentPassword" validate:"required"`
+	NewPassword     string `json:"newPassword" validate:"required,min=8"`
+}
+
+// LoginRequest represents login request
+type LoginRequest struct {
+	Username string `json:"username" validate:"required"`
+	Password string `json:"password" validate:"required"`
+}
+
 // TestRequest represents a user-submitted load test configuration.
 type TestRequest struct {
 	ID                 string    `json:"id"`
@@ -13,8 +79,8 @@ type TestRequest struct {
 	RatePerSecond      uint64    `json:"ratePerSecond"`     // e.g., 50 for 50 req/s
 	TargetsBase64      string    `json:"targetsBase64"`     // Base64 encoded targets content
 	RequesterID        string    `json:"requesterId"`
-	WorkerCount        uint32    `json:"workerCount"`        // Number of workers to use for this test
-	RateDistribution   string    `json:"rateDistribution"`   // "shared", "same", "weighted", "ramped", or "burst" - how to distribute rate among workers
+	WorkerCount        uint32    `json:"workerCount"`           // Number of workers to use for this test
+	RateDistribution   string    `json:"rateDistribution"`      // "shared", "same", "weighted", "ramped", or "burst" - how to distribute rate among workers
 	RateWeights        []float64 `json:"rateWeights,omitempty"` // For "weighted" distribution: weight for each worker (optional)
 	CreatedAt          time.Time `json:"createdAt"`
 	Status             string    `json:"status"` // e.g., "PENDING", "RUNNING", "COMPLETED", "FAILED"

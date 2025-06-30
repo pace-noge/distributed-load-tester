@@ -249,8 +249,7 @@ func (uc *MasterUsecase) assignTestToWorker(ctx context.Context, testReq *domain
 	conn := connVal.(*grpc.ClientConn)
 	client := pb.NewWorkerServiceClient(conn)
 
-	// Update test status to RUNNING and assign worker
-	uc.testRepo.IncrementTestAssignedWorkers(ctx, testReq.ID, workerID)
+	// Update test status to RUNNING (but don't assign worker until successful)
 	uc.testRepo.UpdateTestStatus(ctx, testReq.ID, "RUNNING", nil, nil) // Update overall test status
 
 	// Mark worker as busy
@@ -296,6 +295,9 @@ func (uc *MasterUsecase) assignTestToWorker(ctx context.Context, testReq *domain
 	}
 
 	log.Printf("Test %s assigned successfully to worker %s.", testReq.ID, workerID)
+
+	// Add worker to assigned list only after successful assignment
+	uc.testRepo.IncrementTestAssignedWorkers(ctx, testReq.ID, workerID)
 
 	// Record the assignment for tracking
 	uc.mu.Lock()
@@ -716,16 +718,8 @@ func (uc *MasterUsecase) assignTestToMultipleWorkers(ctx context.Context, testRe
 			workerRates, totalExpectedRate)
 	}
 
-	// Update test status to RUNNING and assign all workers
-	testReq.AssignedWorkersIDs = workerIDs
+	// Update test status to RUNNING - we'll add workers to assigned list after successful assignment
 	uc.testRepo.UpdateTestStatus(ctx, testReq.ID, "RUNNING", nil, nil)
-
-	// Add each worker to the assigned workers list in the database
-	for _, workerID := range workerIDs {
-		if err := uc.testRepo.IncrementTestAssignedWorkers(ctx, testReq.ID, workerID); err != nil {
-			log.Printf("Warning: Failed to add worker %s to assigned workers for test %s: %v", workerID, testReq.ID, err)
-		}
-	}
 
 	// Initialize assignment tracking
 	uc.mu.Lock()
@@ -787,17 +781,26 @@ func (uc *MasterUsecase) assignTestToMultipleWorkers(ctx context.Context, testRe
 				log.Printf("Failed to assign test %s to worker %s: %v", testReq.ID, workerID, err)
 				uc.MarkWorkerOffline(ctx, workerID)
 				uc.testRepo.AddFailedWorkerToTest(ctx, testReq.ID, workerID)
+				// Reset worker status back to READY if still reachable
+				uc.workerRepo.UpdateWorkerStatus(ctx, workerID, "READY", "", "Assignment failed", 0, 0)
 				return
 			}
 
 			if !resp.Accepted {
 				log.Printf("Worker %s rejected test %s assignment: %s", workerID, testReq.ID, resp.Message)
 				uc.testRepo.AddFailedWorkerToTest(ctx, testReq.ID, workerID)
+				// Reset worker status back to READY since assignment failed
+				uc.workerRepo.UpdateWorkerStatus(ctx, workerID, "READY", "", "Assignment rejected", 0, 0)
+				// Add worker back to availability queue
+				uc.addWorkerToAvailabilityQueue(workerID)
 				return
 			}
 
 			log.Printf("Test %s assigned successfully to worker %s (rate: %d req/s, mode: %s)",
 				testReq.ID, workerID, workerRate, testReq.RateDistribution)
+
+			// Only add to assigned workers list after successful assignment
+			uc.testRepo.IncrementTestAssignedWorkers(ctx, testReq.ID, workerID)
 
 			assignmentMutex.Lock()
 			successfulAssignments++

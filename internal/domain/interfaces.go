@@ -4,6 +4,20 @@ import (
 	"context"
 )
 
+// UserRepository defines operations for managing user information.
+type UserRepository interface {
+	CreateUser(ctx context.Context, user *User) error
+	GetUserByID(ctx context.Context, userID string) (*User, error)
+	GetUserByUsername(ctx context.Context, username string) (*User, error)
+	GetUserByEmail(ctx context.Context, email string) (*User, error)
+	UpdateUser(ctx context.Context, userID string, updates *UpdateUserRequest) (*User, error)
+	UpdateUserPassword(ctx context.Context, userID string, hashedPassword string) error
+	GetAllUsers(ctx context.Context) ([]*User, error)
+	ActivateUser(ctx context.Context, userID string) error
+	DeactivateUser(ctx context.Context, userID string) error
+	UpdateLastLogin(ctx context.Context, userID string) error
+}
+
 // WorkerRepository defines operations for managing worker information.
 type WorkerRepository interface {
 	RegisterWorker(ctx context.Context, worker *Worker) error
