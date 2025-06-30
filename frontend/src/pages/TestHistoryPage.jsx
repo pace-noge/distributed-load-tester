@@ -22,8 +22,16 @@ export const TestHistoryPage = () => {
         try {
             const response = await fetchTestHistory(page, itemsPerPage);
 
-            // Handle the new paginated response format
-            if (response.tests && response.pagination) {
+            // Handle new backend response format
+            if (response.tests && typeof response.total === 'number') {
+                setDisplayedTests(response.tests);
+                setTotalTests(response.total);
+                const totalPages = Math.ceil(response.total / itemsPerPage);
+                setTotalPages(totalPages);
+                // Backend offset is 0-based, frontend page is 1-based
+                setCurrentPage(Math.floor((response.offset || 0) / itemsPerPage) + 1);
+            } else if (response.tests && response.pagination) {
+                // Old paginated format
                 setDisplayedTests(response.tests);
                 setTotalTests(response.pagination.total);
                 setTotalPages(response.pagination.total_pages);
@@ -80,9 +88,20 @@ export const TestHistoryPage = () => {
             {loading ? (
                 <LoadingState />
             ) : displayedTests.length === 0 ? (
-                <EmptyState />
+                <div className="bg-white rounded-lg shadow p-12 text-center">
+                    <History className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                    <h3 className="text-lg font-medium text-gray-900 mb-2">No test history</h3>
+                    <p className="text-gray-600">
+                        You have not run any load tests yet. Only your own tests are shown here.
+                    </p>
+                </div>
             ) : (
                 <>
+                    {/* User context note */}
+                    <div className="bg-blue-50 border border-blue-100 rounded p-3 text-blue-700 text-sm mb-4">
+                        Only your own tests are shown here. If you share a test, it will be visible to others (feature coming soon).
+                    </div>
+
                     <TestHistoryTable
                         tests={displayedTests}
                         onViewTest={setSelectedTest}

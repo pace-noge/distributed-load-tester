@@ -37,6 +37,10 @@ type TestRepository interface {
 	GetAllTestRequests(ctx context.Context) ([]*TestRequest, error)
 	GetTestRequestsPaginated(ctx context.Context, limit, offset int) ([]*TestRequest, int, error)
 	GetTestsInRange(ctx context.Context, startDate, endDate time.Time) ([]*TestRequest, error)
+	GetTestRequestsByUser(ctx context.Context, userID string) ([]*TestRequest, error)
+	GetTestRequestsPaginatedByUser(ctx context.Context, userID string, limit, offset int) ([]*TestRequest, int, error)
+	GetTestsInRangeByUser(ctx context.Context, userID string, startDate, endDate time.Time) ([]*TestRequest, error)
+	// Add paginated per-user test history
 	IncrementTestAssignedWorkers(ctx context.Context, testID string, workerID string) error
 	AddCompletedWorkerToTest(ctx context.Context, testID string, workerID string) error
 	AddFailedWorkerToTest(ctx context.Context, testID string, workerID string) error

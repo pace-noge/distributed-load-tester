@@ -240,4 +240,5 @@ type AnalyticsRequest struct {
 	TimeRange   *AnalyticsTimeRange `json:"timeRange,omitempty"`
 	TargetURL   string              `json:"targetUrl,omitempty"`
 	Granularity string              `json:"granularity,omitempty"` // "day", "hour", "week"
+	UserID      string              `json:"userId,omitempty"`
 }

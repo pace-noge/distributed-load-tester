@@ -490,6 +490,11 @@ func (uc *MasterUsecase) GetTestRequestsPaginated(ctx context.Context, limit, of
 	return uc.testRepo.GetTestRequestsPaginated(ctx, limit, offset)
 }
 
+// GetTestRequestsPaginatedByUser retrieves test requests for a specific user with pagination.
+func (uc *MasterUsecase) GetTestRequestsPaginatedByUser(ctx context.Context, userID string, limit, offset int) ([]*domain.TestRequest, int, error) {
+	return uc.testRepo.GetTestRequestsPaginatedByUser(ctx, userID, limit, offset)
+}
+
 // GetRawTestResults retrieves all raw test results for a given test ID.
 func (uc *MasterUsecase) GetRawTestResults(ctx context.Context, testID string) ([]*domain.TestResult, error) {
 	return uc.testResultRepo.GetResultsByTestID(ctx, testID)
@@ -498,6 +503,11 @@ func (uc *MasterUsecase) GetRawTestResults(ctx context.Context, testID string) (
 // GetAggregatedTestResult retrieves the aggregated result for a given test ID.
 func (uc *MasterUsecase) GetAggregatedTestResult(ctx context.Context, testID string) (*domain.TestResultAggregated, error) {
 	return uc.aggregatedResultRepo.GetAggregatedResultByTestID(ctx, testID)
+}
+
+// GetTestRequestsByUser retrieves all test requests for a specific user.
+func (uc *MasterUsecase) GetTestRequestsByUser(ctx context.Context, userID string) ([]*domain.TestRequest, error) {
+	return uc.testRepo.GetTestRequestsByUser(ctx, userID)
 }
 
 // cleanupStaleWorkers periodically checks for workers that haven't sent status updates
@@ -979,8 +989,14 @@ func (uc *MasterUsecase) GetAnalyticsOverview(ctx context.Context, req *domain.A
 		startDate = endDate.AddDate(0, 0, -30) // Last 30 days
 	}
 
-	// Get all tests in the time range
-	tests, err := uc.testRepo.GetTestsInRange(ctx, startDate, endDate)
+	// Get all tests in the time range, filtered by user if UserID is set
+	var tests []*domain.TestRequest
+	var err error
+	if req.UserID != "" {
+		tests, err = uc.testRepo.GetTestsInRangeByUser(ctx, req.UserID, startDate, endDate)
+	} else {
+		tests, err = uc.testRepo.GetTestsInRange(ctx, startDate, endDate)
+	}
 	if err != nil {
 		return nil, fmt.Errorf("failed to get tests in range: %w", err)
 	}
@@ -1120,8 +1136,14 @@ func (uc *MasterUsecase) GetTargetAnalytics(ctx context.Context, req *domain.Ana
 		startDate = endDate.AddDate(0, 0, -30) // Last 30 days
 	}
 
-	// Get all tests in the time range
-	tests, err := uc.testRepo.GetTestsInRange(ctx, startDate, endDate)
+	// Get all tests in the time range, filtered by user if UserID is set
+	var tests []*domain.TestRequest
+	var err error
+	if req.UserID != "" {
+		tests, err = uc.testRepo.GetTestsInRangeByUser(ctx, req.UserID, startDate, endDate)
+	} else {
+		tests, err = uc.testRepo.GetTestsInRange(ctx, startDate, endDate)
+	}
 	if err != nil {
 		return nil, fmt.Errorf("failed to get tests in range: %w", err)
 	}

@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
-	"math"
 	"net/http"
 	"strconv"
 	"strings"
@@ -180,52 +179,37 @@ func (h *HTTPHandler) getDashboardStatus(w http.ResponseWriter, r *http.Request)
 
 // getTests retrieves a list of tests with optional pagination.
 func (h *HTTPHandler) getTests(w http.ResponseWriter, r *http.Request) {
-	// Parse query parameters
-	pageStr := r.URL.Query().Get("page")
-	limitStr := r.URL.Query().Get("limit")
+	user, ok := r.Context().Value(userContextKey).(*domain.UserProfile)
+	if !ok {
+		http.Error(w, "Unauthorized: User not found in context", http.StatusUnauthorized)
+		return
+	}
 
-	// Default values
-	page := 1
+	// Parse pagination params
 	limit := 20
-
-	// Parse page parameter
-	if pageStr != "" {
-		if p, err := strconv.Atoi(pageStr); err == nil && p > 0 {
-			page = p
+	offset := 0
+	if l := r.URL.Query().Get("limit"); l != "" {
+		if v, err := strconv.Atoi(l); err == nil && v > 0 {
+			limit = v
+		}
+	}
+	if o := r.URL.Query().Get("offset"); o != "" {
+		if v, err := strconv.Atoi(o); err == nil && v >= 0 {
+			offset = v
 		}
 	}
 
-	// Parse limit parameter
-	if limitStr != "" {
-		if l, err := strconv.Atoi(limitStr); err == nil && l > 0 && l <= 100 {
-			limit = l
-		}
-	}
-
-	// Calculate offset
-	offset := (page - 1) * limit
-
-	// Get paginated results
-	tests, totalCount, err := h.usecase.GetTestRequestsPaginated(r.Context(), limit, offset)
+	tests, total, err := h.usecase.GetTestRequestsPaginatedByUser(r.Context(), user.ID, limit, offset)
 	if err != nil {
 		http.Error(w, fmt.Sprintf("Failed to get tests: %v", err), http.StatusInternalServerError)
 		return
 	}
 
-	// Calculate pagination metadata
-	totalPages := int(math.Ceil(float64(totalCount) / float64(limit)))
-
-	// Create response with pagination metadata
 	response := map[string]interface{}{
-		"tests": tests,
-		"pagination": map[string]interface{}{
-			"page":        page,
-			"limit":       limit,
-			"total":       totalCount,
-			"total_pages": totalPages,
-			"has_prev":    page > 1,
-			"has_next":    page < totalPages,
-		},
+		"tests":  tests,
+		"total":  total,
+		"limit":  limit,
+		"offset": offset,
 	}
 
 	w.Header().Set("Content-Type", "application/json")
@@ -318,6 +302,14 @@ func (h *HTTPHandler) getAnalyticsOverview(w http.ResponseWriter, r *http.Reques
 		}
 	}
 
+	user, ok := r.Context().Value(userContextKey).(*domain.UserProfile)
+	if !ok {
+		http.Error(w, "Unauthorized: User not found in context", http.StatusUnauthorized)
+		return
+	}
+
+	req.UserID = user.ID
+
 	overview, err := h.usecase.GetAnalyticsOverview(r.Context(), &req)
 	if err != nil {
 		http.Error(w, fmt.Sprintf("Failed to get analytics overview: %v", err), http.StatusInternalServerError)
@@ -360,6 +352,14 @@ func (h *HTTPHandler) getTargetAnalytics(w http.ResponseWriter, r *http.Request)
 			EndDate:   endDate,
 		}
 	}
+
+	user, ok := r.Context().Value(userContextKey).(*domain.UserProfile)
+	if !ok {
+		http.Error(w, "Unauthorized: User not found in context", http.StatusUnauthorized)
+		return
+	}
+
+	req.UserID = user.ID
 
 	targetAnalytics, err := h.usecase.GetTargetAnalytics(r.Context(), &req)
 	if err != nil {

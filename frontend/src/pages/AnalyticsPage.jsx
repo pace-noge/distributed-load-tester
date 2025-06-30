@@ -110,6 +110,11 @@ const AnalyticsPage = () => {
                 </div>
             </div>
 
+            {/* User context note */}
+            <div className="bg-blue-50 border border-blue-100 rounded p-3 text-blue-700 text-sm mb-4">
+                Analytics reflect <b>only your own tests</b>. If you share a test, it will be visible to others (feature coming soon).
+            </div>
+
             {/* Simple Overview Cards */}
             {analyticsData && (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -231,7 +236,7 @@ const AnalyticsPage = () => {
                     <Activity className="h-12 w-12 text-gray-400 mx-auto mb-4" />
                     <h3 className="text-lg font-medium text-gray-900 mb-2">No test data available</h3>
                     <p className="text-gray-600">
-                        Run some load tests to see analytics and performance insights here.
+                        You have not run any load tests yet. Only your own tests are shown here.
                     </p>
                 </div>
             )}

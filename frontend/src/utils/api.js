@@ -37,7 +37,8 @@ export const authenticatedFetch = async (url, options = {}) => {
  * @returns {Promise} - Paginated test history data
  */
 export const fetchTestHistory = async (page = 1, limit = 20) => {
-    const url = `${API_BASE_URL}/tests?page=${page}&limit=${limit}`;
+    const offset = (page - 1) * limit;
+    const url = `${API_BASE_URL}/tests?limit=${limit}&offset=${offset}`;
     const data = await authenticatedFetch(url);
     return data;
 };
