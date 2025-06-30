@@ -171,3 +171,73 @@ type TestAssignment struct {
 	RatePerSecond     uint64
 	TargetsBase64     string
 }
+
+// Analytics domain models
+
+// AnalyticsOverview provides high-level analytics across all tests
+type AnalyticsOverview struct {
+	TotalTests          int64            `json:"totalTests"`
+	TotalRequests       int64            `json:"totalRequests"`
+	SuccessRate         float64          `json:"successRate"`
+	AverageResponseTime float64          `json:"averageResponseTime"`
+	MedianResponseTime  float64          `json:"medianResponseTime"`
+	P95ResponseTime     float64          `json:"p95ResponseTime"`
+	P99ResponseTime     float64          `json:"p99ResponseTime"`
+	TopErrorCodes       []ErrorCodeStats `json:"topErrorCodes"`
+	TestsPerDay         []TestsByDay     `json:"testsPerDay"`
+	RequestsPerDay      []RequestsByDay  `json:"requestsPerDay"`
+}
+
+// TargetAnalytics provides analytics for specific targets/URLs
+type TargetAnalytics struct {
+	Target              string             `json:"target"`
+	TestCount           int64              `json:"testCount"`
+	TotalRequests       int64              `json:"totalRequests"`
+	SuccessRate         float64            `json:"successRate"`
+	AverageResponseTime float64            `json:"averageResponseTime"`
+	MedianResponseTime  float64            `json:"medianResponseTime"`
+	P95ResponseTime     float64            `json:"p95ResponseTime"`
+	P99ResponseTime     float64            `json:"p99ResponseTime"`
+	ErrorBreakdown      []ErrorCodeStats   `json:"errorBreakdown"`
+	PerformanceTrend    []PerformancePoint `json:"performanceTrend"`
+}
+
+// ErrorCodeStats represents error code statistics
+type ErrorCodeStats struct {
+	StatusCode string  `json:"statusCode"`
+	Count      int64   `json:"count"`
+	Percentage float64 `json:"percentage"`
+}
+
+// TestsByDay represents test count by day
+type TestsByDay struct {
+	Date  string `json:"date"`
+	Count int64  `json:"count"`
+}
+
+// RequestsByDay represents request count by day
+type RequestsByDay struct {
+	Date  string `json:"date"`
+	Count int64  `json:"count"`
+}
+
+// PerformancePoint represents a point in performance trend
+type PerformancePoint struct {
+	Date         string  `json:"date"`
+	ResponseTime float64 `json:"responseTime"`
+	SuccessRate  float64 `json:"successRate"`
+	RequestCount int64   `json:"requestCount"`
+}
+
+// AnalyticsTimeRange represents time range for analytics
+type AnalyticsTimeRange struct {
+	StartDate time.Time `json:"startDate"`
+	EndDate   time.Time `json:"endDate"`
+}
+
+// AnalyticsRequest represents request for analytics data
+type AnalyticsRequest struct {
+	TimeRange   *AnalyticsTimeRange `json:"timeRange,omitempty"`
+	TargetURL   string              `json:"targetUrl,omitempty"`
+	Granularity string              `json:"granularity,omitempty"` // "day", "hour", "week"
+}

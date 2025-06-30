@@ -2,9 +2,12 @@ package usecase
 
 import (
 	"context"
+	"encoding/base64"
+	"encoding/json"
 	"fmt"
 	"log"
 	"sort" // Required for sorting p95Latencies
+	"strings"
 	"sync"
 	"time"
 
@@ -962,121 +965,439 @@ func (uc *MasterUsecase) updateAggregatedResult(ctx context.Context, testID stri
 	return uc.aggregatedResultRepo.SaveAggregatedResult(ctx, aggregatedResult)
 }
 
-// addWorkerToAvailabilityQueue safely adds a worker to the availability queue without duplicates
+// Analytics methods
+
+// GetAnalyticsOverview returns comprehensive analytics overview
+func (uc *MasterUsecase) GetAnalyticsOverview(ctx context.Context, req *domain.AnalyticsRequest) (*domain.AnalyticsOverview, error) {
+	// Set default time range if not provided (last 30 days)
+	var startDate, endDate time.Time
+	if req.TimeRange != nil {
+		startDate = req.TimeRange.StartDate
+		endDate = req.TimeRange.EndDate
+	} else {
+		endDate = time.Now()
+		startDate = endDate.AddDate(0, 0, -30) // Last 30 days
+	}
+
+	// Get all tests in the time range
+	tests, err := uc.testRepo.GetTestsInRange(ctx, startDate, endDate)
+	if err != nil {
+		return nil, fmt.Errorf("failed to get tests in range: %w", err)
+	}
+
+	// Get all aggregated results for these tests
+	var allResults []*domain.TestResultAggregated
+	var totalRequests, successfulRequests int64
+	var responseTimeSum float64
+	var responseTimeCount int64
+	var allP95Times []float64
+	errorCodes := make(map[string]int64)
+	testsPerDay := make(map[string]int64)
+	requestsPerDay := make(map[string]int64)
+
+	for _, test := range tests {
+		result, err := uc.aggregatedResultRepo.GetByTestID(ctx, test.ID)
+		if err != nil {
+			continue // Skip tests without aggregated results
+		}
+
+		allResults = append(allResults, result)
+		totalRequests += result.TotalRequests
+		successfulRequests += result.SuccessfulRequests
+
+		// Accumulate response times for average calculation
+		if result.AvgLatencyMs > 0 {
+			responseTimeSum += result.AvgLatencyMs * float64(result.TotalRequests)
+			responseTimeCount += result.TotalRequests
+		}
+
+		// Collect P95 times for percentile calculation
+		if result.P95LatencyMs > 0 {
+			allP95Times = append(allP95Times, result.P95LatencyMs)
+		}
+
+		// Accumulate error codes
+		for code, count := range result.ErrorRates {
+			errorCodes[code] += int64(count)
+		}
+
+		// Group by day for trends
+		dayKey := test.CreatedAt.Format("2006-01-02")
+		testsPerDay[dayKey]++
+		requestsPerDay[dayKey] += result.TotalRequests
+	}
+
+	// Calculate success rate
+	var successRate float64
+	if totalRequests > 0 {
+		successRate = float64(successfulRequests) / float64(totalRequests) * 100
+	}
+
+	// Calculate average response time
+	var averageResponseTime float64
+	if responseTimeCount > 0 {
+		averageResponseTime = responseTimeSum / float64(responseTimeCount)
+	}
+
+	// Calculate P95 and P99 response times from collected data
+	var p95ResponseTime, p99ResponseTime float64
+	if len(allP95Times) > 0 {
+		sort.Float64s(allP95Times)
+		p95Index := int(float64(len(allP95Times)) * 0.95)
+		if p95Index >= len(allP95Times) {
+			p95Index = len(allP95Times) - 1
+		}
+		p95ResponseTime = allP95Times[p95Index]
+
+		p99Index := int(float64(len(allP95Times)) * 0.99)
+		if p99Index >= len(allP95Times) {
+			p99Index = len(allP95Times) - 1
+		}
+		p99ResponseTime = allP95Times[p99Index]
+	}
+
+	// Build top error codes
+	var topErrorCodes []domain.ErrorCodeStats
+	for code, count := range errorCodes {
+		percentage := float64(count) / float64(totalRequests) * 100
+		topErrorCodes = append(topErrorCodes, domain.ErrorCodeStats{
+			StatusCode: code,
+			Count:      count,
+			Percentage: percentage,
+		})
+	}
+
+	// Sort error codes by count (descending)
+	sort.Slice(topErrorCodes, func(i, j int) bool {
+		return topErrorCodes[i].Count > topErrorCodes[j].Count
+	})
+
+	// Keep only top 10
+	if len(topErrorCodes) > 10 {
+		topErrorCodes = topErrorCodes[:10]
+	}
+
+	// Build time series data
+	var testsPerDaySlice []domain.TestsByDay
+	var requestsPerDaySlice []domain.RequestsByDay
+
+	// Create a complete date range
+	for d := startDate; d.Before(endDate) || d.Equal(endDate); d = d.AddDate(0, 0, 1) {
+		dayKey := d.Format("2006-01-02")
+		testsPerDaySlice = append(testsPerDaySlice, domain.TestsByDay{
+			Date:  dayKey,
+			Count: testsPerDay[dayKey], // Will be 0 if no tests on that day
+		})
+		requestsPerDaySlice = append(requestsPerDaySlice, domain.RequestsByDay{
+			Date:  dayKey,
+			Count: requestsPerDay[dayKey], // Will be 0 if no requests on that day
+		})
+	}
+
+	return &domain.AnalyticsOverview{
+		TotalTests:          int64(len(tests)),
+		TotalRequests:       totalRequests,
+		SuccessRate:         successRate,
+		AverageResponseTime: averageResponseTime,
+		MedianResponseTime:  averageResponseTime, // Simplified - could calculate true median
+		P95ResponseTime:     p95ResponseTime,
+		P99ResponseTime:     p99ResponseTime,
+		TopErrorCodes:       topErrorCodes,
+		TestsPerDay:         testsPerDaySlice,
+		RequestsPerDay:      requestsPerDaySlice,
+	}, nil
+}
+
+// GetTargetAnalytics returns analytics for specific targets/URLs
+func (uc *MasterUsecase) GetTargetAnalytics(ctx context.Context, req *domain.AnalyticsRequest) ([]domain.TargetAnalytics, error) {
+	// Set default time range if not provided
+	var startDate, endDate time.Time
+	if req.TimeRange != nil {
+		startDate = req.TimeRange.StartDate
+		endDate = req.TimeRange.EndDate
+	} else {
+		endDate = time.Now()
+		startDate = endDate.AddDate(0, 0, -30) // Last 30 days
+	}
+
+	// Get all tests in the time range
+	tests, err := uc.testRepo.GetTestsInRange(ctx, startDate, endDate)
+	if err != nil {
+		return nil, fmt.Errorf("failed to get tests in range: %w", err)
+	}
+
+	// Group tests by target URL
+	targetGroups := make(map[string][]*domain.TestRequest)
+	for _, test := range tests {
+		// Extract target from base64 encoded targets
+		targets := uc.extractTargetsFromBase64(test.TargetsBase64)
+		for _, target := range targets {
+			targetGroups[target] = append(targetGroups[target], test)
+		}
+	}
+
+	var targetAnalytics []domain.TargetAnalytics
+	for target, targetTests := range targetGroups {
+		analytics := uc.calculateTargetAnalytics(ctx, target, targetTests)
+		targetAnalytics = append(targetAnalytics, analytics)
+	}
+
+	// Sort by test count (descending)
+	sort.Slice(targetAnalytics, func(i, j int) bool {
+		return targetAnalytics[i].TestCount > targetAnalytics[j].TestCount
+	})
+
+	return targetAnalytics, nil
+}
+
+// Helper method to extract targets from base64 encoded string
+func (uc *MasterUsecase) extractTargetsFromBase64(targetsBase64 string) []string {
+	if targetsBase64 == "" {
+		return []string{}
+	}
+
+	// Decode base64
+	decodedBytes, err := base64.StdEncoding.DecodeString(targetsBase64)
+	if err != nil {
+		// If decoding fails, return a fallback
+		return []string{"unknown-target"}
+	}
+
+	// Convert to string and check if it's JSON format
+	targetsContent := string(decodedBytes)
+	targetsContent = strings.TrimSpace(targetsContent)
+
+	var targets []string
+
+	// Try to parse as JSON first (for frontend compatibility)
+	if strings.HasPrefix(targetsContent, "[") {
+		// JSON format: [{"method":"GET","url":"https://example.com"}]
+		var jsonTargets []map[string]interface{}
+		if err := json.Unmarshal([]byte(targetsContent), &jsonTargets); err == nil {
+			for _, target := range jsonTargets {
+				if url, ok := target["url"].(string); ok {
+					targets = append(targets, url)
+				}
+			}
+			if len(targets) > 0 {
+				return targets
+			}
+		}
+	}
+
+	// Fall back to Vegeta text format (line-based)
+	lines := strings.Split(targetsContent, "\n")
+	for _, line := range lines {
+		line = strings.TrimSpace(line)
+		if line == "" || strings.HasPrefix(line, "#") {
+			continue // Skip empty lines and comments
+		}
+
+		// Extract URL from Vegeta target format (GET http://example.com or just http://example.com)
+		parts := strings.Fields(line)
+		if len(parts) >= 2 {
+			// Format: "GET http://example.com"
+			targets = append(targets, parts[1])
+		} else if len(parts) == 1 && (strings.HasPrefix(parts[0], "http://") || strings.HasPrefix(parts[0], "https://")) {
+			// Format: "http://example.com"
+			targets = append(targets, parts[0])
+		}
+	}
+
+	// If no valid targets found, return a fallback
+	if len(targets) == 0 {
+		return []string{"unknown-target"}
+	}
+
+	return targets
+}
+
+// Helper method to calculate analytics for a specific target
+func (uc *MasterUsecase) calculateTargetAnalytics(ctx context.Context, target string, tests []*domain.TestRequest) domain.TargetAnalytics {
+	var totalRequests, successfulRequests int64
+	var responseTimeSum float64
+	var responseTimeCount int64
+	var allP95Times []float64
+	errorCodes := make(map[string]int64)
+	var performanceTrend []domain.PerformancePoint
+
+	for _, test := range tests {
+		result, err := uc.aggregatedResultRepo.GetByTestID(ctx, test.ID)
+		if err != nil {
+			continue
+		}
+
+		totalRequests += result.TotalRequests
+		successfulRequests += result.SuccessfulRequests
+
+		if result.AvgLatencyMs > 0 {
+			responseTimeSum += result.AvgLatencyMs * float64(result.TotalRequests)
+			responseTimeCount += result.TotalRequests
+		}
+
+		if result.P95LatencyMs > 0 {
+			allP95Times = append(allP95Times, result.P95LatencyMs)
+		}
+
+		for code, count := range result.ErrorRates {
+			errorCodes[code] += int64(count)
+		}
+
+		// Add to performance trend
+		var successRate float64
+		if result.TotalRequests > 0 {
+			successRate = float64(result.SuccessfulRequests) / float64(result.TotalRequests) * 100
+		}
+
+		performanceTrend = append(performanceTrend, domain.PerformancePoint{
+			Date:         test.CreatedAt.Format("2006-01-02"),
+			ResponseTime: result.AvgLatencyMs,
+			SuccessRate:  successRate,
+			RequestCount: result.TotalRequests,
+		})
+	}
+
+	// Calculate metrics
+	var successRate float64
+	if totalRequests > 0 {
+		successRate = float64(successfulRequests) / float64(totalRequests) * 100
+	}
+
+	var averageResponseTime float64
+	if responseTimeCount > 0 {
+		averageResponseTime = responseTimeSum / float64(responseTimeCount)
+	}
+
+	var p95ResponseTime, p99ResponseTime float64
+	if len(allP95Times) > 0 {
+		sort.Float64s(allP95Times)
+		p95Index := int(float64(len(allP95Times)) * 0.95)
+		if p95Index >= len(allP95Times) {
+			p95Index = len(allP95Times) - 1
+		}
+		p95ResponseTime = allP95Times[p95Index]
+
+		p99Index := int(float64(len(allP95Times)) * 0.99)
+		if p99Index >= len(allP95Times) {
+			p99Index = len(allP95Times) - 1
+		}
+		p99ResponseTime = allP95Times[p99Index]
+	}
+
+	// Build error breakdown
+	var errorBreakdown []domain.ErrorCodeStats
+	for code, count := range errorCodes {
+		percentage := float64(count) / float64(totalRequests) * 100
+		errorBreakdown = append(errorBreakdown, domain.ErrorCodeStats{
+			StatusCode: code,
+			Count:      count,
+			Percentage: percentage,
+		})
+	}
+
+	// Sort performance trend by date
+	sort.Slice(performanceTrend, func(i, j int) bool {
+		return performanceTrend[i].Date < performanceTrend[j].Date
+	})
+
+	return domain.TargetAnalytics{
+		Target:              target,
+		TestCount:           int64(len(tests)),
+		TotalRequests:       totalRequests,
+		SuccessRate:         successRate,
+		AverageResponseTime: averageResponseTime,
+		MedianResponseTime:  averageResponseTime, // Simplified
+		P95ResponseTime:     p95ResponseTime,
+		P99ResponseTime:     p99ResponseTime,
+		ErrorBreakdown:      errorBreakdown,
+		PerformanceTrend:    performanceTrend,
+	}
+}
+
+// Helper methods for worker availability management
+
+// addWorkerToAvailabilityQueue adds a worker to the availability queue
 func (uc *MasterUsecase) addWorkerToAvailabilityQueue(workerID string) {
 	uc.mu.Lock()
 	defer uc.mu.Unlock()
 
-	// Check if worker is already in the queue
-	if uc.availableWorkers[workerID] {
-		log.Printf("Worker %s is already in availability queue, skipping duplicate addition", workerID)
-		return
-	}
-
-	// Try to add to the channel (non-blocking)
-	select {
-	case uc.workerAvailability <- workerID:
+	// Check if worker is already in the queue to avoid duplicates
+	if !uc.availableWorkers[workerID] {
 		uc.availableWorkers[workerID] = true
-		log.Printf("Worker %s added to availability queue (queue size: %d)", workerID, len(uc.availableWorkers))
-	default:
-		log.Printf("Worker availability queue full, %s not added immediately", workerID)
+		select {
+		case uc.workerAvailability <- workerID:
+			log.Printf("Worker %s added to availability queue", workerID)
+		default:
+			// Channel is full, worker will try again later
+			log.Printf("Worker availability queue full, worker %s will retry", workerID)
+			uc.availableWorkers[workerID] = false // Remove from tracking since we couldn't add to queue
+		}
 	}
 }
 
-// removeWorkerFromAvailabilityQueue removes a worker from tracking when assigned to a test
+// removeWorkerFromAvailabilityQueue removes a worker from availability tracking
 func (uc *MasterUsecase) removeWorkerFromAvailabilityQueue(workerID string) {
 	uc.mu.Lock()
 	defer uc.mu.Unlock()
 
 	delete(uc.availableWorkers, workerID)
-	log.Printf("Worker %s removed from availability tracking (queue size: %d)", workerID, len(uc.availableWorkers))
+	log.Printf("Worker %s removed from availability tracking", workerID)
 }
 
-// fixStuckTests detects and fixes tests that are stuck due to worker count mismatches
+// fixStuckTests checks for and fixes tests that are stuck due to worker issues
 func (uc *MasterUsecase) fixStuckTests(ctx context.Context) {
 	log.Println("Checking for stuck tests due to worker count mismatches...")
 
-	// Get all running tests
-	allTests, err := uc.testRepo.GetAllTestRequests(ctx)
+	// Get all workers to check active count
+	workers, err := uc.workerRepo.GetAllWorkers(ctx)
 	if err != nil {
-		log.Printf("Error fetching tests for stuck test cleanup: %v", err)
-		return
-	}
-
-	// Get total number of active workers
-	allWorkers, err := uc.workerRepo.GetAllWorkers(ctx)
-	if err != nil {
-		log.Printf("Error fetching workers for stuck test cleanup: %v", err)
+		log.Printf("Error getting workers for stuck test check: %v", err)
 		return
 	}
 
 	activeWorkerCount := 0
-	for _, worker := range allWorkers {
-		if worker.Status != "OFFLINE" {
+	for _, worker := range workers {
+		if worker.Status == "READY" || worker.Status == "BUSY" {
 			activeWorkerCount++
 		}
 	}
 
 	log.Printf("Active workers in system: %d", activeWorkerCount)
 
-	for _, test := range allTests {
-		if test.Status == "RUNNING" {
-			totalAssigned := len(test.AssignedWorkersIDs)
-			totalCompleted := len(test.CompletedWorkers)
-			totalFailed := len(test.FailedWorkers)
-			totalFinished := totalCompleted + totalFailed
+	// Get all test requests to check for stuck ones
+	tests, err := uc.testRepo.GetAllTestRequests(ctx)
+	if err != nil {
+		log.Printf("Error getting test requests for stuck test check: %v", err)
+		return
+	}
 
-			log.Printf("Checking stuck test %s: Assigned=%d, Completed=%d, Failed=%d, ActiveWorkers=%d",
-				test.ID, totalAssigned, totalCompleted, totalFailed, activeWorkerCount)
+	for _, test := range tests {
+		if test.Status == "RUNNING" || test.Status == "PENDING" {
+			// Check if test has been running too long (e.g., more than 30 minutes)
+			if time.Since(test.CreatedAt) > 30*time.Minute {
+				log.Printf("⚠️  Test %s has been running for %v, checking if stuck...", test.ID, time.Since(test.CreatedAt))
 
-			// Case 1: More workers assigned than exist in system
-			if totalAssigned > activeWorkerCount {
-				log.Printf("🔧 Test %s has %d assigned workers but only %d active workers exist - fixing assignment count",
-					test.ID, totalAssigned, activeWorkerCount)
+				// Check if test requires more workers than available
+				if int(test.WorkerCount) > activeWorkerCount {
+					log.Printf("🔧 Test %s requires %d workers but only %d active workers available, updating test...",
+						test.ID, test.WorkerCount, activeWorkerCount)
 
-				// If all active workers have finished, complete the test
-				if totalFinished >= activeWorkerCount {
-					newStatus := "COMPLETED"
-					if totalFailed > 0 {
+					// Fail the test or adjust worker count
+					totalCompleted := len(test.CompletedWorkers)
+
+					var newStatus string
+					if totalCompleted > 0 {
 						newStatus = "PARTIALLY_FAILED"
+					} else {
+						newStatus = "FAILED"
 					}
-
-					log.Printf("🔧 Completing stuck test %s (all %d active workers finished): %s",
-						test.ID, activeWorkerCount, newStatus)
 
 					err = uc.testRepo.UpdateTestStatus(ctx, test.ID, newStatus, test.CompletedWorkers, test.FailedWorkers)
 					if err != nil {
-						log.Printf("Error updating stuck test %s status: %v", test.ID, err)
+						log.Printf("Error updating stuck test %s: %v", test.ID, err)
 					} else {
-						log.Printf("✅ Fixed stuck test %s - status updated to %s", test.ID, newStatus)
+						log.Printf("✅ Updated stuck test %s status to %s", test.ID, newStatus)
 					}
-				}
-			}
-
-			// Case 2: Test has been running for too long (timeout)
-			testAge := time.Since(test.CreatedAt)
-
-			// Parse duration string (e.g., "10s", "5m")
-			testDuration, err := time.ParseDuration(test.DurationSeconds)
-			if err != nil {
-				testDuration = 60 * time.Second // Default 60s if parse fails
-			}
-			maxTestDuration := testDuration + 5*time.Minute // Add 5 min buffer
-
-			if testAge > maxTestDuration {
-				log.Printf("🔧 Test %s has been running for %v (max: %v) - timing out",
-					test.ID, testAge, maxTestDuration)
-
-				newStatus := "PARTIALLY_FAILED"
-				if totalCompleted == 0 {
-					newStatus = "FAILED"
-				}
-
-				err = uc.testRepo.UpdateTestStatus(ctx, test.ID, newStatus, test.CompletedWorkers, test.FailedWorkers)
-				if err != nil {
-					log.Printf("Error timing out stuck test %s: %v", test.ID, err)
-				} else {
-					log.Printf("✅ Timed out stuck test %s - status updated to %s", test.ID, newStatus)
 				}
 			}
 		}

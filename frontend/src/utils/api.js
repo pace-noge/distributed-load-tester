@@ -243,3 +243,37 @@ export const logoutUser = () => {
     localStorage.removeItem('user_profile');
     window.location.href = '/login';
 };
+
+/**
+ * Get analytics overview
+ * @param {object} options - Analytics options
+ * @param {string} options.startDate - Start date (YYYY-MM-DD)
+ * @param {string} options.endDate - End date (YYYY-MM-DD)
+ * @returns {Promise} - Analytics overview data
+ */
+export const getAnalyticsOverview = async (options = {}) => {
+    const params = new URLSearchParams();
+    if (options.startDate) params.append('startDate', options.startDate);
+    if (options.endDate) params.append('endDate', options.endDate);
+
+    const url = `${API_BASE_URL}/analytics/overview${params.toString() ? '?' + params.toString() : ''}`;
+    return await authenticatedFetch(url);
+};
+
+/**
+ * Get target analytics
+ * @param {object} options - Analytics options
+ * @param {string} options.startDate - Start date (YYYY-MM-DD)
+ * @param {string} options.endDate - End date (YYYY-MM-DD)
+ * @param {string} options.target - Target URL filter
+ * @returns {Promise} - Target analytics data
+ */
+export const getTargetAnalytics = async (options = {}) => {
+    const params = new URLSearchParams();
+    if (options.startDate) params.append('startDate', options.startDate);
+    if (options.endDate) params.append('endDate', options.endDate);
+    if (options.target) params.append('target', options.target);
+
+    const url = `${API_BASE_URL}/analytics/targets${params.toString() ? '?' + params.toString() : ''}`;
+    return await authenticatedFetch(url);
+};

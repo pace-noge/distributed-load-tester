@@ -547,3 +547,36 @@ func (p *PostgresDB) GetAllAggregatedResults(ctx context.Context) ([]*domain.Tes
 	}
 	return results, nil
 }
+
+// GetTestsInRange retrieves test requests within a date range
+func (p *PostgresDB) GetTestsInRange(ctx context.Context, startDate, endDate time.Time) ([]*domain.TestRequest, error) {
+	query := `SELECT id, name, vegeta_payload_json, duration_seconds, rate_per_second, targets_base64, requester_id, worker_count, created_at, status, assigned_workers_ids, completed_workers, failed_workers
+              FROM test_requests
+              WHERE created_at >= $1 AND created_at <= $2
+              ORDER BY created_at DESC;`
+
+	rows, err := p.db.QueryContext(ctx, query, startDate, endDate)
+	if err != nil {
+		return nil, fmt.Errorf("failed to get test requests in range: %w", err)
+	}
+	defer rows.Close()
+
+	var tests []*domain.TestRequest
+	for rows.Next() {
+		test := &domain.TestRequest{}
+		err := rows.Scan(
+			&test.ID, &test.Name, &test.VegetaPayloadJSON, &test.DurationSeconds, &test.RatePerSecond, &test.TargetsBase64,
+			&test.RequesterID, &test.WorkerCount, &test.CreatedAt, &test.Status, pq.Array(&test.AssignedWorkersIDs), pq.Array(&test.CompletedWorkers), pq.Array(&test.FailedWorkers),
+		)
+		if err != nil {
+			return nil, fmt.Errorf("failed to scan test request row: %w", err)
+		}
+		tests = append(tests, test)
+	}
+	return tests, nil
+}
+
+// GetByTestID is an alias for GetAggregatedResultByTestID for consistency
+func (p *PostgresDB) GetByTestID(ctx context.Context, testID string) (*domain.TestResultAggregated, error) {
+	return p.GetAggregatedResultByTestID(ctx, testID)
+}

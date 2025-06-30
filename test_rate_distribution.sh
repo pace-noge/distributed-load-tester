@@ -4,13 +4,13 @@
 # Make sure to have the master running on port 8080
 
 API_BASE="http://localhost:8080/api"
-AUTH_URL="http://localhost:8080/auth/login"
+AUTH_URL="http://localhost:8080/api/auth/login"
 
 # Login and get token
 echo "Getting authentication token..."
 TOKEN_RESPONSE=$(curl -s -X POST "$AUTH_URL" \
   -H "Content-Type: application/json" \
-  -d '{"username":"admin","password":"password"}')
+  -d '{"username":"admin","password":"admin123"}')
 
 TOKEN=$(echo "$TOKEN_RESPONSE" | jq -r '.token')
 if [ "$TOKEN" = "null" ] || [ -z "$TOKEN" ]; then

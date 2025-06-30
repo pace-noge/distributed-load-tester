@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/gorilla/mux"
 
@@ -18,6 +19,11 @@ import (
 	userUsecase "github.com/pace-noge/distributed-load-tester/internal/user/usecase"
 	pb "github.com/pace-noge/distributed-load-tester/proto" // Import generated protobuf
 )
+
+// Define context key type at package level to avoid conflicts
+type contextKey string
+
+const userContextKey contextKey = "user"
 
 // HTTPHandler handles HTTP requests for the Master service.
 type HTTPHandler struct {
@@ -57,6 +63,10 @@ func NewHTTPHandler(uc *masterUsecase.MasterUsecase, userUc *userUsecase.UserUse
 	api.HandleFunc("/tests/{testId}/results", h.getTestResults).Methods("GET")
 	api.HandleFunc("/tests/{testId}/aggregated-result", h.getAggregatedTestResult).Methods("GET")
 	api.HandleFunc("/tests/{testId}/aggregate", h.triggerAggregation).Methods("POST")
+
+	// Analytics routes
+	api.HandleFunc("/analytics/overview", h.getAnalyticsOverview).Methods("GET")
+	api.HandleFunc("/analytics/targets", h.getTargetAnalytics).Methods("GET")
 
 	h.Router = r
 	return h
@@ -119,19 +129,14 @@ func (h *HTTPHandler) authMiddleware(next http.Handler) http.Handler {
 		}
 
 		// Add user to context for downstream handlers
-		type contextKey string
-		const userKey contextKey = "user"
-		ctx := context.WithValue(r.Context(), userKey, user)
+		ctx := context.WithValue(r.Context(), userContextKey, user)
 		next.ServeHTTP(w, r.WithContext(ctx))
 	})
 }
 
 // submitTest handles requests to submit a new load test.
 func (h *HTTPHandler) submitTest(w http.ResponseWriter, r *http.Request) {
-	type contextKey string
-	const userKey contextKey = "user"
-
-	user, ok := r.Context().Value(userKey).(*domain.UserProfile)
+	user, ok := r.Context().Value(userContextKey).(*domain.UserProfile)
 	if !ok {
 		http.Error(w, "Unauthorized: User not found in context", http.StatusUnauthorized)
 		return
@@ -281,4 +286,87 @@ func (h *HTTPHandler) triggerAggregation(w http.ResponseWriter, r *http.Request)
 	json.NewEncoder(w).Encode(map[string]string{
 		"message": fmt.Sprintf("Aggregation triggered for test %s", testID),
 	})
+}
+
+// getAnalyticsOverview provides comprehensive analytics overview
+func (h *HTTPHandler) getAnalyticsOverview(w http.ResponseWriter, r *http.Request) {
+	// Parse query parameters for time range
+	query := r.URL.Query()
+
+	var req domain.AnalyticsRequest
+
+	// Parse optional time range
+	startDateStr := query.Get("startDate")
+	endDateStr := query.Get("endDate")
+
+	if startDateStr != "" && endDateStr != "" {
+		startDate, err := time.Parse("2006-01-02", startDateStr)
+		if err != nil {
+			http.Error(w, "Invalid start date format (expected YYYY-MM-DD)", http.StatusBadRequest)
+			return
+		}
+
+		endDate, err := time.Parse("2006-01-02", endDateStr)
+		if err != nil {
+			http.Error(w, "Invalid end date format (expected YYYY-MM-DD)", http.StatusBadRequest)
+			return
+		}
+
+		req.TimeRange = &domain.AnalyticsTimeRange{
+			StartDate: startDate,
+			EndDate:   endDate,
+		}
+	}
+
+	overview, err := h.usecase.GetAnalyticsOverview(r.Context(), &req)
+	if err != nil {
+		http.Error(w, fmt.Sprintf("Failed to get analytics overview: %v", err), http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(overview)
+}
+
+// getTargetAnalytics provides analytics for specific targets
+func (h *HTTPHandler) getTargetAnalytics(w http.ResponseWriter, r *http.Request) {
+	// Parse query parameters
+	query := r.URL.Query()
+
+	var req domain.AnalyticsRequest
+
+	// Parse optional target URL filter
+	req.TargetURL = query.Get("target")
+
+	// Parse optional time range
+	startDateStr := query.Get("startDate")
+	endDateStr := query.Get("endDate")
+
+	if startDateStr != "" && endDateStr != "" {
+		startDate, err := time.Parse("2006-01-02", startDateStr)
+		if err != nil {
+			http.Error(w, "Invalid start date format (expected YYYY-MM-DD)", http.StatusBadRequest)
+			return
+		}
+
+		endDate, err := time.Parse("2006-01-02", endDateStr)
+		if err != nil {
+			http.Error(w, "Invalid end date format (expected YYYY-MM-DD)", http.StatusBadRequest)
+			return
+		}
+
+		req.TimeRange = &domain.AnalyticsTimeRange{
+			StartDate: startDate,
+			EndDate:   endDate,
+		}
+	}
+
+	targetAnalytics, err := h.usecase.GetTargetAnalytics(r.Context(), &req)
+	if err != nil {
+		http.Error(w, fmt.Sprintf("Failed to get target analytics: %v", err), http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(targetAnalytics)
 }

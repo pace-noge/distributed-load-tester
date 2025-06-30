@@ -14,6 +14,7 @@ import NewTestPage from './src/pages/NewTestPage.jsx';
 import { TestDetailPage } from './src/pages/TestDetailPage.jsx';
 import { UserManagementPage } from './src/pages/UserManagementPage.jsx';
 import { ProfilePage } from './src/pages/ProfilePage.jsx';
+import AnalyticsPage from './src/pages/AnalyticsPage.jsx';
 
 // Layout Components
 import { MainLayout } from './src/components/layout/MainLayout.jsx';
@@ -44,6 +45,7 @@ const AppContent = () => {
                 <Route path="/new-test" element={<NewTestPage />} />
                 <Route path="/test-history" element={<TestHistoryPage />} />
                 <Route path="/test/:testId" element={<TestDetailPage />} />
+                <Route path="/analytics" element={<AnalyticsPage />} />
                 <Route path="/profile" element={<ProfilePage />} />
                 <Route path="/users" element={<UserManagementPage />} />
             </Routes>

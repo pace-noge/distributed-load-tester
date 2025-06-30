@@ -2,6 +2,7 @@ package domain
 
 import (
 	"context"
+	"time"
 )
 
 // UserRepository defines operations for managing user information.
@@ -35,6 +36,7 @@ type TestRepository interface {
 	GetTestRequestByID(ctx context.Context, testID string) (*TestRequest, error)
 	GetAllTestRequests(ctx context.Context) ([]*TestRequest, error)
 	GetTestRequestsPaginated(ctx context.Context, limit, offset int) ([]*TestRequest, int, error)
+	GetTestsInRange(ctx context.Context, startDate, endDate time.Time) ([]*TestRequest, error)
 	IncrementTestAssignedWorkers(ctx context.Context, testID string, workerID string) error
 	AddCompletedWorkerToTest(ctx context.Context, testID string, workerID string) error
 	AddFailedWorkerToTest(ctx context.Context, testID string, workerID string) error
@@ -51,6 +53,7 @@ type TestResultRepository interface {
 type AggregatedResultRepository interface {
 	SaveAggregatedResult(ctx context.Context, result *TestResultAggregated) error
 	GetAggregatedResultByTestID(ctx context.Context, testID string) (*TestResultAggregated, error)
+	GetByTestID(ctx context.Context, testID string) (*TestResultAggregated, error) // Alias for GetAggregatedResultByTestID
 	GetAllAggregatedResults(ctx context.Context) ([]*TestResultAggregated, error)
 }
 
