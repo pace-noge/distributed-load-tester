@@ -6,7 +6,7 @@ import { loginUser } from '../utils/api.js';
 
 export const LoginPage = () => {
     const [username, setUsername] = useState('admin');
-    const [password, setPassword] = useState('password');
+    const [password, setPassword] = useState('admin');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const { login } = useAuth();

@@ -14,6 +14,7 @@ import (
 
 	"github.com/pace-noge/distributed-load-tester/internal/domain"
 	masterUsecase "github.com/pace-noge/distributed-load-tester/internal/master/usecase"
+	userHttp "github.com/pace-noge/distributed-load-tester/internal/user/delivery/http"
 	userUsecase "github.com/pace-noge/distributed-load-tester/internal/user/usecase"
 	pb "github.com/pace-noge/distributed-load-tester/proto" // Import generated protobuf
 )
@@ -38,6 +39,15 @@ func NewHTTPHandler(uc *masterUsecase.MasterUsecase, userUc *userUsecase.UserUse
 	// CORS middleware
 	r.Use(h.corsMiddleware)
 
+	// Register user management routes with their own prefix
+	userHandler := userHttp.NewUserHandler(userUc)
+	userMux := http.NewServeMux()
+	userHandler.RegisterRoutes(userMux)
+
+	// Mount user routes specifically at /api prefix
+	r.PathPrefix("/api/auth").Handler(userMux)
+	r.PathPrefix("/api/users").Handler(userMux)
+
 	// API routes (protected by auth middleware)
 	api := r.PathPrefix("/api").Subrouter()
 	api.Use(h.authMiddleware)
@@ -48,9 +58,6 @@ func NewHTTPHandler(uc *masterUsecase.MasterUsecase, userUc *userUsecase.UserUse
 	api.HandleFunc("/tests/{testId}/aggregated-result", h.getAggregatedTestResult).Methods("GET")
 	api.HandleFunc("/tests/{testId}/aggregate", h.triggerAggregation).Methods("POST")
 
-	// Authentication route (public)
-	r.HandleFunc("/auth/login", h.login).Methods("POST")
-
 	h.Router = r
 	return h
 }
@@ -60,9 +67,17 @@ func (h *HTTPHandler) RegisterWebSocketHandler(wsHandler func(http.ResponseWrite
 	// Register WebSocket route before adding static file handler
 	h.Router.HandleFunc("/ws", wsHandler).Methods("GET")
 
-	// Now add the static file handler as the catch-all
-	// This must be done after all specific routes are registered
-	h.Router.PathPrefix("/").Handler(http.FileServer(http.Dir("./frontend/dist")))
+	// Serve static files for the frontend (this should be last)
+	// Use a custom handler to serve index.html for client-side routing
+	staticHandler := http.FileServer(http.Dir("./frontend/dist"))
+	h.Router.PathPrefix("/").HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		// For client-side routing, serve index.html for non-API routes
+		if !strings.HasPrefix(r.URL.Path, "/api") && !strings.HasPrefix(r.URL.Path, "/ws") && !strings.Contains(r.URL.Path, ".") {
+			http.ServeFile(w, r, "./frontend/dist/index.html")
+			return
+		}
+		staticHandler.ServeHTTP(w, r)
+	})
 }
 
 // corsMiddleware handles CORS headers.
@@ -109,33 +124,6 @@ func (h *HTTPHandler) authMiddleware(next http.Handler) http.Handler {
 		ctx := context.WithValue(r.Context(), userKey, user)
 		next.ServeHTTP(w, r.WithContext(ctx))
 	})
-}
-
-// login handles user login and issues a JWT token.
-func (h *HTTPHandler) login(w http.ResponseWriter, r *http.Request) {
-	var credentials struct {
-		Username string `json:"username"`
-		Password string `json:"password"`
-	}
-
-	if err := json.NewDecoder(r.Body).Decode(&credentials); err != nil {
-		http.Error(w, "Invalid request payload", http.StatusBadRequest)
-		return
-	}
-
-	// Use the user management system for authentication
-	authResponse, err := h.userUsecase.AuthenticateUser(r.Context(), credentials.Username, credentials.Password)
-	if err != nil {
-		log.Printf("Authentication failed: %v", err)
-		http.Error(w, "Invalid username or password", http.StatusUnauthorized)
-		return
-	}
-
-	w.Header().Set("Content-Type", "application/json")
-	if err := json.NewEncoder(w).Encode(authResponse); err != nil {
-		log.Printf("Failed to encode response: %v", err)
-		http.Error(w, "Internal server error", http.StatusInternalServerError)
-	}
 }
 
 // submitTest handles requests to submit a new load test.

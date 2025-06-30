@@ -1,6 +1,5 @@
 // API Configuration
 export const API_BASE_URL = 'http://localhost:8080/api';
-export const AUTH_URL = 'http://localhost:8080/auth/login';
 
 // Color palette for charts
 export const COLORS = ['#3B82F6', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6', '#06B6D4'];

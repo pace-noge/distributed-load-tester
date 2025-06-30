@@ -7,6 +7,7 @@ import {
     BarChart3,
     Settings,
     User,
+    Users,
     ChevronLeft,
     ChevronRight,
     Menu,
@@ -59,7 +60,18 @@ const bottomNavigationItems = [
 
 export const Sidebar = ({ isOpen, setIsOpen, isCollapsed, setIsCollapsed }) => {
     const location = useLocation();
-    const { logout } = useAuth();
+    const { logout, user } = useAuth();
+
+    // Add user management for admin users
+    const allNavigationItems = [
+        ...navigationItems,
+        ...(user?.role === 'admin' ? [{
+            name: 'User Management',
+            path: '/users',
+            icon: Users,
+            description: 'Manage user accounts'
+        }] : [])
+    ];
 
     const isActive = (path) => {
         if (path === '/dashboard' && location.pathname === '/') return true;
@@ -122,7 +134,7 @@ export const Sidebar = ({ isOpen, setIsOpen, isCollapsed, setIsCollapsed }) => {
                     {/* Navigation */}
                     <nav className="flex-1 overflow-y-auto py-4">
                         <div className="px-3 space-y-1">
-                            {navigationItems.map((item) => {
+                            {allNavigationItems.map((item) => {
                                 const Icon = item.icon;
                                 const active = isActive(item.path);
 
@@ -205,17 +217,17 @@ export const Sidebar = ({ isOpen, setIsOpen, isCollapsed, setIsCollapsed }) => {
                     <div className="border-t border-gray-200 p-4">
                         <div className={`flex items-center ${isCollapsed ? 'lg:justify-center' : 'space-x-3'}`}>
                             <div className="flex-shrink-0">
-                                <div className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">
-                                    <User className="w-4 h-4 text-gray-600" />
+                                <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
+                                    <User className="w-4 h-4 text-white" />
                                 </div>
                             </div>
                             {!isCollapsed && (
                                 <div className="flex-1 min-w-0">
                                     <p className="text-sm font-medium text-gray-900 truncate">
-                                        User
+                                        {user ? `${user.firstName} ${user.lastName}` : 'User'}
                                     </p>
                                     <p className="text-xs text-gray-500 truncate">
-                                        Authenticated
+                                        {user ? `@${user.username} • ${user.role}` : 'Authenticated'}
                                     </p>
                                 </div>
                             )}

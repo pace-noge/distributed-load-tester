@@ -123,6 +123,10 @@ export const replayTest = async (testId, testName) => {
     });
 };
 
+// =============================================================================
+// USER MANAGEMENT API FUNCTIONS
+// =============================================================================
+
 /**
  * Login user
  * @param {string} username - Username
@@ -130,7 +134,7 @@ export const replayTest = async (testId, testName) => {
  * @returns {Promise} - Login response with token
  */
 export const loginUser = async (username, password) => {
-    const response = await fetch('http://localhost:8080/auth/login', {
+    const response = await fetch(`${API_BASE_URL}/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password }),
@@ -142,4 +146,100 @@ export const loginUser = async (username, password) => {
     }
 
     return response.json();
+};
+
+/**
+ * Get current user profile
+ * @returns {Promise} - User profile data
+ */
+export const getUserProfile = async () => {
+    return await authenticatedFetch(`${API_BASE_URL}/auth/profile`);
+};
+
+/**
+ * Change user password
+ * @param {string} currentPassword - Current password
+ * @param {string} newPassword - New password
+ * @returns {Promise} - Success response
+ */
+export const changePassword = async (currentPassword, newPassword) => {
+    return await authenticatedFetch(`${API_BASE_URL}/auth/change-password`, {
+        method: 'POST',
+        body: JSON.stringify({
+            currentPassword,
+            newPassword
+        })
+    });
+};
+
+/**
+ * Get all users (admin only)
+ * @returns {Promise} - Array of users
+ */
+export const getAllUsers = async () => {
+    return await authenticatedFetch(`${API_BASE_URL}/users`);
+};
+
+/**
+ * Create a new user (admin only)
+ * @param {object} userData - User data
+ * @returns {Promise} - Created user data
+ */
+export const createUser = async (userData) => {
+    return await authenticatedFetch(`${API_BASE_URL}/users/create`, {
+        method: 'POST',
+        body: JSON.stringify(userData)
+    });
+};
+
+/**
+ * Update user profile
+ * @param {object} userData - Updated user data
+ * @returns {Promise} - Updated user data
+ */
+export const updateUserProfile = async (userData) => {
+    return await authenticatedFetch(`${API_BASE_URL}/users`, {
+        method: 'PUT',
+        body: JSON.stringify(userData)
+    });
+};
+
+/**
+ * Get user by ID (admin only)
+ * @param {string} userId - User ID
+ * @returns {Promise} - User data
+ */
+export const getUserById = async (userId) => {
+    return await authenticatedFetch(`${API_BASE_URL}/users/${userId}`);
+};
+
+/**
+ * Activate user (admin only)
+ * @param {string} userId - User ID
+ * @returns {Promise} - Success response
+ */
+export const activateUser = async (userId) => {
+    return await authenticatedFetch(`${API_BASE_URL}/users/${userId}/activate`, {
+        method: 'POST'
+    });
+};
+
+/**
+ * Deactivate user (admin only)
+ * @param {string} userId - User ID
+ * @returns {Promise} - Success response
+ */
+export const deactivateUser = async (userId) => {
+    return await authenticatedFetch(`${API_BASE_URL}/users/${userId}/deactivate`, {
+        method: 'POST'
+    });
+};
+
+/**
+ * Logout user (clear local storage)
+ */
+export const logoutUser = () => {
+    localStorage.removeItem('jwt_token');
+    localStorage.removeItem('user_profile');
+    window.location.href = '/login';
 };
