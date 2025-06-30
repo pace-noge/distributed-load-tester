@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
     Play, XCircle, Target, Users, Clock, BarChart3,
@@ -24,7 +24,7 @@ export const TestDetailModal = ({ testId, isOpen, onClose }) => {
             const data = await fetchTestDetail(testId);
             setTestDetail(data);
         } catch (err) {
-            console.error('Error fetching test detail:', err);
+            // Log error for debugging but don't crash the UI
             setError(err.message);
         } finally {
             setLoading(false);

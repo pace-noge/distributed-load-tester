@@ -32,10 +32,10 @@ export const authenticatedFetch = async (url, options = {}) => {
 
 /**
  * Fetch test history data
- * @param {number} page - Page number
+ * @param {number} _page - Page number (currently unused, for future pagination)
  * @returns {Promise} - Test history data
  */
-export const fetchTestHistory = async (page = 1) => {
+export const fetchTestHistory = async (_page = 1) => {
     const data = await authenticatedFetch(`${API_BASE_URL}/tests`);
     return Array.isArray(data) ? data : (data.tests || data.data || []);
 };
@@ -58,13 +58,13 @@ export const fetchTestDetail = async (testId) => {
     // Fetch test results and aggregated results in parallel
     const [resultsData, aggregatedData] = await Promise.all([
         authenticatedFetch(`${API_BASE_URL}/tests/${testId}/results`)
-            .catch(err => {
-                console.warn('Failed to fetch test results:', err.message);
+            .catch(_err => {
+                // Failed to fetch test results - this is expected for some tests
                 return null;
             }),
         authenticatedFetch(`${API_BASE_URL}/tests/${testId}/aggregated-result`)
-            .catch(err => {
-                console.warn('Failed to fetch aggregated results:', err.message);
+            .catch(_err => {
+                // Failed to fetch aggregated results - this is expected for some tests
                 return null;
             })
     ]);

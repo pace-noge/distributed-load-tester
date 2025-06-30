@@ -1,5 +1,5 @@
 // Main App - Now using modular structure with React Router
-import React, { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 

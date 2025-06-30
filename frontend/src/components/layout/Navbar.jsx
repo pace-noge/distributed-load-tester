@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { LayoutDashboard, Rocket, History, LogOut, Zap } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext.jsx';

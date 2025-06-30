@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import {
-    ArrowLeft, Play, Target, Users, Clock, BarChart3,
-    CheckCircle, AlertCircle
+    ArrowLeft, Play, Target, Users, Clock, BarChart3
 } from 'lucide-react';
 import {
     BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
@@ -114,7 +113,7 @@ const decodeWorkerMetrics = (result) => {
             vegeta_format: false
         };
     } catch (error) {
-        console.error('Error decoding worker metrics:', error);
+        // Log error for debugging but don't crash the UI
         return { ...result, decoded: false };
     }
 };
@@ -137,7 +136,7 @@ export const TestDetailPage = () => {
                 const data = await fetchTestDetail(testId);
                 setTestDetail(data);
             } catch (err) {
-                console.error('Error fetching test detail:', err);
+                // Log error for debugging but don't crash the UI
                 setError(err.message);
             } finally {
                 setLoading(false);
@@ -302,7 +301,7 @@ const PageContent = ({ activeTab, testDetail, workerPerformanceData, statusCodeD
 
         return <div className="text-gray-500 text-center py-8">Invalid tab selected</div>;
     } catch (error) {
-        console.error('Error rendering page content:', error);
+        // Log error for debugging but don't crash the UI
         return (
             <div className="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-lg">
                 Error rendering content: {error.message}

@@ -1,0 +1,1937 @@
+2025/06/30 09:34:45 WARNING: JWT_SECRET_KEY is not set or using default. Please set a strong, unique key in production.
+2025/06/30 09:34:45 Successfully connected to PostgreSQL!
+2025/06/30 09:34:45 PostgreSQL schema initialized successfully.
+2025/06/30 09:34:45 Started aggregation background job
+2025/06/30 09:34:45 Starting test distribution routine...
+2025/06/30 09:34:45 Starting aggregation background job with interval: 2m0s
+2025/06/30 09:34:45 Master gRPC server starting on port 50051...
+2025/06/30 09:34:45 Master HTTP server starting on port 8080...
+2025/06/30 09:34:48 Worker SuperCoralNinja-M8FT attempting to register from 192.168.1.11:50001
+2025/06/30 09:34:48 Worker SuperCoralNinja-M8FT registered/updated in-memory.
+2025/06/30 09:34:48 Worker SuperCoralNinja-M8FT added to availability queue (queue size: 1)
+2025/06/30 09:34:48 Worker SuperCoralNinja-M8FT registered successfully.
+2025/06/30 09:34:48 First status received from worker: SuperCoralNinja-M8FT. Starting status stream handling.
+2025/06/30 09:34:48 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:34:48 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:34:48 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:34:50 Worker DeltaNavyObliterator-OAJJ attempting to register from 192.168.1.11:50002
+2025/06/30 09:34:50 Worker DeltaNavyObliterator-OAJJ registered/updated in-memory.
+2025/06/30 09:34:50 Worker DeltaNavyObliterator-OAJJ added to availability queue (queue size: 2)
+2025/06/30 09:34:50 Worker DeltaNavyObliterator-OAJJ registered successfully.
+2025/06/30 09:34:50 First status received from worker: DeltaNavyObliterator-OAJJ. Starting status stream handling.
+2025/06/30 09:34:50 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:34:50 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:34:50 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:34:52 Worker AlphaMaroonAdmiral-M8CB attempting to register from 192.168.1.11:50003
+2025/06/30 09:34:52 Worker AlphaMaroonAdmiral-M8CB registered/updated in-memory.
+2025/06/30 09:34:52 Worker AlphaMaroonAdmiral-M8CB added to availability queue (queue size: 3)
+2025/06/30 09:34:52 Worker AlphaMaroonAdmiral-M8CB registered successfully.
+2025/06/30 09:34:52 First status received from worker: AlphaMaroonAdmiral-M8CB. Starting status stream handling.
+2025/06/30 09:34:52 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:34:52 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:34:52 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:34:53 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:34:53 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:34:53 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:34:55 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:34:55 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:34:55 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:34:55 Running stale worker cleanup...
+2025/06/30 09:34:55 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:34:55 Active workers in system: 3
+2025/06/30 09:34:57 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:34:57 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:34:57 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:34:58 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:34:58 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:34:58 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:35:00 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:35:00 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:35:00 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:35:02 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:35:02 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:35:02 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:35:03 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:35:03 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:35:03 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:35:03 WebSocket client registered. Total clients: 1
+2025/06/30 09:35:03 Broadcast channel full, skipping dashboard update
+2025/06/30 09:35:05 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:35:05 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:35:05 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:35:05 Running stale worker cleanup...
+2025/06/30 09:35:05 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:35:05 Active workers in system: 3
+2025/06/30 09:35:05 WebSocket error: websocket: close 1005 (no status)
+2025/06/30 09:35:05 WebSocket client unregistered. Total clients: 0
+2025/06/30 09:35:07 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:35:07 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:35:07 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:35:08 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:35:08 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:35:08 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:35:10 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:35:10 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:35:10 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:35:12 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:35:12 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:35:12 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:35:13 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:35:13 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:35:13 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:35:15 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:35:15 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:35:15 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:35:15 Running stale worker cleanup...
+2025/06/30 09:35:15 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:35:15 Active workers in system: 3
+2025/06/30 09:35:17 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:35:17 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:35:17 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:35:18 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:35:18 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:35:18 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:35:20 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:35:20 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:35:20 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:35:22 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:35:22 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:35:22 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:35:23 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:35:23 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:35:23 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:35:25 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:35:25 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:35:25 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:35:25 Running stale worker cleanup...
+2025/06/30 09:35:25 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:35:25 Active workers in system: 3
+2025/06/30 09:35:27 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:35:27 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:35:27 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:35:28 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:35:28 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:35:28 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:35:30 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:35:30 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:35:30 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:35:32 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:35:32 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:35:32 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:35:33 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:35:33 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:35:33 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:35:35 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:35:35 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:35:35 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:35:35 Running stale worker cleanup...
+2025/06/30 09:35:35 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:35:35 Active workers in system: 3
+2025/06/30 09:35:37 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:35:37 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:35:37 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:35:38 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:35:38 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:35:38 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:35:40 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:35:40 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:35:40 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:35:42 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:35:42 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:35:42 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:35:43 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:35:43 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:35:43 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:35:45 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:35:45 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:35:45 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:35:45 Running stale worker cleanup...
+2025/06/30 09:35:45 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:35:45 Active workers in system: 3
+2025/06/30 09:35:47 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:35:47 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:35:47 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:35:48 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:35:48 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:35:48 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:35:50 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:35:50 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:35:50 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:35:52 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:35:52 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:35:52 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:35:53 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:35:53 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:35:53 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:35:55 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:35:55 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:35:55 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:35:55 Running stale worker cleanup...
+2025/06/30 09:35:55 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:35:55 Active workers in system: 3
+2025/06/30 09:35:57 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:35:57 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:35:57 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:35:58 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:35:58 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:35:58 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:36:00 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:36:00 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:36:00 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:36:02 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:36:02 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:36:02 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:36:03 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:36:03 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:36:03 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:36:05 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:36:05 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:36:05 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:36:05 Running stale worker cleanup...
+2025/06/30 09:36:05 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:36:05 Active workers in system: 3
+2025/06/30 09:36:07 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:36:07 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:36:07 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:36:08 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:36:08 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:36:08 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:36:10 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:36:10 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:36:10 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:36:12 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:36:12 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:36:12 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:36:13 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:36:13 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:36:13 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:36:15 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:36:15 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:36:15 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:36:15 Running stale worker cleanup...
+2025/06/30 09:36:15 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:36:15 Active workers in system: 3
+2025/06/30 09:36:17 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:36:17 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:36:17 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:36:18 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:36:18 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:36:18 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:36:20 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:36:20 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:36:20 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:36:22 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:36:22 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:36:22 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:36:23 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:36:23 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:36:23 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:36:25 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:36:25 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:36:25 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:36:25 Running stale worker cleanup...
+2025/06/30 09:36:25 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:36:25 Active workers in system: 3
+2025/06/30 09:36:27 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:36:27 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:36:27 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:36:28 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:36:28 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:36:28 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:36:30 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:36:30 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:36:30 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:36:32 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:36:32 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:36:32 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:36:33 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:36:33 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:36:33 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:36:35 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:36:35 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:36:35 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:36:35 Running stale worker cleanup...
+2025/06/30 09:36:35 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:36:35 Active workers in system: 3
+2025/06/30 09:36:37 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:36:37 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:36:37 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:36:38 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:36:38 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:36:38 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:36:40 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:36:40 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:36:40 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:36:42 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:36:42 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:36:42 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:36:43 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:36:43 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:36:43 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:36:45 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:36:45 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:36:45 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:36:45 Checking for completed tests without aggregated results...
+2025/06/30 09:36:45 No orphaned tests found
+2025/06/30 09:36:45 Running stale worker cleanup...
+2025/06/30 09:36:45 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:36:45 Active workers in system: 3
+2025/06/30 09:36:47 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:36:47 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:36:47 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:36:48 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:36:48 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:36:48 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:36:50 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:36:50 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:36:50 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:36:52 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:36:52 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:36:52 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:36:53 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:36:53 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:36:53 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:36:55 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:36:55 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:36:55 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:36:55 Running stale worker cleanup...
+2025/06/30 09:36:55 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:36:55 Active workers in system: 3
+2025/06/30 09:36:57 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:36:57 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:36:57 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:36:58 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:36:58 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:36:58 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:37:00 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:37:00 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:37:00 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:37:02 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:37:02 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:37:02 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:37:03 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:37:03 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:37:03 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:37:05 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:37:05 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:37:05 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:37:05 Running stale worker cleanup...
+2025/06/30 09:37:05 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:37:05 Active workers in system: 3
+2025/06/30 09:37:07 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:37:07 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:37:07 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:37:08 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:37:08 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:37:08 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:37:10 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:37:10 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:37:10 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:37:12 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:37:12 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:37:12 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:37:13 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:37:13 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:37:13 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:37:15 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:37:15 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:37:15 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:37:15 Running stale worker cleanup...
+2025/06/30 09:37:15 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:37:15 Active workers in system: 3
+2025/06/30 09:37:17 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:37:17 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:37:17 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:37:18 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:37:18 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:37:18 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:37:20 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:37:20 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:37:20 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:37:22 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:37:22 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:37:22 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:37:23 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:37:23 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:37:23 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:37:25 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:37:25 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:37:25 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:37:25 Running stale worker cleanup...
+2025/06/30 09:37:25 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:37:25 Active workers in system: 3
+2025/06/30 09:37:27 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:37:27 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:37:27 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:37:28 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:37:28 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:37:28 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:37:30 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:37:30 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:37:30 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:37:32 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:37:32 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:37:32 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:37:33 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:37:33 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:37:33 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:37:35 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:37:35 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:37:35 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:37:35 Running stale worker cleanup...
+2025/06/30 09:37:35 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:37:35 Active workers in system: 3
+2025/06/30 09:37:37 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:37:37 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:37:37 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:37:38 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:37:38 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:37:38 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:37:40 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:37:40 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:37:40 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:37:42 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:37:42 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:37:42 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:37:43 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:37:43 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:37:43 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:37:45 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:37:45 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:37:45 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:37:45 Running stale worker cleanup...
+2025/06/30 09:37:45 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:37:45 Active workers in system: 3
+2025/06/30 09:37:47 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:37:47 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:37:47 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:37:48 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:37:48 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:37:48 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:37:50 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:37:50 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:37:50 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:37:52 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:37:52 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:37:52 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:37:53 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:37:53 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:37:53 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:37:55 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:37:55 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:37:55 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:37:55 Running stale worker cleanup...
+2025/06/30 09:37:55 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:37:55 Active workers in system: 3
+2025/06/30 09:37:57 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:37:57 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:37:57 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:37:58 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:37:58 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:37:58 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:38:00 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:38:00 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:38:00 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:38:02 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:38:02 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:38:02 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:38:03 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:38:03 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:38:03 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:38:05 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:38:05 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:38:05 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:38:05 Running stale worker cleanup...
+2025/06/30 09:38:05 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:38:05 Active workers in system: 3
+2025/06/30 09:38:07 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:38:07 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:38:07 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:38:08 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:38:08 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:38:08 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:38:10 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:38:10 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:38:10 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:38:12 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:38:12 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:38:12 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:38:13 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:38:13 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:38:13 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:38:15 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:38:15 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:38:15 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:38:15 Running stale worker cleanup...
+2025/06/30 09:38:15 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:38:15 Active workers in system: 3
+2025/06/30 09:38:17 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:38:17 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:38:17 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:38:18 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:38:18 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:38:18 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:38:20 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:38:20 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:38:20 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:38:22 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:38:22 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:38:22 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:38:23 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:38:23 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:38:23 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:38:25 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:38:25 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:38:25 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:38:25 Running stale worker cleanup...
+2025/06/30 09:38:25 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:38:25 Active workers in system: 3
+2025/06/30 09:38:27 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:38:27 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:38:27 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:38:28 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:38:28 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:38:28 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:38:30 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:38:30 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:38:30 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:38:32 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:38:32 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:38:32 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:38:33 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:38:33 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:38:33 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:38:35 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:38:35 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:38:35 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:38:35 Running stale worker cleanup...
+2025/06/30 09:38:35 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:38:35 Active workers in system: 3
+2025/06/30 09:38:37 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:38:37 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:38:37 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:38:38 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:38:38 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:38:38 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:38:40 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:38:40 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:38:40 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:38:42 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:38:42 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:38:42 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:38:43 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:38:43 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:38:43 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:38:45 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:38:45 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:38:45 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:38:45 Checking for completed tests without aggregated results...
+2025/06/30 09:38:45 No orphaned tests found
+2025/06/30 09:38:45 Running stale worker cleanup...
+2025/06/30 09:38:45 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:38:45 Active workers in system: 3
+2025/06/30 09:38:47 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:38:47 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:38:47 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:38:48 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:38:48 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:38:48 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:38:50 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:38:50 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:38:50 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:38:52 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:38:52 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:38:52 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:38:53 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:38:53 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:38:53 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:38:55 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:38:55 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:38:55 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:38:55 Running stale worker cleanup...
+2025/06/30 09:38:55 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:38:55 Active workers in system: 3
+2025/06/30 09:38:57 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:38:57 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:38:57 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:38:58 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:38:58 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:38:58 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:39:00 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:39:00 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:39:00 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:39:02 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:39:02 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:39:02 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:39:03 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:39:03 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:39:03 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:39:05 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:39:05 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:39:05 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:39:05 Running stale worker cleanup...
+2025/06/30 09:39:05 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:39:05 Active workers in system: 3
+2025/06/30 09:39:07 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:39:07 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:39:07 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:39:08 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:39:08 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:39:08 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:39:10 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:39:10 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:39:10 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:39:12 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:39:12 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:39:12 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:39:13 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:39:13 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:39:13 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:39:15 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:39:15 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:39:15 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:39:15 Running stale worker cleanup...
+2025/06/30 09:39:15 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:39:15 Active workers in system: 3
+2025/06/30 09:39:17 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:39:17 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:39:17 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:39:18 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:39:18 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:39:18 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:39:20 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:39:20 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:39:20 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:39:22 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:39:22 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:39:22 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:39:23 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:39:23 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:39:23 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:39:25 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:39:25 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:39:25 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:39:25 Running stale worker cleanup...
+2025/06/30 09:39:25 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:39:25 Active workers in system: 3
+2025/06/30 09:39:27 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:39:27 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:39:27 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:39:28 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:39:28 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:39:28 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:39:30 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:39:30 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:39:30 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:39:32 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:39:32 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:39:32 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:39:33 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:39:33 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:39:33 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:39:35 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:39:35 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:39:35 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:39:35 Running stale worker cleanup...
+2025/06/30 09:39:35 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:39:35 Active workers in system: 3
+2025/06/30 09:39:37 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:39:37 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:39:37 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:39:38 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:39:38 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:39:38 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:39:40 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:39:40 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:39:40 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:39:42 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:39:42 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:39:42 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:39:43 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:39:43 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:39:43 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:39:45 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:39:45 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:39:45 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:39:45 Running stale worker cleanup...
+2025/06/30 09:39:45 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:39:45 Active workers in system: 3
+2025/06/30 09:39:47 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:39:47 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:39:47 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:39:48 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:39:48 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:39:48 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:39:50 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:39:50 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:39:50 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:39:52 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:39:52 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:39:52 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:39:53 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:39:53 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:39:53 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:39:55 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:39:55 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:39:55 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:39:55 Running stale worker cleanup...
+2025/06/30 09:39:55 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:39:55 Active workers in system: 3
+2025/06/30 09:39:57 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:39:57 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:39:57 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:39:58 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:39:58 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:39:58 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:40:00 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:40:00 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:40:00 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:40:02 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:40:02 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:40:02 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:40:03 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:40:03 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:40:03 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:40:05 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:40:05 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:40:05 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:40:05 Running stale worker cleanup...
+2025/06/30 09:40:05 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:40:05 Active workers in system: 3
+2025/06/30 09:40:07 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:40:07 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:40:07 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:40:08 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:40:08 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:40:08 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:40:10 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:40:10 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:40:10 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:40:12 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:40:12 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:40:12 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:40:13 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:40:13 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:40:13 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:40:15 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:40:15 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:40:15 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:40:15 Running stale worker cleanup...
+2025/06/30 09:40:15 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:40:15 Active workers in system: 3
+2025/06/30 09:40:17 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:40:17 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:40:17 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:40:18 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:40:18 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:40:18 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:40:20 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:40:20 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:40:20 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:40:22 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:40:22 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:40:22 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:40:23 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:40:23 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:40:23 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:40:25 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:40:25 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:40:25 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:40:25 Running stale worker cleanup...
+2025/06/30 09:40:25 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:40:25 Active workers in system: 3
+2025/06/30 09:40:27 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:40:27 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:40:27 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:40:28 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:40:28 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:40:28 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:40:30 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:40:30 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:40:30 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:40:32 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:40:32 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:40:32 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:40:33 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:40:33 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:40:33 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:40:35 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:40:35 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:40:35 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:40:35 Running stale worker cleanup...
+2025/06/30 09:40:35 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:40:35 Active workers in system: 3
+2025/06/30 09:40:37 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:40:37 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:40:37 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:40:38 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:40:38 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:40:38 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:40:40 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:40:40 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:40:40 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:40:42 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:40:42 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:40:42 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:40:43 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:40:43 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:40:43 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:40:45 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:40:45 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:40:45 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:40:45 Checking for completed tests without aggregated results...
+2025/06/30 09:40:45 No orphaned tests found
+2025/06/30 09:40:45 Running stale worker cleanup...
+2025/06/30 09:40:45 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:40:45 Active workers in system: 3
+2025/06/30 09:40:47 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:40:47 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:40:47 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:40:48 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:40:48 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:40:48 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:40:50 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:40:50 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:40:50 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:40:52 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:40:52 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:40:52 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:40:53 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:40:53 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:40:53 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:40:55 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:40:55 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:40:55 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:40:55 Running stale worker cleanup...
+2025/06/30 09:40:55 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:40:55 Active workers in system: 3
+2025/06/30 09:40:57 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:40:57 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:40:57 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:40:58 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:40:58 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:40:58 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:41:00 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:41:00 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:41:00 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:41:02 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:41:02 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:41:02 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:41:03 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:41:03 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:41:03 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:41:05 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:41:05 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:41:05 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:41:05 Running stale worker cleanup...
+2025/06/30 09:41:05 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:41:05 Active workers in system: 3
+2025/06/30 09:41:07 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:41:07 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:41:07 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:41:08 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:41:08 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:41:08 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:41:10 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:41:10 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:41:10 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:41:12 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:41:12 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:41:12 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:41:13 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:41:13 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:41:13 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:41:15 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:41:15 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:41:15 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:41:15 Running stale worker cleanup...
+2025/06/30 09:41:15 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:41:15 Active workers in system: 3
+2025/06/30 09:41:17 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:41:17 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:41:17 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:41:18 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:41:18 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:41:18 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:41:20 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:41:20 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:41:20 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:41:22 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:41:22 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:41:22 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:41:23 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:41:23 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:41:23 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:41:25 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:41:25 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:41:25 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:41:25 Running stale worker cleanup...
+2025/06/30 09:41:25 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:41:25 Active workers in system: 3
+2025/06/30 09:41:27 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:41:27 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:41:27 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:41:28 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:41:28 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:41:28 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:41:30 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:41:30 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:41:30 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:41:32 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:41:32 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:41:32 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:41:33 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:41:33 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:41:33 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:41:35 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:41:35 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:41:35 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:41:35 Running stale worker cleanup...
+2025/06/30 09:41:35 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:41:35 Active workers in system: 3
+2025/06/30 09:41:37 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:41:37 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:41:37 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:41:38 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:41:38 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:41:38 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:41:40 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:41:40 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:41:40 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:41:42 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:41:42 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:41:42 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:41:43 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:41:43 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:41:43 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:41:45 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:41:45 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:41:45 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:41:45 Running stale worker cleanup...
+2025/06/30 09:41:45 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:41:45 Active workers in system: 3
+2025/06/30 09:41:47 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:41:47 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:41:47 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:41:48 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:41:48 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:41:48 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:41:50 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:41:50 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:41:50 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:41:52 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:41:52 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:41:52 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:41:53 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:41:53 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:41:53 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:41:55 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:41:55 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:41:55 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:41:55 Running stale worker cleanup...
+2025/06/30 09:41:55 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:41:55 Active workers in system: 3
+2025/06/30 09:41:57 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:41:57 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:41:57 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:41:58 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:41:58 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:41:58 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:42:00 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:42:00 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:42:00 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:42:02 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:42:02 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:42:02 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:42:03 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:42:03 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:42:03 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:42:05 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:42:05 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:42:05 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:42:05 Running stale worker cleanup...
+2025/06/30 09:42:05 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:42:05 Active workers in system: 3
+2025/06/30 09:42:07 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:42:07 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:42:07 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:42:08 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:42:08 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:42:08 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:42:10 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:42:10 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:42:10 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:42:12 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:42:12 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:42:12 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:42:13 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:42:13 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:42:13 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:42:15 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:42:15 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:42:15 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:42:15 Running stale worker cleanup...
+2025/06/30 09:42:15 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:42:15 Active workers in system: 3
+2025/06/30 09:42:17 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:42:17 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:42:17 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:42:18 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:42:18 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:42:18 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:42:20 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:42:20 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:42:20 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:42:22 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:42:22 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:42:22 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:42:23 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:42:23 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:42:23 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:42:25 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:42:25 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:42:25 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:42:25 Running stale worker cleanup...
+2025/06/30 09:42:25 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:42:25 Active workers in system: 3
+2025/06/30 09:42:27 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:42:27 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:42:27 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:42:28 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:42:28 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:42:28 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:42:30 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:42:30 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:42:30 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:42:32 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:42:32 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:42:32 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:42:33 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:42:33 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:42:33 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:42:35 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:42:35 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:42:35 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:42:35 Running stale worker cleanup...
+2025/06/30 09:42:35 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:42:35 Active workers in system: 3
+2025/06/30 09:42:37 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:42:37 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:42:37 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:42:38 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:42:38 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:42:38 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:42:40 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:42:40 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:42:40 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:42:42 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:42:42 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:42:42 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:42:43 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:42:43 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:42:43 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:42:45 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:42:45 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:42:45 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:42:45 Checking for completed tests without aggregated results...
+2025/06/30 09:42:45 No orphaned tests found
+2025/06/30 09:42:45 Running stale worker cleanup...
+2025/06/30 09:42:45 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:42:45 Active workers in system: 3
+2025/06/30 09:42:47 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:42:47 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:42:47 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:42:48 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:42:48 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:42:48 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:42:50 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:42:50 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:42:50 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:42:52 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:42:52 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:42:52 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:42:53 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:42:53 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:42:53 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:42:55 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:42:55 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:42:55 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:42:55 Running stale worker cleanup...
+2025/06/30 09:42:55 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:42:55 Active workers in system: 3
+2025/06/30 09:42:57 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:42:57 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:42:57 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:42:58 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:42:58 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:42:58 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:43:00 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:43:00 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:43:00 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:43:02 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:43:02 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:43:02 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:43:03 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:43:03 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:43:03 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:43:05 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:43:05 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:43:05 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:43:05 Running stale worker cleanup...
+2025/06/30 09:43:05 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:43:05 Active workers in system: 3
+2025/06/30 09:43:07 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:43:07 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:43:07 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:43:08 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:43:08 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:43:08 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:43:10 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:43:10 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:43:10 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:43:12 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:43:12 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:43:12 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:43:13 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:43:13 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:43:13 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:43:15 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:43:15 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:43:15 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:43:15 Running stale worker cleanup...
+2025/06/30 09:43:15 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:43:15 Active workers in system: 3
+2025/06/30 09:43:17 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:43:17 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:43:17 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:43:18 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:43:18 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:43:18 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:43:20 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:43:20 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:43:20 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:43:22 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:43:22 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:43:22 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:43:23 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:43:23 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:43:23 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:43:25 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:43:25 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:43:25 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:43:25 Running stale worker cleanup...
+2025/06/30 09:43:25 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:43:25 Active workers in system: 3
+2025/06/30 09:43:27 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:43:27 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:43:27 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:43:28 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:43:28 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:43:28 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:43:30 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:43:30 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:43:30 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:43:32 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:43:32 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:43:32 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:43:33 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:43:33 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:43:33 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:43:35 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:43:35 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:43:35 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:43:35 Running stale worker cleanup...
+2025/06/30 09:43:35 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:43:35 Active workers in system: 3
+2025/06/30 09:43:37 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:43:37 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:43:37 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:43:38 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:43:38 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:43:38 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:43:40 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:43:40 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:43:40 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:43:42 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:43:42 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:43:42 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:43:43 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:43:43 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:43:43 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:43:45 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:43:45 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:43:45 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:43:45 Running stale worker cleanup...
+2025/06/30 09:43:45 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:43:45 Active workers in system: 3
+2025/06/30 09:43:47 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:43:47 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:43:47 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:43:48 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:43:48 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:43:48 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:43:50 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:43:50 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:43:50 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:43:52 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:43:52 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:43:52 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:43:53 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:43:53 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:43:53 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:43:55 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:43:55 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:43:55 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:43:55 Running stale worker cleanup...
+2025/06/30 09:43:55 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:43:55 Active workers in system: 3
+2025/06/30 09:43:57 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:43:57 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:43:57 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:43:58 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:43:58 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:43:58 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:44:00 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:44:00 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:44:00 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:44:02 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:44:02 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:44:02 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:44:03 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:44:03 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:44:03 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:44:05 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:44:05 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:44:05 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:44:05 Running stale worker cleanup...
+2025/06/30 09:44:05 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:44:05 Active workers in system: 3
+2025/06/30 09:44:07 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:44:07 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:44:07 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:44:08 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:44:08 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:44:08 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:44:10 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:44:10 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:44:10 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:44:12 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:44:12 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:44:12 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:44:13 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:44:13 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:44:13 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:44:15 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:44:15 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:44:15 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:44:15 Running stale worker cleanup...
+2025/06/30 09:44:15 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:44:15 Active workers in system: 3
+2025/06/30 09:44:17 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:44:17 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:44:17 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:44:18 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:44:18 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:44:18 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:44:20 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:44:20 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:44:20 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:44:22 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:44:22 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:44:22 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:44:23 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:44:23 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:44:23 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:44:25 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:44:25 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:44:25 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:44:25 Running stale worker cleanup...
+2025/06/30 09:44:25 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:44:25 Active workers in system: 3
+2025/06/30 09:44:27 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:44:27 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:44:27 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:44:28 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:44:28 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:44:28 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:44:30 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:44:30 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:44:30 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:44:32 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:44:32 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:44:32 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:44:33 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:44:33 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:44:33 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:44:35 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:44:35 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:44:35 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:44:35 Running stale worker cleanup...
+2025/06/30 09:44:35 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:44:35 Active workers in system: 3
+2025/06/30 09:44:37 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:44:37 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:44:37 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:44:38 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:44:38 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:44:38 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:44:40 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:44:40 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:44:40 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:44:42 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:44:42 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:44:42 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:44:43 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:44:43 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:44:43 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:44:45 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:44:45 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:44:45 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:44:45 Checking for completed tests without aggregated results...
+2025/06/30 09:44:45 No orphaned tests found
+2025/06/30 09:44:45 Running stale worker cleanup...
+2025/06/30 09:44:45 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:44:45 Active workers in system: 3
+2025/06/30 09:44:47 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:44:47 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:44:47 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:44:48 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:44:48 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:44:48 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:44:50 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:44:50 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:44:50 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:44:52 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:44:52 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:44:52 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:44:53 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:44:53 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:44:53 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:44:55 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:44:55 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:44:55 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:44:55 Running stale worker cleanup...
+2025/06/30 09:44:55 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:44:55 Active workers in system: 3
+2025/06/30 09:44:57 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:44:57 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:44:57 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:44:58 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:44:58 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:44:58 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:45:00 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:45:00 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:45:00 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:45:02 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:45:02 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:45:02 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:45:03 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:45:03 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:45:03 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:45:05 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:45:05 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:45:05 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:45:05 Running stale worker cleanup...
+2025/06/30 09:45:05 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:45:05 Active workers in system: 3
+2025/06/30 09:45:07 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:45:07 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:45:07 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:45:08 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:45:08 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:45:08 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:45:10 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:45:10 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:45:10 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:45:12 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:45:12 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:45:12 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:45:13 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:45:13 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:45:13 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:45:15 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:45:15 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:45:15 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:45:15 Running stale worker cleanup...
+2025/06/30 09:45:15 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:45:15 Active workers in system: 3
+2025/06/30 09:45:17 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:45:17 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:45:17 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:45:18 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:45:18 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:45:18 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:45:20 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:45:20 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:45:20 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:45:22 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:45:22 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:45:22 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:45:23 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:45:23 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:45:23 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:45:25 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:45:25 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:45:25 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:45:25 Running stale worker cleanup...
+2025/06/30 09:45:25 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:45:25 Active workers in system: 3
+2025/06/30 09:45:27 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:45:27 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:45:27 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:45:28 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:45:28 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:45:28 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:45:30 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:45:30 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:45:30 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:45:32 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:45:32 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:45:32 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:45:33 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:45:33 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:45:33 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:45:35 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:45:35 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:45:35 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:45:35 Running stale worker cleanup...
+2025/06/30 09:45:35 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:45:35 Active workers in system: 3
+2025/06/30 09:45:37 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:45:37 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:45:37 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:45:38 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:45:38 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:45:38 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:45:40 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:45:40 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:45:40 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:45:42 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:45:42 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:45:42 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:45:43 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:45:43 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:45:43 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:45:45 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:45:45 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:45:45 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:45:45 Running stale worker cleanup...
+2025/06/30 09:45:45 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:45:45 Active workers in system: 3
+2025/06/30 09:45:47 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:45:47 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:45:47 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:45:48 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:45:48 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:45:48 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:45:50 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:45:50 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:45:50 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:45:52 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:45:52 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:45:52 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:45:53 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:45:53 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:45:53 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:45:55 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:45:55 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:45:55 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:45:55 Running stale worker cleanup...
+2025/06/30 09:45:55 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:45:55 Active workers in system: 3
+2025/06/30 09:45:57 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:45:57 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:45:57 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:45:58 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:45:58 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:45:58 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:46:00 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:46:00 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:46:00 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:46:02 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:46:02 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:46:02 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:46:03 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:46:03 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:46:03 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:46:05 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:46:05 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:46:05 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:46:05 Running stale worker cleanup...
+2025/06/30 09:46:05 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:46:05 Active workers in system: 3
+2025/06/30 09:46:07 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:46:07 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:46:07 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:46:08 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:46:08 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:46:08 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:46:10 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:46:10 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:46:10 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:46:12 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:46:12 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:46:12 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:46:13 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:46:13 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:46:13 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:46:15 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:46:15 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:46:15 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:46:15 Running stale worker cleanup...
+2025/06/30 09:46:15 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:46:15 Active workers in system: 3
+2025/06/30 09:46:17 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:46:17 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:46:17 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:46:18 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:46:18 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:46:18 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:46:20 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:46:20 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:46:20 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:46:22 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:46:22 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:46:22 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:46:23 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:46:23 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:46:23 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:46:25 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:46:25 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:46:25 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:46:25 Running stale worker cleanup...
+2025/06/30 09:46:25 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:46:25 Active workers in system: 3
+2025/06/30 09:46:27 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:46:27 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:46:27 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:46:28 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:46:28 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:46:28 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:46:30 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:46:30 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:46:30 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:46:32 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:46:32 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:46:32 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:46:33 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:46:33 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:46:33 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:46:35 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:46:35 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:46:35 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:46:35 Running stale worker cleanup...
+2025/06/30 09:46:35 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:46:35 Active workers in system: 3
+2025/06/30 09:46:37 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:46:37 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:46:37 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:46:38 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:46:38 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:46:38 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:46:40 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:46:40 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:46:40 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:46:42 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:46:42 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:46:42 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:46:43 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:46:43 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:46:43 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:46:45 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:46:45 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:46:45 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:46:45 Checking for completed tests without aggregated results...
+2025/06/30 09:46:45 No orphaned tests found
+2025/06/30 09:46:45 Running stale worker cleanup...
+2025/06/30 09:46:45 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:46:45 Active workers in system: 3
+2025/06/30 09:46:47 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:46:47 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:46:47 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:46:48 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:46:48 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:46:48 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:46:50 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:46:50 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:46:50 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:46:52 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:46:52 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:46:52 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:46:53 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:46:53 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:46:53 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:46:55 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:46:55 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:46:55 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:46:55 Running stale worker cleanup...
+2025/06/30 09:46:55 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:46:55 Active workers in system: 3
+2025/06/30 09:46:57 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:46:57 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:46:57 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:46:58 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:46:58 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:46:58 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:47:00 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:47:00 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:47:00 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:47:02 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:47:02 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:47:02 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:47:03 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:47:03 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:47:03 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:47:05 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:47:05 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:47:05 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:47:05 Running stale worker cleanup...
+2025/06/30 09:47:05 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:47:05 Active workers in system: 3
+2025/06/30 09:47:07 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:47:07 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:47:07 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:47:08 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:47:08 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:47:08 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:47:10 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:47:10 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:47:10 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:47:12 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:47:12 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:47:12 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:47:13 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:47:13 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:47:13 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:47:15 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:47:15 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:47:15 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:47:15 Running stale worker cleanup...
+2025/06/30 09:47:15 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:47:15 Active workers in system: 3
+2025/06/30 09:47:17 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:47:17 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:47:17 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:47:18 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:47:18 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:47:18 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:47:20 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:47:20 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:47:20 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:47:22 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:47:22 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:47:22 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:47:23 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:47:23 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:47:23 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:47:25 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:47:25 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:47:25 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:47:25 Running stale worker cleanup...
+2025/06/30 09:47:25 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:47:25 Active workers in system: 3
+2025/06/30 09:47:27 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:47:27 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:47:27 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:47:28 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:47:28 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:47:28 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:47:30 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:47:30 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:47:30 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:47:32 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:47:32 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:47:32 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:47:33 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:47:33 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:47:33 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:47:35 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:47:35 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:47:35 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:47:35 Running stale worker cleanup...
+2025/06/30 09:47:35 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:47:35 Active workers in system: 3
+2025/06/30 09:47:37 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:47:37 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:47:37 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:47:38 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:47:38 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:47:38 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:47:40 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:47:40 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:47:40 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:47:42 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:47:42 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:47:42 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:47:43 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:47:43 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:47:43 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:47:45 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:47:45 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:47:45 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:47:45 Running stale worker cleanup...
+2025/06/30 09:47:45 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:47:45 Active workers in system: 3
+2025/06/30 09:47:47 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:47:47 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:47:47 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:47:48 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:47:48 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:47:48 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:47:50 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:47:50 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:47:50 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:47:52 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:47:52 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:47:52 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:47:53 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:47:53 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:47:53 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:47:55 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:47:55 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:47:55 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:47:55 Running stale worker cleanup...
+2025/06/30 09:47:55 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:47:55 Active workers in system: 3
+2025/06/30 09:47:57 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:47:57 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:47:57 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:47:58 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:47:58 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:47:58 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:48:00 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:48:00 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:48:00 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:48:02 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:48:02 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:48:02 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:48:03 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:48:03 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:48:03 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:48:05 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:48:05 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:48:05 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:48:05 Running stale worker cleanup...
+2025/06/30 09:48:05 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:48:05 Active workers in system: 3
+2025/06/30 09:48:07 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:48:07 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:48:07 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:48:08 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:48:08 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:48:08 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:48:10 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:48:10 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:48:10 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:48:12 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:48:12 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:48:12 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:48:13 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:48:13 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:48:13 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:48:15 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:48:15 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:48:15 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:48:15 Running stale worker cleanup...
+2025/06/30 09:48:15 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:48:15 Active workers in system: 3
+2025/06/30 09:48:17 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:48:17 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:48:17 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:48:18 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:48:18 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:48:18 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:48:20 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:48:20 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:48:20 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:48:22 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:48:22 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:48:22 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:48:23 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:48:23 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:48:23 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:48:25 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:48:25 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:48:25 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:48:25 Running stale worker cleanup...
+2025/06/30 09:48:25 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:48:25 Active workers in system: 3
+2025/06/30 09:48:27 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:48:27 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:48:27 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:48:28 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:48:28 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:48:28 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:48:30 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:48:30 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:48:30 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:48:32 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:48:32 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:48:32 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:48:33 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:48:33 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:48:33 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:48:35 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:48:35 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:48:35 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:48:35 Running stale worker cleanup...
+2025/06/30 09:48:35 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:48:35 Active workers in system: 3
+2025/06/30 09:48:37 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:48:37 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:48:37 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:48:38 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:48:38 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:48:38 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:48:40 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:48:40 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:48:40 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:48:42 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:48:42 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:48:42 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:48:43 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:48:43 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:48:43 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:48:45 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:48:45 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:48:45 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:48:45 Checking for completed tests without aggregated results...
+2025/06/30 09:48:45 No orphaned tests found
+2025/06/30 09:48:45 Running stale worker cleanup...
+2025/06/30 09:48:45 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:48:45 Active workers in system: 3
+2025/06/30 09:48:47 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:48:47 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:48:47 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:48:48 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:48:48 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:48:48 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:48:50 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:48:50 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:48:50 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:48:52 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:48:52 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:48:52 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:48:53 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:48:53 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:48:53 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:48:55 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:48:55 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:48:55 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:48:55 Running stale worker cleanup...
+2025/06/30 09:48:55 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:48:55 Active workers in system: 3
+2025/06/30 09:48:57 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:48:57 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:48:57 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:48:58 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:48:58 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:48:58 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:49:00 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:49:00 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:49:00 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:49:02 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:49:02 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:49:02 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:49:03 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:49:03 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:49:03 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:49:05 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:49:05 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:49:05 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:49:05 Running stale worker cleanup...
+2025/06/30 09:49:05 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:49:05 Active workers in system: 3
+2025/06/30 09:49:07 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:49:07 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:49:07 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:49:08 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:49:08 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:49:08 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:49:10 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:49:10 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:49:10 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:49:12 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:49:12 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:49:12 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:49:13 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:49:13 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:49:13 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:49:15 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:49:15 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:49:15 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:49:15 Running stale worker cleanup...
+2025/06/30 09:49:15 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:49:15 Active workers in system: 3
+2025/06/30 09:49:17 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:49:17 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:49:17 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:49:18 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:49:18 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:49:18 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:49:20 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:49:20 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:49:20 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:49:22 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:49:22 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:49:22 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:49:23 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:49:23 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:49:23 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:49:25 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:49:25 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:49:25 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:49:25 Running stale worker cleanup...
+2025/06/30 09:49:25 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:49:25 Active workers in system: 3
+2025/06/30 09:49:27 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:49:27 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:49:27 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:49:28 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:49:28 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:49:28 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:49:30 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:49:30 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:49:30 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:49:32 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:49:32 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:49:32 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:49:33 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:49:33 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:49:33 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:49:35 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:49:35 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:49:35 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:49:35 Running stale worker cleanup...
+2025/06/30 09:49:35 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:49:35 Active workers in system: 3
+2025/06/30 09:49:37 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:49:37 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:49:37 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:49:38 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:49:38 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:49:38 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:49:40 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:49:40 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:49:40 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:49:42 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:49:42 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:49:42 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:49:43 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:49:43 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:49:43 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:49:45 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:49:45 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:49:45 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition
+2025/06/30 09:49:45 Running stale worker cleanup...
+2025/06/30 09:49:45 Checking for stuck tests due to worker count mismatches...
+2025/06/30 09:49:45 Active workers in system: 3
+2025/06/30 09:49:47 Received status from worker AlphaMaroonAdmiral-M8CB: READY, test: , progress: 0/0
+2025/06/30 09:49:47 Worker AlphaMaroonAdmiral-M8CB status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:49:47 Worker AlphaMaroonAdmiral-M8CB is already in availability queue, skipping duplicate addition
+2025/06/30 09:49:48 Received status from worker SuperCoralNinja-M8FT: READY, test: , progress: 0/0
+2025/06/30 09:49:48 Worker SuperCoralNinja-M8FT status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:49:48 Worker SuperCoralNinja-M8FT is already in availability queue, skipping duplicate addition
+2025/06/30 09:49:50 Received status from worker DeltaNavyObliterator-OAJJ: READY, test: , progress: 0/0
+2025/06/30 09:49:50 Worker DeltaNavyObliterator-OAJJ status updated to READY (Test: , Progress: 0/0).
+2025/06/30 09:49:50 Worker DeltaNavyObliterator-OAJJ is already in availability queue, skipping duplicate addition

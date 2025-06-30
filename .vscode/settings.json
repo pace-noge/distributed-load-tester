@@ -58,5 +58,35 @@
     "files.trimTrailingWhitespace": true,
     "files.insertFinalNewline": true,
     "workbench.editor.enablePreview": false,
-    "workbench.editor.enablePreviewFromQuickOpen": false
+    "workbench.editor.enablePreviewFromQuickOpen": false,
+
+    // ESLint settings to prevent crashes
+    "eslint.enable": true,
+    "eslint.workingDirectories": ["frontend"],
+    "eslint.options": {
+        "overrideConfigFile": "frontend/.eslintrc.json"
+    },
+    "eslint.validate": [
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact"
+    ],
+    "eslint.format.enable": true,
+    "eslint.quiet": false,
+    "eslint.onIgnoredFiles": "off",
+    "eslint.debug": false,
+    "eslint.codeActionsOnSave.mode": "problems",
+    "[javascript]": {
+        "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+        "editor.codeActionsOnSave": {
+            "source.fixAll.eslint": "explicit"
+        }
+    },
+    "[javascriptreact]": {
+        "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+        "editor.codeActionsOnSave": {
+            "source.fixAll.eslint": "explicit"
+        }
+    }
 }

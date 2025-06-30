@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Rocket } from 'lucide-react';
 import { API_BASE_URL } from '../utils/constants';
 import { authenticatedFetch } from '../utils/api';

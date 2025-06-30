@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Zap } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext.jsx';
 import { LoadingSpinner } from '../components/common/UIComponents.jsx';

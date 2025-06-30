@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import {
-    Users, CheckCircle, Clock, BarChart3, TrendingUp, Zap, Target
+    Users, CheckCircle, Clock
 } from 'lucide-react';
 
 import { LoadingSpinner, StatusBadge } from '../components/common/UIComponents.jsx';

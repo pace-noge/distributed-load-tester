@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { RefreshCw, History, Eye, Play } from 'lucide-react';
 
 import { LoadingSpinner, StatusBadge } from '../components/common/UIComponents.jsx';
@@ -116,7 +116,7 @@ const EmptyState = () => (
     <div className="text-center py-12">
         <History className="w-12 h-12 text-gray-400 mx-auto mb-4" />
         <h3 className="text-lg font-medium text-gray-900 mb-2">No tests found</h3>
-        <p className="text-gray-600">You haven't run any load tests yet.</p>
+        <p className="text-gray-600">You haven&apos;t run any load tests yet.</p>
     </div>
 );
 
