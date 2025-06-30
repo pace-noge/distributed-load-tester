@@ -31,12 +31,24 @@ export const authenticatedFetch = async (url, options = {}) => {
 };
 
 /**
- * Fetch test history data
- * @param {number} _page - Page number (currently unused, for future pagination)
- * @returns {Promise} - Test history data
+ * Fetch test history data with pagination
+ * @param {number} page - Page number (1-based)
+ * @param {number} limit - Number of items per page
+ * @returns {Promise} - Paginated test history data
  */
-export const fetchTestHistory = async (_page = 1) => {
-    const data = await authenticatedFetch(`${API_BASE_URL}/tests`);
+export const fetchTestHistory = async (page = 1, limit = 20) => {
+    const url = `${API_BASE_URL}/tests?page=${page}&limit=${limit}`;
+    const data = await authenticatedFetch(url);
+    return data;
+};
+
+/**
+ * Fetch all test history data (backwards compatibility)
+ * @returns {Promise} - All test history data
+ */
+export const fetchAllTestHistory = async () => {
+    // For backwards compatibility, fetch all tests by using a large page size
+    const data = await fetchTestHistory(1, 1000);
     return Array.isArray(data) ? data : (data.tests || data.data || []);
 };
 
@@ -47,7 +59,7 @@ export const fetchTestHistory = async (_page = 1) => {
  */
 export const fetchTestDetail = async (testId) => {
     // First, get all tests to find the specific test details
-    const testsData = await authenticatedFetch(`${API_BASE_URL}/tests`);
+    const testsData = await fetchAllTestHistory();
     const tests = Array.isArray(testsData) ? testsData : (testsData.tests || testsData.data || []);
     const testInfo = tests.find(test => test.id === testId);
 

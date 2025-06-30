@@ -20,6 +20,7 @@ type TestRepository interface {
 	UpdateTestStatus(ctx context.Context, testID string, status string, completedWorkers, failedWorkers []string) error
 	GetTestRequestByID(ctx context.Context, testID string) (*TestRequest, error)
 	GetAllTestRequests(ctx context.Context) ([]*TestRequest, error)
+	GetTestRequestsPaginated(ctx context.Context, limit, offset int) ([]*TestRequest, int, error)
 	IncrementTestAssignedWorkers(ctx context.Context, testID string, workerID string) error
 	AddCompletedWorkerToTest(ctx context.Context, testID string, workerID string) error
 	AddFailedWorkerToTest(ctx context.Context, testID string, workerID string) error

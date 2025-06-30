@@ -137,7 +137,7 @@ func (p *PostgresDB) UpdateWorkerStatus(ctx context.Context, workerID string, st
 	query := `UPDATE workers SET status = $1, last_seen = $2, current_test_id = $3, last_progress_message = $4, completed_requests = $5, total_requests = $6 WHERE id = $7;`
 	_, err := p.db.ExecContext(ctx, query, status, time.Now(), currentTestID, progressMsg, completedReqs, totalReqs, workerID)
 	if err != nil {
-		return fmt.Errorf("failed to update worker status: %w", err)
+		return fmt.Errorf("failed to update worker status: $w", err)
 	}
 	return nil
 }
@@ -291,6 +291,44 @@ func (p *PostgresDB) GetAllTestRequests(ctx context.Context) ([]*domain.TestRequ
 		tests = append(tests, test)
 	}
 	return tests, nil
+}
+
+// GetTestRequestsPaginated retrieves test requests with pagination.
+func (p *PostgresDB) GetTestRequestsPaginated(ctx context.Context, limit, offset int) ([]*domain.TestRequest, int, error) {
+	// Get total count
+	var totalCount int
+	countQuery := `SELECT COUNT(*) FROM test_requests`
+	err := p.db.QueryRowContext(ctx, countQuery).Scan(&totalCount)
+	if err != nil {
+		return nil, 0, fmt.Errorf("failed to get total count: %w", err)
+	}
+
+	// Get paginated results
+	query := `SELECT id, name, vegeta_payload_json, duration_seconds, rate_per_second, targets_base64, requester_id, worker_count, created_at, status, assigned_workers_ids, completed_workers, failed_workers 
+		FROM test_requests 
+		ORDER BY created_at DESC 
+		LIMIT $1 OFFSET $2`
+
+	rows, err := p.db.QueryContext(ctx, query, limit, offset)
+	if err != nil {
+		return nil, 0, fmt.Errorf("failed to get paginated test requests: %w", err)
+	}
+	defer rows.Close()
+
+	var tests []*domain.TestRequest
+	for rows.Next() {
+		test := &domain.TestRequest{}
+		err := rows.Scan(
+			&test.ID, &test.Name, &test.VegetaPayloadJSON, &test.DurationSeconds, &test.RatePerSecond, &test.TargetsBase64,
+			&test.RequesterID, &test.WorkerCount, &test.CreatedAt, &test.Status, pq.Array(&test.AssignedWorkersIDs), pq.Array(&test.CompletedWorkers), pq.Array(&test.FailedWorkers),
+		)
+		if err != nil {
+			return nil, 0, fmt.Errorf("failed to scan test request row: %w", err)
+		}
+		tests = append(tests, test)
+	}
+
+	return tests, totalCount, nil
 }
 
 // IncrementTestAssignedWorkers appends a worker ID to the assigned_workers_ids array.

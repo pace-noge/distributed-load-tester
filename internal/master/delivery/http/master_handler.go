@@ -5,7 +5,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"math"
 	"net/http"
+	"strconv"
 	"strings"
 
 	"github.com/pace-noge/distributed-load-tester/internal/infrastructure/auth"
@@ -177,14 +179,58 @@ func (h *HTTPHandler) getDashboardStatus(w http.ResponseWriter, r *http.Request)
 	json.NewEncoder(w).Encode(dashboard)
 }
 
-// getTests retrieves a list of all tests.
+// getTests retrieves a list of tests with optional pagination.
 func (h *HTTPHandler) getTests(w http.ResponseWriter, r *http.Request) {
-	tests, err := h.usecase.GetAllTestRequests(r.Context())
+	// Parse query parameters
+	pageStr := r.URL.Query().Get("page")
+	limitStr := r.URL.Query().Get("limit")
+	
+	// Default values
+	page := 1
+	limit := 20
+	
+	// Parse page parameter
+	if pageStr != "" {
+		if p, err := strconv.Atoi(pageStr); err == nil && p > 0 {
+			page = p
+		}
+	}
+	
+	// Parse limit parameter
+	if limitStr != "" {
+		if l, err := strconv.Atoi(limitStr); err == nil && l > 0 && l <= 100 {
+			limit = l
+		}
+	}
+	
+	// Calculate offset
+	offset := (page - 1) * limit
+	
+	// Get paginated results
+	tests, totalCount, err := h.usecase.GetTestRequestsPaginated(r.Context(), limit, offset)
 	if err != nil {
 		http.Error(w, fmt.Sprintf("Failed to get tests: %v", err), http.StatusInternalServerError)
 		return
 	}
-	json.NewEncoder(w).Encode(tests)
+	
+	// Calculate pagination metadata
+	totalPages := int(math.Ceil(float64(totalCount) / float64(limit)))
+	
+	// Create response with pagination metadata
+	response := map[string]interface{}{
+		"tests":       tests,
+		"pagination": map[string]interface{}{
+			"page":        page,
+			"limit":       limit,
+			"total":       totalCount,
+			"total_pages": totalPages,
+			"has_prev":    page > 1,
+			"has_next":    page < totalPages,
+		},
+	}
+	
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(response)
 }
 
 // getTestResults retrieves raw results for a specific test.

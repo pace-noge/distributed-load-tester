@@ -480,6 +480,11 @@ func (uc *MasterUsecase) GetAllTestRequests(ctx context.Context) ([]*domain.Test
 	return uc.testRepo.GetAllTestRequests(ctx)
 }
 
+// GetTestRequestsPaginated retrieves test requests with pagination.
+func (uc *MasterUsecase) GetTestRequestsPaginated(ctx context.Context, limit, offset int) ([]*domain.TestRequest, int, error) {
+	return uc.testRepo.GetTestRequestsPaginated(ctx, limit, offset)
+}
+
 // GetRawTestResults retrieves all raw test results for a given test ID.
 func (uc *MasterUsecase) GetRawTestResults(ctx context.Context, testID string) ([]*domain.TestResult, error) {
 	return uc.testResultRepo.GetResultsByTestID(ctx, testID)
