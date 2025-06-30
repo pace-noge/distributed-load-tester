@@ -304,9 +304,9 @@ func (p *PostgresDB) GetTestRequestsPaginated(ctx context.Context, limit, offset
 	}
 
 	// Get paginated results
-	query := `SELECT id, name, vegeta_payload_json, duration_seconds, rate_per_second, targets_base64, requester_id, worker_count, created_at, status, assigned_workers_ids, completed_workers, failed_workers 
-		FROM test_requests 
-		ORDER BY created_at DESC 
+	query := `SELECT id, name, vegeta_payload_json, duration_seconds, rate_per_second, targets_base64, requester_id, worker_count, created_at, status, assigned_workers_ids, completed_workers, failed_workers
+		FROM test_requests
+		ORDER BY created_at DESC
 		LIMIT $1 OFFSET $2`
 
 	rows, err := p.db.QueryContext(ctx, query, limit, offset)

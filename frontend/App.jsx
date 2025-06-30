@@ -14,7 +14,7 @@ import NewTestPage from './src/pages/NewTestPage.jsx';
 import { TestDetailPage } from './src/pages/TestDetailPage.jsx';
 
 // Layout Components
-import { Navbar } from './src/components/layout/Navbar.jsx';
+import { MainLayout } from './src/components/layout/MainLayout.jsx';
 
 const AppContent = () => {
     const { isLoggedIn } = useAuth();
@@ -35,18 +35,15 @@ const AppContent = () => {
     }
 
     return (
-        <div className="min-h-screen bg-gray-50">
-            <Navbar />
-            <main className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                <Routes>
-                    <Route path="/" element={<Navigate to="/dashboard" replace />} />
-                    <Route path="/dashboard" element={<DashboardPage />} />
-                    <Route path="/new-test" element={<NewTestPage />} />
-                    <Route path="/test-history" element={<TestHistoryPage />} />
-                    <Route path="/test/:testId" element={<TestDetailPage />} />
-                </Routes>
-            </main>
-        </div>
+        <MainLayout>
+            <Routes>
+                <Route path="/" element={<Navigate to="/dashboard" replace />} />
+                <Route path="/dashboard" element={<DashboardPage />} />
+                <Route path="/new-test" element={<NewTestPage />} />
+                <Route path="/test-history" element={<TestHistoryPage />} />
+                <Route path="/test/:testId" element={<TestDetailPage />} />
+            </Routes>
+        </MainLayout>
     );
 };
 

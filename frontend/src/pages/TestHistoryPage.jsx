@@ -21,7 +21,7 @@ export const TestHistoryPage = () => {
         setError('');
         try {
             const response = await fetchTestHistory(page, itemsPerPage);
-            
+
             // Handle the new paginated response format
             if (response.tests && response.pagination) {
                 setDisplayedTests(response.tests);
@@ -51,16 +51,16 @@ export const TestHistoryPage = () => {
 
     const handlePageChange = (page) => {
         if (page === currentPage) return; // Avoid unnecessary calls
-        
+
         setPageChanging(true);
         setCurrentPage(page);
-        
+
         // Fetch new page data
         handleFetchTestHistory(page);
-        
+
         // Scroll to top of table when changing pages
         window.scrollTo({ top: 0, behavior: 'smooth' });
-        
+
         // Reset page changing state after a brief delay
         setTimeout(() => setPageChanging(false), 300);
     };
