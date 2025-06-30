@@ -44,12 +44,12 @@ const navigationItems = [
 ];
 
 const bottomNavigationItems = [
-    {
-        name: 'Settings',
-        path: '/settings',
-        icon: Settings,
-        description: 'Application settings'
-    },
+    // {
+    //     name: 'Settings',
+    //     path: '/settings',
+    //     icon: Settings,
+    //     description: 'Application settings'
+    // },
     {
         name: 'Profile',
         path: '/profile',
