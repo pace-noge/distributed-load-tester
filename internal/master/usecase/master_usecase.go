@@ -2,12 +2,9 @@ package usecase
 
 import (
 	"context"
-	"encoding/base64"
-	"encoding/json"
 	"fmt"
 	"log"
 	"sort" // Required for sorting p95Latencies
-	"strings"
 	"sync"
 	"time"
 
@@ -29,10 +26,8 @@ type MasterUsecase struct {
 	activeTestAssignments sync.Map // Map[string]map[string]bool // testID -> workerID -> assigned
 	// For managing test distribution to workers
 	testQueue          chan *domain.TestRequest
-	workerAvailability chan string     // Channel for available worker IDs
-	availableWorkers   map[string]bool // Track which workers are already in the availability queue
-	mu                 sync.Mutex      // Protects access to testQueue, workerAvailability, and availableWorkers
-	sharedLinkRepo     domain.SharedLinkRepository
+	workerAvailability chan string // Channel for available worker IDs
+	mu                 sync.Mutex  // Protects access to testQueue and workerAvailability
 }
 
 // NewMasterUsecase creates a new MasterUsecase instance.
@@ -40,19 +35,15 @@ func NewMasterUsecase(
 	wr domain.WorkerRepository,
 	tr domain.TestRepository,
 	trr domain.TestResultRepository,
-	arr domain.AggregatedResultRepository,
-	slr domain.SharedLinkRepository, // new
-) *MasterUsecase {
+	arr domain.AggregatedResultRepository) *MasterUsecase {
 
 	uc := &MasterUsecase{
 		workerRepo:           wr,
 		testRepo:             tr,
 		testResultRepo:       trr,
 		aggregatedResultRepo: arr,
-		sharedLinkRepo:       slr,                                 // new
 		testQueue:            make(chan *domain.TestRequest, 100), // Buffered channel for tests
-		workerAvailability:   make(chan string, 200),              // Buffered channel for available worker IDs
-		availableWorkers:     make(map[string]bool),               // Track workers in availability queue
+		workerAvailability:   make(chan string, 100),              // Buffered channel for available worker IDs
 	}
 	go uc.startTestDistributionRoutine()
 	return uc
@@ -76,7 +67,12 @@ func (uc *MasterUsecase) RegisterWorker(ctx context.Context, worker *domain.Work
 	}
 
 	// Add worker to availability queue
-	uc.addWorkerToAvailabilityQueue(worker.ID)
+	select {
+	case uc.workerAvailability <- worker.ID:
+		log.Printf("Worker %s added to availability queue.", worker.ID)
+	default:
+		log.Printf("Worker availability queue full, %s not added immediately.", worker.ID)
+	}
 	return nil
 }
 
@@ -90,7 +86,12 @@ func (uc *MasterUsecase) UpdateWorkerStatus(ctx context.Context, workerID string
 
 	// If worker becomes READY, push to availability queue
 	if status == "READY" {
-		uc.addWorkerToAvailabilityQueue(workerID)
+		select {
+		case uc.workerAvailability <- workerID:
+			log.Printf("Worker %s became READY, added to availability queue.", workerID)
+		default:
+			log.Printf("Worker availability queue full, %s not added immediately upon READY status.", workerID)
+		}
 	}
 	return nil
 }
@@ -196,7 +197,6 @@ func (uc *MasterUsecase) startTestDistributionRoutine() {
 				select {
 				case workerID := <-uc.workerAvailability:
 					assignedWorkers = append(assignedWorkers, workerID)
-					uc.removeWorkerFromAvailabilityQueue(workerID) // Remove from tracking
 					log.Printf("Worker %s assigned to test %s (%d/%d workers collected)",
 						workerID, testReq.ID, len(assignedWorkers), testReq.WorkerCount)
 				case <-timeout:
@@ -230,8 +230,6 @@ func (uc *MasterUsecase) startTestDistributionRoutine() {
 			// Periodically check for workers that might have gone offline without notifying
 			// and re-queue tests if assigned to offline workers.
 			uc.cleanupStaleWorkers(context.Background())
-			// Also check for stuck tests due to worker count mismatches
-			uc.fixStuckTests(context.Background())
 		}
 	}
 }
@@ -256,7 +254,8 @@ func (uc *MasterUsecase) assignTestToWorker(ctx context.Context, testReq *domain
 	conn := connVal.(*grpc.ClientConn)
 	client := pb.NewWorkerServiceClient(conn)
 
-	// Update test status to RUNNING (but don't assign worker until successful)
+	// Update test status to RUNNING and assign worker
+	uc.testRepo.IncrementTestAssignedWorkers(ctx, testReq.ID, workerID)
 	uc.testRepo.UpdateTestStatus(ctx, testReq.ID, "RUNNING", nil, nil) // Update overall test status
 
 	// Mark worker as busy
@@ -303,9 +302,6 @@ func (uc *MasterUsecase) assignTestToWorker(ctx context.Context, testReq *domain
 
 	log.Printf("Test %s assigned successfully to worker %s.", testReq.ID, workerID)
 
-	// Add worker to assigned list only after successful assignment
-	uc.testRepo.IncrementTestAssignedWorkers(ctx, testReq.ID, workerID)
-
 	// Record the assignment for tracking
 	uc.mu.Lock()
 	if _, ok := uc.activeTestAssignments.Load(testReq.ID); !ok {
@@ -315,6 +311,87 @@ func (uc *MasterUsecase) assignTestToWorker(ctx context.Context, testReq *domain
 		workersMap.(map[string]bool)[workerID] = true
 	}
 	uc.mu.Unlock()
+}
+
+// HandleWorkerTestCompletion is called by the gRPC handler when a worker finishes or errors.
+func (uc *MasterUsecase) HandleWorkerTestCompletion(ctx context.Context, testID, workerID string, isError bool) {
+	log.Printf("Handling completion for test %s by worker %s. Is Error: %t", testID, workerID, isError)
+
+	test, err := uc.testRepo.GetTestRequestByID(ctx, testID)
+	if err != nil {
+		log.Printf("Error getting test %s during completion handling: %v", testID, err)
+		return
+	}
+
+	uc.mu.Lock()
+	defer uc.mu.Unlock()
+
+	// Update test status (completed/failed worker)
+	if isError {
+		test.FailedWorkers = append(test.FailedWorkers, workerID)
+		uc.testRepo.AddFailedWorkerToTest(ctx, testID, workerID)
+	} else {
+		test.CompletedWorkers = append(test.CompletedWorkers, workerID)
+		uc.testRepo.AddCompletedWorkerToTest(ctx, testID, workerID)
+	}
+
+	// Remove assignment from tracking map
+	if workersMapVal, ok := uc.activeTestAssignments.Load(testID); ok {
+		if workersMap, ok := workersMapVal.(map[string]bool); ok {
+			delete(workersMap, workerID)
+		}
+	}
+
+	// Get updated test data to ensure we have the latest worker counts
+	updatedTest, err := uc.testRepo.GetTestRequestByID(ctx, testID)
+	if err != nil {
+		log.Printf("Error getting updated test %s during completion handling: %v", testID, err)
+		return
+	}
+
+	// Check if all workers assigned to this test have completed or failed
+	totalExpectedWorkers := int(updatedTest.WorkerCount)
+	totalCompletedWorkers := len(updatedTest.CompletedWorkers)
+	totalFailedWorkers := len(updatedTest.FailedWorkers)
+	totalFinishedWorkers := totalCompletedWorkers + totalFailedWorkers
+
+	log.Printf("Test %s worker status: Expected=%d, Completed=%d, Failed=%d, Total Finished=%d",
+		testID, totalExpectedWorkers, totalCompletedWorkers, totalFailedWorkers, totalFinishedWorkers)
+
+	// Check if all expected workers have finished (either completed or failed)
+	if totalFinishedWorkers >= totalExpectedWorkers {
+		log.Printf("All %d workers for test %s have finished (completed: %d, failed: %d)",
+			totalExpectedWorkers, testID, totalCompletedWorkers, totalFailedWorkers)
+
+		// Determine final test status based on worker results
+		var finalStatus string
+		if totalFailedWorkers == 0 {
+			finalStatus = "COMPLETED"
+		} else if totalCompletedWorkers > 0 {
+			finalStatus = "PARTIALLY_FAILED"
+		} else {
+			finalStatus = "FAILED"
+		}
+
+		log.Printf("Setting test %s final status to: %s", testID, finalStatus)
+		uc.testRepo.UpdateTestStatus(ctx, testID, finalStatus, updatedTest.CompletedWorkers, updatedTest.FailedWorkers)
+
+		// Trigger aggregation of results for this test
+		log.Printf("Triggering aggregation for completed test %s", testID)
+		go uc.aggregateTestResults(context.Background(), testID)
+	} else {
+		log.Printf("Test %s still waiting for %d more workers to finish",
+			testID, totalExpectedWorkers-totalFinishedWorkers)
+	}
+
+	// Mark worker as READY again
+	uc.workerRepo.UpdateWorkerStatus(ctx, workerID, "READY", "", "Ready for new tests", 0, 0)
+	select {
+	case uc.workerAvailability <- workerID:
+		log.Printf("Worker %s became READY, added to availability queue.", workerID)
+	default:
+		log.Printf("Worker availability queue full, %s not added immediately upon READY status.", workerID)
+	}
 }
 
 // TriggerAggregation manually triggers aggregation for a specific test.
@@ -489,16 +566,6 @@ func (uc *MasterUsecase) GetAllTestRequests(ctx context.Context) ([]*domain.Test
 	return uc.testRepo.GetAllTestRequests(ctx)
 }
 
-// GetTestRequestsPaginated retrieves test requests with pagination.
-func (uc *MasterUsecase) GetTestRequestsPaginated(ctx context.Context, limit, offset int) ([]*domain.TestRequest, int, error) {
-	return uc.testRepo.GetTestRequestsPaginated(ctx, limit, offset)
-}
-
-// GetTestRequestsPaginatedByUser retrieves test requests for a specific user with pagination.
-func (uc *MasterUsecase) GetTestRequestsPaginatedByUser(ctx context.Context, userID string, limit, offset int) ([]*domain.TestRequest, int, error) {
-	return uc.testRepo.GetTestRequestsPaginatedByUser(ctx, userID, limit, offset)
-}
-
 // GetRawTestResults retrieves all raw test results for a given test ID.
 func (uc *MasterUsecase) GetRawTestResults(ctx context.Context, testID string) ([]*domain.TestResult, error) {
 	return uc.testResultRepo.GetResultsByTestID(ctx, testID)
@@ -507,57 +574,6 @@ func (uc *MasterUsecase) GetRawTestResults(ctx context.Context, testID string) (
 // GetAggregatedTestResult retrieves the aggregated result for a given test ID.
 func (uc *MasterUsecase) GetAggregatedTestResult(ctx context.Context, testID string) (*domain.TestResultAggregated, error) {
 	return uc.aggregatedResultRepo.GetAggregatedResultByTestID(ctx, testID)
-}
-
-// GetTestRequestsByUser retrieves all test requests for a specific user.
-func (uc *MasterUsecase) GetTestRequestsByUser(ctx context.Context, userID string) ([]*domain.TestRequest, error) {
-	return uc.testRepo.GetTestRequestsByUser(ctx, userID)
-}
-
-// --- Shared Link & Inbox Logic ---
-
-func (uc *MasterUsecase) ShareTest(ctx context.Context, testID, sharedBy string) (*domain.SharedLink, error) {
-	expiresAt := time.Now().Add(72 * time.Hour) // 3 days
-	return uc.sharedLinkRepo.CreateSharedLink(ctx, testID, sharedBy, expiresAt)
-}
-
-func (uc *MasterUsecase) AccessSharedLink(ctx context.Context, linkID, userID string) (*domain.TestRequest, error) {
-	link, err := uc.sharedLinkRepo.GetSharedLinkByID(ctx, linkID)
-	if err != nil {
-		return nil, err
-	}
-	if time.Now().After(link.ExpiresAt) {
-		return nil, fmt.Errorf("shared link expired")
-	}
-	_ = uc.sharedLinkRepo.AddUsedBy(ctx, linkID, userID) // Add user to used_by (ignore error if already present)
-	test, err := uc.testRepo.GetTestRequestByID(ctx, link.TestID)
-	if err != nil {
-		return nil, err
-	}
-	return test, nil
-}
-
-func (uc *MasterUsecase) GetInbox(ctx context.Context, userID string) ([]*domain.SharedLink, error) {
-	return uc.sharedLinkRepo.GetInboxForUser(ctx, userID)
-}
-
-func (uc *MasterUsecase) MarkInboxItemRead(ctx context.Context, linkID, userID string) error {
-	return uc.sharedLinkRepo.MarkInboxItemRead(ctx, linkID, userID)
-}
-
-// ShareTestToUserInbox shares a test and inserts the link into the specified user's inbox.
-func (uc *MasterUsecase) ShareTestToUserInbox(ctx context.Context, testID, sharedBy, targetUserID string) (*domain.SharedLink, error) {
-	expiresAt := time.Now().Add(72 * time.Hour) // 3 days
-	link, err := uc.sharedLinkRepo.CreateSharedLink(ctx, testID, sharedBy, expiresAt)
-	if err != nil {
-		return nil, err
-	}
-	// Insert into target user's inbox (used_by array)
-	err = uc.sharedLinkRepo.AddUsedBy(ctx, link.ID, targetUserID)
-	if err != nil {
-		return nil, err
-	}
-	return link, nil
 }
 
 // cleanupStaleWorkers periodically checks for workers that haven't sent status updates
@@ -745,7 +761,7 @@ func (uc *MasterUsecase) assignTestToMultipleWorkers(ctx context.Context, testRe
 			burstWorkers = 1
 		}
 
-		burstRate := (testReq.RatePerSecond * 70) / (100 * uint64(burstWorkers))                 // 70% of load on burst workers
+		burstRate := (testReq.RatePerSecond * 70) / (100 * uint64(burstWorkers)) // 70% of load on burst workers
 		normalRate := (testReq.RatePerSecond * 30) / (100 * uint64(len(workerIDs)-burstWorkers)) // 30% on remaining
 
 		for i := 0; i < len(workerIDs); i++ {
@@ -781,7 +797,8 @@ func (uc *MasterUsecase) assignTestToMultipleWorkers(ctx context.Context, testRe
 			workerRates, totalExpectedRate)
 	}
 
-	// Update test status to RUNNING - we'll add workers to assigned list after successful assignment
+	// Update test status to RUNNING and assign all workers
+	testReq.AssignedWorkersIDs = workerIDs
 	uc.testRepo.UpdateTestStatus(ctx, testReq.ID, "RUNNING", nil, nil)
 
 	// Initialize assignment tracking
@@ -844,26 +861,17 @@ func (uc *MasterUsecase) assignTestToMultipleWorkers(ctx context.Context, testRe
 				log.Printf("Failed to assign test %s to worker %s: %v", testReq.ID, workerID, err)
 				uc.MarkWorkerOffline(ctx, workerID)
 				uc.testRepo.AddFailedWorkerToTest(ctx, testReq.ID, workerID)
-				// Reset worker status back to READY if still reachable
-				uc.workerRepo.UpdateWorkerStatus(ctx, workerID, "READY", "", "Assignment failed", 0, 0)
 				return
 			}
 
 			if !resp.Accepted {
 				log.Printf("Worker %s rejected test %s assignment: %s", workerID, testReq.ID, resp.Message)
 				uc.testRepo.AddFailedWorkerToTest(ctx, testReq.ID, workerID)
-				// Reset worker status back to READY since assignment failed
-				uc.workerRepo.UpdateWorkerStatus(ctx, workerID, "READY", "", "Assignment rejected", 0, 0)
-				// Add worker back to availability queue
-				uc.addWorkerToAvailabilityQueue(workerID)
 				return
 			}
 
 			log.Printf("Test %s assigned successfully to worker %s (rate: %d req/s, mode: %s)",
 				testReq.ID, workerID, workerRate, testReq.RateDistribution)
-
-			// Only add to assigned workers list after successful assignment
-			uc.testRepo.IncrementTestAssignedWorkers(ctx, testReq.ID, workerID)
 
 			assignmentMutex.Lock()
 			successfulAssignments++
@@ -882,596 +890,5 @@ func (uc *MasterUsecase) assignTestToMultipleWorkers(ctx context.Context, testRe
 		log.Printf("No workers accepted test %s assignment, marking as failed", testReq.ID)
 		uc.testRepo.UpdateTestStatus(ctx, testReq.ID, "FAILED",
 			testReq.CompletedWorkers, append(testReq.FailedWorkers, "AllWorkersRejected"))
-	}
-}
-
-// SaveWorkerTestResult saves a test result received from a worker to the database
-func (uc *MasterUsecase) SaveWorkerTestResult(ctx context.Context, testResult *domain.TestResult) error {
-	log.Printf("Saving test result from worker %s for test %s", testResult.WorkerID, testResult.TestID)
-
-	// Save the test result to database
-	err := uc.testResultRepo.SaveTestResult(ctx, testResult)
-	if err != nil {
-		log.Printf("Failed to save test result from worker %s for test %s: %v", testResult.WorkerID, testResult.TestID, err)
-		return fmt.Errorf("failed to save test result: %w", err)
-	}
-
-	log.Printf("Successfully saved test result from worker %s for test %s (Total: %d, Completed: %d, Success Rate: %.2f%%)",
-		testResult.WorkerID, testResult.TestID, testResult.TotalRequests, testResult.CompletedRequests, testResult.SuccessRate*100)
-
-	// Mark this worker as completed in the test record
-	err = uc.testRepo.AddCompletedWorkerToTest(ctx, testResult.TestID, testResult.WorkerID)
-	if err != nil {
-		log.Printf("Warning: Failed to mark worker %s as completed for test %s: %v", testResult.WorkerID, testResult.TestID, err)
-	}
-
-	// Check if all assigned workers have completed and update test status accordingly
-	go func() {
-		statusCtx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
-		defer cancel()
-
-		if err := uc.checkAndUpdateTestCompletion(statusCtx, testResult.TestID); err != nil {
-			log.Printf("Warning: Failed to check test completion status for test %s: %v", testResult.TestID, err)
-		}
-	}()
-
-	// Trigger aggregation asynchronously
-	go func() {
-		aggregateCtx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
-		defer cancel()
-
-		if err := uc.updateAggregatedResult(aggregateCtx, testResult.TestID); err != nil {
-			log.Printf("Warning: Failed to update aggregated result for test %s after receiving result from worker %s: %v",
-				testResult.TestID, testResult.WorkerID, err)
-		}
-	}()
-
-	return nil
-}
-
-// checkAndUpdateTestCompletion checks if all workers for a test have completed and updates the test status
-func (uc *MasterUsecase) checkAndUpdateTestCompletion(ctx context.Context, testID string) error {
-	// Get the test details
-	test, err := uc.testRepo.GetTestRequestByID(ctx, testID)
-	if err != nil {
-		return fmt.Errorf("failed to get test %s: %w", testID, err)
-	}
-
-	// Skip if test is already marked as completed
-	if test.Status == "COMPLETED" || test.Status == "FAILED" {
-		return nil
-	}
-
-	totalAssigned := len(test.AssignedWorkersIDs)
-	totalCompleted := len(test.CompletedWorkers)
-	totalFailed := len(test.FailedWorkers)
-
-	log.Printf("Test %s status check: Assigned=%d, Completed=%d, Failed=%d",
-		testID, totalAssigned, totalCompleted, totalFailed)
-	log.Printf("Test %s details: AssignedWorkers=%v, CompletedWorkers=%v, FailedWorkers=%v",
-		testID, test.AssignedWorkersIDs, test.CompletedWorkers, test.FailedWorkers)
-
-	// Check if all workers have finished (either completed or failed)
-	if totalCompleted+totalFailed >= totalAssigned {
-		var newStatus string
-		if totalCompleted == totalAssigned {
-			newStatus = "COMPLETED"
-			log.Printf("✅ All workers completed successfully for test %s", testID)
-		} else if totalCompleted > 0 {
-			newStatus = "PARTIALLY_FAILED"
-			log.Printf("⚠️ Test %s partially completed: %d succeeded, %d failed", testID, totalCompleted, totalFailed)
-		} else {
-			newStatus = "FAILED"
-			log.Printf("❌ Test %s failed: all %d workers failed", testID, totalFailed)
-		}
-
-		// Update the test status
-		err = uc.testRepo.UpdateTestStatus(ctx, testID, newStatus, test.CompletedWorkers, test.FailedWorkers)
-		if err != nil {
-			return fmt.Errorf("failed to update test %s status to %s: %w", testID, newStatus, err)
-		}
-
-		log.Printf("🎯 Updated test %s status to: %s", testID, newStatus)
-
-		// Also update worker status back to READY
-		for _, workerID := range test.AssignedWorkersIDs {
-			err = uc.workerRepo.UpdateWorkerStatus(ctx, workerID, "READY", "", "Test completed", 0, 0)
-			if err != nil {
-				log.Printf("Warning: Failed to reset worker %s status to READY: %v", workerID, err)
-			}
-		}
-	}
-
-	return nil
-}
-
-// updateAggregatedResult recalculates and updates the aggregated result for a test
-func (uc *MasterUsecase) updateAggregatedResult(ctx context.Context, testID string) error {
-	// Get all results for this test
-	results, err := uc.testResultRepo.GetResultsByTestID(ctx, testID)
-	if err != nil {
-		return fmt.Errorf("failed to get results for test %s: %w", testID, err)
-	}
-
-	if len(results) == 0 {
-		return nil // No results to aggregate yet
-	}
-	// Calculate aggregated metrics
-	var totalRequests, totalCompleted int64
-	var totalDuration, totalLatency, totalP95 float64
-
-	for _, result := range results {
-		totalRequests += result.TotalRequests
-		totalCompleted += result.CompletedRequests
-		totalDuration += float64(result.DurationMs)
-		totalLatency += result.AverageLatencyMs
-		totalP95 += result.P95LatencyMs
-	}
-
-	numWorkers := len(results)
-	aggregatedResult := &domain.TestResultAggregated{
-		TestID:             testID,
-		TotalRequests:      totalRequests,
-		SuccessfulRequests: totalCompleted,
-		FailedRequests:     totalRequests - totalCompleted,
-		AvgLatencyMs:       totalLatency / float64(numWorkers),
-		P95LatencyMs:       totalP95 / float64(numWorkers),
-		DurationMs:         int64(totalDuration / float64(numWorkers)),
-		OverallStatus:      "Completed",
-		CompletedAt:        time.Now(),
-	}
-
-	// Save the aggregated result
-	return uc.aggregatedResultRepo.SaveAggregatedResult(ctx, aggregatedResult)
-}
-
-// Analytics methods
-
-// GetAnalyticsOverview returns comprehensive analytics overview
-func (uc *MasterUsecase) GetAnalyticsOverview(ctx context.Context, req *domain.AnalyticsRequest) (*domain.AnalyticsOverview, error) {
-	// Set default time range if not provided (last 30 days)
-	var startDate, endDate time.Time
-	if req.TimeRange != nil {
-		startDate = req.TimeRange.StartDate
-		endDate = req.TimeRange.EndDate
-	} else {
-		endDate = time.Now()
-		startDate = endDate.AddDate(0, 0, -30) // Last 30 days
-	}
-
-	// Get all tests in the time range, filtered by user if UserID is set
-	var tests []*domain.TestRequest
-	var err error
-	if req.UserID != "" {
-		tests, err = uc.testRepo.GetTestsInRangeByUser(ctx, req.UserID, startDate, endDate)
-	} else {
-		tests, err = uc.testRepo.GetTestsInRange(ctx, startDate, endDate)
-	}
-	if err != nil {
-		return nil, fmt.Errorf("failed to get tests in range: %w", err)
-	}
-
-	// Get all aggregated results for these tests
-	var allResults []*domain.TestResultAggregated
-	var totalRequests, successfulRequests int64
-	var responseTimeSum float64
-	var responseTimeCount int64
-	var allP95Times []float64
-	errorCodes := make(map[string]int64)
-	testsPerDay := make(map[string]int64)
-	requestsPerDay := make(map[string]int64)
-
-	for _, test := range tests {
-		result, err := uc.aggregatedResultRepo.GetByTestID(ctx, test.ID)
-		if err != nil {
-			continue // Skip tests without aggregated results
-		}
-
-		allResults = append(allResults, result)
-		totalRequests += result.TotalRequests
-		successfulRequests += result.SuccessfulRequests
-
-		// Accumulate response times for average calculation
-		if result.AvgLatencyMs > 0 {
-			responseTimeSum += result.AvgLatencyMs * float64(result.TotalRequests)
-			responseTimeCount += result.TotalRequests
-		}
-
-		// Collect P95 times for percentile calculation
-		if result.P95LatencyMs > 0 {
-			allP95Times = append(allP95Times, result.P95LatencyMs)
-		}
-
-		// Accumulate error codes
-		for code, count := range result.ErrorRates {
-			errorCodes[code] += int64(count)
-		}
-
-		// Group by day for trends
-		dayKey := test.CreatedAt.Format("2006-01-02")
-		testsPerDay[dayKey]++
-		requestsPerDay[dayKey] += result.TotalRequests
-	}
-
-	// Calculate success rate
-	var successRate float64
-	if totalRequests > 0 {
-		successRate = float64(successfulRequests) / float64(totalRequests) * 100
-	}
-
-	// Calculate average response time
-	var averageResponseTime float64
-	if responseTimeCount > 0 {
-		averageResponseTime = responseTimeSum / float64(responseTimeCount)
-	}
-
-	// Calculate P95 and P99 response times from collected data
-	var p95ResponseTime, p99ResponseTime float64
-	if len(allP95Times) > 0 {
-		sort.Float64s(allP95Times)
-		p95Index := int(float64(len(allP95Times)) * 0.95)
-		if p95Index >= len(allP95Times) {
-			p95Index = len(allP95Times) - 1
-		}
-		p95ResponseTime = allP95Times[p95Index]
-
-		p99Index := int(float64(len(allP95Times)) * 0.99)
-		if p99Index >= len(allP95Times) {
-			p99Index = len(allP95Times) - 1
-		}
-		p99ResponseTime = allP95Times[p99Index]
-	}
-
-	// Build top error codes
-	var topErrorCodes []domain.ErrorCodeStats
-	for code, count := range errorCodes {
-		percentage := float64(count) / float64(totalRequests) * 100
-		topErrorCodes = append(topErrorCodes, domain.ErrorCodeStats{
-			StatusCode: code,
-			Count:      count,
-			Percentage: percentage,
-		})
-	}
-
-	// Sort error codes by count (descending)
-	sort.Slice(topErrorCodes, func(i, j int) bool {
-		return topErrorCodes[i].Count > topErrorCodes[j].Count
-	})
-
-	// Keep only top 10
-	if len(topErrorCodes) > 10 {
-		topErrorCodes = topErrorCodes[:10]
-	}
-
-	// Build time series data
-	var testsPerDaySlice []domain.TestsByDay
-	var requestsPerDaySlice []domain.RequestsByDay
-
-	// Create a complete date range
-	for d := startDate; d.Before(endDate) || d.Equal(endDate); d = d.AddDate(0, 0, 1) {
-		dayKey := d.Format("2006-01-02")
-		testsPerDaySlice = append(testsPerDaySlice, domain.TestsByDay{
-			Date:  dayKey,
-			Count: testsPerDay[dayKey], // Will be 0 if no tests on that day
-		})
-		requestsPerDaySlice = append(requestsPerDaySlice, domain.RequestsByDay{
-			Date:  dayKey,
-			Count: requestsPerDay[dayKey], // Will be 0 if no requests on that day
-		})
-	}
-
-	return &domain.AnalyticsOverview{
-		TotalTests:          int64(len(tests)),
-		TotalRequests:       totalRequests,
-		SuccessRate:         successRate,
-		AverageResponseTime: averageResponseTime,
-		MedianResponseTime:  averageResponseTime, // Simplified - could calculate true median
-		P95ResponseTime:     p95ResponseTime,
-		P99ResponseTime:     p99ResponseTime,
-		TopErrorCodes:       topErrorCodes,
-		TestsPerDay:         testsPerDaySlice,
-		RequestsPerDay:      requestsPerDaySlice,
-	}, nil
-}
-
-// GetTargetAnalytics returns analytics for specific targets/URLs
-func (uc *MasterUsecase) GetTargetAnalytics(ctx context.Context, req *domain.AnalyticsRequest) ([]domain.TargetAnalytics, error) {
-	// Set default time range if not provided
-	var startDate, endDate time.Time
-	if req.TimeRange != nil {
-		startDate = req.TimeRange.StartDate
-		endDate = req.TimeRange.EndDate
-	} else {
-		endDate = time.Now()
-		startDate = endDate.AddDate(0, 0, -30) // Last 30 days
-	}
-
-	// Get all tests in the time range, filtered by user if UserID is set
-	var tests []*domain.TestRequest
-	var err error
-	if req.UserID != "" {
-		tests, err = uc.testRepo.GetTestsInRangeByUser(ctx, req.UserID, startDate, endDate)
-	} else {
-		tests, err = uc.testRepo.GetTestsInRange(ctx, startDate, endDate)
-	}
-	if err != nil {
-		return nil, fmt.Errorf("failed to get tests in range: %w", err)
-	}
-
-	// Group tests by target URL
-	targetGroups := make(map[string][]*domain.TestRequest)
-	for _, test := range tests {
-		// Extract target from base64 encoded targets
-		targets := uc.extractTargetsFromBase64(test.TargetsBase64)
-		for _, target := range targets {
-			targetGroups[target] = append(targetGroups[target], test)
-		}
-	}
-
-	var targetAnalytics []domain.TargetAnalytics
-	for target, targetTests := range targetGroups {
-		analytics := uc.calculateTargetAnalytics(ctx, target, targetTests)
-		targetAnalytics = append(targetAnalytics, analytics)
-	}
-
-	// Sort by test count (descending)
-	sort.Slice(targetAnalytics, func(i, j int) bool {
-		return targetAnalytics[i].TestCount > targetAnalytics[j].TestCount
-	})
-
-	return targetAnalytics, nil
-}
-
-// Helper method to extract targets from base64 encoded string
-func (uc *MasterUsecase) extractTargetsFromBase64(targetsBase64 string) []string {
-	if targetsBase64 == "" {
-		return []string{}
-	}
-
-	// Decode base64
-	decodedBytes, err := base64.StdEncoding.DecodeString(targetsBase64)
-	if err != nil {
-		// If decoding fails, return a fallback
-		return []string{"unknown-target"}
-	}
-
-	// Convert to string and check if it's JSON format
-	targetsContent := string(decodedBytes)
-	targetsContent = strings.TrimSpace(targetsContent)
-
-	var targets []string
-
-	// Try to parse as JSON first (for frontend compatibility)
-	if strings.HasPrefix(targetsContent, "[") {
-		// JSON format: [{"method":"GET","url":"https://example.com"}]
-		var jsonTargets []map[string]interface{}
-		if err := json.Unmarshal([]byte(targetsContent), &jsonTargets); err == nil {
-			for _, target := range jsonTargets {
-				if url, ok := target["url"].(string); ok {
-					targets = append(targets, url)
-				}
-			}
-			if len(targets) > 0 {
-				return targets
-			}
-		}
-	}
-
-	// Fall back to Vegeta text format (line-based)
-	lines := strings.Split(targetsContent, "\n")
-	for _, line := range lines {
-		line = strings.TrimSpace(line)
-		if line == "" || strings.HasPrefix(line, "#") {
-			continue // Skip empty lines and comments
-		}
-
-		// Extract URL from Vegeta target format (GET http://example.com or just http://example.com)
-		parts := strings.Fields(line)
-		if len(parts) >= 2 {
-			// Format: "GET http://example.com"
-			targets = append(targets, parts[1])
-		} else if len(parts) == 1 && (strings.HasPrefix(parts[0], "http://") || strings.HasPrefix(parts[0], "https://")) {
-			// Format: "http://example.com"
-			targets = append(targets, parts[0])
-		}
-	}
-
-	// If no valid targets found, return a fallback
-	if len(targets) == 0 {
-		return []string{"unknown-target"}
-	}
-
-	return targets
-}
-
-// Helper method to calculate analytics for a specific target
-func (uc *MasterUsecase) calculateTargetAnalytics(ctx context.Context, target string, tests []*domain.TestRequest) domain.TargetAnalytics {
-	var totalRequests, successfulRequests int64
-	var responseTimeSum float64
-	var responseTimeCount int64
-	var allP95Times []float64
-	errorCodes := make(map[string]int64)
-	var performanceTrend []domain.PerformancePoint
-
-	for _, test := range tests {
-		result, err := uc.aggregatedResultRepo.GetByTestID(ctx, test.ID)
-		if err != nil {
-			continue
-		}
-
-		totalRequests += result.TotalRequests
-		successfulRequests += result.SuccessfulRequests
-
-		if result.AvgLatencyMs > 0 {
-			responseTimeSum += result.AvgLatencyMs * float64(result.TotalRequests)
-			responseTimeCount += result.TotalRequests
-		}
-
-		if result.P95LatencyMs > 0 {
-			allP95Times = append(allP95Times, result.P95LatencyMs)
-		}
-
-		for code, count := range result.ErrorRates {
-			errorCodes[code] += int64(count)
-		}
-
-		// Add to performance trend
-		var successRate float64
-		if result.TotalRequests > 0 {
-			successRate = float64(result.SuccessfulRequests) / float64(result.TotalRequests) * 100
-		}
-
-		performanceTrend = append(performanceTrend, domain.PerformancePoint{
-			Date:         test.CreatedAt.Format("2006-01-02"),
-			ResponseTime: result.AvgLatencyMs,
-			SuccessRate:  successRate,
-			RequestCount: result.TotalRequests,
-		})
-	}
-
-	// Calculate metrics
-	var successRate float64
-	if totalRequests > 0 {
-		successRate = float64(successfulRequests) / float64(totalRequests) * 100
-	}
-
-	var averageResponseTime float64
-	if responseTimeCount > 0 {
-		averageResponseTime = responseTimeSum / float64(responseTimeCount)
-	}
-
-	var p95ResponseTime, p99ResponseTime float64
-	if len(allP95Times) > 0 {
-		sort.Float64s(allP95Times)
-		p95Index := int(float64(len(allP95Times)) * 0.95)
-		if p95Index >= len(allP95Times) {
-			p95Index = len(allP95Times) - 1
-		}
-		p95ResponseTime = allP95Times[p95Index]
-
-		p99Index := int(float64(len(allP95Times)) * 0.99)
-		if p99Index >= len(allP95Times) {
-			p99Index = len(allP95Times) - 1
-		}
-		p99ResponseTime = allP95Times[p99Index]
-	}
-
-	// Build error breakdown
-	var errorBreakdown []domain.ErrorCodeStats
-	for code, count := range errorCodes {
-		percentage := float64(count) / float64(totalRequests) * 100
-		errorBreakdown = append(errorBreakdown, domain.ErrorCodeStats{
-			StatusCode: code,
-			Count:      count,
-			Percentage: percentage,
-		})
-	}
-
-	// Sort performance trend by date
-	sort.Slice(performanceTrend, func(i, j int) bool {
-		return performanceTrend[i].Date < performanceTrend[j].Date
-	})
-
-	return domain.TargetAnalytics{
-		Target:              target,
-		TestCount:           int64(len(tests)),
-		TotalRequests:       totalRequests,
-		SuccessRate:         successRate,
-		AverageResponseTime: averageResponseTime,
-		MedianResponseTime:  averageResponseTime, // Simplified
-		P95ResponseTime:     p95ResponseTime,
-		P99ResponseTime:     p99ResponseTime,
-		ErrorBreakdown:      errorBreakdown,
-		PerformanceTrend:    performanceTrend,
-	}
-}
-
-// Helper methods for worker availability management
-
-// addWorkerToAvailabilityQueue adds a worker to the availability queue
-func (uc *MasterUsecase) addWorkerToAvailabilityQueue(workerID string) {
-	uc.mu.Lock()
-	defer uc.mu.Unlock()
-
-	// Check if worker is already in the queue to avoid duplicates
-	if !uc.availableWorkers[workerID] {
-		uc.availableWorkers[workerID] = true
-		select {
-		case uc.workerAvailability <- workerID:
-			log.Printf("Worker %s added to availability queue", workerID)
-		default:
-			// Channel is full, worker will try again later
-			log.Printf("Worker availability queue full, worker %s will retry", workerID)
-			uc.availableWorkers[workerID] = false // Remove from tracking since we couldn't add to queue
-		}
-	}
-}
-
-// removeWorkerFromAvailabilityQueue removes a worker from availability tracking
-func (uc *MasterUsecase) removeWorkerFromAvailabilityQueue(workerID string) {
-	uc.mu.Lock()
-	defer uc.mu.Unlock()
-
-	delete(uc.availableWorkers, workerID)
-	log.Printf("Worker %s removed from availability tracking", workerID)
-}
-
-// fixStuckTests checks for and fixes tests that are stuck due to worker issues
-func (uc *MasterUsecase) fixStuckTests(ctx context.Context) {
-	log.Println("Checking for stuck tests due to worker count mismatches...")
-
-	// Get all workers to check active count
-	workers, err := uc.workerRepo.GetAllWorkers(ctx)
-	if err != nil {
-		log.Printf("Error getting workers for stuck test check: %v", err)
-		return
-	}
-
-	activeWorkerCount := 0
-	for _, worker := range workers {
-		if worker.Status == "READY" || worker.Status == "BUSY" {
-			activeWorkerCount++
-		}
-	}
-
-	log.Printf("Active workers in system: %d", activeWorkerCount)
-
-	// Get all test requests to check for stuck ones
-	tests, err := uc.testRepo.GetAllTestRequests(ctx)
-	if err != nil {
-		log.Printf("Error getting test requests for stuck test check: %v", err)
-		return
-	}
-
-	for _, test := range tests {
-		if test.Status == "RUNNING" || test.Status == "PENDING" {
-			// Check if test has been running too long (e.g., more than 30 minutes)
-			if time.Since(test.CreatedAt) > 30*time.Minute {
-				log.Printf("⚠️  Test %s has been running for %v, checking if stuck...", test.ID, time.Since(test.CreatedAt))
-
-				// Check if test requires more workers than available
-				if int(test.WorkerCount) > activeWorkerCount {
-					log.Printf("🔧 Test %s requires %d workers but only %d active workers available, updating test...",
-						test.ID, test.WorkerCount, activeWorkerCount)
-
-					// Fail the test or adjust worker count
-					totalCompleted := len(test.CompletedWorkers)
-
-					var newStatus string
-					if totalCompleted > 0 {
-						newStatus = "PARTIALLY_FAILED"
-					} else {
-						newStatus = "FAILED"
-					}
-
-					err = uc.testRepo.UpdateTestStatus(ctx, test.ID, newStatus, test.CompletedWorkers, test.FailedWorkers)
-					if err != nil {
-						log.Printf("Error updating stuck test %s: %v", test.ID, err)
-					} else {
-						log.Printf("✅ Updated stuck test %s status to %s", test.ID, newStatus)
-					}
-				}
-			}
-		}
 	}
 }

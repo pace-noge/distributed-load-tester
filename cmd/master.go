@@ -24,7 +24,6 @@ import (
 	masterHTTP "github.com/pace-noge/distributed-load-tester/internal/master/delivery/http"
 	masterWebSocket "github.com/pace-noge/distributed-load-tester/internal/master/delivery/websocket"
 	masterUsecase "github.com/pace-noge/distributed-load-tester/internal/master/usecase"
-	userUsecase "github.com/pace-noge/distributed-load-tester/internal/user/usecase"
 	pb "github.com/pace-noge/distributed-load-tester/proto"
 )
 
@@ -97,18 +96,8 @@ func runMaster(c *cli.Context) error {
 	var testRepo domain.TestRepository = db
 	var testResultRepo domain.TestResultRepository = db
 	var aggregatedResultRepo domain.AggregatedResultRepository = db
-	userRepo := database.NewUserRepository(db.GetDB())
-	sharedLinkRepo := database.NewSharedLinkRepository(db)
 
-	masterUC := masterUsecase.NewMasterUsecase(workerRepo, testRepo, testResultRepo, aggregatedResultRepo, sharedLinkRepo)
-	userUC := userUsecase.NewUserUsecase(userRepo, jwtSecretKey)
-
-	// Ensure default admin user exists
-	if err := userUC.EnsureDefaultUser(ctx); err != nil {
-		log.Printf("Warning: Failed to ensure default user exists: %v", err)
-	} else {
-		log.Println("Default admin user ensured")
-	}
+	masterUC := masterUsecase.NewMasterUsecase(workerRepo, testRepo, testResultRepo, aggregatedResultRepo)
 
 	// Start aggregation background job
 	bgCtx, bgCancel := context.WithCancel(context.Background())
@@ -121,7 +110,7 @@ func runMaster(c *cli.Context) error {
 	go wsHandler.StartHub(bgCtx)
 
 	// Initialize HTTP handler
-	httpHandler := masterHTTP.NewHTTPHandler(masterUC, userUC, jwtSecretKey)
+	httpHandler := masterHTTP.NewHTTPHandler(masterUC, jwtSecretKey)
 
 	// Register WebSocket handler with HTTP handler
 	httpHandler.RegisterWebSocketHandler(wsHandler.HandleWebSocket)

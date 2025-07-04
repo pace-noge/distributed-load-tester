@@ -45,19 +45,6 @@ func NewPostgresDB(databaseURL string) (*PostgresDB, error) {
 // InitSchema creates the necessary tables if they don't exist.
 func (p *PostgresDB) InitSchema(ctx context.Context) error {
 	queries := []string{
-		`CREATE TABLE IF NOT EXISTS users (
-            id VARCHAR(255) PRIMARY KEY,
-            username VARCHAR(255) UNIQUE NOT NULL,
-            email VARCHAR(255) UNIQUE NOT NULL,
-            password_hash VARCHAR(255) NOT NULL,
-            first_name VARCHAR(255) NOT NULL,
-            last_name VARCHAR(255) NOT NULL,
-            role VARCHAR(50) NOT NULL DEFAULT 'user',
-            is_active BOOLEAN NOT NULL DEFAULT true,
-            created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
-            updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
-            last_login_at TIMESTAMP WITH TIME ZONE
-        );`,
 		`CREATE TABLE IF NOT EXISTS workers (
             id VARCHAR(255) PRIMARY KEY,
             address VARCHAR(255) NOT NULL,
@@ -111,22 +98,8 @@ func (p *PostgresDB) InitSchema(ctx context.Context) error {
             completed_at TIMESTAMP WITH TIME ZONE NOT NULL,
             FOREIGN KEY (test_id) REFERENCES test_requests(id) ON DELETE CASCADE
         );`,
-		`CREATE TABLE IF NOT EXISTS shared_links (
-			id VARCHAR(255) PRIMARY KEY,
-			test_id VARCHAR(255) NOT NULL,
-			shared_by VARCHAR(255) NOT NULL,
-			created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
-			expires_at TIMESTAMP WITH TIME ZONE NOT NULL,
-			used_by TEXT[],
-			read_by TEXT[],
-			FOREIGN KEY (test_id) REFERENCES test_requests(id) ON DELETE CASCADE
-		);`,
 		// Add worker_count column to existing test_requests table if it doesn't exist
 		`ALTER TABLE test_requests ADD COLUMN IF NOT EXISTS worker_count INTEGER NOT NULL DEFAULT 1;`,
-		// Create indexes for better performance
-		`CREATE INDEX IF NOT EXISTS idx_users_username ON users(username);`,
-		`CREATE INDEX IF NOT EXISTS idx_users_email ON users(email);`,
-		`CREATE INDEX IF NOT EXISTS idx_users_role ON users(role);`,
 	}
 
 	for _, q := range queries {
@@ -142,11 +115,6 @@ func (p *PostgresDB) InitSchema(ctx context.Context) error {
 // Close closes the database connection.
 func (p *PostgresDB) Close() error {
 	return p.db.Close()
-}
-
-// GetDB returns the underlying sql.DB instance
-func (p *PostgresDB) GetDB() *sql.DB {
-	return p.db
 }
 
 // --- WorkerRepository Implementations ---
@@ -169,7 +137,7 @@ func (p *PostgresDB) UpdateWorkerStatus(ctx context.Context, workerID string, st
 	query := `UPDATE workers SET status = $1, last_seen = $2, current_test_id = $3, last_progress_message = $4, completed_requests = $5, total_requests = $6 WHERE id = $7;`
 	_, err := p.db.ExecContext(ctx, query, status, time.Now(), currentTestID, progressMsg, completedReqs, totalReqs, workerID)
 	if err != nil {
-		return fmt.Errorf("failed to update worker status: $w", err)
+		return fmt.Errorf("failed to update worker status: %w", err)
 	}
 	return nil
 }
@@ -323,83 +291,6 @@ func (p *PostgresDB) GetAllTestRequests(ctx context.Context) ([]*domain.TestRequ
 		tests = append(tests, test)
 	}
 	return tests, nil
-}
-
-// GetTestRequestsPaginated retrieves test requests with pagination.
-func (p *PostgresDB) GetTestRequestsPaginated(ctx context.Context, limit, offset int) ([]*domain.TestRequest, int, error) {
-	// Get total count
-	var totalCount int
-	countQuery := `SELECT COUNT(*) FROM test_requests`
-	err := p.db.QueryRowContext(ctx, countQuery).Scan(&totalCount)
-	if err != nil {
-		return nil, 0, fmt.Errorf("failed to get total count: %w", err)
-	}
-
-	// Get paginated results
-	query := `SELECT id, name, vegeta_payload_json, duration_seconds, rate_per_second, targets_base64, requester_id, worker_count, created_at, status, assigned_workers_ids, completed_workers, failed_workers
-		FROM test_requests
-		ORDER BY created_at DESC
-		LIMIT $1 OFFSET $2`
-
-	rows, err := p.db.QueryContext(ctx, query, limit, offset)
-	if err != nil {
-		return nil, 0, fmt.Errorf("failed to get paginated test requests: %w", err)
-	}
-	defer rows.Close()
-
-	var tests []*domain.TestRequest
-	for rows.Next() {
-		test := &domain.TestRequest{}
-		err := rows.Scan(
-			&test.ID, &test.Name, &test.VegetaPayloadJSON, &test.DurationSeconds, &test.RatePerSecond, &test.TargetsBase64,
-			&test.RequesterID, &test.WorkerCount, &test.CreatedAt, &test.Status, pq.Array(&test.AssignedWorkersIDs), pq.Array(&test.CompletedWorkers), pq.Array(&test.FailedWorkers),
-		)
-		if err != nil {
-			return nil, 0, fmt.Errorf("failed to scan test request row: %w", err)
-		}
-		tests = append(tests, test)
-	}
-
-	return tests, totalCount, nil
-}
-
-// GetTestRequestsPaginatedByUser retrieves test requests for a specific user with pagination.
-func (p *PostgresDB) GetTestRequestsPaginatedByUser(ctx context.Context, userID string, limit, offset int) ([]*domain.TestRequest, int, error) {
-	// Get total count for this user
-	var totalCount int
-	countQuery := `SELECT COUNT(*) FROM test_requests WHERE requester_id = $1`
-	err := p.db.QueryRowContext(ctx, countQuery, userID).Scan(&totalCount)
-	if err != nil {
-		return nil, 0, fmt.Errorf("failed to get total count for user: %w", err)
-	}
-
-	// Get paginated results for this user
-	query := `SELECT id, name, vegeta_payload_json, duration_seconds, rate_per_second, targets_base64, requester_id, worker_count, created_at, status, assigned_workers_ids, completed_workers, failed_workers
-		FROM test_requests
-		WHERE requester_id = $1
-		ORDER BY created_at DESC
-		LIMIT $2 OFFSET $3`
-
-	rows, err := p.db.QueryContext(ctx, query, userID, limit, offset)
-	if err != nil {
-		return nil, 0, fmt.Errorf("failed to get paginated test requests by user: %w", err)
-	}
-	defer rows.Close()
-
-	var tests []*domain.TestRequest
-	for rows.Next() {
-		test := &domain.TestRequest{}
-		err := rows.Scan(
-			&test.ID, &test.Name, &test.VegetaPayloadJSON, &test.DurationSeconds, &test.RatePerSecond, &test.TargetsBase64,
-			&test.RequesterID, &test.WorkerCount, &test.CreatedAt, &test.Status, pq.Array(&test.AssignedWorkersIDs), pq.Array(&test.CompletedWorkers), pq.Array(&test.FailedWorkers),
-		)
-		if err != nil {
-			return nil, 0, fmt.Errorf("failed to scan test request row: %w", err)
-		}
-		tests = append(tests, test)
-	}
-
-	return tests, totalCount, nil
 }
 
 // IncrementTestAssignedWorkers appends a worker ID to the assigned_workers_ids array.
@@ -595,146 +486,4 @@ func (p *PostgresDB) GetAllAggregatedResults(ctx context.Context) ([]*domain.Tes
 		results = append(results, result)
 	}
 	return results, nil
-}
-
-// GetTestsInRange retrieves test requests within a date range
-func (p *PostgresDB) GetTestsInRange(ctx context.Context, startDate, endDate time.Time) ([]*domain.TestRequest, error) {
-	query := `SELECT id, name, vegeta_payload_json, duration_seconds, rate_per_second, targets_base64, requester_id, worker_count, created_at, status, assigned_workers_ids, completed_workers, failed_workers
-              FROM test_requests
-              WHERE created_at >= $1 AND created_at <= $2
-              ORDER BY created_at DESC;`
-
-	rows, err := p.db.QueryContext(ctx, query, startDate, endDate)
-	if err != nil {
-		return nil, fmt.Errorf("failed to get test requests in range: %w", err)
-	}
-	defer rows.Close()
-
-	var tests []*domain.TestRequest
-	for rows.Next() {
-		test := &domain.TestRequest{}
-		err := rows.Scan(
-			&test.ID, &test.Name, &test.VegetaPayloadJSON, &test.DurationSeconds, &test.RatePerSecond, &test.TargetsBase64,
-			&test.RequesterID, &test.WorkerCount, &test.CreatedAt, &test.Status, pq.Array(&test.AssignedWorkersIDs), pq.Array(&test.CompletedWorkers), pq.Array(&test.FailedWorkers),
-		)
-		if err != nil {
-			return nil, fmt.Errorf("failed to scan test request row: %w", err)
-		}
-		tests = append(tests, test)
-	}
-	return tests, nil
-}
-
-// GetTestRequestsByUser retrieves all test requests for a specific user.
-func (p *PostgresDB) GetTestRequestsByUser(ctx context.Context, userID string) ([]*domain.TestRequest, error) {
-	query := `SELECT id, name, vegeta_payload_json, duration_seconds, rate_per_second, targets_base64, requester_id, worker_count, created_at, status, assigned_workers_ids, completed_workers, failed_workers FROM test_requests WHERE requester_id = $1 ORDER BY created_at DESC;`
-	rows, err := p.db.QueryContext(ctx, query, userID)
-	if err != nil {
-		return nil, fmt.Errorf("failed to get test requests by user: %w", err)
-	}
-	defer rows.Close()
-
-	var tests []*domain.TestRequest
-	for rows.Next() {
-		test := &domain.TestRequest{}
-		err := rows.Scan(
-			&test.ID, &test.Name, &test.VegetaPayloadJSON, &test.DurationSeconds, &test.RatePerSecond, &test.TargetsBase64,
-			&test.RequesterID, &test.WorkerCount, &test.CreatedAt, &test.Status, pq.Array(&test.AssignedWorkersIDs), pq.Array(&test.CompletedWorkers), pq.Array(&test.FailedWorkers),
-		)
-		if err != nil {
-			return nil, fmt.Errorf("failed to scan test request row: %w", err)
-		}
-		tests = append(tests, test)
-	}
-	return tests, nil
-}
-
-// GetTestsInRangeByUser retrieves test requests for a user in a date range.
-func (p *PostgresDB) GetTestsInRangeByUser(ctx context.Context, userID string, startDate, endDate time.Time) ([]*domain.TestRequest, error) {
-	query := `SELECT id, name, vegeta_payload_json, duration_seconds, rate_per_second, targets_base64, requester_id, worker_count, created_at, status, assigned_workers_ids, completed_workers, failed_workers FROM test_requests WHERE requester_id = $1 AND created_at >= $2 AND created_at <= $3 ORDER BY created_at DESC;`
-	rows, err := p.db.QueryContext(ctx, query, userID, startDate, endDate)
-	if err != nil {
-		return nil, fmt.Errorf("failed to get test requests by user in range: %w", err)
-	}
-	defer rows.Close()
-
-	var tests []*domain.TestRequest
-	for rows.Next() {
-		test := &domain.TestRequest{}
-		err := rows.Scan(
-			&test.ID, &test.Name, &test.VegetaPayloadJSON, &test.DurationSeconds, &test.RatePerSecond, &test.TargetsBase64,
-			&test.RequesterID, &test.WorkerCount, &test.CreatedAt, &test.Status, pq.Array(&test.AssignedWorkersIDs), pq.Array(&test.CompletedWorkers), pq.Array(&test.FailedWorkers),
-		)
-		if err != nil {
-			return nil, fmt.Errorf("failed to scan test request row: %w", err)
-		}
-		tests = append(tests, test)
-	}
-	return tests, nil
-}
-
-// GetByTestID is an alias for GetAggregatedResultByTestID for consistency
-func (p *PostgresDB) GetByTestID(ctx context.Context, testID string) (*domain.TestResultAggregated, error) {
-	return p.GetAggregatedResultByTestID(ctx, testID)
-}
-
-// SharedLinkRepository implementation
-func (p *PostgresDB) CreateSharedLink(ctx context.Context, testID, sharedBy string, expiresAt time.Time) (*domain.SharedLink, error) {
-	id := uuid.New().String()
-	_, err := p.db.ExecContext(ctx, `INSERT INTO shared_links (id, test_id, shared_by, created_at, expires_at, used_by, read_by) VALUES ($1, $2, $3, NOW(), $4, $5, $6)`,
-		id, testID, sharedBy, expiresAt, pq.Array([]string{}), pq.Array([]string{}))
-	if err != nil {
-		return nil, fmt.Errorf("failed to create shared link: %w", err)
-	}
-	return &domain.SharedLink{
-		ID:        id,
-		TestID:    testID,
-		SharedBy:  sharedBy,
-		CreatedAt: time.Now(),
-		ExpiresAt: expiresAt,
-		UsedBy:    []string{},
-	}, nil
-}
-
-func (p *PostgresDB) GetSharedLinkByID(ctx context.Context, linkID string) (*domain.SharedLink, error) {
-	row := p.db.QueryRowContext(ctx, `SELECT id, test_id, shared_by, created_at, expires_at, used_by FROM shared_links WHERE id = $1`, linkID)
-	var link domain.SharedLink
-	var usedBy []string
-	if err := row.Scan(&link.ID, &link.TestID, &link.SharedBy, &link.CreatedAt, &link.ExpiresAt, pq.Array(&usedBy)); err != nil {
-		return nil, fmt.Errorf("failed to get shared link: %w", err)
-	}
-	link.UsedBy = usedBy
-	link.IsExpired = time.Now().After(link.ExpiresAt)
-	return &link, nil
-}
-
-func (p *PostgresDB) AddUsedBy(ctx context.Context, linkID, userID string) error {
-	_, err := p.db.ExecContext(ctx, `UPDATE shared_links SET used_by = array_append(used_by, $1) WHERE id = $2 AND NOT (used_by @> ARRAY[$1])`, userID, linkID)
-	return err
-}
-
-func (p *PostgresDB) GetInboxForUser(ctx context.Context, userID string) ([]*domain.SharedLink, error) {
-	rows, err := p.db.QueryContext(ctx, `SELECT id, test_id, shared_by, created_at, expires_at, used_by, read_by FROM shared_links WHERE used_by @> ARRAY[$1]`, userID)
-	if err != nil {
-		return nil, err
-	}
-	defer rows.Close()
-	var inbox []*domain.SharedLink
-	for rows.Next() {
-		var link domain.SharedLink
-		var usedBy, readBy []string
-		err := rows.Scan(&link.ID, &link.TestID, &link.SharedBy, &link.CreatedAt, &link.ExpiresAt, pq.Array(&usedBy), pq.Array(&readBy))
-		if err != nil {
-			return nil, err
-		}
-		link.UsedBy = usedBy
-		link.IsExpired = time.Now().After(link.ExpiresAt)
-		inbox = append(inbox, &link)
-	}
-	return inbox, nil
-}
-
-func (p *PostgresDB) MarkInboxItemRead(ctx context.Context, linkID, userID string) error {
-	_, err := p.db.ExecContext(ctx, `UPDATE shared_links SET read_by = array_append(read_by, $1) WHERE id = $2 AND NOT (read_by @> ARRAY[$1])`, userID, linkID)
-	return err
 }
